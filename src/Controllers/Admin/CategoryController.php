@@ -9,7 +9,7 @@ use Illuminate\Http\Request;
 
 class CategoryController extends Controller
 {
-    public $index_url='/user_admin/category/index';
+    public $index_url='/common_admin/category/index';
 
     public function index(Request $request)
     {
@@ -29,7 +29,7 @@ class CategoryController extends Controller
             ->orderBy('c1.sort','desc')
             ->Paginate(config('admin.perPage'))->withQueryString();
         //$res['fast_save'] = Category::where('status',1)->orderBy('sort', 'desc')->get()->toArray();
-        return $this->makeView('laravel-novel::admin.category.index',['res'=>$res]);
+        return $this->makeView('laravel-common::admin.category.index',['res'=>$res]);
     }
 
     public function show()
@@ -37,14 +37,14 @@ class CategoryController extends Controller
         $data = Category::orderBy('sort', 'desc')->get();
         $res['list'] = $data->toArray();
         $res['listById'] = $data->keyBy('id')->toArray();
-        return $this->makeView('laravel-novel::admin.category.show',['res'=>$res]);
+        return $this->makeView('laravel-common::admin.category.show',['res'=>$res]);
     }
 
     public function save(Request $request){
         $id = $request->query('id',0);
         $category = Category::updateOrCreate(['id'=>$id,'pid'=>$request->input('pid',0),],$request->all());
         (new CategoryPath)->add($category->id,$category->pid);
-        throw new ApiException(['code'=>0,'msg'=>'success','data'=>['redirect'=>'/admin/category/show']]);
+        throw new ApiException(['code'=>0,'msg'=>'success','data'=>['redirect'=>'/common_admin/category/show']]);
     }
 
     public function del(Request $request)

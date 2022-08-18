@@ -35,8 +35,8 @@ Route::middleware(['web'])->group(function () {
                 Route::post('/'.$val[0].'/del', 'Aphly\LaravelCommon\Controllers\Admin'.$val[1].'@del');
             }
 
-            Route::get('/category/ajax', 'Aphly\LaravelNovel\Controllers\Admin\CategoryController@ajax');
-            Route::get('/category/show', 'Aphly\LaravelNovel\Controllers\Admin\CategoryController@show');
+            Route::get('/category/ajax', 'Aphly\LaravelCommon\Controllers\Admin\CategoryController@ajax');
+            Route::get('/category/show', 'Aphly\LaravelCommon\Controllers\Admin\CategoryController@show');
 
         });
     });
