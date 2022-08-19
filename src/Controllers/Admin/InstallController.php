@@ -15,8 +15,15 @@ class InstallController extends Controller
         if($menu){
             $data=[];
             $data[] =['name' => 'Category','url' =>'/common_admin/category/index','pid'=>$menu->id,'is_leaf'=>1,'module_id'=>$this->module_id,'sort'=>0];
+            $data[] =['name' => 'User','url' =>'/common_admin/user/index','pid'=>$menu->id,'is_leaf'=>1,'module_id'=>$this->module_id,'sort'=>0];
+            $data[] =['name' => 'Group','url' =>'/common_admin/group/index','pid'=>$menu->id,'is_leaf'=>1,'module_id'=>$this->module_id,'sort'=>0];
+            $data[] =['name' => 'Group Order','url' =>'/common_admin/user_group_order/index','pid'=>$menu->id,'is_leaf'=>1,'module_id'=>$this->module_id,'sort'=>0];
+            $data[] =['name' => 'Credit Price','url' =>'/common_admin/credit_price/index','pid'=>$menu->id,'is_leaf'=>1,'module_id'=>$this->module_id,'sort'=>0];
+            $data[] =['name' => 'Credit Order','url' =>'/common_admin/user_credit_order/index','pid'=>$menu->id,'is_leaf'=>1,'module_id'=>$this->module_id,'sort'=>0];
+            $data[] =['name' => 'Credit Log','url' =>'/common_admin/user_credit_log/index','pid'=>$menu->id,'is_leaf'=>1,'module_id'=>$this->module_id,'sort'=>0];
             DB::table('admin_menu')->insert($data);
         }
+
         $menuData = Menu::where(['module_id'=>$this->module_id])->get();
         $data=[];
         foreach ($menuData as $val){

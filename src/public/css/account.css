@@ -1,0 +1,31 @@
+.account_form .title{font-size: 24px;font-weight: 600}
+.account_form label{font-weight: 600;}
+.account_form input{height: 44px;}
+.account_form button{width: 100%;height: 44px;}
+.account_form .alert-warning{color:#dd3545;}
+
+.accountContent{max-width: 500px;margin: 20px auto 10px}
+.accountContent .forget{color:#777;}
+.split-line{margin-top: 15px;}
+.split-line span{color:#777;}
+.split-line a{font-weight: 600;margin-left: 5px;}
+.line-between{display:flex;flex-direction:row;padding:15px 0;}
+.line-between:after,.line-between:before{border-bottom:1px solid #e6e6e6;content:"";flex:1;margin:auto}
+.line-between:before{margin-right:10px}
+.line-between:after{margin-left:10px}
+.text-brand{font-weight: 600;--tw-gradient-from:#1c9dfe;--tw-gradient-to:#023ff4;--tw-gradient-stops:var(--tw-gradient-from),var(--tw-gradient-to,rgb(28 157 254/0));background-image:linear-gradient(to right,var(--tw-gradient-stops));border:none;color:#fff;margin-top: 15px;}
+.facebook{background: #3b5997;color: #fff;}
+.facebook:hover{color: #fff;}
+.ext_login{padding: 15px 0;}
+.ext_login a{display: block;line-height: 44px;height: 44px;border-radius: 0.25rem;margin-bottom: 15px;font-weight: 600;}
+.ext_icon{position: relative;left: 50px;}
+.google{border: 1px solid #e5e5e5;color: #333;}
+
+.loginBtn:hover{color:#fff;}
+.agree{display: flex;align-items: center;margin-left: 5px;}
+.agree a{margin-left: 5px;}
+.confirmation{margin-top: 20px;}
+
+@media (max-width: 1199.98px) {
+
+}

@@ -3,6 +3,7 @@
 namespace Aphly\LaravelCommon;
 
 use Aphly\Laravel\Providers\ServiceProvider;
+use Aphly\LaravelCommon\Middleware\UserAuth;
 
 class CommonServiceProvider extends ServiceProvider
 {
@@ -33,6 +34,7 @@ class CommonServiceProvider extends ServiceProvider
         $this->loadMigrationsFrom(__DIR__.'/migrations');
         $this->loadViewsFrom(__DIR__.'/views', 'laravel-common');
         $this->loadRoutesFrom(__DIR__.'/routes/web.php');
+        $this->addMiddlewareAlias('userAuth', UserAuth::class);
     }
 
 }
