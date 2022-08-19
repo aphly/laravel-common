@@ -31,6 +31,11 @@ class InstallController extends Controller
         }
         DB::table('admin_role_menu')->insert($data);
 
+        $data=[];
+        $data[] =['id'=>1,'name' => 'Default Member','sort'=>0];
+        $data[] =['id'=>2,'name' => 'Vip Member','sort'=>0];
+        DB::table('common_group')->insert($data);
+
         return 'install_ok';
     }
     public function uninstall(){
@@ -49,7 +54,7 @@ class InstallController extends Controller
             $ids = array_column($arr,'id');
             DB::table('admin_dict_value')->whereIn('dict_id',$ids)->delete();
         }
-        DB::table('user_group')->truncate();
+        DB::table('common_group')->truncate();
 
         return 'uninstall_ok';
     }

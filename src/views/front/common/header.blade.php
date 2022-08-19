@@ -19,12 +19,11 @@
     .header3 .dropdown-menu{padding:10px 0px;border:none;margin:14px 0px 12px;width:200px;background-color:rgb(255,255,255);box-shadow:rgb(0 0 0 / 16%) 0px 2px 10px 0px;border-radius:4px}
     .header3 .dropdown-menu a{width:100%;box-sizing:border-box;line-height:35px;font-weight:600;height:35px;padding:0 15px;margin:0}
     .header3 .dropdown-menu a:hover{background-color:rgba(0,0,0,0.04)}
-
 </style>
 
     <div class="header">
         <div class="container d-flex justify-content-between">
-            <div class="header1">Wuxiaworld</div>
+            <div class="header1">world</div>
             <div class="header2">
                 <ul>
                     <a href=""><li>Series</li></a>
@@ -38,7 +37,7 @@
                     <input type="search" placeholder="Search">
                 </div>
                 <ul>
-                    <a href=""><li><i class="user-iconfont icon-zuanshi"></i></li></a>
+                    <a href="/account/group"><li><i class="user-iconfont icon-zuanshi"></i></li></a>
                     <a href=""><li><i class="user-iconfont icon-tongzhi"></i></li></a>
                     @if($user)
                         <div class="dropdown">
@@ -49,7 +48,7 @@
                                     <div>{{$user['nickname']}}</div>
                                 </a>
                                 <a class="dropdown-item" href="#">Another action</a>
-                                <a class="dropdown-item" href="/account/logout">Log out</a>
+                                <a class="dropdown-item ajax_post" href="/account/logout">Log out</a>
                             </div>
                         </div>
                     @else
@@ -59,3 +58,4 @@
             </div>
         </div>
     </div>
+

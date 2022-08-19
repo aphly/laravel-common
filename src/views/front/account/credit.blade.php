@@ -49,7 +49,7 @@ function order(credit_price_id){
         data: {credit_price_id,'method_id':1,'_token':'{{csrf_token()}}'},
         success:function (res) {
             if(!res.code){
-                location.reload()
+                location.href=res.data.redirect
             }else{
                 alert_msg(res)
             }

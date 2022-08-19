@@ -3,6 +3,7 @@
 <section class="">
     <div class="confirmation container">
         @include('laravel-common::front.account.submenu')
+        @if($res['group']->count())
         <div>group {{$res['group'][$user->group_id]['name']}}</div>
         <div>
             <ul class="group_order">
@@ -29,6 +30,16 @@
                 @endforeach
             </ul>
         </div>
+        @endif
+    </div>
+    <div>
+        <form action="/account/group" method="post">
+            @csrf
+            <input type="text" name="group_id" value="2">
+            <input type="text" name="method_id" value="1">
+            <input type="text" name="month" value="1">
+            <input type="submit" value="submit">
+        </form>
     </div>
 </section>
 <script>
@@ -46,10 +57,10 @@ function order(group_id){
         url:'/account/group',
         type:'post',
         dataType: "json",
-        data: {group_id,'method_id':1,month},
+        data: {group_id,'method_id':1,month,'_token':'{{csrf_token()}}'},
         success:function (res) {
             if(!res.code){
-                location.reload()
+                location.href=res.data.redirect
             }else{
                 alert_msg(res)
             }

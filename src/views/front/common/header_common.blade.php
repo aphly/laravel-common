@@ -14,4 +14,19 @@
     <script src="{{ URL::asset('vendor/laravel-admin/js/viewer.min.js') }}" type="text/javascript"></script>
 </head>
 <body>
-
+<script>
+    $(function () {
+        $('.ajax_post').click(function (e) {
+            e.preventDefault();
+            let url = $(this).attr('href');
+            if(url){
+                $.ajax({
+                    url,dataType: "json",
+                    success: function(res){
+                        alert_msg(res,true)
+                    }
+                })
+            }
+        })
+    })
+</script>

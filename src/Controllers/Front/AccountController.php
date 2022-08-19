@@ -74,7 +74,7 @@ class AccountController extends Controller
     {
         if($request->isMethod('post')) {
             $arr['id'] = $request->input('id');
-            $arr['id_type'] = config('user.id_type');
+            $arr['id_type'] = config('common.id_type');
             $userAuthModel = UserAuth::where($arr);
             $userAuth = $userAuthModel->first();
             if(!empty($userAuth)){
@@ -151,7 +151,7 @@ class AccountController extends Controller
     public function logout(Request $request)
     {
         Auth::guard('user')->logout();
-        throw new ApiException(['code'=>0,'msg'=>'logout success','data'=>['redirect'=>'/login']]);
+        throw new ApiException(['code'=>0,'msg'=>'logout success','data'=>['redirect'=>'/']]);
     }
 
     public function mailVerifyCheck(Request $request)
@@ -269,7 +269,7 @@ class AccountController extends Controller
                     $input['payment_id'] = $payment->id;
                     $order = UserGroupOrder::create($input);
                     if($order->id){
-                        throw new ApiException(['code'=>0,'msg'=>'success','data'=>['redirect'=>$payment->pay(false)]]);
+                        $payment->pay(false);
                     }
                 }
                 throw new ApiException(['code'=>2,'msg'=>'group fail','data'=>['redirect'=>'/']]);
@@ -315,7 +315,7 @@ class AccountController extends Controller
                     $input['payment_id'] = $payment->id;
                     $order = UserCreditOrder::create($input);
                     if($order->id){
-                        throw new ApiException(['code'=>0,'msg'=>'success','data'=>['redirect'=>$payment->pay(false)]]);
+                        $payment->pay(false);
                     }
                 }
                 throw new ApiException(['code'=>2,'msg'=>'group fail','data'=>['redirect'=>'/']]);

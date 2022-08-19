@@ -48,9 +48,6 @@ Route::middleware(['web'])->group(function () {
 
         Route::middleware(['rbac'])->group(function () {
 
-            Route::get('/category/ajax', 'Aphly\LaravelCommon\Controllers\Admin\CategoryController@ajax');
-            Route::get('/category/show', 'Aphly\LaravelCommon\Controllers\Admin\CategoryController@show');
-
             Route::get('/user/index', 'Aphly\LaravelCommon\Controllers\Admin\UserController@index');
             Route::match(['get', 'post'],'/user/{uuid}/edit', 'Aphly\LaravelCommon\Controllers\Admin\UserController@edit')->where('uuid', '[0-9]+');
             Route::match(['get', 'post'],'/user/{uuid}/password', 'Aphly\LaravelCommon\Controllers\Admin\UserController@password')->where('uuid', '[0-9]+');
@@ -69,6 +66,9 @@ Route::middleware(['web'])->group(function () {
                 Route::post('/'.$val[0].'/save', 'Aphly\LaravelCommon\Controllers\Admin'.$val[1].'@save');
                 Route::post('/'.$val[0].'/del', 'Aphly\LaravelCommon\Controllers\Admin'.$val[1].'@del');
             }
+
+            Route::get('/category/ajax', 'Aphly\LaravelCommon\Controllers\Admin\CategoryController@ajax');
+            Route::get('/category/show', 'Aphly\LaravelCommon\Controllers\Admin\CategoryController@show');
 
         });
     });

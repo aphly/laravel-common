@@ -17,7 +17,7 @@ class AccountRequest extends FormRequest
                 $where = ['id'=>$this->id,'id_type'=>'email'];
                 return [
                     'id'   =>['required','email:filter',
-                        Rule::unique('user_auth')->where(function ($query) use ($where){
+                        Rule::unique('common_user_auth')->where(function ($query) use ($where){
                             return $query->where($where);
                         })
                     ],

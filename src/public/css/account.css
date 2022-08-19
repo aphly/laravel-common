@@ -25,7 +25,7 @@
 .agree{display: flex;align-items: center;margin-left: 5px;}
 .agree a{margin-left: 5px;}
 .confirmation{margin-top: 20px;}
-
+.btn.text-brand:hover {color: #fff;}
 @media (max-width: 1199.98px) {
 
 }
