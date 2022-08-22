@@ -47,7 +47,10 @@
                                     <div class=""><i class="user-iconfont icon-touxiang"></i></div>
                                     <div>{{$user['nickname']}}</div>
                                 </a>
-                                <a class="dropdown-item" href="#">Another action</a>
+                                <a class="dropdown-item" href="/account/index">Profile</a>
+                                <a class="dropdown-item" href="/account/bookmarks">Bookmarks</a>
+                                <a class="dropdown-item" href="/account/group">{{$user->group->name}}</a>
+                                <a class="dropdown-item" href="/account/credit">Point</a>
                                 <a class="dropdown-item ajax_post" href="/account/logout">Log out</a>
                             </div>
                         </div>

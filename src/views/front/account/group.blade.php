@@ -3,53 +3,60 @@
 <section class="">
     <div class="confirmation container">
         @include('laravel-common::front.account.submenu')
-        @if($res['group']->count())
-        <div>group {{$res['group'][$user->group_id]['name']}}</div>
-        <div>
-            <ul class="group_order">
+    </div>
+    <div class="group">
+        <div class="my_group"> {{$res['group'][$user->group_id]['name']}}</div>
+        <div class="group1">Thank you for being a patron! Below is our full list of VIP perks:</div>
+        <ul class="group_order d-flex justify-content-center">
+            @if($res['group']->count())
                 @foreach($res['group'] as $val)
                     @if($val->status==1 && $val->id>1)
-                    <li >
-                        <div>
-                            {{$val->name}}
-                        </div>
-                        <div class="month">
-                            <select data-price="{{$val->price}}">
-                                <option value="1" selected>1</option>
-                                <option value="3">3</option>
-                                <option value="6">6</option>
-                                <option value="12">12</option>
-                            </select>
-                        </div>
-                        <div class="total">
-                            {{$val->price}}
-                        </div>
-                        <div onclick="order({{$val->id}})">order</div>
-                    </li>
+                        <li>
+                            <div class="group_name">
+                                {{$val->name}}
+                            </div>
+                            <div class="group_desc">
+                                {{$val->desc}}
+                            </div>
+                            <div class="total">
+                                <span class="price">$ {{$val->price}}</span>
+                                <span class="total_month"> / Per <span class="month">1 month</span> </span>
+                            </div>
+                            <div class="month_list">
+                                <select data-price="{{$val->price}}">
+                                    <option value="1" selected>1 month</option>
+                                    <option value="3">3 months</option>
+                                    <option value="6">6 months</option>
+                                    <option value="12">1 year</option>
+                                </select>
+                            </div>
+                            <div onclick="order({{$val->id}})" class="order">SUBSCRIBE</div>
+                        </li>
                     @endif
                 @endforeach
-            </ul>
-        </div>
-        @endif
-    </div>
-    <div>
-        <form action="/account/group" method="post">
-            @csrf
-            <input type="text" name="group_id" value="2">
-            <input type="text" name="method_id" value="1">
-            <input type="text" name="month" value="1">
-            <input type="submit" value="submit">
-        </form>
+            @endif
+        </ul>
     </div>
 </section>
+<style>
+.my_group{margin-top: 20px;font-size: 32px;font-weight: 600;text-align: center;}
+.group1{margin: 10px 0 30px;text-align: center;}
+.group_order li{padding: 20px;width: 30%;border-radius: 4px;box-shadow: 0 1px 4px rgb(24 38 16 / 30%); }
+.group_name{font-weight: 600;color:#007aff;}
+.month_list select{height: 36px;width: 120px;border: 1px solid #ddd;border-radius: 4px;}
+.total .price{font-size: 26px;color: #000;margin-right: 5px;}
+.total_month{font-size: 13px;color: #666;}
+.total{display: flex;align-items: center;font-weight: 600;margin: 10px 0;}
+.group .order{height:32px;margin:30px auto 10px;line-height:32px;width: 100px;border-radius: 20px;background:linear-gradient(131.45deg,#20A7FE,#003AFF);text-align: center;color: #fff;}
+</style>
 <script>
 let month=1;
 $(function () {
     $('.group_order li').on('change','select',function () {
-        console.log($(this).data('price'),$(this).val())
         let total = $(this).data('price')*$(this).val();
-        $('.total').html('$ '+total)
+        $('.total .price').html('$ '+total)
         month = $(this).val();
+        $('.total .month').html($(this).find("option:selected").text())
     })
 })
 function order(group_id){

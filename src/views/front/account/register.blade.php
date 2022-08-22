@@ -80,7 +80,7 @@
                                     obj.next('.invalid-feedback').html(str);
                                 }
                             }else{
-                                alert_msg(res);
+                                alert_msg(res,true);
                             }
                         },
                         complete:function(XMLHttpRequest,textStatus){

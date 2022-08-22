@@ -70,7 +70,7 @@ class User extends Authenticatable
         }
     }
 
-    public function group() {
+    public function group_id() {
         if($this->group_id>1){
             if($this->group_expire<time()){
                 $this->group_id = self::$group_id;
@@ -78,5 +78,9 @@ class User extends Authenticatable
             }
         }
         return $this->group_id;
+    }
+
+    function group(){
+        return $this->hasOne(Group::class,'id','group_id');
     }
 }

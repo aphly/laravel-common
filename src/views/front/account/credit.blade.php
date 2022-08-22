@@ -3,6 +3,10 @@
 <section class="">
     <div class="confirmation container">
         <div>point {{$res['userCredit']->point}}</div>
+        <div class="confirmation container">
+            @include('laravel-common::front.account.submenu')
+        </div>
+
         <div>
             <ul class="credit_price">
                 @foreach($res['creditPrice'] as $val)
