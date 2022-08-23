@@ -18,19 +18,24 @@ class UserController extends Controller
     public function index(Request $request)
     {
         $res['title'] = '';
-        $res['filter']['id'] = $id = $request->query('id',false);
+        $res['filter']['uuid'] = $uuid = $request->query('uuid',false);
+        $res['filter']['id'] = $id = urldecode($request->query('id',''));
         $res['filter']['status'] = $status = $request->query('status',false);
         $res['filter']['string'] = http_build_query($request->query());
         $res['list'] = User::when($status,
                                 function($query,$status) {
                                     return $query->where('status', '=', $status);
                                 })
+                            ->when($uuid,
+                            function($query,$uuid) {
+                                return $query->where('uuid', '=', $uuid);
+                            })
                             ->whereHas('userAuth', function (Builder $query) use ($id) {
                                 if($id){
                                     $query->where('id', 'like', '%'.$id.'%')
-                                        ->where('id_type', config('user.id_type'));
+                                        ->where('id_type', config('common.id_type'));
                                 }
-                            })->orderBy('created_at', 'desc')->with('userAuth')->Paginate(config('admin.perPage'))->withQueryString();
+                            })->orderBy('uuid', 'desc')->with('userAuth')->Paginate(config('admin.perPage'))->withQueryString();
         return $this->makeView('laravel-common::admin.user.index',['res'=>$res]);
     }
 

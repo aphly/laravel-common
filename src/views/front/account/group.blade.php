@@ -47,7 +47,7 @@
 .total .price{font-size: 26px;color: #000;margin-right: 5px;}
 .total_month{font-size: 13px;color: #666;}
 .total{display: flex;align-items: center;font-weight: 600;margin: 10px 0;}
-.group .order{height:32px;margin:30px auto 10px;line-height:32px;width: 100px;border-radius: 20px;background:linear-gradient(131.45deg,#20A7FE,#003AFF);text-align: center;color: #fff;}
+.group .order{cursor:pointer;height:32px;margin:30px auto 10px;line-height:32px;width: 100px;border-radius: 20px;background:linear-gradient(131.45deg,#20A7FE,#003AFF);text-align: center;color: #fff;}
 </style>
 <script>
 let month=1;

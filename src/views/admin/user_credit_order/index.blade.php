@@ -8,12 +8,12 @@
     <div class="itop ">
         <form method="get" action="/common_admin/user_credit_order/index" class="select_form">
         <div class="filter ">
-            <input type="search" name="name" placeholder="name" value="{{$res['filter']['name']}}">
+            <input type="search" name="uuid" placeholder="uuid" value="{{$res['filter']['uuid']}}">
             <button class="" type="submit">搜索</button>
         </div>
         </form>
         <div class="">
-            <a class="badge badge-primary ajax_get show_all0_btn" data-href="/common_admin/user_credit_order/form">添加</a>
+            <a class="badge badge-primary ajax_get show_all0_btn d-none" data-href="/common_admin/user_credit_order/form">添加</a>
         </div>
     </div>
 
@@ -23,17 +23,31 @@
             <div class="table">
                 <ul class="table_header">
                     <li >ID</li>
-                    <li >name</li>
-                    <li >sort</li>
+                    <li >credit_price_id</li>
+                    <li >total</li>
+                    <li >payment_id</li>
+                    <li >status</li>
                     <li >操作</li>
                 </ul>
                 @if($res['list']->total())
                     @foreach($res['list'] as $v)
                     <ul class="table_tbody">
                         <li><input type="checkbox" class="delete_box" name="delete[]" value="{{$v['id']}}">{{$v['id']}}</li>
-                        <li>{{ $v['name'] }}</li>
+                        <li>{{ $v['credit_price_id'] }}</li>
                         <li>
-                            {{$v->sort}}
+                            {{$v->total}}
+                        </li>
+                        <li>
+                            {{$v->payment_id}}
+                        </li>
+                        <li>
+                            @if($dict['payment_status'])
+                                @if($v->status==2)
+                                    <span class="badge badge-success">{{$dict['payment_status'][$v->status]}}</span>
+                                @else
+                                    <span class="badge badge-secondary">{{$dict['payment_status'][$v->status]}}</span>
+                                @endif
+                            @endif
                         </li>
                         <li>
                             <a class="badge badge-info ajax_get" data-href="/common_admin/user_credit_order/form?id={{$v['id']}}">编辑</a>

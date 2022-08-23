@@ -13,11 +13,11 @@ class UserCreditOrderController extends Controller
 
     public function index(Request $request)
     {
-        $res['filter']['name'] = $name = $request->query('name',false);
+        $res['filter']['uuid'] = $uuid = $request->query('uuid',false);
         $res['filter']['string'] = http_build_query($request->query());
-        $res['list'] = UserCreditOrder::when($name,
-                function($query,$name) {
-                    return $query->where('name', 'like', '%'.$name.'%');
+        $res['list'] = UserCreditOrder::when($uuid,
+                function($query,$uuid) {
+                    return $query->where('uuid', $uuid);
                 })
             ->orderBy('id','desc')
             ->Paginate(config('admin.perPage'))->withQueryString();

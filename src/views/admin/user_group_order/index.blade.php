@@ -2,18 +2,18 @@
     <h5 class="nav-title">user credit order</h5>
 </div>
 <style>
-    .table_scroll .table_header li:nth-child(2),.table_scroll .table_tbody li:nth-child(2){flex: 0 0 300px;}
+    .table_scroll .table_header li:nth-child(2),.table_scroll .table_tbody li:nth-child(2){flex: 0 0 200px;}
 </style>
 <div class="imain">
     <div class="itop ">
         <form method="get" action="/common_admin/user_group_order/index" class="select_form">
         <div class="filter ">
-            <input type="search" name="name" placeholder="name" value="{{$res['filter']['name']}}">
+            <input type="search" name="uuid" placeholder="uuid" value="{{$res['filter']['uuid']}}">
             <button class="" type="submit">搜索</button>
         </div>
         </form>
         <div class="">
-            <a class="badge badge-primary ajax_get show_all0_btn" data-href="/common_admin/user_group_order/form">添加</a>
+            <a class="badge badge-primary ajax_get show_all0_btn d-none" data-href="/common_admin/user_group_order/form">添加</a>
         </div>
     </div>
 
@@ -23,17 +23,33 @@
             <div class="table">
                 <ul class="table_header">
                     <li >ID</li>
-                    <li >name</li>
-                    <li >sort</li>
+                    <li >uuid</li>
+                    <li >group_id</li>
+                    <li >price</li>
+                    <li >month</li>
+                    <li >total</li>
+                    <li >状态</li>
                     <li >操作</li>
                 </ul>
                 @if($res['list']->total())
                     @foreach($res['list'] as $v)
                     <ul class="table_tbody">
                         <li><input type="checkbox" class="delete_box" name="delete[]" value="{{$v['id']}}">{{$v['id']}}</li>
-                        <li>{{ $v['name'] }}</li>
+                        <li>{{ $v['uuid'] }}</li>
                         <li>
-                            {{$v->sort}}
+                            {{$res['group'][$v->group_id]['name']}}
+                        </li>
+                        <li>{{ $v['price'] }}</li>
+                        <li>{{ $v['month'] }}</li>
+                        <li>{{ $v['total'] }}</li>
+                        <li>
+                            @if($dict['payment_status'])
+                                @if($v->status==2)
+                                    <span class="badge badge-success">{{$dict['payment_status'][$v->status]}}</span>
+                                @else
+                                    <span class="badge badge-secondary">{{$dict['payment_status'][$v->status]}}</span>
+                                @endif
+                            @endif
                         </li>
                         <li>
                             <a class="badge badge-info ajax_get" data-href="/common_admin/user_group_order/form?id={{$v['id']}}">编辑</a>

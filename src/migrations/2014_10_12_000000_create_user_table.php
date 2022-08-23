@@ -16,12 +16,12 @@ return new class extends Migration
         Schema::create('common_user', function (Blueprint $table) {
             $table->unsignedBigInteger('uuid')->primary();
             $table->string('nickname',32)->nullable();
-            $table->string('token',128)->unique();
+            $table->string('token',128)->index();
             $table->unsignedInteger('token_expire');
             $table->string('avatar',255)->nullable();
             $table->unsignedInteger('group_id')->nullable()->default(0);
             $table->unsignedInteger('group_expire')->nullable()->default(0);
-            $table->tinyInteger('status')->default(1)->comment('1:正常; 2:冻结');
+            $table->tinyInteger('status')->default(1)->comment('1:正常; 2:冻结')->index();
             $table->tinyInteger('gender')->default(1);
             $table->timestamps();
         });

@@ -3,6 +3,7 @@
 namespace Aphly\LaravelCommon\Controllers\Admin;
 
 use Aphly\Laravel\Exceptions\ApiException;
+use Aphly\LaravelCommon\Models\Group;
 use Aphly\LaravelCommon\Models\UserGroupOrder;
 use Illuminate\Http\Request;
 
@@ -12,14 +13,15 @@ class UserGroupOrderController extends Controller
 
     public function index(Request $request)
     {
-        $res['filter']['name'] = $name = $request->query('name',false);
+        $res['filter']['uuid'] = $uuid = $request->query('uuid',false);
         $res['filter']['string'] = http_build_query($request->query());
-        $res['list'] = UserGroupOrder::when($name,
-                function($query,$name) {
-                    return $query->where('name', 'like', '%'.$name.'%');
+        $res['list'] = UserGroupOrder::when($uuid,
+                function($query,$uuid) {
+                    return $query->where('uuid',  $uuid);
                 })
             ->orderBy('id','desc')
             ->Paginate(config('admin.perPage'))->withQueryString();
+        $res['group'] = Group::get()->keyBy('id');
         return $this->makeView('laravel-common::admin.user_group_order.index',['res'=>$res]);
     }
 
