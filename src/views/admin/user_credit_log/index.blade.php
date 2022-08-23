@@ -2,7 +2,7 @@
     <h5 class="nav-title">user credit log</h5>
 </div>
 <style>
-    .table_scroll .table_header li:nth-child(2),.table_scroll .table_tbody li:nth-child(2){flex: 0 0 300px;}
+    .table_scroll .table_header li:nth-child(2),.table_scroll .table_tbody li:nth-child(2){flex: 0 0 200px;}
 </style>
 <div class="imain">
     <div class="itop ">
@@ -23,18 +23,22 @@
             <div class="table">
                 <ul class="table_header">
                     <li >ID</li>
-                    <li >name</li>
-                    <li >sort</li>
+                    <li >uuid</li>
+                    <li >pre</li>
+                    <li >key</li>
+                    <li >val</li>
+                    <li >type</li>
                     <li >操作</li>
                 </ul>
                 @if($res['list']->total())
                     @foreach($res['list'] as $v)
                     <ul class="table_tbody">
                         <li><input type="checkbox" class="delete_box" name="delete[]" value="{{$v['id']}}">{{$v['id']}}</li>
-                        <li>{{ $v['name'] }}</li>
-                        <li>
-                            {{$v->sort}}
-                        </li>
+                        <li>{{ $v['uuid'] }}</li>
+                        <li>{{$v->pre}}</li>
+                        <li>{{$v->key}}</li>
+                        <li>{{$v->val}}</li>
+                        <li>{{$v->type}}</li>
                         <li>
                             <a class="badge badge-info ajax_get" data-href="/common_admin/user_credit_log/form?id={{$v['id']}}">编辑</a>
                         </li>

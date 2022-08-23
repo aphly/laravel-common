@@ -7,36 +7,48 @@
         @csrf
         <div class="">
             <div class="form-group">
-                <label for="">名称</label>
-                <select name="credit_key" >
-                    @foreach($res['credit_key'] as $val)
-                    <option value="{{$val}}" @if($res['info']->credit_key==$val) selected @endif>{{$val}}</option>
-                    @endforeach
-                </select>
+                <label for="">id</label>
+                <input type="text" readonly class="form-control " value="{{$res['info']->id??0}}">
                 <div class="invalid-feedback"></div>
             </div>
             <div class="form-group">
-                <label for="">数量</label>
-                <input type="number" name="credit_val" class="form-control " value="{{$res['info']->credit_val??0}}">
+                <label for="">uuid</label>
+                <input type="text" readonly class="form-control " value="{{$res['info']->uuid??0}}">
                 <div class="invalid-feedback"></div>
             </div>
             <div class="form-group">
-                <label for="">价格</label>
-                <input type="number" name="price" class="form-control " value="{{$res['info']->price??0}}">
+                <label for="">pre</label>
+                <input type="text" readonly class="form-control " value="{{$res['info']->pre??0}}">
                 <div class="invalid-feedback"></div>
             </div>
             <div class="form-group">
-                <label for="">排序</label>
-                <input type="number" name="sort" class="form-control " value="{{$res['info']->sort??0}}">
+                <label for="">key</label>
+                <input type="text" readonly class="form-control " value="{{$res['info']->key??0}}">
                 <div class="invalid-feedback"></div>
             </div>
-            <div class="form-group" id="status">
-                <label for="">状态</label>
-                <select name="status" class="form-control">
-                    @foreach($dict['status'] as $key=>$val)
-                        <option value="{{$key}}" @if($key==$res['info']->status) selected @endif>{{$val}}</option>
-                    @endforeach
-                </select>
+            <div class="form-group">
+                <label for="">val</label>
+                <input type="text" readonly class="form-control " value="{{$res['info']->val??0}}">
+                <div class="invalid-feedback"></div>
+            </div>
+            <div class="form-group">
+                <label for="">type</label>
+                <input type="text" readonly class="form-control " value="{{$res['info']->type??0}}">
+                <div class="invalid-feedback"></div>
+            </div>
+            <div class="form-group">
+                <label for="">reason</label>
+                <input type="text" readonly class="form-control " value="{{$res['info']->reason??0}}">
+                <div class="invalid-feedback"></div>
+            </div>
+            <div class="form-group">
+                <label for="">created_at</label>
+                <input type="text" readonly class="form-control " value="{{$res['info']->created_at??0}}">
+                <div class="invalid-feedback"></div>
+            </div>
+            <div class="form-group">
+                <label for="">updated_at</label>
+                <input type="text" readonly class="form-control " value="{{$res['info']->updated_at??0}}">
                 <div class="invalid-feedback"></div>
             </div>
             <button class="btn btn-primary" type="submit">保存</button>
