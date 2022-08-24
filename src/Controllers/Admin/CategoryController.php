@@ -13,8 +13,8 @@ class CategoryController extends Controller
 
     public function index(Request $request)
     {
-        $res['filter']['name'] = $name = $request->query('name',false);
-        $res['filter']['string'] = http_build_query($request->query());
+        $res['search']['name'] = $name = $request->query('name',false);
+        $res['search']['string'] = http_build_query($request->query());
         $res['list'] = CategoryPath::leftJoin('common_category as c1','c1.id','=','common_category_path.category_id')
             ->leftJoin('common_category as c2','c2.id','=','common_category_path.path_id')
             ->when($name,

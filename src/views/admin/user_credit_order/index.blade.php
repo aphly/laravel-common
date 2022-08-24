@@ -7,8 +7,8 @@
 <div class="imain">
     <div class="itop ">
         <form method="get" action="/common_admin/user_credit_order/index" class="select_form">
-        <div class="filter ">
-            <input type="search" name="uuid" placeholder="uuid" value="{{$res['filter']['uuid']}}">
+        <div class="search_box ">
+            <input type="search" name="uuid" placeholder="uuid" value="{{$res['search']['uuid']}}">
             <button class="" type="submit">搜索</button>
         </div>
         </form>
@@ -17,7 +17,7 @@
         </div>
     </div>
 
-    <form method="post"  @if($res['filter']['string']) action="/common_admin/user_credit_order/del?{{$res['filter']['string']}}" @else action="/common_admin/user_credit_order/del" @endif  class="del_form">
+    <form method="post"  @if($res['search']['string']) action="/common_admin/user_credit_order/del?{{$res['search']['string']}}" @else action="/common_admin/user_credit_order/del" @endif  class="del_form">
     @csrf
         <div class="table_scroll">
             <div class="table">

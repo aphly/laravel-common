@@ -258,7 +258,7 @@ class AccountController extends Controller
                 $input['month'] = $request->input('month');
                 $input['price'] = $group->price;
                 $input['amount'] = $input['total'] = $input['month']*$input['price'];
-                $input['method_id'] = $request->input('method_id');
+                $input['method_id'] = $request->input('method_id',1);
                 $input['cancel_url'] = url('/account/group');
                 $input['notify_func'] = '\Aphly\LaravelCommon\Models\UserGroupOrder@notify';
                 $input['success_url'] = url('/account/checkout_success');
@@ -283,17 +283,7 @@ class AccountController extends Controller
         }
     }
 
-    public function checkoutSuccess(Request $request)
-    {
-        $res['title'] = 'checkout Success';
-        return $this->makeView('laravel-common::front.account.checkout_success',['res'=>$res]);
-    }
 
-    public function checkoutFail(Request $request)
-    {
-        $res['title'] = 'checkout Fail';
-        return $this->makeView('laravel-common::front.account.checkout_fail',['res'=>$res]);
-    }
 
     public function credit(AccountRequest $request)
     {
@@ -304,7 +294,7 @@ class AccountController extends Controller
                 $input['gold'] = $credit_price->gold;
                 $input['price'] = $credit_price->price;
                 $input['amount'] = $input['total'] = $input['price'];
-                $input['method_id'] = $request->input('method_id');
+                $input['method_id'] = $request->input('method_id',1);
                 $input['cancel_url'] = url('/account/credit');
                 $input['notify_func'] = '\Aphly\LaravelCommon\Models\UserCreditOrder@notify';
                 $input['success_url'] = url('/account/checkout_success');

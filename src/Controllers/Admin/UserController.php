@@ -18,10 +18,10 @@ class UserController extends Controller
     public function index(Request $request)
     {
         $res['title'] = '';
-        $res['filter']['uuid'] = $uuid = $request->query('uuid',false);
-        $res['filter']['id'] = $id = urldecode($request->query('id',''));
-        $res['filter']['status'] = $status = $request->query('status',false);
-        $res['filter']['string'] = http_build_query($request->query());
+        $res['search']['uuid'] = $uuid = $request->query('uuid',false);
+        $res['search']['id'] = $id = urldecode($request->query('id',''));
+        $res['search']['status'] = $status = $request->query('status',false);
+        $res['search']['string'] = http_build_query($request->query());
         $res['list'] = User::when($status,
                                 function($query,$status) {
                                     return $query->where('status', '=', $status);

@@ -7,10 +7,10 @@
 <div class="imain">
     <div class="itop ">
         <form method="get" action="/common_admin/credit_price/index" class="select_form">
-        <div class="filter ">
+        <div class="search_box ">
             <select name="credit_key" >
                 @foreach($res['credit_key'] as $val)
-                    <option value="{{$val}}" @if($res['filter']['credit_key']==$val) selected @endif>{{$val}}</option>
+                    <option value="{{$val}}" @if($res['search']['credit_key']==$val) selected @endif>{{$val}}</option>
                 @endforeach
             </select>
             <button class="" type="submit">搜索</button>
@@ -21,7 +21,7 @@
         </div>
     </div>
 
-    <form method="post"  @if($res['filter']['string']) action="/common_admin/credit_price/del?{{$res['filter']['string']}}" @else action="/common_admin/credit_price/del" @endif  class="del_form">
+    <form method="post"  @if($res['search']['string']) action="/common_admin/credit_price/del?{{$res['search']['string']}}" @else action="/common_admin/credit_price/del" @endif  class="del_form">
     @csrf
         <div class="table_scroll">
             <div class="table">

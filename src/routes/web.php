@@ -14,6 +14,9 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::middleware(['web'])->group(function () {
+    Route::get('checkout/success', 'Aphly\LaravelCommon\Controllers\Front\CheckoutController@success');
+    Route::get('checkout/fail', 'Aphly\LaravelCommon\Controllers\Front\CheckoutController@fail');
+
     Route::prefix('account')->group(function () {
         Route::match(['get'],'blocked', 'Aphly\LaravelCommon\Controllers\Front\AccountController@forgetConfirmation');
 
@@ -33,13 +36,12 @@ Route::middleware(['web'])->group(function () {
             Route::get('logout', 'Aphly\LaravelCommon\Controllers\Front\AccountController@logout');
             Route::get('index', 'Aphly\LaravelCommon\Controllers\Front\AccountController@index');
             Route::match(['get', 'post'],'group', 'Aphly\LaravelCommon\Controllers\Front\AccountController@group');
-            Route::get('checkout_success', 'Aphly\LaravelCommon\Controllers\Front\AccountController@checkoutSuccess');
-            Route::get('checkout_fail', 'Aphly\LaravelCommon\Controllers\Front\AccountController@checkoutFail');
             Route::match(['get', 'post'],'credit', 'Aphly\LaravelCommon\Controllers\Front\AccountController@credit');
 
         });
     });
 
+    Route::match(['get'],'news/{id}', 'Aphly\LaravelCommon\Controllers\Front\NewsController@info');
 });
 
 Route::middleware(['web'])->group(function () {
@@ -56,8 +58,8 @@ Route::middleware(['web'])->group(function () {
             Route::match(['get', 'post'],'/user/{uuid}/avatar', 'Aphly\LaravelCommon\Controllers\Admin\UserController@avatar')->where('uuid', '[0-9]+');
 
             $route_arr = [
-                ['group','\GroupController'],['credit_price','\CreditPriceController'],['user_credit_log','\UserCreditLogController'],
-                ['user_credit_order','\UserCreditOrderController'],['user_group_order','\UserGroupOrderController'],['category','\CategoryController']
+                ['group','\GroupController'],['credit_price','\CreditPriceController'],['user_credit_log','\UserCreditLogController'],['user_credit_order','\UserCreditOrderController'],
+                ['user_group_order','\UserGroupOrderController'],['category','\CategoryController'],['filter','\FilterController'],['news','\NewsController']
             ];
 
             foreach ($route_arr as $val){
@@ -69,6 +71,8 @@ Route::middleware(['web'])->group(function () {
 
             Route::get('/category/ajax', 'Aphly\LaravelCommon\Controllers\Admin\CategoryController@ajax');
             Route::get('/category/show', 'Aphly\LaravelCommon\Controllers\Admin\CategoryController@show');
+
+            Route::get('/filter/ajax', 'Aphly\LaravelCommon\Controllers\Admin\FilterController@ajax');
 
         });
     });

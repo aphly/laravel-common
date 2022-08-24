@@ -14,13 +14,15 @@ class InstallController extends Controller
         $menu = Menu::create(['name' => 'Common','url' =>'','pid'=>0,'is_leaf'=>0,'module_id'=>$this->module_id,'sort'=>30]);
         if($menu){
             $data=[];
-            $data[] =['name' => 'Category','url' =>'/common_admin/category/index','pid'=>$menu->id,'is_leaf'=>1,'module_id'=>$this->module_id,'sort'=>0];
-            $data[] =['name' => 'User','url' =>'/common_admin/user/index','pid'=>$menu->id,'is_leaf'=>1,'module_id'=>$this->module_id,'sort'=>0];
-            $data[] =['name' => 'Group','url' =>'/common_admin/group/index','pid'=>$menu->id,'is_leaf'=>1,'module_id'=>$this->module_id,'sort'=>0];
-            $data[] =['name' => 'Group Order','url' =>'/common_admin/user_group_order/index','pid'=>$menu->id,'is_leaf'=>1,'module_id'=>$this->module_id,'sort'=>0];
-            $data[] =['name' => 'Credit Price','url' =>'/common_admin/credit_price/index','pid'=>$menu->id,'is_leaf'=>1,'module_id'=>$this->module_id,'sort'=>0];
-            $data[] =['name' => 'Credit Order','url' =>'/common_admin/user_credit_order/index','pid'=>$menu->id,'is_leaf'=>1,'module_id'=>$this->module_id,'sort'=>0];
-            $data[] =['name' => 'Credit Log','url' =>'/common_admin/user_credit_log/index','pid'=>$menu->id,'is_leaf'=>1,'module_id'=>$this->module_id,'sort'=>0];
+            $data[] =['name' => '用户管理','url' =>'/common_admin/user/index','pid'=>$menu->id,'is_leaf'=>1,'module_id'=>$this->module_id,'sort'=>0];
+            $data[] =['name' => '用户组','url' =>'/common_admin/group/index','pid'=>$menu->id,'is_leaf'=>1,'module_id'=>$this->module_id,'sort'=>0];
+            $data[] =['name' => '用户组订单','url' =>'/common_admin/user_group_order/index','pid'=>$menu->id,'is_leaf'=>1,'module_id'=>$this->module_id,'sort'=>0];
+            $data[] =['name' => '积分价格','url' =>'/common_admin/credit_price/index','pid'=>$menu->id,'is_leaf'=>1,'module_id'=>$this->module_id,'sort'=>0];
+            $data[] =['name' => '积分订单','url' =>'/common_admin/user_credit_order/index','pid'=>$menu->id,'is_leaf'=>1,'module_id'=>$this->module_id,'sort'=>0];
+            $data[] =['name' => '积分记录','url' =>'/common_admin/user_credit_log/index','pid'=>$menu->id,'is_leaf'=>1,'module_id'=>$this->module_id,'sort'=>0];
+            $data[] =['name' => '分类管理','url' =>'/common_admin/category/index','pid'=>$menu->id,'is_leaf'=>1,'module_id'=>$this->module_id,'sort'=>0];
+            $data[] =['name' => '筛选管理','url' =>'/common_admin/filter/index','pid'=>$menu->id,'is_leaf'=>1,'module_id'=>$this->module_id,'sort'=>0];
+            $data[] =['name' => '文章管理','url' =>'/common_admin/news/index','pid'=>$menu->id,'is_leaf'=>1,'module_id'=>$this->module_id,'sort'=>0];
             DB::table('admin_menu')->insert($data);
         }
 

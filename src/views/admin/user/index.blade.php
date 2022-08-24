@@ -8,12 +8,12 @@
 <div class="imain">
     <div class="itop ">
         <form method="get" action="/common_admin/user/index" class="select_form">
-        <div class="filter ">
-            <input type="search" name="uuid" placeholder="uuid" value="{{$res['filter']['uuid']}}">
-            <input type="search" name="id" placeholder="邮箱" value="{{$res['filter']['id']}}">
+        <div class="search_box ">
+            <input type="search" name="uuid" placeholder="uuid" value="{{$res['search']['uuid']}}">
+            <input type="search" name="id" placeholder="邮箱" value="{{$res['search']['id']}}">
             <select name="status" >
                 @foreach($dict['user_status'] as $key=>$val)
-                    <option value="{{$key}}" @if($res['filter']['status']==$key) selected @endif>{{$val}}</option>
+                    <option value="{{$key}}" @if($res['search']['status']==$key) selected @endif>{{$val}}</option>
                 @endforeach
             </select>
             <button class="" type="submit">搜索</button>
@@ -22,7 +22,7 @@
         <div class=""><a href="/account/register" target="_blank" class="badge badge-info  add">新增</a></div>
     </div>
 
-    <form method="post"  @if($res['filter']['string']) action="/admin/user/del?{{$res['filter']['string']}}" @else action="/admin/user/del" @endif  class="del_form">
+    <form method="post"  @if($res['search']['string']) action="/admin/user/del?{{$res['search']['string']}}" @else action="/admin/user/del" @endif  class="del_form">
     @csrf
         <div class="table_scroll">
             <div class="table">
