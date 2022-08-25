@@ -32,8 +32,15 @@ class UserGroupOrderController extends Controller
     }
 
     public function save(Request $request){
-        UserGroupOrder::updateOrCreate(['id'=>$request->query('id',0)],$request->all());
-        throw new ApiException(['code'=>0,'msg'=>'success','data'=>['redirect'=>$this->index_url]]);
+        $res['info'] = UserGroupOrder::where('id',$request->query('id',0))->first();
+        if(!empty($res['info'])){
+            if($res['info']->status==1 && $request->input('status',0)==2){
+                $res['info']->notify();
+            }
+            throw new ApiException(['code'=>0,'msg'=>'success','data'=>['redirect'=>$this->index_url]]);
+        }else{
+            throw new ApiException(['code'=>1,'msg'=>'error']);
+        }
     }
 
     public function del(Request $request)

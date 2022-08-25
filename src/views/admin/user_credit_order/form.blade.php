@@ -32,14 +32,14 @@
                 <div class="invalid-feedback"></div>
             </div>
             <div class="form-group">
-                <label for="">status</label><br>
-                @if($dict['payment_status'])
-                    @if($res['info']->status==2)
-                        <span class="badge badge-success ">{{$dict['payment_status'][$res['info']->status]}}</span>
-                    @else
-                        <span class="badge badge-secondary ">{{$dict['payment_status'][$res['info']->status]}}</span>
+                <label for="">status</label>
+                <select name="status" class="form-control">
+                    @if($dict['payment_status'])
+                        @foreach($dict['payment_status'] as $key=>$val)
+                            <option value="{{$key}}" @if($key==$res['info']->status) selected @endif>{{$val}}</option>
+                        @endforeach
                     @endif
-                @endif
+                </select>
                 <div class="invalid-feedback"></div>
             </div>
             <div class="form-group">
