@@ -26,10 +26,22 @@ class UserGroupOrder extends Model
             if(!empty($info)){
                 $info->status=2;
                 if($info->save()){
-                    User::where('uuid',$info->uuid)->update([
-                        'group_id'=>2,
-                        'group_expire'=>DB::raw('group_expire+'.$info->month*30*24*3600),
-                    ]);
+                    $userInfo = User::where('uuid',$info->uuid)->first();
+                    if(!empty($userInfo) ){
+                        $curr_time = time();
+                        if($userInfo->group_id == $info->group_id){
+
+                        }else{
+                            $userInfo->group_id = $info->group_id;
+                        }
+                        if($userInfo->group_expire<$curr_time){
+                            $userInfo->group_expire = $curr_time+$info->month*30*24*3600;
+                        }else{
+                            $userInfo->group_expire += $info->month*30*24*3600;
+                        }
+
+                        $userInfo->save();
+                    }
                 }
             }
         }catch (ApiException $e) {

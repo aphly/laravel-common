@@ -11,19 +11,37 @@ class InstallController extends Controller
     public $module_id = 2;
 
     public function install(){
+        $path = storage_path('app/private/common_init.sql');
+        if(file_exists($path)){
+            DB::unprepared(file_get_contents($path));
+        }
         $menu = Menu::create(['name' => 'Common','url' =>'','pid'=>0,'is_leaf'=>0,'module_id'=>$this->module_id,'sort'=>30]);
         if($menu){
+            $menu2 = Menu::create(['name' => '用户管理','url' =>'','pid'=>$menu->id,'is_leaf'=>0,'module_id'=>$this->module_id,'sort'=>0]);
+            if($menu2){
+                $data=[];
+                $data[] =['name' => '用户','url' =>'/common_admin/user/index','pid'=>$menu2->id,'is_leaf'=>1,'module_id'=>$this->module_id,'sort'=>0];
+                $data[] =['name' => '用户组','url' =>'/common_admin/group/index','pid'=>$menu2->id,'is_leaf'=>1,'module_id'=>$this->module_id,'sort'=>0];
+                $data[] =['name' => '用户组订单','url' =>'/common_admin/user_group_order/index','pid'=>$menu2->id,'is_leaf'=>1,'module_id'=>$this->module_id,'sort'=>0];
+                $data[] =['name' => '积分价格','url' =>'/common_admin/credit_price/index','pid'=>$menu2->id,'is_leaf'=>1,'module_id'=>$this->module_id,'sort'=>0];
+                $data[] =['name' => '积分订单','url' =>'/common_admin/user_credit_order/index','pid'=>$menu2->id,'is_leaf'=>1,'module_id'=>$this->module_id,'sort'=>0];
+                $data[] =['name' => '积分记录','url' =>'/common_admin/user_credit_log/index','pid'=>$menu2->id,'is_leaf'=>1,'module_id'=>$this->module_id,'sort'=>0];
+                DB::table('admin_menu')->insert($data);
+            }
             $data=[];
-            $data[] =['name' => '用户管理','url' =>'/common_admin/user/index','pid'=>$menu->id,'is_leaf'=>1,'module_id'=>$this->module_id,'sort'=>0];
-            $data[] =['name' => '用户组','url' =>'/common_admin/group/index','pid'=>$menu->id,'is_leaf'=>1,'module_id'=>$this->module_id,'sort'=>0];
-            $data[] =['name' => '用户组订单','url' =>'/common_admin/user_group_order/index','pid'=>$menu->id,'is_leaf'=>1,'module_id'=>$this->module_id,'sort'=>0];
-            $data[] =['name' => '积分价格','url' =>'/common_admin/credit_price/index','pid'=>$menu->id,'is_leaf'=>1,'module_id'=>$this->module_id,'sort'=>0];
-            $data[] =['name' => '积分订单','url' =>'/common_admin/user_credit_order/index','pid'=>$menu->id,'is_leaf'=>1,'module_id'=>$this->module_id,'sort'=>0];
-            $data[] =['name' => '积分记录','url' =>'/common_admin/user_credit_log/index','pid'=>$menu->id,'is_leaf'=>1,'module_id'=>$this->module_id,'sort'=>0];
             $data[] =['name' => '分类管理','url' =>'/common_admin/category/index','pid'=>$menu->id,'is_leaf'=>1,'module_id'=>$this->module_id,'sort'=>0];
             $data[] =['name' => '筛选管理','url' =>'/common_admin/filter/index','pid'=>$menu->id,'is_leaf'=>1,'module_id'=>$this->module_id,'sort'=>0];
             $data[] =['name' => '文章管理','url' =>'/common_admin/news/index','pid'=>$menu->id,'is_leaf'=>1,'module_id'=>$this->module_id,'sort'=>0];
             DB::table('admin_menu')->insert($data);
+            $menu21 = Menu::create(['name' => '本地设置','url' =>'','pid'=>$menu->id,'is_leaf'=>0,'module_id'=>$this->module_id,'sort'=>0]);
+            if($menu21){
+                $data=[];
+                $data[] =['name' => '国家','url' =>'/common_admin/country/index','pid'=>$menu21->id,'is_leaf'=>1,'module_id'=>$this->module_id,'sort'=>0];
+                $data[] =['name' => '地区','url' =>'/common_admin/zone/index','pid'=>$menu21->id,'is_leaf'=>1,'module_id'=>$this->module_id,'sort'=>0];
+                $data[] =['name' => '货币','url' =>'/common_admin/currency/index','pid'=>$menu21->id,'is_leaf'=>1,'module_id'=>$this->module_id,'sort'=>0];
+                $data[] =['name' => 'Geo','url' =>'/common_admin/geo/index','pid'=>$menu21->id,'is_leaf'=>1,'module_id'=>$this->module_id,'sort'=>0];
+                DB::table('admin_menu')->insert($data);
+            }
         }
 
         $menuData = Menu::where(['module_id'=>$this->module_id])->get();
@@ -34,8 +52,8 @@ class InstallController extends Controller
         DB::table('admin_role_menu')->insert($data);
 
         $data=[];
-        $data[] =['id'=>1,'name' => 'Default Member','sort'=>0];
-        $data[] =['id'=>2,'name' => 'Vip Member','sort'=>0];
+        $data[] =['id'=>1,'name' => 'Default Member','sort'=>0,'price'=>0];
+        $data[] =['id'=>2,'name' => 'Vip Member','sort'=>0,'price'=>5];
         DB::table('common_group')->insert($data);
 
         return 'install_ok';
@@ -57,7 +75,9 @@ class InstallController extends Controller
             DB::table('admin_dict_value')->whereIn('dict_id',$ids)->delete();
         }
         DB::table('common_group')->truncate();
-
+        DB::table('common_country')->truncate();
+        DB::table('common_zone')->truncate();
+        DB::table('common_currency')->truncate();
         return 'uninstall_ok';
     }
 
