@@ -2,7 +2,7 @@
 <link rel="stylesheet" href="{{ URL::asset('vendor/laravel-common/css/account.css') }}">
 <section class="">
     <div class="container">
-        <form class="account_form" id="login" method="post" action="/account/login">
+        <form class="account_form" id="login" method="post" @if(request()->query('return_url',false)) action="/account/login?return_url={{request()->query('return_url')}}" @else action="/account/login" @endif>
             @csrf
             <div class="accountContent">
                 <div class="text-center" style="margin-bottom: 24px;">

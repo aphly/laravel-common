@@ -6,6 +6,7 @@ use Aphly\Laravel\Exceptions\ApiException;
 use Aphly\Laravel\Libs\Helper;
 use Aphly\Laravel\Mail\MailSend;
 
+
 use Aphly\LaravelPayment\Models\Payment;
 use Aphly\LaravelCommon\Mail\Forget;
 use Aphly\LaravelCommon\Mail\Verify;
@@ -35,15 +36,15 @@ class AccountController extends Controller
         return $this->makeView('laravel-common::front.account.index',['res'=>$res]);
     }
 
-    public function loginCallback($user)
+    public function afterLogin($user)
     {
         $class = [];
         $this->handle($class,$user);
     }
 
-    public function registerCallback($user)
+    public function afterRegister($user)
     {
-        $class = [];
+        $class = ['\Aphly\LaravelNovel\Models\UserNovelSetting'];
         $this->handle($class,$user);
     }
 
@@ -64,6 +65,8 @@ class AccountController extends Controller
             if(!empty($user)){
                 Auth::guard('user')->login($user);
                 return redirect('/');
+            }else{
+                throw new ApiException(['code'=>2,'msg'=>'No user','data'=>['redirect'=>'/']]);
             }
         } catch (DecryptException $e) {
             throw new ApiException(['code'=>1,'msg'=>'Token_error','data'=>['redirect'=>'/']]);
@@ -88,13 +91,12 @@ class AccountController extends Controller
                             $user->token = Str::random(64);
                             $user->token_expire = time()+120*60;
                             $user->save();
-                            $user_arr = $user->toArray();
-                            $user_arr['id_type'] = $userAuth->id_type;
-                            $user_arr['id'] = $userAuth->id;
-                            $this->loginCallback($user_arr);
+                            $user->id_type = $userAuth->id_type;
+                            $user->id = $userAuth->id;
+                            $this->afterLogin($user);
                             $redirect = urldecode($request->query('return_url'));
                             $redirect = $redirect??'/';
-                            throw new ApiException(['code'=>0,'msg'=>'login success','data'=>['redirect'=>$redirect,'user'=>$user_arr]]);
+                            throw new ApiException(['code'=>0,'msg'=>'login success','data'=>['redirect'=>$redirect,'user'=>$user]]);
                         }else{
                             throw new ApiException(['code'=>3,'msg'=>'Account blocked','data'=>['redirect'=>'/account/blocked']]);
                         }
@@ -129,16 +131,15 @@ class AccountController extends Controller
                 $arr['group_id'] = User::$group_id;
                 $user = User::create($arr);
                 Auth::guard('user')->login($user);
-                $user_arr = $user->toArray();
-                $user_arr['id_type'] = $userAuth->id_type;
-                $user_arr['id'] = $userAuth->id;
-                $this->registerCallback($user_arr);
+                $user->id_type = $userAuth->id_type;
+                $user->id = $userAuth->id;
+                $this->afterRegister($user);
                 $redirect = urldecode($request->query('return_url'));
                 $redirect = $redirect??'/';
                 if($userAuth->id_type=='email'){
                     (new MailSend())->do($userAuth->id,new Verify($userAuth));
                 }
-                throw new ApiException(['code'=>0,'msg'=>'register success','data'=>['redirect'=>$redirect,'user'=>$user_arr]]);
+                throw new ApiException(['code'=>0,'msg'=>'register success','data'=>['redirect'=>$redirect,'user'=>$user]]);
             }else{
                 throw new ApiException(['code'=>1,'msg'=>'register fail']);
             }

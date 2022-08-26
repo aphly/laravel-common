@@ -12,6 +12,8 @@
     <script src='{{ URL::asset('vendor/laravel-admin/js/c.js') }}' type='text/javascript'></script>
     <link rel="stylesheet" href="{{ URL::asset('vendor/laravel-admin/css/viewer.min.css') }}">
     <script src="{{ URL::asset('vendor/laravel-admin/js/viewer.min.js') }}" type="text/javascript"></script>
+    <meta name="keywords" content="{{$res['keywords']??''}}" />
+    <meta name="description" content="{{$res['description']??''}}" />
 </head>
 <body>
 <script>
