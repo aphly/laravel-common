@@ -22,7 +22,8 @@ return new class extends Migration
             $table->integer('last_login')->unsigned()->nullable();
             $table->string('last_ip',64)->nullable();
             $table->primary(['id_type','id']);
-            $table->timestamps();
+            $table->unsignedBigInteger('created_at');
+            $table->unsignedBigInteger('updated_at');
         });
     }
 

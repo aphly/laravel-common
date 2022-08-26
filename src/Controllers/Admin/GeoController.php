@@ -84,12 +84,12 @@ class GeoController extends Controller
 
     public function ajax(Request $request){
         $name = $request->query('name',false);
-        $list = Geo::leftJoin('shop_geo_group as group','group.id','=','shop_geo.geo_group_id')
+        $list = Geo::leftJoin('common_geo_group as group','group.id','=','common_geo.geo_group_id')
             ->when($name,
                 function($query,$name) {
-                    return $query->where('shop_geo.name', 'like', '%'.$name.'%');
+                    return $query->where('common_geo.name', 'like', '%'.$name.'%');
                 })
-            ->selectRaw("shop_geo.*,concat(group.name,' \> ',shop_geo.name) as name_all")
+            ->selectRaw("common_geo.*,concat(group.name,' \> ',common_geo.name) as name_all")
             ->get()->toArray();
         throw new ApiException(['code'=>0,'msg'=>'success','data'=>['list'=>$list]]);
     }

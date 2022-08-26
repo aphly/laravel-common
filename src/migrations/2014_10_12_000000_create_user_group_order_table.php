@@ -22,7 +22,8 @@ return new class extends Migration
             $table->decimal('total',10,2);
             $table->unsignedBigInteger('payment_id')->index();
             $table->tinyInteger('status')->default(1);
-            $table->timestamps();
+            $table->unsignedBigInteger('created_at');
+            $table->unsignedBigInteger('updated_at');
         });
     }
 

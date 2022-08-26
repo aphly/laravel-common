@@ -19,7 +19,8 @@ return new class extends Migration
             $table->text('content');
             $table->unsignedInteger('viewed')->nullable()->default(1);
             $table->tinyInteger('status')->nullable()->default(1);
-            $table->timestamps();
+            $table->unsignedBigInteger('created_at');
+            $table->unsignedBigInteger('updated_at');
         });
     }
 

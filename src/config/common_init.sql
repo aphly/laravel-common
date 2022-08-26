@@ -1,9 +1,9 @@
-INSERT INTO `shop_currency` (`id`, `name`, `code`, `symbol_left`, `symbol_right`, `decimal_place`, `value`, `status`) VALUES
+INSERT INTO `common_currency` (`id`, `name`, `code`, `symbol_left`, `symbol_right`, `decimal_place`, `value`, `status`) VALUES
 	(1, 'Pound Sterling', 'GBP', '£', '', '2', 0.61250001, 1),
 	(2, 'US Dollar', 'USD', '$', '', '2', 1.00000000, 1),
 	(3, 'Euro', 'EUR', '', '€', '2', 0.78460002, 1);
 
-INSERT INTO `shop_zone` (`id`, `country_id`, `name`, `code`, `status`) VALUES
+INSERT INTO `common_zone` (`id`, `country_id`, `name`, `code`, `status`) VALUES
 	(1, 1, 'Badakhshan', 'BDS', 1),
 	(2, 1, 'Badghis', 'BDG', 1),
 	(3, 1, 'Baghlan', 'BGL', 1),
@@ -4113,7 +4113,7 @@ INSERT INTO `shop_zone` (`id`, `country_id`, `name`, `code`, `status`) VALUES
 	(4237, 105, 'Fermo', 'FM', 1),
 	(4238, 105, 'Monza Brianza', 'MB', 1);
 
-INSERT INTO `shop_country` (`id`, `name`, `iso_code_2`, `iso_code_3`, `address_format`, `postcode_required`, `status`) VALUES
+INSERT INTO `common_country` (`id`, `name`, `iso_code_2`, `iso_code_3`, `address_format`, `postcode_required`, `status`) VALUES
 	(1, 'Afghanistan', 'AF', 'AFG', '', 0, 1),
 	(2, 'Albania', 'AL', 'ALB', '', 0, 1),
 	(3, 'Algeria', 'DZ', 'DZA', '', 0, 1),

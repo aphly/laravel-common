@@ -15,9 +15,9 @@ class InstallController extends Controller
         if(file_exists($path)){
             DB::unprepared(file_get_contents($path));
         }
-        $menu = Menu::create(['name' => 'Common','url' =>'','pid'=>0,'is_leaf'=>0,'module_id'=>$this->module_id,'sort'=>30]);
+        $menu = Menu::create(['name' => '基础管理','url' =>'','pid'=>0,'is_leaf'=>0,'module_id'=>$this->module_id,'sort'=>20]);
         if($menu){
-            $menu2 = Menu::create(['name' => '用户管理','url' =>'','pid'=>$menu->id,'is_leaf'=>0,'module_id'=>$this->module_id,'sort'=>0]);
+            $menu2 = Menu::create(['name' => '用户管理','url' =>'','pid'=>$menu->id,'is_leaf'=>0,'module_id'=>$this->module_id,'sort'=>20]);
             if($menu2){
                 $data=[];
                 $data[] =['name' => '用户','url' =>'/common_admin/user/index','pid'=>$menu2->id,'is_leaf'=>1,'module_id'=>$this->module_id,'sort'=>0];
@@ -33,7 +33,7 @@ class InstallController extends Controller
             $data[] =['name' => '筛选管理','url' =>'/common_admin/filter/index','pid'=>$menu->id,'is_leaf'=>1,'module_id'=>$this->module_id,'sort'=>0];
             $data[] =['name' => '文章管理','url' =>'/common_admin/news/index','pid'=>$menu->id,'is_leaf'=>1,'module_id'=>$this->module_id,'sort'=>0];
             DB::table('admin_menu')->insert($data);
-            $menu21 = Menu::create(['name' => '本地设置','url' =>'','pid'=>$menu->id,'is_leaf'=>0,'module_id'=>$this->module_id,'sort'=>0]);
+            $menu21 = Menu::create(['name' => '其他设置','url' =>'','pid'=>$menu->id,'is_leaf'=>0,'module_id'=>$this->module_id,'sort'=>0]);
             if($menu21){
                 $data=[];
                 $data[] =['name' => '国家','url' =>'/common_admin/country/index','pid'=>$menu21->id,'is_leaf'=>1,'module_id'=>$this->module_id,'sort'=>0];

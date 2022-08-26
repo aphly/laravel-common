@@ -14,7 +14,7 @@ use Illuminate\Support\Facades\Route;
 */
 Route::middleware(['web'])->group(function () {
 
-    Route::get('country/{id}/zone', 'Aphly\LaravelCommon\Controllers\CountryController@zone')->where('id', '[0-9]+');
+    Route::get('country/{id}/zone', 'Aphly\LaravelCommon\Controllers\Front\CountryController@zone')->where('id', '[0-9]+');
     Route::get('checkout/success', 'Aphly\LaravelCommon\Controllers\Front\CheckoutController@success');
     Route::get('checkout/fail', 'Aphly\LaravelCommon\Controllers\Front\CheckoutController@fail');
 

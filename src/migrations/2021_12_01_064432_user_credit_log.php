@@ -21,7 +21,8 @@ return new class extends Migration
             $table->unsignedInteger('val')->nullable();
             $table->string('type',16);
             $table->string('reason',64);
-            $table->timestamps();
+            $table->unsignedBigInteger('created_at');
+            $table->unsignedBigInteger('updated_at');
         });
     }
 

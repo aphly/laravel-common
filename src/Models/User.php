@@ -22,6 +22,10 @@ class User extends Authenticatable
      * @var array
      */
 
+    public function fromDateTime($value){
+        return strtotime(parent::fromDateTime($value));
+    }
+
     protected $fillable = [
         'uuid','nickname',
         'token',

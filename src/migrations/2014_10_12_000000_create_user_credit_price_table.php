@@ -20,7 +20,8 @@ return new class extends Migration
             $table->decimal('price',10,2);
             $table->unsignedBigInteger('sort')->index();
             $table->tinyInteger('status')->default(1);
-            $table->timestamps();
+            $table->unsignedBigInteger('created_at');
+            $table->unsignedBigInteger('updated_at');
         });
     }
 

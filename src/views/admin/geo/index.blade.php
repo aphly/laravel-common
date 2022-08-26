@@ -7,7 +7,7 @@
 <div class="imain">
     <div class="itop ">
         <form method="get" action="/common_admin/geo/index" class="select_form">
-        <div class="filter ">
+        <div class="search_box ">
             <input type="search" name="name" placeholder="geo name" value="{{$res['search']['name']}}">
             <button class="" type="submit">搜索</button>
         </div>

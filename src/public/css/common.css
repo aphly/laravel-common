@@ -1,0 +1,9 @@
+:root{
+    --a:#333;
+}
+
+a{color: var(--a);}
+
+@media (max-width: 1199.98px) {
+
+}
