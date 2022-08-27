@@ -2,7 +2,7 @@
 <link rel="stylesheet" href="{{ URL::asset('vendor/laravel-common/css/account.css') }}">
 <section class="" >
     <div class="forget container">
-        <form method="post" action="/account/forget" id="forget" class="account_form">
+        <form method="post" action="/account/forget?return_url={{urlencode(request()->query('return_url',''))}}" id="forget" class="account_form">
             @csrf
             <div class="accountContent">
                 <h3 class="">

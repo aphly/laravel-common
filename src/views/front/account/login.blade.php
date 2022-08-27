@@ -2,7 +2,7 @@
 <link rel="stylesheet" href="{{ URL::asset('vendor/laravel-common/css/account.css') }}">
 <section class="">
     <div class="container">
-        <form class="account_form" id="login" method="post" @if(request()->query('return_url',false)) action="/account/login?return_url={{request()->query('return_url')}}" @else action="/account/login" @endif>
+        <form class="account_form" id="login" method="post" action="/account/login?return_url={{urlencode(request()->query('return_url',''))}}">
             @csrf
             <div class="accountContent">
                 <div class="text-center" style="margin-bottom: 24px;">
@@ -17,7 +17,7 @@
                     </div>
                     <div class="form-group ">
                         <label class="d-flex justify-content-between"><span>Password</span>
-                            <a href="/account/forget" class="color-link-defaut">
+                            <a href="/account/forget?return_url={{urlencode(request()->query('return_url',''))}}" class="color-link-defaut">
                                 <span class="forget">Forgot your password?</span>
                             </a>
                         </label>
@@ -29,7 +29,7 @@
                 <div class="split-line ">
                     <p class="text-center">
                         <span class="">Don't have an account? </span>
-                        <a class="" href="/account/register">Register</a>
+                        <a class="" href="/account/register?return_url={{urlencode(request()->query('return_url',''))}}">Register</a>
                     </p>
                 </div>
                 <div class="line-between">
