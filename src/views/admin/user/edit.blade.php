@@ -24,6 +24,20 @@
                 <div class="invalid-feedback"></div>
             </div>
             <div class="form-group">
+                <label for="">用户组</label>
+                <select name="group_id"  class="form-control">
+                    @foreach($res['group'] as $key=>$val)
+                        <option value="{{$val->id}}" @if($res['info']->group_id==$val->id) selected @endif>{{$val->name}}</option>
+                    @endforeach
+                </select>
+                <div class="invalid-feedback"></div>
+            </div>
+            <div class="form-group">
+                <label for="">用户组过期时间</label>
+                <input type="datetime-local" name="group_expire"  class="form-control " value="{{date('Y-m-d\TH:i',$res['info']->group_expire)}}">
+                <div class="invalid-feedback"></div>
+            </div>
+            <div class="form-group">
                 <label for="">状态</label>
                 <select name="status"  class="form-control">
                     @foreach($dict['user_status'] as $key=>$val)

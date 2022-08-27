@@ -55,7 +55,7 @@ Route::middleware(['web'])->group(function () {
             Route::match(['get', 'post'],'/user/{uuid}/edit', 'Aphly\LaravelCommon\Controllers\Admin\UserController@edit')->where('uuid', '[0-9]+');
             Route::match(['get', 'post'],'/user/{uuid}/password', 'Aphly\LaravelCommon\Controllers\Admin\UserController@password')->where('uuid', '[0-9]+');
             Route::post('/user/del', 'Aphly\LaravelCommon\Controllers\Admin\UserController@del');
-            Route::match(['get', 'post'],'/user/{uuid}/group', 'Aphly\LaravelCommon\Controllers\Admin\UserController@role')->where('uuid', '[0-9]+');
+            Route::match(['get', 'post'],'/user/{uuid}/credit', 'Aphly\LaravelCommon\Controllers\Admin\UserController@credit')->where('uuid', '[0-9]+');
             Route::match(['get', 'post'],'/user/{uuid}/avatar', 'Aphly\LaravelCommon\Controllers\Admin\UserController@avatar')->where('uuid', '[0-9]+');
 
             $route_arr = [

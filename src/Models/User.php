@@ -29,7 +29,7 @@ class User extends Authenticatable
     protected $fillable = [
         'uuid','nickname',
         'token',
-        'token_expire','avatar','status','gender','group_id'
+        'token_expire','avatar','status','gender','group_id','group_expire'
     ];
 
     /**
@@ -86,5 +86,9 @@ class User extends Authenticatable
 
     function group(){
         return $this->hasOne(Group::class,'id','group_id');
+    }
+
+    function credit(){
+        return $this->hasOne(UserCredit::class,'uuid','uuid');
     }
 }

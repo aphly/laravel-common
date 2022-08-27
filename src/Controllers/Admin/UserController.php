@@ -7,6 +7,7 @@ use Aphly\Laravel\Libs\UploadFile;
 use Aphly\LaravelCommon\Models\User;
 use Aphly\LaravelCommon\Models\UserAuth;
 use Aphly\LaravelCommon\Models\Group;
+use Aphly\LaravelCommon\Models\UserCredit;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
@@ -44,6 +45,7 @@ class UserController extends Controller
         if($request->isMethod('post')) {
             $user = User::find($request->uuid);
             $post = $request->all();
+            $post['group_expire'] = strtotime($post['group_expire']);
             if($user->update($post)){
                 $post['verified']  = isset($post['verified'])?1:0;
                 UserAuth::where(['id_type'=>'email','uuid'=>$user->uuid])->update(['verified'=>$post['verified']]);
@@ -53,6 +55,7 @@ class UserController extends Controller
         }else{
             $res['title'] = '';
             $res['info'] = User::where('uuid',$request->uuid)->first();
+            $res['group'] = Group::get();
             return $this->makeView('laravel-common::admin.user.edit',['res'=>$res]);
         }
     }
@@ -84,17 +87,15 @@ class UserController extends Controller
         }
     }
 
-    public function group(Request $request)
+    public function credit(Request $request)
     {
         if($request->isMethod('post')) {
-            User::where('uuid',$request->uuid)->update($request->only('group_id'));
+            UserCredit::updateOrCreate(['uuid'=>$request->uuid],$request->all());
             throw new ApiException(['code'=>0,'msg'=>'操作成功','data'=>['redirect'=>$this->index_url]]);
         }else{
             $res['title'] = '';
-            $res['info'] = User::find($request->uuid);
-            $res['select_ids'] = [$res['info']['role_id']];
-            $res['group'] = (new Group)->findAll();
-            return $this->makeView('laravel-common::admin.user.group',['res'=>$res]);
+            $res['info'] = UserCredit::where('uuid',$request->uuid)->first();
+            return $this->makeView('laravel-common::admin.user.credit',['res'=>$res]);
         }
     }
 
@@ -123,5 +124,6 @@ class UserController extends Controller
             return $this->makeView('laravel-common::admin.user.avatar',['res'=>$res]);
         }
     }
+
 
 }

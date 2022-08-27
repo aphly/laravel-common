@@ -58,10 +58,10 @@
                             @endif
                         </li>
                         <li>
-{{--                            <a class="badge badge-success ajax_get" data-href="/admin/user/{{$v['uuid']}}/role">用户组</a>--}}
                             <a class="badge badge-info ajax_get" data-href="/common_admin/user/{{$v['uuid']}}/edit">编辑</a>
                             <a class="badge badge-info ajax_get" data-href="/common_admin/user/{{$v['uuid']}}/password">修改密码</a>
                             <a class="badge badge-info ajax_get" data-href="/common_admin/user/{{$v['uuid']}}/avatar">头像</a>
+                            <a class="badge badge-info ajax_get" data-href="/common_admin/user/{{$v['uuid']}}/credit">积分</a>
                         </li>
                     </ul>
                     <div style="margin-left: 40px;margin-bottom: 10px;">
