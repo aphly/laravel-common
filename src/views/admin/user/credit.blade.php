@@ -5,11 +5,10 @@
     <form method="post" action="/common_admin/user/{{$res['info']->uuid}}/credit" class="save_form">
         @csrf
         <div>
-            <div class="userinfo">
-                uuid：{{$res['info']->uuid}}
-            </div>
-            <div class="userinfo">
-                用户名：{{$res['info']['nickname']}}
+            <div class="form-group">
+                <label for="">uuid</label>
+                <input type="number" name="uuid" readonly class="form-control " value="{{$res['info']->uuid}}">
+                <div class="invalid-feedback"></div>
             </div>
             <div class="form-group">
                 <label for="">point</label>

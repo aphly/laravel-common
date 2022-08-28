@@ -1,16 +1,60 @@
 @font-face {
-  font-family: "user-iconfont"; /* Project id 3579450 */
-  src: url('iconfont.woff2?t=1660113484063') format('woff2'),
-       url('iconfont.woff?t=1660113484063') format('woff'),
-       url('iconfont.ttf?t=1660113484063') format('truetype');
+  font-family: "common-iconfont"; /* Project id 3579450 */
+  src: url('iconfont.woff2?t=1661650100682') format('woff2'),
+       url('iconfont.woff?t=1661650100682') format('woff'),
+       url('iconfont.ttf?t=1661650100682') format('truetype');
 }
 
-.user-iconfont {
-  font-family: "user-iconfont" !important;
+.common-iconfont {
+  font-family: "common-iconfont" !important;
   font-size: 16px;
   font-style: normal;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+}
+
+.icon-xiangxiafanye:before {
+  content: "\e60a";
+}
+
+.icon-suo:before {
+  content: "\e623";
+}
+
+.icon-jifen-xianxing2-0:before {
+  content: "\e684";
+}
+
+.icon-pinglun:before {
+  content: "\e6ad";
+}
+
+.icon-pinglun1:before {
+  content: "\e891";
+}
+
+.icon-dianzan:before {
+  content: "\ec7f";
+}
+
+.icon-dianzan_kuai:before {
+  content: "\ec8c";
+}
+
+.icon-un_dianzan:before {
+  content: "\ec8d";
+}
+
+.icon-un_dianzan_kuai:before {
+  content: "\ec8e";
+}
+
+.icon-liulan:before {
+  content: "\e693";
+}
+
+.icon-liulan1:before {
+  content: "\e62c";
 }
 
 .icon-sousuo:before {

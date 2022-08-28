@@ -22,7 +22,7 @@
     .header3 .dropdown-menu a:hover{background-color:rgba(0,0,0,0.04)}
 </style>
 
-    <div class="header d-none">
+    <div class="header ">
         <div class="container d-flex justify-content-between">
             <div class="header1">world</div>
             <div class="header2">
@@ -34,18 +34,18 @@
             </div>
             <div class="header3">
                 <div class="header31">
-                    <i class="user-iconfont icon-sousuo"></i>
+                    <i class="common-iconfont icon-sousuo"></i>
                     <input type="search" placeholder="Search">
                 </div>
                 <ul>
-                    <a href="/account/group"><li><i class="user-iconfont icon-zuanshi"></i></li></a>
-                    <a href=""><li><i class="user-iconfont icon-tongzhi"></i></li></a>
+                    <a href="/account/group"><li><i class="common-iconfont icon-zuanshi"></i></li></a>
+                    <a href=""><li><i class="common-iconfont icon-tongzhi"></i></li></a>
                     @if($user)
                         <div class="dropdown">
-                            <a href="javascript:void(0)" id="dropdownMenuButton" data-toggle="dropdown" aria-expanded="false"><li><i class="user-iconfont icon-touxiang"></i></li></a>
+                            <a href="javascript:void(0)" id="dropdownMenuButton" data-toggle="dropdown" aria-expanded="false"><li><i class="common-iconfont icon-touxiang"></i></li></a>
                             <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenuButton">
                                 <a class="dropdown-item d-flex" href="javascript:void(0)">
-                                    <div class=""><i class="user-iconfont icon-touxiang"></i></div>
+                                    <div class=""><i class="common-iconfont icon-touxiang"></i></div>
                                     <div>{{$user['nickname']}}</div>
                                 </a>
                                 <a class="dropdown-item" href="/account/index">Profile</a>
@@ -56,7 +56,7 @@
                             </div>
                         </div>
                     @else
-                        <a href="/account/login"><li><i class="user-iconfont icon-touxiang"></i></li></a>
+                        <a href="/account/login"><li><i class="common-iconfont icon-touxiang"></i></li></a>
                     @endif
                 </ul>
             </div>
