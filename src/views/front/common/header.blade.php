@@ -22,7 +22,7 @@
     .header3 .dropdown-menu a:hover{background-color:rgba(0,0,0,0.04)}
 </style>
 
-<div class="header d-none">
+<div class="header">
     <div class="container d-flex justify-content-between">
         <div class="header1">world</div>
         <div class="header2">
