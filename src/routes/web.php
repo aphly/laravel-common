@@ -18,6 +18,8 @@ Route::middleware(['web'])->group(function () {
     Route::get('checkout/success', 'Aphly\LaravelCommon\Controllers\Front\CheckoutController@success');
     Route::get('checkout/fail', 'Aphly\LaravelCommon\Controllers\Front\CheckoutController@fail');
 
+    Route::match(['get'],'news/{id}', 'Aphly\LaravelCommon\Controllers\Front\NewsController@detail')->where('id', '[0-9]+');
+
     Route::prefix('account')->group(function () {
         Route::match(['get'],'blocked', 'Aphly\LaravelCommon\Controllers\Front\AccountController@forgetConfirmation')->name('blocked');
 
@@ -42,7 +44,7 @@ Route::middleware(['web'])->group(function () {
         });
     });
 
-    Route::match(['get'],'news/{id}', 'Aphly\LaravelCommon\Controllers\Front\NewsController@info');
+
 });
 
 Route::middleware(['web'])->group(function () {
@@ -61,7 +63,7 @@ Route::middleware(['web'])->group(function () {
             $route_arr = [
                 ['group','\GroupController'],['credit_price','\CreditPriceController'],['user_credit_log','\UserCreditLogController'],['user_credit_order','\UserCreditOrderController'],
                 ['user_group_order','\UserGroupOrderController'],['category','\CategoryController'],['filter','\FilterController'],['news','\NewsController'],
-                ['country','\CountryController'],['geo','\GeoController'],['zone','\ZoneController'],['currency','\CurrencyController'],
+                ['country','\CountryController'],['geo','\GeoController'],['zone','\ZoneController'],['currency','\CurrencyController'],['link','\LinkController']
             ];
 
             foreach ($route_arr as $val){
@@ -71,10 +73,10 @@ Route::middleware(['web'])->group(function () {
                 Route::post('/'.$val[0].'/del', 'Aphly\LaravelCommon\Controllers\Admin'.$val[1].'@del');
             }
 
+            Route::get('/filter/ajax', 'Aphly\LaravelCommon\Controllers\Admin\FilterController@ajax');
             Route::get('/category/ajax', 'Aphly\LaravelCommon\Controllers\Admin\CategoryController@ajax');
             Route::get('/category/show', 'Aphly\LaravelCommon\Controllers\Admin\CategoryController@show');
-
-            Route::get('/filter/ajax', 'Aphly\LaravelCommon\Controllers\Admin\FilterController@ajax');
+            Route::get('/link/show', 'Aphly\LaravelCommon\Controllers\Admin\LinkController@show');
 
         });
     });

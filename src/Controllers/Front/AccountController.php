@@ -6,7 +6,6 @@ use Aphly\Laravel\Exceptions\ApiException;
 use Aphly\Laravel\Libs\Helper;
 use Aphly\Laravel\Mail\MailSend;
 
-
 use Aphly\LaravelPayment\Models\Payment;
 use Aphly\LaravelCommon\Mail\Forget;
 use Aphly\LaravelCommon\Mail\Verify;

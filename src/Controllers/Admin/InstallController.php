@@ -29,6 +29,7 @@ class InstallController extends Controller
                 DB::table('admin_menu')->insert($data);
             }
             $data=[];
+            $data[] =['name' => '链接管理','url' =>'/common_admin/link/index','pid'=>$menu->id,'is_leaf'=>1,'module_id'=>$this->module_id,'sort'=>0];
             $data[] =['name' => '分类管理','url' =>'/common_admin/category/index','pid'=>$menu->id,'is_leaf'=>1,'module_id'=>$this->module_id,'sort'=>0];
             $data[] =['name' => '筛选管理','url' =>'/common_admin/filter/index','pid'=>$menu->id,'is_leaf'=>1,'module_id'=>$this->module_id,'sort'=>0];
             $data[] =['name' => '文章管理','url' =>'/common_admin/news/index','pid'=>$menu->id,'is_leaf'=>1,'module_id'=>$this->module_id,'sort'=>0];
