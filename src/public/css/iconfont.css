@@ -1,8 +1,8 @@
 @font-face {
   font-family: "common-iconfont"; /* Project id 3579450 */
-  src: url('iconfont.woff2?t=1661650100682') format('woff2'),
-       url('iconfont.woff?t=1661650100682') format('woff'),
-       url('iconfont.ttf?t=1661650100682') format('truetype');
+  src: url('iconfont.woff2?t=1661849643704') format('woff2'),
+       url('iconfont.woff?t=1661849643704') format('woff'),
+       url('iconfont.ttf?t=1661849643704') format('truetype');
 }
 
 .common-iconfont {
@@ -13,8 +13,44 @@
   -moz-osx-font-smoothing: grayscale;
 }
 
-.icon-xiangxiafanye:before {
+.icon-24gf-bookmarks:before {
+  content: "\e8b7";
+}
+
+.icon-twitter:before {
+  content: "\e882";
+}
+
+.icon-facebook:before {
+  content: "\e953";
+}
+
+.icon-xingxing:before {
+  content: "\e62b";
+}
+
+.icon-zitidaxiao:before {
+  content: "\e688";
+}
+
+.icon-caidan:before {
+  content: "\e624";
+}
+
+.icon-xiangt:before {
+  content: "\ec90";
+}
+
+.icon-xiangr:before {
+  content: "\ec91";
+}
+
+.icon-xiangb:before {
   content: "\e60a";
+}
+
+.icon-xiangl:before {
+  content: "\ec8f";
 }
 
 .icon-suo:before {

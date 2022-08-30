@@ -1,7 +1,7 @@
 @include('laravel-common::front.common.header')
 <link rel="stylesheet" href="{{ URL::asset('vendor/laravel-common/css/account.css') }}">
 <section class="">
-    <div class="confirmation container">
+    <div class=" container">
         <div>point {{$res['userCredit']->point}}</div>
         <div class="confirmation container">
             @include('laravel-common::front.account.submenu')
@@ -45,6 +45,7 @@ $(function () {
         $(this).addClass('active')
     })
 })
+
 function order(credit_price_id){
     $.ajax({
         url:'/account/credit',

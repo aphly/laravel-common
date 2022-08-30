@@ -2,8 +2,10 @@
 <section class="">
     <div class=" container">
         <ul class="submenu">
+            <a href="/account/index"><li @if(request()->is('account/index')) class="active" @endif>Profile</li></a>
             <a href="/account/group"><li @if(request()->is('account/group')) class="active" @endif>VIP</li></a>
             <a href="/account/credit"><li @if(request()->is('account/credit')) class="active" @endif>POINT</li></a>
+            <a href="/account/setting"><li @if(request()->is('account/setting')) class="active" @endif>Setting</li></a>
         </ul>
     </div>
 </section>
