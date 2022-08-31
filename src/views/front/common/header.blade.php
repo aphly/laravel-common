@@ -6,7 +6,7 @@
         --a-hover:#007aff;
         --body-bg:#f1f1f1;
     }
-    .shadow {box-shadow: 0 0 #0000,0 0 #0000,0 2px 8px 0 rgba(0, 0, 0, .16);}
+    ._shadow {box-shadow: 0 0 #0000,0 0 #0000,0 2px 8px 0 rgba(0, 0, 0, .16);}
     .text-brand{font-weight: 600;--tw-gradient-from:#1c9dfe;--tw-gradient-to:#023ff4;--tw-gradient-stops:var(--tw-gradient-from),var(--tw-gradient-to,rgb(28 157 254/0));background-image:linear-gradient(to right,var(--tw-gradient-stops));border:none;color:#fff;margin-top: 15px;}
 
     .header{background-color:rgb(255,255,255);box-shadow:0 1px 4px rgb(24 38 16 / 10%);width:100%;z-index:1100;top:0px;left:0;right:0px;position: fixed;}
