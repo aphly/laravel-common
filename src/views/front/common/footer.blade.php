@@ -1,4 +1,4 @@
-<footer class="">
+<footer class="d-none">
     <div class="container">
         <div class="footer1">
             <a href="/news/1"><div>About Us</div></a>
