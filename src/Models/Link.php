@@ -19,10 +19,12 @@ class Link extends Model
 
     public function menu(): array
     {
-        $tree = Cache::rememberForever('link', function () {
-            $tree = self::where('status', 1)->orderBy('sort', 'desc')->get()->toArray();
-            return Helper::getTree($tree, true);
-        });
+//        $tree = Cache::rememberForever('link', function () {
+//            $tree = self::where('status', 1)->orderBy('sort', 'desc')->get()->toArray();
+//            return Helper::getTree($tree, true);
+//        });
+        $tree = self::where('status', 1)->orderBy('sort', 'desc')->get()->toArray();
+        $tree =  Helper::getTree($tree, true);
         $links = [];
         foreach($tree as $v){
             $links[$v['id']]=$v;

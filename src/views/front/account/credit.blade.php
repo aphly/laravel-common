@@ -14,11 +14,12 @@
                     <div>
                         {{$val->credit_key}} {{$val->credit_val}} {{$val->price}}
                     </div>
-                    <div onclick="order({{$val->id}})">order</div>
+                    <div onclick="_confirm({{$val->id}},this)" data-price="{{$val->price}}">order</div>
                 </li>
                 @endforeach
             </ul>
         </div>
+
         <div>
             <ul class="userCreditLog">
                 @foreach($res['userCreditLog'] as $val)
@@ -33,9 +34,35 @@
         </div>
     </div>
 </section>
+
+<section>
+    <div class="modal fade" id="Modal1" tabindex="-1" aria-labelledby="ModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="ModalLabel">Confirm</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div></div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary">Save changes</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
 <style>
 .credit_price li{}
 .credit_price li.active{}
+
+.modal{z-index: 1250;background: rgb(0 0 0 / 10%);}
+.modal .modal-dialog{margin-top: 10%;}
 </style>
 <script>
 
@@ -45,8 +72,14 @@ $(function () {
         $(this).addClass('active')
     })
 })
+let credit_price_id;
+function _confirm(id,_this) {
+    credit_price_id = id;
+    //$(_this).data('price')
+    $('#Modal1').modal('show')
+}
 
-function order(credit_price_id){
+function order(){
     $.ajax({
         url:'/account/credit',
         type:'post',

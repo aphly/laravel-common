@@ -21,7 +21,7 @@
     .header3 ul a li{border-radius:50%;background:#eee;height:100%;display:flex;justify-content:center;align-items:center}
     .header3 ul a li i{font-size:26px;color:#000}
     .header3 ul a li:hover{background:#e5e5e5}
-    .header31 input{border:none;outline-style:none;background:transparent;width:100px;transition:all 0.5s}
+    .header31 input{border:none;outline-style:none;background:transparent;width:100px;transition:all 0.5s;line-height: 44px;}
     .header31{background:#eee;display:flex;align-items:center;border-radius:40px;margin:0 5px;padding:0 10px;height: 100%;}
     .header31 i{margin-right:5px}
     .header31 input:focus{width:150px}
@@ -37,19 +37,21 @@
     .header13 i{font-size: 26px;color:#000;}
     .header11 img{height: 100%;}
     .header11{width: 100px;margin-right: 10px;}
+
+
     @media (max-width: 1199.98px) {
         .header{}
     }
 </style>
 
-<div class="header d-none">
+<div class="header">
     <div class="container d-flex justify-content-between">
         <div class="header1">
             <div class="header11">
                 <img src="" alt="">
             </div>
-            <div class="header13 d-xl-none">
-                <i class="common-iconfont icon-caidan"></i>
+            <div class="header13 d-xl-none" onclick="menu_ext()">
+                <i class="common-iconfont icon-caidan1"></i>
             </div>
         </div>
 
@@ -64,10 +66,12 @@
         </div>
         <div class="header3">
             <div class="d-none d-xl-block">
-                <div class="header31">
-                    <i class="common-iconfont icon-sousuo"></i>
-                    <input type="search" placeholder="Search">
-                </div>
+                <form action="/novel/index" method="get">
+                    <div class="header31">
+                        <i class="common-iconfont icon-sousuo"></i>
+                        <input type="search" name="title" placeholder="Search">
+                    </div>
+                </form>
             </div>
             <ul>
                 <a href="/account/group"><li><i class="common-iconfont icon-zuanshi"></i></li></a>
@@ -92,5 +96,42 @@
         </div>
     </div>
 </div>
+<div class="m_header_ext d-xl-none">
+    <div class="m_header_ext1">
+        <form action="/novel/index" method="get">
+        <div class="m_header_ext11">
+            <i class="common-iconfont icon-sousuo"></i>
+            <input type="search" name="title" placeholder="Search">
+        </div>
+        </form>
+    </div>
+    <div class="m_header_ext2">
+        <ul>
+            @if(isset($link[1]['child']))
+                @foreach($link[1]['child'] as $val)
+                    <a href="{{$val['url']}}"><li>{{$val['name']}}</li></a>
+                @endforeach
+            @endif
+        </ul>
+    </div>
+</div>
+<style>
+    .m_header_ext{position: fixed;top: 70px;left: 0;width: 100%;height: 0;z-index:1100;transition: all 0.5s;background: #fff;overflow: hidden;}
+    .m_header_ext.active{height: calc(100% - 70px);padding: 0 15px;}
+    .m_header_ext11 input{border:none;outline-style:none;background:transparent;width:100%;transition:all 0.5s;height: 44px;}
+    .m_header_ext11{background:#eee;display:flex;align-items:center;border-radius:40px;margin:0 5px;padding:0 10px;height: 100%;}
+    .m_header_ext11 i{margin-right:5px}
+    .m_header_ext2 li{height: 38px;line-height: 38px;font-size: 17px;font-weight: 700;}
+    .m_header_ext1{padding: 10px 0;}
+</style>
 <div class="headerX"></div>
-
+<script>
+function menu_ext() {
+    let _this = $('.m_header_ext');
+    if(_this.hasClass('active')){
+        _this.removeClass('active')
+    }else{
+        _this.addClass('active')
+    }
+}
+</script>
