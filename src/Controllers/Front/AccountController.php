@@ -337,4 +337,12 @@ class AccountController extends Controller
             throw new ApiException(['code'=>0,'msg'=>'signIn_point']);
         }
     }
+
+    public function profile(Request $request)
+    {
+        //$user = User::where(['uuid'=>$this->user->uuid])->first();
+        $this->user->nickname = $request->input('nickname');
+        $this->user->save();
+        throw new ApiException(['code'=>0,'msg'=>'success']);
+    }
 }

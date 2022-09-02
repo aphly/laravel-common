@@ -23,7 +23,8 @@ class UserCredit extends Model
     function handle($type,$uuid,$credit_key,$pre,$credit_val,$reason=''){
         if(in_array($credit_key,['silver','gold','point'])){
             $userCredit = $this->where(['uuid'=>$uuid])->lockForUpdate()->first();
-            if(!empty($userCredit) && intval($credit_val)>=0){
+            $credit_val = intval($credit_val);
+            if(!empty($userCredit) && $credit_val>=0){
                 if($pre=='+'){
                     $userCredit->$credit_key += $credit_val;
                 }else if($pre=='-'){

@@ -2,7 +2,7 @@
 <link rel="stylesheet" href="{{ URL::asset('vendor/laravel-common/css/account.css') }}">
 <section class="">
     <div class=" container">
-        asdsad
+
     </div>
 </section>
 <script>
