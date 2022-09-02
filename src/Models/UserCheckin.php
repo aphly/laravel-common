@@ -15,5 +15,5 @@ class UserCheckin extends Model
         'uuid','ip','ua','lang'
     ];
 
-
+    const point = 100; //checkin
 }

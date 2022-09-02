@@ -281,11 +281,10 @@ class AccountController extends Controller
         }else{
             $res['title'] = 'Account Group';
             $res['group'] = Group::where(['status'=>1])->get()->keyBy('id');
+            $res['method'] = Method::where(['status'=>1])->orderBy('sort','desc')->get();
             return $this->makeView('laravel-common::front.account.group',['res'=>$res]);
         }
     }
-
-
 
     public function credit(AccountRequest $request)
     {
@@ -333,7 +332,7 @@ class AccountController extends Controller
         }else{
             $userSignIn = UserCheckin::create($input);
             if($userSignIn->id){
-                (new UserCredit)->handle('Checkin',$this->user->uuid,'point','+',UserCredit::point,'UserSignIn#'.$userSignIn->id);
+                (new UserCredit)->handle('Checkin',$this->user->uuid,'point','+',$userSignIn::point,'UserSignIn#'.$userSignIn->id);
             }
             throw new ApiException(['code'=>0,'msg'=>'signIn_point']);
         }

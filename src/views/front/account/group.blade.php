@@ -30,7 +30,7 @@
                                     <option value="12">1 year</option>
                                 </select>
                             </div>
-                            <div onclick="order({{$val->id}})" class="order">SUBSCRIBE</div>
+                            <div onclick="_confirm({{$val->id}},this)" data-price="{{$val->price}}" class="order">SUBSCRIBE</div>
                         </li>
                     @endif
                 @endforeach
@@ -54,6 +54,8 @@
 </style>
 <script>
 let month=1;
+let method_id=1;
+let group_id=2;
 $(function () {
     $('.group_order li').on('change','select',function () {
         let total = $(this).data('price')*$(this).val();
@@ -61,13 +63,26 @@ $(function () {
         month = $(this).val();
         $('.total .month').html($(this).find("option:selected").text())
     })
+    $('#payment_methods').on('click','li',function () {
+        $('.method2 li').removeClass('active')
+        $(this).addClass('active')
+        method_id = $(this).data('id')
+    })
 })
-function order(group_id){
+
+function _confirm(id,_this) {
+    group_id = id;
+    $('.checkout1 .confirm .confirm1 span').html($(_this).data('point'))
+    $('.checkout1 .confirm .total').html('$'+$(_this).data('price')*month)
+    $('#checkout').modal('show')
+}
+
+function order(){
     $.ajax({
         url:'/account/group',
         type:'post',
         dataType: "json",
-        data: {group_id,'method_id':1,month,'_token':'{{csrf_token()}}'},
+        data: {group_id,method_id,month,'_token':'{{csrf_token()}}'},
         success:function (res) {
             if(!res.code){
                 location.href=res.data.redirect

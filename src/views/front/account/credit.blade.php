@@ -48,7 +48,7 @@
                         <div class="credit_price1c">${{$val->price}}</div>
                     </div>
                     <div class="credit_price2" >
-                        <div class="buleBtn bowen" onclick="_confirm({{$val->id}},this)" data-price="{{$val->price}}" data-point="{{$val->credit_val}}">BUY</div>
+                        <div class="buleBtn bowen" onclick="_confirm({{$val->id}},this)" data-price="{{$val->price}}" data-key="{{$val->credit_key}}" data-val="{{$val->credit_val}}">BUY</div>
                     </div>
                 </li>
                 @endforeach
@@ -121,18 +121,18 @@
 <style>
 .modal{z-index: 1250;background: rgb(0 0 0 / 10%);}
 .modal .modal-dialog{margin-top: 10%;}
-
 .buleBtn{padding: 5px 25px;border-radius: 20px;cursor: pointer; }
-.checkout4{display: flex;flex-direction: row-reverse;}
-.method2 li{border: 1px solid #f1f1f1;border-radius: 4px;padding: 0 16px;height: 44px;display: flex;font-weight:600; }
-.method2 li.active{border: 1px solid var(--a-hover);}
-.method2 li .method2a{width: 88px;height: 100%;}
-.method2 li .method2a img{max-width: 100%;height: 100%;}
+.modal .checkout4{display: flex;flex-direction: row-reverse;}
+.modal .method2 li{border: 1px solid #f1f1f1;border-radius: 4px;padding: 0 16px;height: 44px;display: flex;font-weight:600; }
+.modal .method2 li.active{border: 1px solid var(--a-hover);}
+.modal .method2 li .method2a{width: 88px;height: 100%;}
+.modal .method2 li .method2a img{max-width: 100%;height: 100%;}
 </style>
 <script>
 let credit_price_id;
 let method_id=1;
 $(function () {
+
     $('.credit_price').on('click','li',function () {
         $('.credit_price li').not($(this)).removeClass('active')
         $(this).addClass('active')
@@ -143,17 +143,18 @@ $(function () {
         $(this).addClass('active')
         method_id = $(this).data('id')
     })
+
 })
 
 function _confirm(id,_this) {
     credit_price_id = id;
-    $('.checkout1 .confirm .confirm1 span').html($(_this).data('point'))
+    $('.checkout1 .confirm .confirm1 span').html($(_this).data('val'))
+    $('.checkout1 .confirm .confirm2').html($(_this).data('key'))
     $('.checkout1 .confirm .total').html('$'+$(_this).data('price'))
     $('#checkout').modal('show')
 }
 
 function order(){
-
     $.ajax({
         url:'/account/credit',
         type:'post',

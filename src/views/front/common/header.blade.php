@@ -47,10 +47,23 @@
         </div>
 
         <div class="header2 d-none d-xl-block">
-            <ul>
+            <ul class="menu d-flex">
                 @if(isset($link[1]['child']))
                     @foreach($link[1]['child'] as $val)
-                        <a href="{{$val['url']}}"><li>{{$val['name']}}</li></a>
+                        <li>
+                            @if(isset($val['child']))
+                                @php $val['child_url'] = array_column($val['child'],'url'); @endphp
+                                <a class="nav-link {{(request()->is($val['url']) || in_array($val['url'],$val['child_url']))?'active':''}}"
+                                   id="navbarDropdown{{$val['id']}}" role="button" data-toggle="dropdown" aria-expanded="false">{{$val['name']}}</a>
+                                <div class="dropdown-menu" aria-labelledby="navbarDropdown{{$val['id']}}">
+                                    @foreach($val['child'] as $v)
+                                    <a class="dropdown-item " href="{{$v['url']}}">{{$v['name']}}</a>
+                                    @endforeach
+                                </div>
+                            @else
+                                <a href="{{$val['url']}}" class="nav-link {{request()->is($val['url'])?'active':''}}">{{$val['name']}}</a>
+                            @endif
+                        </li>
                     @endforeach
                 @endif
             </ul>
@@ -65,18 +78,27 @@
                 </form>
             </div>
             <ul>
-                <a href="/account/group"><li><i class="common-iconfont icon-zuanshi"></i></li></a>
+                <div class="dropdown">
+                    <a href="javascript:void(0)" id="zuanshi" data-toggle="dropdown" aria-expanded="false"><li><i class="common-iconfont icon-zuanshi"></i></li></a>
+                    <div class="dropdown-menu dropdown-menu-right" aria-labelledby="zuanshi">
+                        <a class="dropdown-item" href="javascript:void(0)" >
+                            <div onclick="checkin(this)">checkin</div>
+                            <div>checkin</div>
+                        </a>
+                        <a class="dropdown-item" href="/account/credit">Point</a>
+                        <a class="dropdown-item" href="/account/group">VIP</a>
+                    </div>
+                </div>
                 <a href="/account/novel/bookmarks"><li><i class="common-iconfont icon-24gf-bookmarks"></i></li></a>
                 @if($user)
                     <div class="dropdown">
-                        <a href="javascript:void(0)" id="dropdownMenuButton" data-toggle="dropdown" aria-expanded="false"><li><i class="common-iconfont icon-touxiang"></i></li></a>
-                        <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenuButton">
+                        <a href="javascript:void(0)" id="touxiang" data-toggle="dropdown" aria-expanded="false"><li><i class="common-iconfont icon-touxiang"></i></li></a>
+                        <div class="dropdown-menu dropdown-menu-right" aria-labelledby="touxiang">
                             <a class="dropdown-item d-flex" href="javascript:void(0)">
                                 <div class=""><i class="common-iconfont icon-touxiang"></i></div>
                                 <div>{{$user['nickname']}}</div>
                             </a>
                             <a class="dropdown-item" href="/account/index">Profile</a>
-                            <a class="dropdown-item" href="/account/credit">Point</a>
                             <a class="dropdown-item ajax_post" href="/account/logout">Log out</a>
                         </div>
                     </div>
@@ -103,6 +125,25 @@
                     <a href="{{$val['url']}}"><li>{{$val['name']}}</li></a>
                 @endforeach
             @endif
+
+            @if(isset($link[1]['child']))
+                @foreach($link[1]['child'] as $val)
+                    <li>
+                        @if(isset($val['child']))
+                            @php $val['child_url'] = array_column($val['child'],'url'); @endphp
+                            <a class="nav-link {{(request()->is($val['url']) || in_array($val['url'],$val['child_url']))?'active':''}}"
+                               id="navbarDropdown{{$val['id']}}" role="button" data-toggle="dropdown" aria-expanded="false">{{$val['name']}}</a>
+                            <div class="dropdown-menu" aria-labelledby="navbarDropdown{{$val['id']}}">
+                                @foreach($val['child'] as $v)
+                                    <a class="dropdown-item " href="{{$v['url']}}">{{$v['name']}}</a>
+                                @endforeach
+                            </div>
+                        @else
+                            <a href="{{$val['url']}}" class="nav-link {{request()->is($val['url'])?'active':''}}">{{$val['name']}}</a>
+                        @endif
+                    </li>
+                @endforeach
+            @endif
         </ul>
     </div>
 </div>
@@ -125,13 +166,14 @@ function menu_ext() {
         _this.addClass('active')
     }
 }
-function checkin() {
+function checkin(_this) {
     $.ajax({
         url:'/account/checkin',
         type:'post',
         data:{'_token':'{{csrf_token()}}'},
         success:function (res) {
             console.log(res)
+            $(_this).html('xxx')
         }
     })
 }
