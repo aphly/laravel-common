@@ -9,6 +9,9 @@ a{color: var(--a);}
     --tw-gradient-stops:var(--tw-gradient-from),var(--tw-gradient-to,rgb(28 157 254/0));
     background-image:linear-gradient(to right,var(--tw-gradient-stops));border:none;color:#fff;margin-top: 15px;}
 
+
+
+
 @media (max-width: 1199.98px) {
 
 }

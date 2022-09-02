@@ -122,12 +122,6 @@
         <ul>
             @if(isset($link[1]['child']))
                 @foreach($link[1]['child'] as $val)
-                    <a href="{{$val['url']}}"><li>{{$val['name']}}</li></a>
-                @endforeach
-            @endif
-
-            @if(isset($link[1]['child']))
-                @foreach($link[1]['child'] as $val)
                     <li>
                         @if(isset($val['child']))
                             @php $val['child_url'] = array_column($val['child'],'url'); @endphp
@@ -178,3 +172,4 @@ function checkin(_this) {
     })
 }
 </script>
+
