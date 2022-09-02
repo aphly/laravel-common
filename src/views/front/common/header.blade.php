@@ -2,13 +2,6 @@
 <link rel="stylesheet" href="{{ URL::asset('vendor/laravel-common/css/iconfont.css') }}">
 <link rel="stylesheet" href="{{ URL::asset('vendor/laravel-common/css/common.css') }}">
 <style>
-    :root{
-        --a-hover:#007aff;
-        --body-bg:#f1f1f1;
-    }
-    ._shadow {box-shadow: 0 0 #0000,0 0 #0000,0 2px 8px 0 rgba(0, 0, 0, .16);}
-    .text-brand{font-weight: 600;--tw-gradient-from:#1c9dfe;--tw-gradient-to:#023ff4;--tw-gradient-stops:var(--tw-gradient-from),var(--tw-gradient-to,rgb(28 157 254/0));background-image:linear-gradient(to right,var(--tw-gradient-stops));border:none;color:#fff;margin-top: 15px;}
-
     .header{background-color:rgb(255,255,255);box-shadow:0 1px 4px rgb(24 38 16 / 10%);width:100%;z-index:1100;top:0px;left:0;right:0px;position: fixed;}
     .header .container{align-items:center;height:70px}
     .headerX{height:70px;width: 100%;}
@@ -37,8 +30,6 @@
     .header13 i{font-size: 26px;color:#000;}
     .header11 img{height: 100%;}
     .header11{width: 100px;margin-right: 10px;}
-
-
     @media (max-width: 1199.98px) {
         .header{}
     }
@@ -133,5 +124,15 @@ function menu_ext() {
     }else{
         _this.addClass('active')
     }
+}
+function checkin() {
+    $.ajax({
+        url:'/account/checkin',
+        type:'post',
+        data:{'_token':'{{csrf_token()}}'},
+        success:function (res) {
+            console.log(res)
+        }
+    })
 }
 </script>

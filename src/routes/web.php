@@ -40,7 +40,7 @@ Route::middleware(['web'])->group(function () {
             Route::get('index', 'Aphly\LaravelCommon\Controllers\Front\AccountController@index');
             Route::match(['get', 'post'],'group', 'Aphly\LaravelCommon\Controllers\Front\AccountController@group');
             Route::match(['get', 'post'],'credit', 'Aphly\LaravelCommon\Controllers\Front\AccountController@credit');
-
+            Route::match(['post'],'checkin', 'Aphly\LaravelCommon\Controllers\Front\AccountController@checkin');
         });
     });
 

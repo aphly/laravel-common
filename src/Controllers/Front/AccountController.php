@@ -6,6 +6,8 @@ use Aphly\Laravel\Exceptions\ApiException;
 use Aphly\Laravel\Libs\Helper;
 use Aphly\Laravel\Mail\MailSend;
 
+use Aphly\LaravelCommon\Models\UserCheckin;
+use Aphly\LaravelPayment\Models\Method;
 use Aphly\LaravelPayment\Models\Payment;
 use Aphly\LaravelCommon\Mail\Forget;
 use Aphly\LaravelCommon\Mail\Verify;
@@ -261,8 +263,8 @@ class AccountController extends Controller
                 $input['method_id'] = $request->input('method_id',1);
                 $input['cancel_url'] = url('/account/group');
                 $input['notify_func'] = '\Aphly\LaravelCommon\Models\UserGroupOrder@notify';
-                $input['success_url'] = url('/account/checkout_success');
-                $input['fail_url'] = url('/account/checkout_fail');
+                $input['success_url'] = url('/checkout/checkout_success');
+                $input['fail_url'] = url('/checkout/checkout_fail');
                 $payment = (new Payment)->make($input);
                 if($payment->id){
                     $input['uuid'] = $this->user['uuid'];
@@ -297,8 +299,8 @@ class AccountController extends Controller
                 $input['method_id'] = $request->input('method_id',1);
                 $input['cancel_url'] = url('/account/credit');
                 $input['notify_func'] = '\Aphly\LaravelCommon\Models\UserCreditOrder@notify';
-                $input['success_url'] = url('/account/checkout_success');
-                $input['fail_url'] = url('/account/checkout_fail');
+                $input['success_url'] = url('/checkout/checkout_success');
+                $input['fail_url'] = url('/checkout/checkout_fail');
                 $payment = (new Payment)->make($input);
                 if($payment->id){
                     $input['uuid'] = $this->user['uuid'];
@@ -317,9 +319,23 @@ class AccountController extends Controller
             $res['creditPrice'] = CreditPrice::where(['status'=>1])->orderBy('sort','desc')->get();
             $res['userCredit'] = UserCredit::where('uuid',$this->user->uuid)->first();
             $res['userCreditLog'] = UserCreditLog::where('uuid',$this->user->uuid)->orderBy('id','desc')->get();
+            $res['method'] = Method::where(['status'=>1])->orderBy('sort','desc')->get();
             return $this->makeView('laravel-common::front.account.credit',['res'=>$res]);
         }
     }
 
-
+    public function checkin(Request $request)
+    {
+        $input = ['uuid'=>$this->user->uuid,'ua'=>$request->header('user-agent'),'ip'=>$request->ip(),'lang'=>$request->header('accept-language')];
+        $info = UserCheckin::where($input)->whereBetween('created_at',[mktime(0,0,0,date('m'),date('d'),date('Y')),mktime(23,59,59,date('m'),date('d'),date('Y'))])->first();
+        if(!empty($info)){
+            throw new ApiException(['code'=>0,'msg'=>'signIn','data'=>['info'=>$info]]);
+        }else{
+            $userSignIn = UserCheckin::create($input);
+            if($userSignIn->id){
+                (new UserCredit)->handle('Checkin',$this->user->uuid,'point','+',UserCredit::point,'UserSignIn#'.$userSignIn->id);
+            }
+            throw new ApiException(['code'=>0,'msg'=>'signIn_point']);
+        }
+    }
 }

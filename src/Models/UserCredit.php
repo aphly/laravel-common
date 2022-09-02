@@ -20,7 +20,7 @@ class UserCredit extends Model
 
     const CreditKey = ['point','silver','gold'];
 
-    public $type = ['Buy','Login','Comments'];
+    const point = 100; //checkin
 
     function handle($type,$uuid,$credit_key,$pre,$credit_val,$reason=''){
         if(in_array($credit_key,['silver','gold','point'])){

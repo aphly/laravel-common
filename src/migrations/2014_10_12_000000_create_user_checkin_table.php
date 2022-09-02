@@ -13,11 +13,12 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('common_user_sign_in', function (Blueprint $table) {
+        Schema::create('common_user_checkin', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('uuid')->index();
             $table->string('ip',64)->nullable();
             $table->string('ua',255)->nullable();
+            $table->string('lang',255)->nullable();
             $table->unsignedBigInteger('created_at')->index();
             $table->unsignedBigInteger('updated_at');
         });
@@ -30,6 +31,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('common_user_sign_in');
+        Schema::dropIfExists('common_user_checkin');
     }
 };
