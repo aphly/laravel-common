@@ -25,7 +25,7 @@
             .credit_price1a i{font-size: 20px;}
             .credit_price1b{color: #888;}
             .credit_price1c{font-size: 13px;}
-            .buleBtn{padding: 5px 25px;border-radius: 20px;cursor: pointer; }
+
         </style>
         <div class="credit1">
             <div class="credit11">My Point</div>
@@ -81,13 +81,13 @@
                 </div>
                 <div class="modal-body">
                     <div class="checkout1">
-                        <div>Your selection</div>
+                        <div class="checkout11">Your selection</div>
                         <div class="d-flex justify-content-between confirm">
-                            <div class="confirm">
-                                <div class="confirm1"><i class="common-iconfont icon-jifen-xianxing2-0"></i><span>100</span></div>
-                                <div class="confirm2">Point</div>
+                            <div class="confirm0">
+                                <div class="confirm1"><i class="common-iconfont icon-jifen-xianxing2-0"></i><span></span></div>
+                                <div class="confirm2"></div>
                             </div>
-                            <div class="total">$19.99</div>
+                            <div class="total"></div>
                         </div>
                     </div>
                     <div class="checkout2">
@@ -109,7 +109,7 @@
                         Secure checkout experience provided by Stripe or PayPal. No payment method information is stored on {{env('APP_NAME')}}.
                     </div>
                     <div class="checkout4">
-                        <button type="button" class="buleBtn" onclick="order()">Yes</button>
+                        <button type="button" class="buleBtn" onclick="order()">BUY</button>
                     </div>
                 </div>
             </div>
@@ -117,15 +117,7 @@
     </div>
 </section>
 
-<style>
-    .modal{z-index: 1250;background: rgb(0 0 0 / 10%);}
-    .modal .modal-dialog{margin-top: 10%;}
-    .modal .checkout4{display: flex;flex-direction: row-reverse;}
-    .modal .method2 li{border: 1px solid #f1f1f1;border-radius: 4px;padding: 0 16px;height: 44px;display: flex;font-weight:600; }
-    .modal .method2 li.active{border: 1px solid var(--a-hover);}
-    .modal .method2 li .method2a{width: 88px;height: 100%;}
-    .modal .method2 li .method2a img{max-width: 100%;height: 100%;}
-</style>
+
 <script>
 let credit_price_id;
 let method_id=1;

@@ -52,27 +52,94 @@
 .total{display: flex;align-items: center;font-weight: 600;margin: 10px 0;}
 .group .order{cursor:pointer;height:32px;margin:30px auto 10px;line-height:32px;width: 100px;border-radius: 20px;background:linear-gradient(131.45deg,#20A7FE,#003AFF);text-align: center;color: #fff;}
 </style>
+
+<section>
+    <div class="modal fade" id="checkout" tabindex="-1" aria-labelledby="ModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="ModalLabel">Confirm</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+
+                    <div class="checkout1">
+                        <div class="checkout11">Your selection</div>
+                        <div class="d-flex justify-content-between confirm">
+                            <div class="confirm0">
+                                <div class="confirm1">VIP (at <span></span>)</div>
+                                <div class="confirm2">1 month</div>
+                            </div>
+                            <div class="total"></div>
+                        </div>
+                    </div>
+                    <div class="checkout2">
+                        <div class="method1">Payment Methods</div>
+                        <div class="method2">
+                            @if($res['method']->count())
+                                <ul id="payment_methods">
+                                    @foreach($res['method'] as $val)
+                                        <li data-id="{{$val->id}}">
+                                            <div class="method2a"><img src="{{ URL::asset('vendor/laravel-payment/img/'.$val->name.'.png') }}" alt=""></div>
+                                            <div class="method2b">{{$val->name}}</div>
+                                        </li>
+                                    @endforeach
+                                </ul>
+                            @endif
+                        </div>
+                    </div>
+                    <div class="checkout3">
+                        Secure checkout experience provided by Stripe or PayPal. No payment method information is stored on {{env('APP_NAME')}}.
+                    </div>
+                    <label class="checkout0" for="agree">
+                        <input type="checkbox" id="agree"> <span >I acknowledge that I have read and accept the <span>refund policy</span></span>
+                    </label>
+                    <div class="checkout4">
+                        <button type="button" class="buleBtn" disabled onclick="order()">BUY</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<style>
+    .checkout0{color: #666;margin-top: 10px;}
+    .checkout4 button:disabled{background: #999;}
+</style>
 <script>
 let month=1;
 let method_id=1;
 let group_id=2;
+let month_html='1 month';
 $(function () {
     $('.group_order li').on('change','select',function () {
         let total = $(this).data('price')*$(this).val();
         $('.total .price').html('$ '+total)
         month = $(this).val();
-        $('.total .month').html($(this).find("option:selected").text())
+        month_html = $(this).find("option:selected").text();
+        $('.total .month').html(month_html)
     })
     $('#payment_methods').on('click','li',function () {
         $('.method2 li').removeClass('active')
         $(this).addClass('active')
         method_id = $(this).data('id')
     })
+    $('.checkout0').on('change','input',function (){
+        if($(this).is(':checked')){
+            $('.checkout4 button').removeAttr('disabled')
+        }else{
+            $('.checkout4 button').attr('disabled','disabled')
+        }
+
+    })
 })
 
 function _confirm(id,_this) {
     group_id = id;
-    $('.checkout1 .confirm .confirm1 span').html($(_this).data('point'))
+    $('.checkout1 .confirm .confirm1 span').html('$'+$(_this).data('price')+' / month')
+    $('.checkout1 .confirm .confirm2').html(month_html)
     $('.checkout1 .confirm .total').html('$'+$(_this).data('price')*month)
     $('#checkout').modal('show')
 }

@@ -8,8 +8,22 @@ a{color: var(--a);}
 .text-brand,.buleBtn{font-weight: 600;--tw-gradient-from:#1c9dfe;--tw-gradient-to:#023ff4;
     --tw-gradient-stops:var(--tw-gradient-from),var(--tw-gradient-to,rgb(28 157 254/0));
     background-image:linear-gradient(to right,var(--tw-gradient-stops));border:none;color:#fff;margin-top: 15px;}
+.buleBtn{padding: 5px 25px;border-radius: 20px;cursor: pointer; }
 
-
+.modal{z-index: 1250;background:rgba(0, 0, 0, 0.5);}
+.modal .modal-dialog{margin-top: 10%;}
+.modal .checkout4{display: flex;flex-direction: row-reverse;}
+.modal .method2 li{border: 1px solid #f1f1f1;border-radius: 4px;padding: 10px 16px;margin-top: 10px;height: 44px;display: flex;font-weight:600; }
+.modal .method2 li.active{border: 1px solid var(--a-hover);}
+.modal .method2 li .method2a{width: 88px;height: 100%;}
+.modal .method2 li .method2a img{max-width: 100%;height: 100%;}
+.modal .checkout11{margin-bottom: 16px;}
+.modal .confirm{font-weight: 600; margin-bottom: 10px;padding-bottom: 10px; border-bottom: 1px solid #f1f1f1;}
+.modal .confirm1{font-size: 15px;}
+.modal .confirm2{color: #888;}
+.modal .total{font-size: 20px;}
+.modal .checkout2{margin-bottom: 10px;}
+.modal .checkout3{font-size: 12px;}
 
 
 @media (max-width: 1199.98px) {
