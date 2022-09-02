@@ -9,7 +9,6 @@ class UserCheckin extends Model
 {
     use HasFactory;
     protected $table = 'common_user_checkin';
-    public $timestamps = false;
 
     protected $fillable = [
         'uuid','ip','ua','lang'

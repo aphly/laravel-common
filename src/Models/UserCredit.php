@@ -20,19 +20,17 @@ class UserCredit extends Model
 
     const CreditKey = ['point','silver','gold'];
 
-
-
     function handle($type,$uuid,$credit_key,$pre,$credit_val,$reason=''){
         if(in_array($credit_key,['silver','gold','point'])){
             $userCredit = $this->where(['uuid'=>$uuid])->lockForUpdate()->first();
             if(!empty($userCredit) && intval($credit_val)>=0){
                 if($pre=='+'){
-                    $userCredit->credit_key += $credit_val;
+                    $userCredit->$credit_key += $credit_val;
                 }else if($pre=='-'){
                     if($userCredit->credit_key<$credit_val){
                         throw new ApiException(['code'=>3,'msg'=>'credit not enough ']);
                     }
-                    $userCredit->credit_key -= $credit_val;
+                    $userCredit->$credit_key -= $credit_val;
                 }else{
                     throw new ApiException(['code'=>4,'msg'=>'credit pre error ']);
                 }
