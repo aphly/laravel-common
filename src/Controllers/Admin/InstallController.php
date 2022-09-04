@@ -57,6 +57,10 @@ class InstallController extends Controller
         $data[] =['id'=>2,'name' => 'Vip Member','sort'=>0,'price'=>5];
         DB::table('common_group')->insert($data);
 
+        $data=[];
+        $data[] =['name' => '签到送积分','type' =>'point','key'=>'checkin','value'=>100,'module_id'=>$this->module_id];
+        DB::table('admin_config')->insert($data);
+
         return 'install_ok';
     }
     public function uninstall(){
@@ -75,6 +79,8 @@ class InstallController extends Controller
             $ids = array_column($arr,'id');
             DB::table('admin_dict_value')->whereIn('dict_id',$ids)->delete();
         }
+        DB::table('admin_config')->where('module_id',$this->module_id)->delete();
+
         DB::table('common_group')->truncate();
         DB::table('common_country')->truncate();
         DB::table('common_zone')->truncate();

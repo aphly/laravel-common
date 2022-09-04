@@ -1,19 +1,18 @@
 @include('laravel-common::front.common.header')
 <link rel="stylesheet" href="{{ URL::asset('vendor/laravel-common/css/account.css') }}">
 <section class="">
-    <div class=" container">
+    <div class="account container">
 
         <div class="confirmation container">
             @include('laravel-common::front.account.submenu')
         </div>
         <style>
-            .credit1{padding: 30px 0;font-weight: 600;text-align: center;}
+            .credit1{padding: 20px 0;font-weight: 600;text-align: center;}
             .credit11{font-size: 32px;}
             .credit12{font-size: 26px;}
             .credit12 i{font-size: 26px;position: relative;top: 1px;}
 
             .credit2{border-radius: 10px;padding: 16px 0;}
-
             .credit21a{font-weight: 600;font-size: 20px;}
             .credit21a i{font-weight: 600;font-size: 20px;}
             .credit21b{font-size: 12px;font-weight: 600;color: #888888;}
@@ -53,17 +52,29 @@
                 @endforeach
             </ul>
         </div>
-
-        <div>
+        <style>
+            .userCreditLog li{padding: 16px; border-bottom: 1px solid #f1f1f1;}
+            .userCreditLog li .userCreditLog2{color:#999;}
+            .userCreditLog1{font-weight: 600;}
+            .userCreditLog1a{font-size: 18px;}
+            .userCreditLog1b span{margin-left: 5px;}
+        </style>
+        <div class="credit2 _shadow" style="margin-top: 20px;">
+            <div class="credit21">
+                <div class="credit21a"> Point Log</div>
+            </div>
             <ul class="userCreditLog">
-            @foreach($res['userCreditLog'] as $val)
-                <li >
-                    <div>
-                        <span>{{$val->pre}}</span><span>{{$val->key}}</span><span>{{$val->val}}</span>
-                        <span>{{$val->type}}</span><span>{{$val->reason}}</span><span>{{$val->created_at}}</span>
-                    </div>
-                </li>
-            @endforeach
+                @foreach($res['userCreditLog'] as $val)
+                    <li class="d-flex justify-content-between">
+                        <div class="userCreditLog1">
+                            <p class="userCreditLog1a">{{$val->type}}</p>
+                            <p class="userCreditLog1b">{{$val->key}}<span>{{$val->pre}}{{$val->val}}</span></p>
+                        </div>
+                        <div class="userCreditLog2">
+                            {{$val->created_at}}
+                        </div>
+                    </li>
+                @endforeach
             </ul>
         </div>
     </div>

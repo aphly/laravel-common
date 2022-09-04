@@ -9,7 +9,7 @@ a{color: var(--a);}
     --tw-gradient-stops:var(--tw-gradient-from),var(--tw-gradient-to,rgb(28 157 254/0));
     background-image:linear-gradient(to right,var(--tw-gradient-stops));border:none;color:#fff;margin-top: 15px;}
 .buleBtn{padding: 5px 25px;border-radius: 20px;cursor: pointer; }
-
+.buleBtn.dis{color: rgb(136, 136, 136);background: rgb(215, 215, 215);}
 .modal{z-index: 1250;background:rgba(0, 0, 0, 0.5);}
 .modal .modal-dialog{margin-top: 10%;}
 .modal .checkout4{display: flex;flex-direction: row-reverse;}

@@ -4,6 +4,7 @@ namespace Aphly\LaravelCommon\Controllers\Front;
 
 use Aphly\Laravel\Exceptions\ApiException;
 use Aphly\Laravel\Libs\Helper;
+use Aphly\Laravel\Libs\UploadFile;
 use Aphly\Laravel\Mail\MailSend;
 
 use Aphly\LaravelCommon\Models\UserCheckin;
@@ -25,16 +26,43 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Crypt;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
 use function config;
 use function redirect;
 
 class AccountController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
-        $res['title'] = 'Account index';
-        return $this->makeView('laravel-common::front.account.index',['res'=>$res]);
+        if($request->isMethod('post')){
+            $user = User::where(['nickname'=>$request->input('nickname')])->first();
+            if(!empty($user) && ($user->uuid!=$this->user->uuid)){
+                throw new ApiException(['code'=>1,'msg'=>'nickname already exists']);
+            }else{
+                $image = false;
+                $file = $request->file('image');
+                if($file){
+                    $image = (new UploadFile(500,1))->img($file,'public/account');
+                    if ($image) {
+                        $oldImage = $this->user->avatar;
+                        $this->user->avatar = $image;
+                    }
+                }
+                $this->user->nickname = $request->input('nickname');
+                if ($this->user->save()) {
+                    if($image){
+                        $this->user->delAvatar($oldImage);
+                    }
+                    throw new ApiException(['code'=>0,'msg'=>'success']);
+                } else {
+                    throw new ApiException(['code'=>1,'msg'=>'upload error']);
+                }
+            }
+        }else{
+            $res['title'] = 'Account index';
+            return $this->makeView('laravel-common::front.account.index',['res'=>$res]);
+        }
     }
 
     public function afterLogin($user)
@@ -325,24 +353,20 @@ class AccountController extends Controller
 
     public function checkin(Request $request)
     {
+        $UserCheckin = new UserCheckin;
+        $info = $UserCheckin->getByUuid($this->user->uuid);
         $input = ['uuid'=>$this->user->uuid,'ua'=>$request->header('user-agent'),'ip'=>$request->ip(),'lang'=>$request->header('accept-language')];
-        $info = UserCheckin::where($input)->whereBetween('created_at',[mktime(0,0,0,date('m'),date('d'),date('Y')),mktime(23,59,59,date('m'),date('d'),date('Y'))])->first();
         if(!empty($info)){
-            throw new ApiException(['code'=>0,'msg'=>'signIn','data'=>['info'=>$info]]);
+            throw new ApiException(['code'=>0,'msg'=>'checkined','data'=>['info'=>$info]]);
         }else{
-            $userSignIn = UserCheckin::create($input);
-            if($userSignIn->id){
-                (new UserCredit)->handle('Checkin',$this->user->uuid,'point','+',$userSignIn::point,'UserSignIn#'.$userSignIn->id);
+            $res['title'] = '';
+            $_userCheckin = $UserCheckin->create($input);
+            if($_userCheckin->id){
+                $res['userCredit'] = (new UserCredit)->handle('Checkin',$this->user->uuid,'point','+',$this->config['point']['checkin'],'UserCheckin#'.$_userCheckin->id);
             }
-            throw new ApiException(['code'=>0,'msg'=>'signIn_point']);
+            throw new ApiException(['code'=>0,'msg'=>'signIn_point','data'=>['res'=>$res]]);
         }
     }
 
-    public function profile(Request $request)
-    {
-        //$user = User::where(['uuid'=>$this->user->uuid])->first();
-        $this->user->nickname = $request->input('nickname');
-        $this->user->save();
-        throw new ApiException(['code'=>0,'msg'=>'success']);
-    }
+
 }

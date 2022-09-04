@@ -37,7 +37,7 @@ Route::middleware(['web'])->group(function () {
 
             Route::match(['get'],'mail-verify/send', 'Aphly\LaravelCommon\Controllers\Front\AccountController@mailVerifySend');
             Route::get('logout', 'Aphly\LaravelCommon\Controllers\Front\AccountController@logout');
-            Route::get('index', 'Aphly\LaravelCommon\Controllers\Front\AccountController@index');
+            Route::match(['get', 'post'],'index', 'Aphly\LaravelCommon\Controllers\Front\AccountController@index');
             Route::match(['get', 'post'],'group', 'Aphly\LaravelCommon\Controllers\Front\AccountController@group');
             Route::match(['get', 'post'],'credit', 'Aphly\LaravelCommon\Controllers\Front\AccountController@credit');
             Route::match(['post'],'checkin', 'Aphly\LaravelCommon\Controllers\Front\AccountController@checkin');

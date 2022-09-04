@@ -18,7 +18,7 @@
     .header31{background:#eee;display:flex;align-items:center;border-radius:40px;margin:0 5px;padding:0 10px;height: 100%;}
     .header31 i{margin-right:5px}
     .header31 input:focus{width:150px}
-    .header3 .dropdown-menu{padding:10px 0px;border:none;margin:14px 0px 12px;width:200px;background-color:rgb(255,255,255);box-shadow:rgb(0 0 0 / 16%) 0px 2px 10px 0px;border-radius:4px}
+    .header3 .dropdown-menu{padding:0;border:none;margin:14px 10px 12px;min-width:200px;background-color:rgb(255,255,255);box-shadow:rgb(0 0 0 / 16%) 0px 2px 10px 0px;border-radius:4px}
     .header3 .dropdown-menu a{width:100%;box-sizing:border-box;line-height:35px;font-weight:600;height:35px;padding:0 15px;margin:0}
     .header3 .dropdown-menu a:hover{background-color:rgba(0,0,0,0.04)}
     .header2{font-weight: 600;font-size: 16px;margin-left: 24px;}
@@ -30,8 +30,9 @@
     .header13 i{font-size: 26px;color:#000;}
     .header11 img{height: 100%;}
     .header11{width: 100px;margin-right: 10px;}
+    .account{margin-top: 20px}
     @media (max-width: 1199.98px) {
-        .header{}
+
     }
 </style>
 
@@ -77,38 +78,57 @@
                     </div>
                 </form>
             </div>
-            <ul>
-                <div class="dropdown">
-                    <a href="javascript:void(0)" id="zuanshi" data-toggle="dropdown" aria-expanded="false"><li><i class="common-iconfont icon-zuanshi"></i></li></a>
-                    <div class="dropdown-menu dropdown-menu-right" aria-labelledby="zuanshi">
-                        <a class="dropdown-item" href="javascript:void(0)" >
-                            <div onclick="checkin(this)">checkin</div>
-                            <div>checkin</div>
-                        </a>
-                        <a class="dropdown-item" href="/account/credit">Point</a>
-                        <a class="dropdown-item" href="/account/group">VIP</a>
-                    </div>
-                </div>
-                <a href="/account/novel/bookmarks"><li><i class="common-iconfont icon-24gf-bookmarks"></i></li></a>
+            <style>
+                .header3 .dropdown-menu a.checkin{height: auto;border-bottom: 1px solid #f1f1f1;padding-bottom: 10px;}
+                .header3 .dropdown-menu a.checkin .checkin1{font-size: 15px;font-weight: 600}
+                .header3 .dropdown-menu a.checkin .checkin2{font-size: 13px;color: #888;line-height: 13px;}
+                .checkin3{ background: transparent;font-weight: 600;color: #333;border: 1px solid #1c9dfe;display: inline-block;padding: 0 14px;height: 30px; line-height: 30px;}
+                .header3 .dropdown-menu a.hPoint{height: auto;border-bottom: 1px solid #f1f1f1;padding-bottom: 10px;}
+                .hPoint2{ margin-top: 0;font-weight: 600;border: 1px solid #1c9dfe;display: inline-block;padding: 0 14px;height: 30px; line-height: 30px;}
+                .hPoint1 i{font-size: 20px;position: relative;top: 2px;}
+                .header3 .dropdown-menu a.touxiang{height: 60px; padding: 10px 15px;}
+                .touxiang1{width: 40px;height: 40px;display: flex;justify-content: center;align-items: center;
+                border-radius: 50%;background:#dbdbdb;margin-right: 10px;}
+                .touxiang1 i{font-size: 20px}
+                .dropdown.show a[data-toggle="dropdown"] i{color: var(--a-hover)}
+                .touxiang{border-bottom: 1px solid #f1f1f1;}
+            </style>
+            <ul class="">
                 @if($user)
+                    <a href="/account/novel/bookmarks"><li><i class="common-iconfont icon-24gf-bookmarks"></i></li></a>
                     <div class="dropdown">
                         <a href="javascript:void(0)" id="touxiang" data-toggle="dropdown" aria-expanded="false"><li><i class="common-iconfont icon-touxiang"></i></li></a>
                         <div class="dropdown-menu dropdown-menu-right" aria-labelledby="touxiang">
-                            <a class="dropdown-item d-flex" href="javascript:void(0)">
-                                <div class=""><i class="common-iconfont icon-touxiang"></i></div>
-                                <div>{{$user['nickname']}}</div>
+                            <a class="dropdown-item d-flex touxiang" href="/account/index">
+                                <div class="touxiang1"><i class="common-iconfont icon-touxiang"></i></div>
+                                <div class="touxiang2">{{$user['nickname']}}</div>
                             </a>
-                            <a class="dropdown-item" href="/account/index">Profile</a>
+                            <a class="dropdown-item hPoint" href="/account/credit" data-stopPropagation="true">
+                                <div class="hPoint1"><i class="common-iconfont icon-jifen-xianxing2-0"></i> <span>{{$user->credit->point}}</span></div>
+                                <div class="hPoint2 buleBtn" >GET POINT</div>
+                            </a>
+                            <a class="dropdown-item checkin" href="javascript:void(0)" data-stopPropagation="true">
+                                <div class="checkin1">checkin</div>
+                                <div class="checkin2">Earn {{$config['point']['checkin']}} regular Karma everyday</div>
+                                @if(!empty($checkin))
+                                    <div class="checkin3 buleBtn dis" >COMPLETE</div>
+                                @else
+                                    <div class="checkin3 buleBtn" onclick="checkin(this)">COMPLETE</div>
+                                @endif
+                            </a>
+                            <a class="dropdown-item" href="/account/group">VIP</a>
                             <a class="dropdown-item ajax_post" href="/account/logout">Log out</a>
                         </div>
                     </div>
                 @else
+                    <a href="/account/login"><li><i class="common-iconfont icon-24gf-bookmarks"></i></li></a>
                     <a href="/account/login"><li><i class="common-iconfont icon-touxiang"></i></li></a>
                 @endif
             </ul>
         </div>
     </div>
 </div>
+
 <div class="m_header_ext d-xl-none">
     <div class="m_header_ext1">
         <form action="/novel/index" method="get">
@@ -165,11 +185,19 @@ function checkin(_this) {
         url:'/account/checkin',
         type:'post',
         data:{'_token':'{{csrf_token()}}'},
-        success:function (res) {
-            console.log(res)
-            $(_this).html('xxx')
+        success:function (r) {
+            $(_this).addClass('dis')
+            $(_this).removeAttr('onclick')
+            if(!r.code){
+                $('.hPoint1 span').html(r.data.res.userCredit.point)
+            }
         }
     })
 }
+$(function () {
+    $('#touxiang').click(function () {
+        $('.m_header_ext').removeClass('active')
+    })
+})
 </script>
 

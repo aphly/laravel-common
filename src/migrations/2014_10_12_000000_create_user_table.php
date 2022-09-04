@@ -15,7 +15,7 @@ return new class extends Migration
     {
         Schema::create('common_user', function (Blueprint $table) {
             $table->unsignedBigInteger('uuid')->primary();
-            $table->string('nickname',32)->nullable();
+            $table->string('nickname',32)->index();
             $table->string('token',128)->index();
             $table->unsignedInteger('token_expire');
             $table->string('avatar',255)->nullable();

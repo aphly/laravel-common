@@ -40,6 +40,7 @@ class UserCredit extends Model
                         'uuid'=>$uuid,'pre'=>$pre,'type'=>$type,'key'=>$credit_key,'val'=>$credit_val,'reason'=>$reason
                     ]);
                 }
+                return $userCredit;
             }else{
                 throw new ApiException(['code'=>2,'msg'=>'user credit error']);
             }

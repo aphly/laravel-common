@@ -1,7 +1,7 @@
 @include('laravel-common::front.common.header')
 <link rel="stylesheet" href="{{ URL::asset('vendor/laravel-common/css/account.css') }}">
 <section class="">
-    <div class=" container">
+    <div class="account container">
         @include('laravel-common::front.account.submenu')
     </div>
     <div class="group">
@@ -107,6 +107,10 @@
 <style>
     .checkout0{color: #666;margin-top: 10px;}
     .checkout4 button:disabled{background: #999;}
+
+    @media (max-width: 1199.98px) {
+        .group_order li{width: 90%;}
+    }
 </style>
 <script>
 let month=1;

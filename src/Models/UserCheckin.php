@@ -14,5 +14,8 @@ class UserCheckin extends Model
         'uuid','ip','ua','lang'
     ];
 
-    const point = 100; //checkin
+    function getByUuid($uuid){
+        return self::where(['uuid'=>$uuid])->whereBetween('created_at',[mktime(0,0,0,date('m'),date('d'),date('Y')),mktime(23,59,59,date('m'),date('d'),date('Y'))])->first();
+
+    }
 }
