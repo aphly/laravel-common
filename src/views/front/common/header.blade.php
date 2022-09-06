@@ -36,7 +36,7 @@
     }
 </style>
 
-<div class="header">
+<div class="header d-none">
     <div class="container d-flex justify-content-between">
         <div class="header1">
             <div class="header11">
