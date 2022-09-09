@@ -20,6 +20,8 @@ return new class extends Migration
             $table->decimal('total',10,2);
             $table->unsignedBigInteger('payment_id')->index();
             $table->tinyInteger('status')->default(1);
+            $table->string('credit_key',16);
+            $table->unsignedBigInteger('credit_val');
             $table->unsignedBigInteger('created_at');
             $table->unsignedBigInteger('updated_at');
         });

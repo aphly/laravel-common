@@ -291,8 +291,8 @@ class AccountController extends Controller
                 $input['method_id'] = $request->input('method_id',1);
                 $input['cancel_url'] = url('/account/group');
                 $input['notify_func'] = '\Aphly\LaravelCommon\Models\UserGroupOrder@notify';
-                $input['success_url'] = url('/checkout/checkout_success');
-                $input['fail_url'] = url('/checkout/checkout_fail');
+                $input['success_url'] = url('/checkout/success');
+                $input['fail_url'] = url('/checkout/fail');
                 $payment = (new Payment)->make($input);
                 if($payment->id){
                     $input['uuid'] = $this->user['uuid'];
@@ -320,14 +320,16 @@ class AccountController extends Controller
             $input['credit_price_id'] = $request->input('credit_price_id');
             $credit_price = CreditPrice::where(['status'=>1,'id'=>$input['credit_price_id']])->first();
             if(!empty($credit_price)){
+                $input['credit_key'] = $credit_price->credit_key;
+                $input['credit_val'] = $credit_price->credit_val;
                 $input['gold'] = $credit_price->gold;
                 $input['price'] = $credit_price->price;
                 $input['amount'] = $input['total'] = $input['price'];
                 $input['method_id'] = $request->input('method_id',1);
                 $input['cancel_url'] = url('/account/credit');
                 $input['notify_func'] = '\Aphly\LaravelCommon\Models\UserCreditOrder@notify';
-                $input['success_url'] = url('/checkout/checkout_success');
-                $input['fail_url'] = url('/checkout/checkout_fail');
+                $input['success_url'] = url('/checkout/success');
+                $input['fail_url'] = url('/checkout/fail');
                 $payment = (new Payment)->make($input);
                 if($payment->id){
                     $input['uuid'] = $this->user['uuid'];
