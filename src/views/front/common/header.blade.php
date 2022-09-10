@@ -1,6 +1,6 @@
 @include('laravel-common::front.common.header_common')
-<link rel="stylesheet" href="{{ URL::asset('vendor/laravel-common/css/iconfont.css') }}">
-<link rel="stylesheet" href="{{ URL::asset('vendor/laravel-common/css/common.css') }}">
+<link rel="stylesheet" href="{{ URL::asset('static/common/css/iconfont.css') }}">
+<link rel="stylesheet" href="{{ URL::asset('static/common/css/common.css') }}">
 <style>
     .header{background-color:rgb(255,255,255);box-shadow:0 1px 4px rgb(24 38 16 / 10%);width:100%;z-index:1100;top:0px;left:0;right:0px;position: fixed;}
     .header .container{align-items:center;height:70px}
@@ -36,7 +36,7 @@
     }
 </style>
 
-<div class="header d-none">
+<div class="header">
     <div class="container d-flex justify-content-between">
         <div class="header1">
             <div class="header11">

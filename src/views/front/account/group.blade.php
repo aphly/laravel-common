@@ -1,5 +1,5 @@
 @include('laravel-common::front.common.header')
-<link rel="stylesheet" href="{{ URL::asset('vendor/laravel-common/css/account.css') }}">
+<link rel="stylesheet" href="{{ URL::asset('static/common/css/account.css') }}">
 <section class="">
     <div class="account container">
         @include('laravel-common::front.account.submenu')
@@ -82,7 +82,7 @@
                                 <ul id="payment_methods">
                                     @foreach($res['method'] as $val)
                                         <li data-id="{{$val->id}}">
-                                            <div class="method2a"><img src="{{ URL::asset('vendor/laravel-payment/img/'.$val->name.'.png') }}" alt=""></div>
+                                            <div class="method2a"><img src="{{ URL::asset('static/payment/img/'.$val->name.'.png') }}" alt=""></div>
                                             <div class="method2b">{{$val->name}}</div>
                                         </li>
                                     @endforeach

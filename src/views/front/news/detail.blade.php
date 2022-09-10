@@ -1,5 +1,5 @@
 @include('laravel-common::front.common.header')
-<link rel="stylesheet" href="{{ URL::asset('vendor/laravel-common/css/account.css') }}">
+<link rel="stylesheet" href="{{ URL::asset('static/common/css/account.css') }}">
 
 <section class="">
     <div class="news container">
@@ -10,7 +10,7 @@
         </div>
         <h1 class="">{{$res['info']->title}}</h1>
         <div class="content">
-            {{$res['info']->content}}
+            {!! $res['info']->content !!}
         </div>
     </div>
 </section>

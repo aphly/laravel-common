@@ -1,5 +1,5 @@
 @include('laravel-common::front.common.header')
-<link rel="stylesheet" href="{{ URL::asset('vendor/laravel-common/css/account.css') }}">
+<link rel="stylesheet" href="{{ URL::asset('static/common/css/account.css') }}">
 <style>
     .res1{text-align: center;}
     .res1 i{font-size: 70px;font-weight: 600;color: #bb0101;}

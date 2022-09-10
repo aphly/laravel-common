@@ -11,7 +11,7 @@ class News extends Model
 {
     use HasFactory;
     protected $table = 'common_news';
-    public $timestamps = false;
+    //public $timestamps = false;
     protected $fillable = [
         'title','content','viewed','status'
     ];

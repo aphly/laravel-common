@@ -1,5 +1,5 @@
 @include('laravel-common::front.common.header')
-<link rel="stylesheet" href="{{ URL::asset('vendor/laravel-common/css/account.css') }}">
+<link rel="stylesheet" href="{{ URL::asset('static/common/css/account.css') }}">
 <section class="">
     <style>
         .avatar{width: 200px;height: 200px;margin-top: 20px;}

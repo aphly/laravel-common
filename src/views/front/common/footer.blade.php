@@ -1,4 +1,4 @@
-<footer class="d-none">
+<footer class="">
     <div class="container">
         <div class="footer1">
             <a href="/news/1"><div>About Us</div></a>
@@ -36,7 +36,7 @@
     }
 </style>
 
-<script src="{{ URL::asset('vendor/laravel-admin/js/bootstrap.bundle.min.js') }}"></script>
+<script src="{{ URL::asset('static/admin/js/bootstrap.bundle.min.js') }}"></script>
 <script>
     var aphly_viewerjs = document.getElementById('aphly_viewerjs');
     if(aphly_viewerjs){
