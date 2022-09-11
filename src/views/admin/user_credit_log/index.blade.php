@@ -24,7 +24,6 @@
                 <ul class="table_header">
                     <li >ID</li>
                     <li >uuid</li>
-                    <li >pre</li>
                     <li >key</li>
                     <li >val</li>
                     <li >type</li>
@@ -35,9 +34,8 @@
                     <ul class="table_tbody">
                         <li><input type="checkbox" class="delete_box" name="delete[]" value="{{$v['id']}}">{{$v['id']}}</li>
                         <li>{{ $v['uuid'] }}</li>
-                        <li>{{$v->pre}}</li>
                         <li>{{$v->key}}</li>
-                        <li>{{$v->val}}</li>
+                        <li>{{$v->pre}}{{$v->val}}</li>
                         <li>{{$v->type}}</li>
                         <li>
                             <a class="badge badge-info ajax_get" data-href="/common_admin/user_credit_log/form?id={{$v['id']}}">编辑</a>

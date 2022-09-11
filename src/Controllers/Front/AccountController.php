@@ -347,7 +347,7 @@ class AccountController extends Controller
             $res['title'] = 'Account credit';
             $res['creditPrice'] = CreditPrice::where(['status'=>1])->orderBy('sort','desc')->get();
             $res['userCredit'] = UserCredit::where('uuid',$this->user->uuid)->first();
-            $res['userCreditLog'] = UserCreditLog::where('uuid',$this->user->uuid)->orderBy('id','desc')->get();
+            $res['userCreditLog'] = UserCreditLog::where('uuid',$this->user->uuid)->orderBy('id','desc')->Paginate(config('admin.perPage'))->withQueryString();
             $res['method'] = Method::where(['status'=>1])->orderBy('sort','desc')->get();
             return $this->makeView('laravel-common::front.account.credit',['res'=>$res]);
         }

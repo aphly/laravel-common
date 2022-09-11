@@ -26,6 +26,33 @@
 .agree a{margin-left: 5px;}
 .confirmation{margin-top: 20px;}
 .btn.text-brand:hover {color: #fff;}
+
+
+/*credit*/
+.credit1{padding: 20px 0;font-weight: 600;text-align: center;}
+.credit11{font-size: 32px;}
+.credit12{font-size: 26px;}
+.credit12 i{font-size: 26px;position: relative;top: 1px;}
+.credit2{border-radius: 10px;padding: 16px 0;}
+.credit21a{font-weight: 600;font-size: 20px;}
+.credit21a i{font-weight: 600;font-size: 20px;}
+.credit21b{font-size: 12px;font-weight: 600;color: #888888;}
+.credit21,.credit_price{padding: 0 16px;}
+.credit21{padding-bottom: 10px;border-bottom:1px solid #f1f1f1; }
+.credit_price li{padding-bottom: 16px;padding-top: 16px;border-bottom:1px solid #f1f1f1;}
+.credit_price1{font-weight: 600;}
+.credit_price1a{font-size: 20px;}
+.credit_price1a i{font-size: 20px;}
+.credit_price1b{color: #888;}
+.credit_price1c{font-size: 13px;}
+
+.credit2{margin: 20px 0;}
+.userCreditLog li{padding: 16px; border-bottom: 1px solid #f1f1f1;}
+.userCreditLog li .userCreditLog1b{color:#999;}
+.userCreditLog1a{font-weight: 600;}
+.userCreditLog1a{font-size: 18px;}
+.credit2 .pagination{margin-top: 10px;}
+/*credit*/
 @media (max-width: 1199.98px) {
 
 }

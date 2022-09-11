@@ -5,7 +5,13 @@
         @include('laravel-common::front.account.submenu')
     </div>
     <div class="group">
-        <div class="my_group"> {{$res['group'][$user->group_id]['name']}}</div>
+        <div class="my_group">
+            <div class="my_group1">My Group</div>
+            <div class="my_group2">
+                <p>{{$res['group'][$user->group_id]['name']}}</p>
+                <p class="expire">expire time: {{date('Y-m-d h:m:s',$user->group_expire)}}</p>
+            </div>
+        </div>
         <div class="group1">Thank you for being a patron! Below is our full list of VIP perks:</div>
         <ul class="group_order d-flex justify-content-center">
             @if($res['group']->count())
@@ -37,12 +43,14 @@
             @endif
         </ul>
     </div>
-    <div class="checkout">
-        <div></div>
-    </div>
+
 </section>
 <style>
-.my_group{margin-top: 20px;font-size: 32px;font-weight: 600;text-align: center;}
+.group{margin-bottom: 10px;}
+.my_group{padding: 20px 0;font-weight: 600;text-align: center;}
+.my_group1{font-size: 32px;}
+.my_group2{font-size: 26px;}
+.my_group2 .expire{font-size: 20px;color: #666;}
 .group1{margin: 10px 0 30px;text-align: center;}
 .group_order li{padding: 20px;width: 30%;border-radius: 4px;box-shadow: 0 1px 4px rgb(24 38 16 / 30%); }
 .group_name{font-weight: 600;color:#007aff;}
@@ -80,8 +88,8 @@
                         <div class="method2">
                             @if($res['method']->count())
                                 <ul id="payment_methods">
-                                    @foreach($res['method'] as $val)
-                                        <li data-id="{{$val->id}}">
+                                    @foreach($res['method'] as $key=>$val)
+                                        <li data-id="{{$val->id}}" @if(!$key) class="active" @endif>
                                             <div class="method2a"><img src="{{ URL::asset('static/payment/img/'.$val->name.'.png') }}" alt=""></div>
                                             <div class="method2b">{{$val->name}}</div>
                                         </li>
@@ -107,7 +115,6 @@
 <style>
     .checkout0{color: #666;margin-top: 10px;}
     .checkout4 button:disabled{background: #999;}
-
     @media (max-width: 1199.98px) {
         .group_order li{width: 90%;}
     }
@@ -118,6 +125,7 @@ let method_id=1;
 let group_id=2;
 let month_html='1 month';
 $(function () {
+    method_id = $('#payment_methods li.active').data('id')
     $('.group_order li').on('change','select',function () {
         let total = $(this).data('price')*$(this).val();
         $('.total .price').html('$ '+total)
@@ -136,7 +144,6 @@ $(function () {
         }else{
             $('.checkout4 button').attr('disabled','disabled')
         }
-
     })
 })
 

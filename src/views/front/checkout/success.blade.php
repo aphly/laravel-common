@@ -1,6 +1,7 @@
 @include('laravel-common::front.common.header')
 <link rel="stylesheet" href="{{ URL::asset('static/common/css/account.css') }}">
 <style>
+.checkout_res{margin: 10% 0;}
 .res1{text-align: center;}
 .res1 i{font-size: 70px;font-weight: 600;color: #02bb4c;}
 .res2{font-size:20px;text-align: center;margin-bottom: 20px;}
@@ -9,7 +10,7 @@
 </style>
 <section class="">
     <div class="container d-flex justify-content-center">
-        <div class="success">
+        <div class="checkout_res">
             <div class="res1">
                 <i class="common-iconfont icon-chenggong1"></i>
             </div>

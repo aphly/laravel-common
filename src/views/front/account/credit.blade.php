@@ -2,30 +2,10 @@
 <link rel="stylesheet" href="{{ URL::asset('static/common/css/account.css') }}">
 <section class="">
     <div class="account container">
-
         <div class="confirmation container">
             @include('laravel-common::front.account.submenu')
         </div>
-        <style>
-            .credit1{padding: 20px 0;font-weight: 600;text-align: center;}
-            .credit11{font-size: 32px;}
-            .credit12{font-size: 26px;}
-            .credit12 i{font-size: 26px;position: relative;top: 1px;}
 
-            .credit2{border-radius: 10px;padding: 16px 0;}
-            .credit21a{font-weight: 600;font-size: 20px;}
-            .credit21a i{font-weight: 600;font-size: 20px;}
-            .credit21b{font-size: 12px;font-weight: 600;color: #888888;}
-            .credit21,.credit_price{padding: 0 16px;}
-            .credit21{padding-bottom: 10px;border-bottom:1px solid #f1f1f1; }
-            .credit_price li{padding-bottom: 16px;padding-top: 16px;border-bottom:1px solid #f1f1f1;}
-            .credit_price1{font-weight: 600;}
-            .credit_price1a{font-size: 20px;}
-            .credit_price1a i{font-size: 20px;}
-            .credit_price1b{color: #888;}
-            .credit_price1c{font-size: 13px;}
-
-        </style>
         <div class="credit1">
             <div class="credit11">My Point</div>
             <div class="credit12">
@@ -52,30 +32,22 @@
                 @endforeach
             </ul>
         </div>
-        <style>
-            .userCreditLog li{padding: 16px; border-bottom: 1px solid #f1f1f1;}
-            .userCreditLog li .userCreditLog2{color:#999;}
-            .userCreditLog1{font-weight: 600;}
-            .userCreditLog1a{font-size: 18px;}
-            .userCreditLog1b span{margin-left: 5px;}
-        </style>
-        <div class="credit2 _shadow" style="margin-top: 20px;">
+
+        <div class="credit2 _shadow" style="">
             <div class="credit21">
                 <div class="credit21a"> Point Log</div>
             </div>
             <ul class="userCreditLog">
+                @if($res['userCreditLog']->count())
                 @foreach($res['userCreditLog'] as $val)
-                    <li class="d-flex justify-content-between">
-                        <div class="userCreditLog1">
-                            <p class="userCreditLog1a">{{$val->type}}</p>
-                            <p class="userCreditLog1b">{{$val->key}}<span>{{$val->pre}}{{$val->val}}</span></p>
-                        </div>
-                        <div class="userCreditLog2">
-                            {{$val->created_at}}
-                        </div>
+                    <li class="">
+                        <div class="userCreditLog1a d-flex justify-content-between"><span>{{$val->key}}</span><span>{{$val->pre}}{{$val->val}}</span></div>
+                        <div class="userCreditLog1b d-flex justify-content-between"><span>{{$val->type}}</span> <span>{{$val->created_at}}</span></div>
                     </li>
                 @endforeach
+                @endif
             </ul>
+            <div >{{$res['userCreditLog']->links('laravel-common::front.common.pagination')}}</div>
         </div>
     </div>
 </section>
@@ -106,14 +78,15 @@
                         <div class="method2">
                             @if($res['method']->count())
                             <ul id="payment_methods">
-                                @foreach($res['method'] as $val)
-                                <li data-id="{{$val->id}}">
+                                @foreach($res['method'] as $key=>$val)
+                                <li data-id="{{$val->id}}" @if(!$key) class="active" @endif>
                                     <div class="method2a"><img src="{{ URL::asset('static/payment/img/'.$val->name.'.png') }}" alt=""></div>
                                     <div class="method2b">{{$val->name}}</div>
                                 </li>
                                 @endforeach
                             </ul>
                             @endif
+
                         </div>
                     </div>
                     <div class="checkout3">
@@ -133,6 +106,7 @@
 let credit_price_id;
 let method_id=1;
 $(function () {
+    method_id = $('#payment_methods li.active').data('id')
 
     $('.credit_price').on('click','li',function () {
         $('.credit_price li').not($(this)).removeClass('active')
