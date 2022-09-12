@@ -4,6 +4,7 @@
     <style>
         .avatar{width: 200px;height: 200px;margin-top: 20px;}
         .avatar img{width: 100%;height: 100%}
+        .avatar i{font-size: 100px;}
     </style>
     <div class="account container">
         <div class="confirmation container">
@@ -12,6 +13,8 @@
         <div class="avatar">
             @if($user->avatar)
                 <img class="lazy " src="{{Storage::url($user->avatar)}}" />
+            @else
+                <i class="common-iconfont icon-touxiang"></i>
             @endif
         </div>
         <form action="/account/index" method="post" class="upload_form" onsubmit="uploadImage(event,this)" enctype="multipart/form-data">

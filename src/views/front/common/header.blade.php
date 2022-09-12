@@ -26,7 +26,7 @@
     .header2 ul li{margin-right: 16px;}
     .header2 a{color: #000;}
     .header1{display: flex;}
-    .header13{display: flex;justify-content: center;align-items: center;}
+    .header13{display: flex;justify-content: center;align-items: center; border-radius: 50%;background: #eee; width: 44px;height: 44px;}
     .header13 i{font-size: 26px;color:#000;}
     .header11 img{height: 100%;}
     .header11{width: 100px;margin-right: 10px;}
@@ -42,7 +42,7 @@
             <div class="header11">
                 <img src="" alt="">
             </div>
-            <div class="header13 d-xl-none" onclick="menu_ext()">
+            <div class="header13 d-xl-none" onclick="menu_ext(this)">
                 <i class="common-iconfont icon-caidan1"></i>
             </div>
         </div>
@@ -169,15 +169,18 @@
     .m_header_ext11 i{margin-right:5px}
     .m_header_ext2 li{height: 38px;line-height: 38px;font-size: 17px;font-weight: 700;}
     .m_header_ext1{padding: 10px 0;}
+    .header13.active i{color:var(--a-hover)}
 </style>
 <div class="headerX"></div>
 <script>
-function menu_ext() {
-    let _this = $('.m_header_ext');
-    if(_this.hasClass('active')){
-        _this.removeClass('active')
+function menu_ext(_this) {
+    let m_header_ext = $('.m_header_ext');
+    if(m_header_ext.hasClass('active')){
+        m_header_ext.removeClass('active')
+        $(_this).removeClass('active')
     }else{
-        _this.addClass('active')
+        m_header_ext.addClass('active')
+        $(_this).addClass('active')
     }
 }
 function checkin(_this) {
@@ -197,6 +200,7 @@ function checkin(_this) {
 $(function () {
     $('#touxiang').click(function () {
         $('.m_header_ext').removeClass('active')
+        $('.header13').removeClass('active')
     })
 })
 </script>
