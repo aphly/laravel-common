@@ -2,7 +2,7 @@
 <html style="font-size: 14px;">
 <head>
     <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0" />
     <title>{{$res['title']}} {{env('APP_NAME')}}</title>
     <link rel="stylesheet" href="{{ URL::asset('static/admin/css/bootstrap.min.css') }}">
     <link rel="stylesheet" href="{{ URL::asset('static/admin/css/c.css') }}">
