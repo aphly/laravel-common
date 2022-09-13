@@ -26,6 +26,8 @@
                     <li >currency name</li>
                     <li >code</li>
                     <li >value</li>
+                    <li >base</li>
+                    <li >default</li>
                     <li >状态</li>
                     <li >操作</li>
                 </ul>
@@ -39,6 +41,12 @@
                         </li>
                         <li>
                             {{$v['value']}}
+                        </li>
+                        <li>
+                            {{$v['base']}}
+                        </li>
+                        <li>
+                            {{$v['default']}}
                         </li>
                         <li>
                             @if($dict['status'])

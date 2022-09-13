@@ -3,6 +3,7 @@
 namespace Aphly\LaravelCommon\Models;
 
 use Aphly\Laravel\Models\Model;
+use Aphly\LaravelAdmin\Models\Config;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Cookie;
@@ -14,7 +15,7 @@ class Currency extends Model
     public $timestamps = false;
 
     protected $fillable = [
-        'name','code','symbol_left','symbol_right','decimal_place','value','status'
+        'name','code','symbol_left','symbol_right','decimal_place','value','status','base','default'
     ];
 
     public function findOneByCode($code) {
@@ -30,33 +31,48 @@ class Currency extends Model
         });
     }
 
+    static function defaultCurrency(){
+        $currency_all = self::findAll();
+        $default = '';
+        $base = '';
+        foreach($currency_all as $val){
+            if($val['default']){
+                $default = $val;
+            }
+            if($val['base']){
+                $base = $val;
+            }
+        }
+        $currency = Cookie::get('currency');
+        if($currency) {
+            return [$currency_all[$currency],$base];
+        }else{
+            return [$default,$base];
+        }
+    }
+
     static function format($price,$string = true){
         $price = floatval($price);
-        $currency = Cookie::get('currency');
-        $currency_all = self::findAll();
-        if($currency_all && $currency){
-            $info = $currency_all[$currency];
-            if($info){
-                $setting = Setting::findAll();
-                $default = $setting['config']['currency'];
-                if($currency_all[$default]['value']>0){
-                    $price = $price*$info['value']/$currency_all[$default]['value'];
-                }
-                $price = round($price, (int)$info['decimal_place']);
-                if(!$string){
-                    return $price;
-                }
-                $string = '';
-                if ($info['symbol_left']) {
-                    $string .= $info['symbol_left'];
-                }
-                $string .= number_format($price, (int)$info['decimal_place']);
-                if ($info['symbol_right']) {
-                    $string .= $info['symbol_right'];
-                }
-                return $string;
+        list($info,$base) = self::defaultCurrency();
+        if($info && $base){
+            if($info['value']>0 && $base['value']>0){
+                $price = $price*$info['value']/$base['value'];
             }
+            $price = round($price, (int)$info['decimal_place']);
+            if(!$string){
+                return $price;
+            }
+            $string = '';
+            if ($info['symbol_left']) {
+                $string .= $info['symbol_left'];
+            }
+            $string .= number_format($price, (int)$info['decimal_place']);
+            if ($info['symbol_right']) {
+                $string .= $info['symbol_right'];
+            }
+            return $string;
         }
         return $price;
     }
+
 }

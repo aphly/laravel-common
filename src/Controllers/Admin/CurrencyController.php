@@ -30,7 +30,9 @@ class CurrencyController extends Controller
     }
 
     public function save(Request $request){
-        Currency::updateOrCreate(['id'=>$request->query('id',0)],$request->all());
+        $input = $request->all();
+        //$arr = $request->
+        Currency::updateOrCreate(['id'=>$request->query('id',0)],$input);
         throw new ApiException(['code'=>0,'msg'=>'success','data'=>['redirect'=>$this->index_url]]);
     }
 
