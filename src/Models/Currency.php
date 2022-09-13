@@ -15,7 +15,7 @@ class Currency extends Model
     public $timestamps = false;
 
     protected $fillable = [
-        'name','code','symbol_left','symbol_right','decimal_place','value','status','base','default'
+        'name','code','symbol_left','symbol_right','decimal_place','value','status','default'
     ];
 
     public function findOneByCode($code) {
@@ -34,29 +34,25 @@ class Currency extends Model
     static function defaultCurrency(){
         $currency_all = self::findAll();
         $default = '';
-        $base = '';
         foreach($currency_all as $val){
             if($val['default']){
                 $default = $val;
             }
-            if($val['base']){
-                $base = $val;
-            }
         }
         $currency = Cookie::get('currency');
         if($currency) {
-            return [$currency_all[$currency],$base];
+            return [$currency_all[$currency],$default];
         }else{
-            return [$default,$base];
+            return [$default,$default];
         }
     }
 
     static function format($price,$string = true){
         $price = floatval($price);
-        list($info,$base) = self::defaultCurrency();
-        if($info && $base){
-            if($info['value']>0 && $base['value']>0){
-                $price = $price*$info['value']/$base['value'];
+        list($info,$default) = self::defaultCurrency();
+        if($info && $default){
+            if($info['value']>0 && $default['value']>0){
+                $price = $price*$info['value']/$default['value'];
             }
             $price = round($price, (int)$info['decimal_place']);
             if(!$string){

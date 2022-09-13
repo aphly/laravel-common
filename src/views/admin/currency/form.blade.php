@@ -38,23 +38,11 @@
             </div>
 
             <div class="form-group">
-                <label for="">基准</label>
-                <select name="base" class="form-control">
-                    @if(isset($dict['yes_no']))
-                        @foreach($dict['yes_no'] as $key=>$val)
-                            <option value="{{$key}}" @if($res['info']->base==$key) selected @endif>{{$val}}</option>
-                        @endforeach
-                    @endif
-                </select>
-                <div class="invalid-feedback"></div>
-            </div>
-
-            <div class="form-group">
                 <label for="">默认</label>
                 <select name="default" class="form-control">
                     @if(isset($dict['yes_no']))
                         @foreach($dict['yes_no'] as $key=>$val)
-                            <option value="{{$key}}" @if($res['info']->base==$key) selected @endif>{{$val}}</option>
+                            <option value="{{$key}}" @if($res['info']->default==$key) selected @endif>{{$val}}</option>
                         @endforeach
                     @endif
                 </select>

@@ -26,7 +26,6 @@
                     <li >currency name</li>
                     <li >code</li>
                     <li >value</li>
-                    <li >base</li>
                     <li >default</li>
                     <li >状态</li>
                     <li >操作</li>
@@ -42,11 +41,15 @@
                         <li>
                             {{$v['value']}}
                         </li>
+
                         <li>
-                            {{$v['base']}}
-                        </li>
-                        <li>
-                            {{$v['default']}}
+                          @if($dict['yes_no'])
+                            @if($v->default==1)
+                              <span class="badge badge-success">{{$dict['yes_no'][$v->default]}}</span>
+                            @else
+                              <span class="badge badge-secondary">{{$dict['yes_no'][$v->default]}}</span>
+                            @endif
+                          @endif
                         </li>
                         <li>
                             @if($dict['status'])
