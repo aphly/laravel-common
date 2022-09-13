@@ -49,8 +49,8 @@
 
         <div class="header2 d-none d-xl-block">
             <ul class="menu d-flex">
-                @if(isset($link[1]['child']))
-                    @foreach($link[1]['child'] as $val)
+                @if(isset($links[1]['child']))
+                    @foreach($links[1]['child'] as $val)
                         <li>
                             @if(isset($val['child']))
                                 @php $val['child_url'] = array_column($val['child'],'url'); @endphp
@@ -140,8 +140,8 @@
     </div>
     <div class="m_header_ext2">
         <ul>
-            @if(isset($link[1]['child']))
-                @foreach($link[1]['child'] as $val)
+            @if(isset($links[1]['child']))
+                @foreach($links[1]['child'] as $val)
                     <li>
                         @if(isset($val['child']))
                             @php $val['child_url'] = array_column($val['child'],'url'); @endphp

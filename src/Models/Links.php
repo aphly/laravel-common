@@ -7,7 +7,7 @@ use Aphly\Laravel\Models\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Support\Facades\Cache;
 
-class Link extends Model
+class Links extends Model
 {
     use HasFactory;
     protected $table = 'common_link';

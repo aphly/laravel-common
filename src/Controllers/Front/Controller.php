@@ -3,7 +3,7 @@
 namespace Aphly\LaravelCommon\Controllers\Front;
 
 use Aphly\LaravelAdmin\Models\Config;
-use Aphly\LaravelCommon\Models\Link;
+use Aphly\LaravelCommon\Models\Links;
 use Aphly\LaravelCommon\Models\UserCheckin;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\View;
@@ -27,7 +27,7 @@ class Controller extends \Aphly\Laravel\Controllers\Controller
                 View::share("user",[]);
                 View::share("checkin",[]);
             }
-            View::share("link",(new Link)->menu());
+            View::share("links",(new Links)->menu());
             return $next($request);
         });
         parent::__construct();
