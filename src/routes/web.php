@@ -12,6 +12,12 @@ use Illuminate\Support\Facades\Route;
 | contains the "web" middleware group. Now create something great!
 |
 */
+//第三方登录
+Route::namespace('oauth')->group(function () {
+    Route::get('redirect/{service}','Aphly\LaravelCommon\Controllers\Front\OAuthController@redirectToProvider');
+    Route::get('callback/{service}','Aphly\LaravelCommon\Controllers\Front\OAuthController@handleProviderCallback');
+});
+
 Route::middleware(['web'])->group(function () {
 
     Route::get('country/{id}/zone', 'Aphly\LaravelCommon\Controllers\Front\CountryController@zone')->where('id', '[0-9]+');
