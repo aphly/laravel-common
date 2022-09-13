@@ -5,18 +5,18 @@
 </style>
 <div class="imain">
     <div class="itop ">
-        <form method="get" action="/common_admin/link/index" class="select_form">
+        <form method="get" action="/common_admin/links/index" class="select_form">
         <div class="search_box ">
             <input type="search" name="name" placeholder="link name" value="{{$res['search']['name']}}">
             <button class="" type="submit">搜索</button>
         </div>
         </form>
         <div class="">
-            <a class="badge badge-primary ajax_get show_all0_btn" data-href="/common_admin/link/show">浏览</a>
+            <a class="badge badge-primary ajax_get show_all0_btn" data-href="/common_admin/links/show">浏览</a>
         </div>
     </div>
 
-    <form method="post"  @if($res['search']['string']) action="/common_admin/link/del?{{$res['search']['string']}}" @else action="/common_admin/link/del" @endif  class="del_form">
+    <form method="post"  @if($res['search']['string']) action="/common_admin/links/del?{{$res['search']['string']}}" @else action="/common_admin/links/del" @endif  class="del_form">
     @csrf
         <div class="table_scroll">
             <div class="table">
@@ -44,7 +44,7 @@
                                 @endif
                             @endif
                         </li>
-{{--                            <a class="badge badge-info ajax_get" data-href="/common_admin/link/{{$v['id']}}/edit">编辑</a>--}}
+{{--                            <a class="badge badge-info ajax_get" data-href="/common_admin/links/{{$v['id']}}/edit">编辑</a>--}}
                     </ul>
                     @endforeach
                     <ul class="table_bottom">

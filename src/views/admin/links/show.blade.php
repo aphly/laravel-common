@@ -59,11 +59,6 @@
                                 <input type="text" name="sort" class="form-control " value="0">
                                 <div class="invalid-feedback"></div>
                             </div>
-                            <div class="form-group">
-                                <label for="">type</label>
-                                <input type="text" name="type" class="form-control " value="menu">
-                                <div class="invalid-feedback"></div>
-                            </div>
 
                         </div>
                     </form>
@@ -80,9 +75,9 @@
     var listById = @json($res['listById']);
     var data = toTree(selectData(list,false))
     var id = 0;
-    var fast_save_url = '/common_admin/link/save';
-    var fast_del_url = '/common_admin/link/del';
-    var fast_del_url_return = '/common_admin/link/show';
+    var fast_save_url = '/common_admin/links/save';
+    var fast_del_url = '/common_admin/links/del';
+    var fast_del_url_return = '/common_admin/links/show';
     var _token = '{{csrf_token()}}';
     var hide_id = [];
 

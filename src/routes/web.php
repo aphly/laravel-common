@@ -63,7 +63,7 @@ Route::middleware(['web'])->group(function () {
             $route_arr = [
                 ['group','\GroupController'],['credit_price','\CreditPriceController'],['user_credit_log','\UserCreditLogController'],['user_credit_order','\UserCreditOrderController'],
                 ['user_group_order','\UserGroupOrderController'],['category','\CategoryController'],['filter','\FilterController'],['news','\NewsController'],
-                ['country','\CountryController'],['geo','\GeoController'],['zone','\ZoneController'],['currency','\CurrencyController'],['link','\LinkController']
+                ['country','\CountryController'],['geo','\GeoController'],['zone','\ZoneController'],['currency','\CurrencyController'],['links','\LinksController']
             ];
 
             foreach ($route_arr as $val){
@@ -76,7 +76,7 @@ Route::middleware(['web'])->group(function () {
             Route::get('/filter/ajax', 'Aphly\LaravelCommon\Controllers\Admin\FilterController@ajax');
             Route::get('/category/ajax', 'Aphly\LaravelCommon\Controllers\Admin\CategoryController@ajax');
             Route::get('/category/show', 'Aphly\LaravelCommon\Controllers\Admin\CategoryController@show');
-            Route::get('/link/show', 'Aphly\LaravelCommon\Controllers\Admin\LinkController@show');
+            Route::get('/links/show', 'Aphly\LaravelCommon\Controllers\Admin\LinksController@show');
 
         });
     });

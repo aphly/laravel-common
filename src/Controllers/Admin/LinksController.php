@@ -6,9 +6,9 @@ use Aphly\Laravel\Exceptions\ApiException;
 use Aphly\LaravelCommon\Models\Links;
 use Illuminate\Http\Request;
 
-class LinkController extends Controller
+class LinksController extends Controller
 {
-    public $index_url='/common_admin/link/index';
+    public $index_url='/common_admin/links/index';
 
     public function index(Request $request)
     {
@@ -20,7 +20,7 @@ class LinkController extends Controller
                 })
             ->orderBy('sort','desc')
             ->Paginate(config('admin.perPage'))->withQueryString();
-        return $this->makeView('laravel-common::admin.link.index',['res'=>$res]);
+        return $this->makeView('laravel-common::admin.links.index',['res'=>$res]);
     }
 
     public function show()
@@ -28,13 +28,13 @@ class LinkController extends Controller
         $data = Links::orderBy('sort', 'desc')->get();
         $res['list'] = $data->toArray();
         $res['listById'] = $data->keyBy('id')->toArray();
-        return $this->makeView('laravel-common::admin.link.show',['res'=>$res]);
+        return $this->makeView('laravel-common::admin.links.show',['res'=>$res]);
     }
 
     public function save(Request $request){
         $id = $request->query('id',0);
         Links::updateOrCreate(['id'=>$id,'pid'=>$request->input('pid',0),],$request->all());
-        throw new ApiException(['code'=>0,'msg'=>'success','data'=>['redirect'=>$this->index_url]]);
+        throw new ApiException(['code'=>0,'msg'=>'success','data'=>['redirect'=>'/common_admin/links/show']]);
     }
 
     public function del(Request $request)
