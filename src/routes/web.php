@@ -13,12 +13,13 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::namespace('oauth')->group(function () {
-    Route::get('redirect/{service}','Aphly\LaravelCommon\Controllers\Front\OAuthController@redirectToProvider');
-    Route::get('callback/{service}','Aphly\LaravelCommon\Controllers\Front\OAuthController@handleProviderCallback');
-});
-
 Route::middleware(['web'])->group(function () {
+
+    Route::prefix('oauth')->group(function () {
+        Route::get('{service}','Aphly\LaravelCommon\Controllers\Front\OAuthController@redirectToProvider');
+        Route::get('{service}/callback','Aphly\LaravelCommon\Controllers\Front\OAuthController@handleProviderCallback');
+    });
+
     Route::get('/currency/{id}', 'Aphly\LaravelCommon\Controllers\Front\CurrencyController@ajax')->where('id', '[0-9]+');
 
     Route::get('country/{id}/zone', 'Aphly\LaravelCommon\Controllers\Front\CountryController@zone')->where('id', '[0-9]+');

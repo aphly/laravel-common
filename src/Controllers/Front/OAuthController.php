@@ -3,11 +3,13 @@
 namespace Aphly\LaravelCommon\Controllers\Front;
 
 use Aphly\Laravel\Exceptions\ApiException;
+use Aphly\Laravel\Libs\Helper;
 use Aphly\LaravelCommon\Models\User;
+use Aphly\LaravelCommon\Models\UserAuth;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Str;
 use Laravel\Socialite\Facades\Socialite;
-
 
 class OAuthController extends Controller
 {
@@ -25,7 +27,7 @@ class OAuthController extends Controller
 
     public function redirectToProvider($driver)
     {
-        if(!$this->isProviderAllowed($driver) ) {
+        if(!$this->isProviderAllowed($driver)) {
             throw new ApiException(['code'=>1,'msg'=>"{$driver} is not currently supported"]);
         }
         try {
@@ -35,49 +37,46 @@ class OAuthController extends Controller
         }
     }
 
-    public function handleProviderCallback( $driver )
+    public function handleProviderCallback($driver)
     {
         try {
-            $user = Socialite::driver($driver)->user();
+            //$oauthUser = Socialite::driver($driver)->stateless()->user();
+            $oauthUser = Socialite::driver($driver)->user();
         } catch (\Exception $e) {
             throw new ApiException(['code'=>1,'msg'=>$e->getMessage()]);
         }
-        dd($user);
-        return empty( $user->email )
-            ? throw new ApiException(['code'=>1,'msg'=>"No email id returned from {$driver} provider."])
-            : $this->loginOrCreateAccount($user, $driver);
+        return $this->loginOrCreateAccount($oauthUser, $driver);
     }
 
-    protected function loginOrCreateAccount($providerUser, $driver)
+    protected function loginOrCreateAccount($oauthUser, $driver)
     {
-        $user = User::where('email', $providerUser->getEmail())->first();
-        // if user already found
-        if( $user ) {
-            // update the avatar and provider that might have changed
-            $user->update([
-                'avatar' => $providerUser->avatar,
-                'provider' => $driver,
-                'provider_id' => $providerUser->id,
-                'access_token' => $providerUser->token
-            ]);
-        } else {
-            // create a new user  我自己的github我获取不到账号的name，能获取到nickname。
-            $user = User::create([
-                'name' => $providerUser->getName()?:$providerUser->getNickName(),
-                'email' => $providerUser->getEmail(),
-                'avatar' => $providerUser->getAvatar(),
-                'provider' => $driver,
-                'provider_id' => $providerUser->getId(),
-                'access_token' => $providerUser->token,
-                // user can use reset password to create a password
-                'password' => ''
-            ]);
+        $arr['id'] = $oauthUser->id;
+        $arr['id_type'] = $driver;
+        $userAuthModel = UserAuth::where($arr);
+        $userAuth = $userAuthModel->first();
+        if(!empty($userAuth)){
+            $userAuthModel->update(['password'=>$oauthUser->token,'last_login'=>time(),'last_ip'=>request()->ip()]);
+            $user = User::find($userAuth->uuid);
+            $user->generateToken();
+            $user->afterLogin($user);
+        }else{
+            $arr['uuid'] = Helper::uuid();
+            $arr['password'] = $oauthUser->token;
+            $arr['last_login'] = time();
+            $arr['last_ip'] = request()->ip();
+            $userAuth = UserAuth::create($arr);
+            if($userAuth->uuid){
+                $user = User::create([
+                    'nickname'=>str::random(8),
+                    'uuid'=>$userAuth->uuid,
+                    'token'=>Str::random(64),
+                    'token_expire'=>time()+120*60,
+                    'group_id'=>User::$group_id,
+                ]);
+                $user->afterRegister($user);
+            }
         }
-
-        // login the user，web版的登录,原生的auth验证
-        Auth::login($user, true);
-
-        return $this->sendSuccessResponse();
-
+        Auth::guard('user')->login($user);
+        return redirect($user->returnUrl());
     }
 }

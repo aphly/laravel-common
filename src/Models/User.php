@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Str;
 
 class User extends Authenticatable
 {
@@ -90,5 +91,37 @@ class User extends Authenticatable
 
     function credit(){
         return $this->hasOne(UserCredit::class,'uuid','uuid');
+    }
+
+    public function afterLogin($user)
+    {
+        $class = [];
+        $this->handle($class,$user);
+    }
+
+    public function afterRegister($user)
+    {
+        $class = ['\Aphly\LaravelNovel\Models\UserNovelSetting'];
+        $this->handle($class,$user);
+    }
+
+    public function handle($class,$params)
+    {
+        foreach ($class as $val) {
+            if (class_exists($val)) {
+                (new $val)->handle($params);
+            }
+        }
+    }
+
+    public function generateToken(){
+        $this->token = Str::random(64);
+        $this->token_expire = time()+120*60;
+        return $this->save();
+    }
+
+    public function returnUrl(){
+        $redirect = urldecode(request()->query('return_url'));
+        return $redirect??'/';
     }
 }
