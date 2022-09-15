@@ -6,7 +6,6 @@ use Aphly\Laravel\Exceptions\ApiException;
 use Aphly\Laravel\Libs\Helper;
 use Aphly\LaravelCommon\Models\User;
 use Aphly\LaravelCommon\Models\UserAuth;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Str;
 use Laravel\Socialite\Facades\Socialite;
@@ -19,6 +18,19 @@ class OAuthController extends Controller
         'google',
         'twitter'
     ];
+
+    public function __construct()
+    {
+        $this->middleware(function ($request, $next) {
+            $auth = Auth::guard('user');
+            if ($auth->check()) {
+                return redirect(url(''));
+            }else{
+                return $next($request);
+            }
+        });
+        parent::__construct();
+    }
 
     private function isProviderAllowed($driver)
     {
@@ -45,6 +57,7 @@ class OAuthController extends Controller
         } catch (\Exception $e) {
             throw new ApiException(['code'=>1,'msg'=>$e->getMessage()]);
         }
+        //dd($oauthUser);
         return $this->loginOrCreateAccount($oauthUser, $driver);
     }
 

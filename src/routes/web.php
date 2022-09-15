@@ -15,10 +15,8 @@ use Illuminate\Support\Facades\Route;
 
 Route::middleware(['web'])->group(function () {
 
-    Route::prefix('oauth')->group(function () {
-        Route::get('{service}','Aphly\LaravelCommon\Controllers\Front\OAuthController@redirectToProvider');
-        Route::get('{service}/callback','Aphly\LaravelCommon\Controllers\Front\OAuthController@handleProviderCallback');
-    });
+    Route::get('oauth/{service}','Aphly\LaravelCommon\Controllers\Front\OAuthController@redirectToProvider')->name('oauth');
+    Route::get('oauth/{service}/callback','Aphly\LaravelCommon\Controllers\Front\OAuthController@handleProviderCallback')->name('oauthCallback');
 
     Route::get('/currency/{id}', 'Aphly\LaravelCommon\Controllers\Front\CurrencyController@ajax')->where('id', '[0-9]+');
 
@@ -51,7 +49,6 @@ Route::middleware(['web'])->group(function () {
             Route::match(['post'],'checkin', 'Aphly\LaravelCommon\Controllers\Front\AccountController@checkin');
         });
     });
-
 
 });
 

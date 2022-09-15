@@ -36,7 +36,7 @@
                     <span>Or</span>
                 </div>
                 <div class="ext_login">
-                    <a class="google" href="">
+                    <a class="google" href="/oauth/google">
                         <div class="d-flex justify-content-between">
                             <div class="ext_icon">
                                 <svg width="22" height="22" xmlns="http://www.w3.org/2000/svg">
@@ -52,7 +52,7 @@
                             <div></div>
                         </div>
                     </a>
-                    <a class="facebook" href="">
+                    <a class="facebook" href="/oauth/facebook">
                         <div class="d-flex justify-content-between">
                             <div class="ext_icon">
                                 <svg width="22" height="22" xmlns="http://www.w3.org/2000/svg">

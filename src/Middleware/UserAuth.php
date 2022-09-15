@@ -31,7 +31,7 @@ class UserAuth
         }
     }
 
-    function _redirect($request,$url){
+    public function _redirect($request,$url){
         if($request->ajax()){
             throw new ApiException(['code'=>1,'msg'=>'redirect','data'=>['redirect'=>$url]]);
         }else{

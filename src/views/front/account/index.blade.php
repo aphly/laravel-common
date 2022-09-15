@@ -3,7 +3,7 @@
 <section class="">
     <style>
         .avatar{width: 200px;height: 200px;margin-top: 20px;}
-        .avatar img{width: 100%;height: 100%}
+        .avatar img{width: 100%;height: 100%;border-radius: 50%;}
         .avatar i{font-size: 100px;}
     </style>
     <div class="account container">

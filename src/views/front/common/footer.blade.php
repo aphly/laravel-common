@@ -22,7 +22,7 @@
     </div>
 </footer>
 <style>
-    footer{background: #fafafa;padding: 50px 0 20px;}
+    footer{background: #fafafa;padding: 50px 0 20px;margin-top: 20px;}
     .footer1{display: flex;flex-wrap: wrap;}
     .footer1 a{display: block;width: 100%;color: #555;font-weight: 600;margin-top: 15px;}
     .footer2{margin: 20px 0;}

@@ -92,6 +92,7 @@
                 .touxiang1 i{font-size: 20px}
                 .dropdown.show a[data-toggle="dropdown"] i{color: var(--a-hover)}
                 .touxiang{border-bottom: 1px solid #f1f1f1;}
+                .touxiang1 img{width: 100%;height: 100%;border-radius: 50%}
             </style>
             <ul class="">
                 @if($user)
@@ -100,7 +101,13 @@
                         <a href="javascript:void(0)" id="touxiang" data-toggle="dropdown" aria-expanded="false"><li><i class="common-iconfont icon-touxiang"></i></li></a>
                         <div class="dropdown-menu dropdown-menu-right" aria-labelledby="touxiang">
                             <a class="dropdown-item d-flex touxiang" href="/account/index">
-                                <div class="touxiang1"><i class="common-iconfont icon-touxiang"></i></div>
+                                <div class="touxiang1">
+                                    @if($user->avatar)
+                                        <img class="lazy " src="{{Storage::url($user->avatar)}}">
+                                    @else
+                                        <i class="common-iconfont icon-touxiang"></i>
+                                    @endif
+                                </div>
                                 <div class="touxiang2">{{$user['nickname']}}</div>
                             </a>
                             <a class="dropdown-item hPoint" href="/account/credit" data-stopPropagation="true">
