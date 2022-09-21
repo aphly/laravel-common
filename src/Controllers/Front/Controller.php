@@ -3,6 +3,7 @@
 namespace Aphly\LaravelCommon\Controllers\Front;
 
 use Aphly\LaravelAdmin\Models\Config;
+use Aphly\LaravelCommon\Models\Currency;
 use Aphly\LaravelCommon\Models\Links;
 use Aphly\LaravelCommon\Models\UserCheckin;
 use Illuminate\Support\Facades\Auth;
@@ -28,6 +29,8 @@ class Controller extends \Aphly\Laravel\Controllers\Controller
                 View::share("checkin",[]);
             }
             View::share("links",(new Links)->menu());
+            View::share("currency",(new Currency)->curr());
+            dd((new Currency)->curr());
             return $next($request);
         });
         parent::__construct();

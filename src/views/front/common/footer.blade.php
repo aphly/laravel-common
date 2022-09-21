@@ -35,7 +35,22 @@
         .footer1{}
     }
 </style>
-
+@if(count($currency)>1)
+<div class="currency_box">
+    <div class="currency_curr">
+        <div class="baCountry baCountry-AUD"></div>
+        <span class="ba-chosen">AUD</span>
+    </div>
+    <ul class="baDropdown">
+        @foreach($currency as $val)
+            <li class="currMovers active" data-code="{{$val['code']}}">
+                <div class="baCountry baCountry-USD"></div>
+                <span class="curChoice">{{$val['name']}} ({{$val['code']}})</span>
+            </li>
+        @endforeach
+    </ul>
+</div>
+@endif
 <script src="{{ URL::asset('static/admin/js/bootstrap.bundle.min.js') }}"></script>
 <script>
     var aphly_viewerjs = document.getElementById('aphly_viewerjs');

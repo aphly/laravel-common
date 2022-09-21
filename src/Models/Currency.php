@@ -32,7 +32,7 @@ class Currency extends Model
     }
 
     static function defaultCurrency(){
-        $currency_all = self::findAll();
+        $currency_all = self::findAll(1);
         $default = '';
         foreach($currency_all as $val){
             if($val['default']){
@@ -45,6 +45,11 @@ class Currency extends Model
         }else{
             return [$default,$default];
         }
+    }
+
+    static function curr(){
+        list($arr,$default) = self::defaultCurrency();
+        return $arr;
     }
 
     static function format($price,$string = true){
