@@ -31,31 +31,26 @@ class Currency extends Model
         });
     }
 
-    static function defaultCurrency(){
+    static function defaultCurr(){
         $currency_all = self::findAll(1);
         $default = '';
         foreach($currency_all as $val){
-            if($val['default']){
+            if($val['default']==1){
                 $default = $val;
             }
         }
         $currency = Cookie::get('currency');
         if($currency) {
-            return [$currency_all[$currency],$default];
+            return [$currency_all,$default,$currency_all[$currency]];
         }else{
-            return [$default,$default];
+            return [$currency_all,$default,$default];
         }
-    }
-
-    static function curr(){
-        list($arr,$default) = self::defaultCurrency();
-        return $arr;
     }
 
     static function format($price,$string = true){
         $price = floatval($price);
-        list($info,$default) = self::defaultCurrency();
-        if($info && $default){
+        list($currency_all,$default,$info) = self::defaultCurr();
+        if($currency_all && $default && $info){
             if($info['value']>0 && $default['value']>0){
                 $price = $price*$info['value']/$default['value'];
             }

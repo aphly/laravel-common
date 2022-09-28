@@ -35,21 +35,55 @@
         .footer1{}
     }
 </style>
-@if(count($currency)>1)
+@if($currency[0] && $currency[1] && $currency[2] && count($currency[0])>1 )
 <div class="currency_box">
     <div class="currency_curr">
-        <div class="baCountry baCountry-AUD"></div>
-        <span class="ba-chosen">AUD</span>
+        <div class="baCountry baCountry-{{$currency[2]['code']}}"></div>
+        <span class="ba-chosen ">{{$currency[2]['code']}}</span>
     </div>
     <ul class="baDropdown">
-        @foreach($currency as $val)
-            <li class="currMovers active" data-code="{{$val['code']}}">
-                <div class="baCountry baCountry-USD"></div>
-                <span class="curChoice">{{$val['name']}} ({{$val['code']}})</span>
+        @foreach($currency[0] as $val)
+            <li class="currMovers @if($currency[2]['code']==$val['code']) active @endif" data-id="{{$val['id']}}">
+                <div class="baCountry baCountry-{{$val['code']}}"></div>
+                <span class="curChoice wenzi">{{$val['name']}} ({{$val['code']}})</span>
             </li>
         @endforeach
     </ul>
 </div>
+
+<script>
+
+    function throttle(func, wait) {
+        var context, args;
+        var previous = 0;
+        return function() {
+            var now = +new Date();
+            context = this;
+            args = arguments;
+            if (now - previous > wait) {
+                func.apply(context, args);
+                previous = now;
+            }
+        }
+    }
+
+    $(function () {
+        $('.currency_box .currency_curr').click(function () {
+            $('.baDropdown').toggle();
+        })
+        $('.currency_box .baDropdown').on('click','li',throttle(function () {
+            console.log('zz');
+            $.ajax({
+                url:'/currency/'+id,
+                dataType: "json",
+                success: function(res){
+                    console.log(res);
+                    //alert_msg(res,true)
+                }
+            })
+        }, 1000))
+    })
+</script>
 @endif
 <script src="{{ URL::asset('static/admin/js/bootstrap.bundle.min.js') }}"></script>
 <script>

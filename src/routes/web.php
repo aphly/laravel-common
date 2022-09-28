@@ -20,6 +20,8 @@ Route::middleware(['web'])->group(function () {
 
     Route::get('/currency/{id}', 'Aphly\LaravelCommon\Controllers\Front\CurrencyController@ajax')->where('id', '[0-9]+');
 
+    Route::middleware(['cross'])->get('zone', 'Aphly\LaravelCommon\Controllers\Front\CountryController@test')->where('id', '[0-9]+');
+
     Route::get('country/{id}/zone', 'Aphly\LaravelCommon\Controllers\Front\CountryController@zone')->where('id', '[0-9]+');
     Route::get('checkout/success', 'Aphly\LaravelCommon\Controllers\Front\CheckoutController@success');
     Route::get('checkout/fail', 'Aphly\LaravelCommon\Controllers\Front\CheckoutController@fail');

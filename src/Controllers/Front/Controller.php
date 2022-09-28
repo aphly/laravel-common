@@ -29,10 +29,11 @@ class Controller extends \Aphly\Laravel\Controllers\Controller
                 View::share("checkin",[]);
             }
             View::share("links",(new Links)->menu());
-            View::share("currency",(new Currency)->curr());
-            dd((new Currency)->curr());
+            View::share("currency",(new Currency)->defaultCurr());
             return $next($request);
         });
+
         parent::__construct();
     }
+
 }
