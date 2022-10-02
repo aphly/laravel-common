@@ -52,6 +52,9 @@ Route::middleware(['web'])->group(function () {
         });
     });
 
+    //api/upload
+    Route::match(['post'],'news/img', 'Aphly\LaravelCommon\Controllers\Front\NewsController@imgs');
+
 });
 
 Route::middleware(['web'])->group(function () {

@@ -3,6 +3,7 @@
 namespace Aphly\LaravelCommon\Controllers\Admin;
 
 use Aphly\Laravel\Exceptions\ApiException;
+use Aphly\Laravel\Libs\Editor;
 use Aphly\LaravelCommon\Models\News;
 use Illuminate\Http\Request;
 
@@ -30,7 +31,16 @@ class NewsController extends Controller
     }
 
     public function save(Request $request){
-        News::updateOrCreate(['id'=>$request->query('id',0)],$request->all());
+        $id = $request->query('id',0);
+        $input = $request->all();
+        $info = News::where('id',$id)->first();
+        if(!empty($info)){
+            $info->content = (new Editor)->edit($info->content,$request->input('content'));
+            $info->save();
+        }else{
+            $input['content'] =  (new Editor)->add($request->input('content'));
+            News::create($input);
+        }
         throw new ApiException(['code'=>0,'msg'=>'success','data'=>['redirect'=>$this->index_url]]);
     }
 
@@ -40,8 +50,14 @@ class NewsController extends Controller
         $redirect = $query?$this->index_url.'?'.http_build_query($query):$this->index_url;
         $post = $request->input('delete');
         if(!empty($post)){
+            $data = News::whereIn('id',$post)->get();
+            foreach($data as $val){
+                (new Editor)->del($val->content);
+            }
             News::whereIn('id',$post)->delete();
             throw new ApiException(['code'=>0,'msg'=>'操作成功','data'=>['redirect'=>$redirect]]);
         }
     }
+
+
 }

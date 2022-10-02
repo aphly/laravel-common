@@ -53,7 +53,21 @@
         const editorConfig = {
             onChange(editor) {
                 $('#content').html(editor.getHtml());
-            }
+            },
+            MENU_CONF: {}
+        }
+        editorConfig.MENU_CONF['uploadImage'] = {
+            server: '/news/img',
+            fieldName: 'newsImg',
+            maxFileSize: 1*1024*1024,
+            maxNumberOfFiles: 10,
+            allowedFileTypes: ['image/*'],
+            meta: {
+                _token: '{{csrf_token()}}'
+            },
+            metaWithUrl: true,
+            withCredentials: false,
+            timeout: 5 * 1000,
         }
         const editor = createEditor({
             selector: '#editor-container',
