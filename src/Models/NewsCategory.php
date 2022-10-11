@@ -10,7 +10,7 @@ use Illuminate\Support\Facades\Cache;
 class NewsCategory extends Model
 {
     use HasFactory;
-    protected $table = 'common_new_category';
+    protected $table = 'common_news_category';
     public $timestamps = false;
 
     protected $fillable = [
