@@ -129,7 +129,8 @@ function _confirm(id,_this) {
     $('#checkout').modal('show')
 }
 
-function order(){
+function order(_this){
+    $(_this).attr('disabled',true);
     $.ajax({
         url:'/account/credit',
         type:'post',
@@ -141,6 +142,9 @@ function order(){
             }else{
                 alert_msg(res)
             }
+        },
+        complete:function(XMLHttpRequest,textStatus){
+            $(_this).removeAttr('disabled');
         }
     })
 }

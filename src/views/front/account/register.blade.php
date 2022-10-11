@@ -39,7 +39,7 @@
                         </label>
                     </div>
                     <div id="msg_check" class="d-none"></div>
-                    <button class="btn createBtn text-brand">Register</button>
+                    <button class="btn createBtn text-brand" type="submit">Register</button>
                 </div>
                 <div class="split-line ">
                     <p class="text-center">
@@ -90,9 +90,7 @@
 <script>
     let form_id = '#register'
     $(function (){
-        $(form_id).submit(function (event){
-            event.preventDefault()
-            event.stopPropagation()
+        $(form_id).submit(function (){
             const form = $(this)
             if(form[0].checkValidity()===false){
             }else{
@@ -104,12 +102,15 @@
                         type,url,
                         data: form.serialize(),
                         dataType: "json",
+                        beforeSend:function () {
+                            $(form_id+' button[type="submit"]').attr('disabled',true);
+                        },
                         success: function(res){
                             $(form_id+' input.form-control').addClass('is-valid');
                             if(!res.code) {
                                 location.href = res.data.redirect
                             }else if(res.code===11000){
-                                for(var item in res.data){
+                                for(let item in res.data){
                                     let str = ''
                                     res.data[item].forEach((elem, index)=>{
                                         str = str+elem+'<br>'
@@ -123,14 +124,14 @@
                             }
                         },
                         complete:function(XMLHttpRequest,textStatus){
-                            //console.log(XMLHttpRequest,textStatus)
+                            $(form_id+' button[type="submit"]').removeAttr('disabled');
                         }
                     })
                 }else{
                     console.log('no action')
                 }
             }
-
+            return false;
         })
     });
 </script>

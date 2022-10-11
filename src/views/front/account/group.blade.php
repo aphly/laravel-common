@@ -105,7 +105,7 @@
                         <input type="checkbox" id="agree"> <span >I acknowledge that I have read and accept the <span>refund policy</span></span>
                     </label>
                     <div class="checkout4">
-                        <button type="button" class="buleBtn" disabled onclick="order()">BUY</button>
+                        <button type="button" class="buleBtn" disabled onclick="order(this)">BUY</button>
                     </div>
                 </div>
             </div>
@@ -155,7 +155,8 @@ function _confirm(id,_this) {
     $('#checkout').modal('show')
 }
 
-function order(){
+function order(_this){
+    $(_this).attr('disabled',true);
     $.ajax({
         url:'/account/group',
         type:'post',
@@ -167,6 +168,9 @@ function order(){
             }else{
                 alert_msg(res)
             }
+        },
+        complete:function(XMLHttpRequest,textStatus){
+            $(_this).removeAttr('disabled');
         }
     })
 }

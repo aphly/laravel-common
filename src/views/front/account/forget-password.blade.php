@@ -31,9 +31,7 @@
 <script>
 let form_id = '#forget-password-set'
 $(function (){
-    $(form_id).submit(function (event){
-        event.preventDefault()
-        event.stopPropagation()
+    $(form_id).submit(function (){
         const form = $(this)
         if(form[0].checkValidity()===false){
         }else{
@@ -45,13 +43,16 @@ $(function (){
                     type,url,
                     data: form.serialize(),
                     dataType: "json",
+                    beforeSend:function () {
+                        $(form_id+' button[type="submit"]').attr('disabled',true);
+                    },
                     success: function(res){
                         $(form_id+' input.form-control').addClass('is-valid');
                         console.log(res)
                         if(!res.code) {
                             location.href = res.data.redirect
                         }else if(res.code===11000){
-                            for(var item in res.data){
+                            for(let item in res.data){
                                 let str = ''
                                 res.data[item].forEach((elem, index)=>{
                                     str = str+elem+'<br>'
@@ -65,14 +66,14 @@ $(function (){
                         }
                     },
                     complete:function(XMLHttpRequest,textStatus){
-                        //console.log(XMLHttpRequest,textStatus)
+                        $(form_id+' button[type="submit"]').removeAttr('disabled');
                     }
                 })
             }else{
                 console.log('no action')
             }
         }
-
+        return false;
     })
 });
 </script>
