@@ -32,8 +32,14 @@ class InstallController extends Controller
             $data[] =['name' => '链接管理','url' =>'/common_admin/links/index','pid'=>$menu->id,'is_leaf'=>1,'module_id'=>$this->module_id,'sort'=>0];
             $data[] =['name' => '分类管理','url' =>'/common_admin/category/index','pid'=>$menu->id,'is_leaf'=>1,'module_id'=>$this->module_id,'sort'=>0];
             $data[] =['name' => '筛选管理','url' =>'/common_admin/filter/index','pid'=>$menu->id,'is_leaf'=>1,'module_id'=>$this->module_id,'sort'=>0];
-            $data[] =['name' => '文章管理','url' =>'/common_admin/news/index','pid'=>$menu->id,'is_leaf'=>1,'module_id'=>$this->module_id,'sort'=>0];
             DB::table('admin_menu')->insert($data);
+            $menu22 = Menu::create(['name' => '文章管理','url' =>'','pid'=>$menu->id,'is_leaf'=>0,'module_id'=>$this->module_id,'sort'=>0]);
+            if($menu22){
+                $data=[];
+                $data[] =['name' => '文章列表','url' =>'/common_admin/news/index','pid'=>$menu22->id,'is_leaf'=>1,'module_id'=>$this->module_id,'sort'=>0];
+                $data[] =['name' => '文章分类','url' =>'/common_admin/news_category/index','pid'=>$menu22->id,'is_leaf'=>1,'module_id'=>$this->module_id,'sort'=>0];
+                DB::table('admin_menu')->insert($data);
+            }
             $menu21 = Menu::create(['name' => '其他设置','url' =>'','pid'=>$menu->id,'is_leaf'=>0,'module_id'=>$this->module_id,'sort'=>0]);
             if($menu21){
                 $data=[];

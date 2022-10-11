@@ -13,7 +13,7 @@ class News extends Model
     protected $table = 'common_news';
     //public $timestamps = false;
     protected $fillable = [
-        'title','content','viewed','status'
+        'title','content','viewed','status','news_category_id'
     ];
 
     function show($news_id){

@@ -19,6 +19,7 @@ return new class extends Migration
             $table->text('content');
             $table->unsignedInteger('viewed')->nullable()->default(1);
             $table->tinyInteger('status')->nullable()->default(1);
+            $table->unsignedBigInteger('news_category_id')->nullable()->default(0);
             $table->unsignedBigInteger('created_at');
             $table->unsignedBigInteger('updated_at');
         });

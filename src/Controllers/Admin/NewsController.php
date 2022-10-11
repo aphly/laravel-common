@@ -5,6 +5,7 @@ namespace Aphly\LaravelCommon\Controllers\Admin;
 use Aphly\Laravel\Exceptions\ApiException;
 use Aphly\Laravel\Libs\Editor;
 use Aphly\LaravelCommon\Models\News;
+use Aphly\LaravelCommon\Models\NewsCategory;
 use Illuminate\Http\Request;
 
 class NewsController extends Controller
@@ -27,6 +28,8 @@ class NewsController extends Controller
     public function form(Request $request)
     {
         $res['info'] = News::where('id',$request->query('id',0))->firstOrNew();
+        $res['newsCategory'] = (new NewsCategory)->findAll();
+        dd($res['newsCategory']);
         return $this->makeView('laravel-common::admin.news.form',['res'=>$res]);
     }
 

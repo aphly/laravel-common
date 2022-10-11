@@ -26,6 +26,13 @@
                 </div>
             </div>
 
+            <div class="form-group">
+                <label for="">文章分类</label>
+                <input type="hidden" name="news_category_id"  class="form-control" value="{{$res['info']->title}}">
+                <input type="text" name="news_category_id"  class="form-control" value="{{$res['info']->title}}">
+                <div class="invalid-feedback"></div>
+            </div>
+
             <div class="form-group" id="status">
                 <label for="">状态</label>
                 <select name="module_id" class="form-control">
@@ -46,6 +53,8 @@
     </form>
 
 </div>
+
+
 
 <script>
     $(function () {
@@ -82,5 +91,7 @@
             config: toolbarConfig,
             mode: 'simple',
         })
+
+
     })
 </script>
