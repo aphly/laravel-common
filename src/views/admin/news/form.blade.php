@@ -28,8 +28,15 @@
 
             <div class="form-group">
                 <label for="">文章分类</label>
-                <input type="hidden" name="news_category_id"  class="form-control" value="{{$res['info']->title}}">
-                <input type="text" name="news_category_id"  class="form-control" value="{{$res['info']->title}}">
+                <input type="hidden" name="news_category_id"  class="form-control" value="{{$res['info']->news_category_id}}">
+                <input type="text" id="p_name" class="form-control" value="" onclick="mytoggle(this)" readonly>
+                <div id="tree_p" style="position: absolute;display: none;width: 100%;background: #fff;box-shadow: 0 1px 4px rgb(24 38 16 / 10%);">
+                    <div id="tree" class="treeview"></div>
+                </div>
+                <div style="position: relative">
+                    <div></div>
+                    <div id="tree" class="treeview"></div>
+                </div>
                 <div class="invalid-feedback"></div>
             </div>
 
@@ -92,6 +99,19 @@
             mode: 'simple',
         })
 
-
+        let list = @json($res['newsCategory']);
+        let data = toTree(selectData(list,false))
+        $('#tree').treeview({
+            levels: 2,
+            collapseIcon:'uni app-arrow-right-copy',
+            expandIcon:'uni app-arrow-right',
+            data,
+            onNodeSelected: function(event, data) {
+                id = data.id
+            },
+            onNodeUnselected: function(event, data) {
+                id = 0
+            },
+        });
     })
 </script>

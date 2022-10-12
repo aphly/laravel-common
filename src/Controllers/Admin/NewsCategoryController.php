@@ -24,6 +24,15 @@ class NewsCategoryController extends Controller
         return $this->makeView('laravel-common::admin.news_category.index',['res'=>$res]);
     }
 
+    public function form(Request $request)
+    {
+        $res['info'] = NewsCategory::where('id',$request->query('id',0))->firstOrNew();
+        if(!empty($res['info']) && $res['info']->pid){
+            $res['parent_info'] = NewsCategory::where('id',$res['info']->pid)->first();
+        }
+        return $this->makeView('laravel-common::admin.news_category.form',['res'=>$res]);
+    }
+
     public function show()
     {
         $data = NewsCategory::orderBy('sort', 'desc')->get();
@@ -34,8 +43,14 @@ class NewsCategoryController extends Controller
 
     public function save(Request $request){
         $id = $request->query('id',0);
-        NewsCategory::updateOrCreate(['id'=>$id,'pid'=>$request->input('pid',0),],$request->all());
-        throw new ApiException(['code'=>0,'msg'=>'success','data'=>['redirect'=>'/common_admin/news_category/show']]);
+        $form_edit = $request->input('form_edit',0);
+        if($form_edit){
+            NewsCategory::updateOrCreate(['id'=>$id],$request->all());
+        }else{
+            NewsCategory::updateOrCreate(['id'=>$id,'pid'=>$request->input('pid',0)],$request->all());
+            $this->index_url = '/common_admin/news_category/show';
+        }
+        throw new ApiException(['code'=>0,'msg'=>'success','data'=>['redirect'=>$this->index_url]]);
     }
 
     public function del(Request $request)

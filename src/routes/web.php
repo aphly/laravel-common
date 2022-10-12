@@ -87,7 +87,7 @@ Route::middleware(['web'])->group(function () {
             Route::get('/category/ajax', 'Aphly\LaravelCommon\Controllers\Admin\CategoryController@ajax');
             Route::get('/category/show', 'Aphly\LaravelCommon\Controllers\Admin\CategoryController@show');
             Route::get('/links/show', 'Aphly\LaravelCommon\Controllers\Admin\LinksController@show');
-            Route::get('/news_category/show', 'Aphly\LaravelCommon\Controllers\Admin\CategoryController@show');
+            Route::get('/news_category/show', 'Aphly\LaravelCommon\Controllers\Admin\NewsCategoryController@show');
 
         });
     });

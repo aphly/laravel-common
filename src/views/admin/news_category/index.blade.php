@@ -48,7 +48,9 @@
                                 @endif
                             @endif
                         </li>
-{{--                            <a class="badge badge-info ajax_get" data-href="/common_admin/news_category/{{$v['id']}}/edit">编辑</a>--}}
+                        <li>
+                            <a class="badge badge-info ajax_get" data-href="/common_admin/news_category/form?id={{$v['id']}}">编辑</a>
+                        </li>
                     </ul>
                     @endforeach
                     <ul class="table_bottom">
