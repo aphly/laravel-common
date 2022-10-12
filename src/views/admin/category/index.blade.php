@@ -25,8 +25,8 @@
                     <li >ID</li>
                     <li >name</li>
                     <li >sort</li>
-                    <li ></li>
                     <li >状态</li>
+                    <li>操作</li>
                 </ul>
                 @if($res['list']->total())
                     @foreach($res['list'] as $v)
@@ -37,9 +37,6 @@
                             {{$v['sort']}}
                         </li>
                         <li>
-
-                        </li>
-                        <li>
                             @if($dict['status'])
                                 @if($v->status)
                                     <span class="badge badge-success">{{$dict['status'][$v->status]}}</span>
@@ -48,7 +45,9 @@
                                 @endif
                             @endif
                         </li>
-{{--                            <a class="badge badge-info ajax_get" data-href="/common_admin/category/{{$v['id']}}/edit">编辑</a>--}}
+                        <li>
+                            <a class="badge badge-info ajax_get" data-href="/common_admin/category/form?id={{$v['id']}}">编辑</a>
+                        </li>
                     </ul>
                     @endforeach
                     <ul class="table_bottom">

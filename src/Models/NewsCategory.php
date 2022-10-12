@@ -14,7 +14,7 @@ class NewsCategory extends Model
     public $timestamps = false;
 
     protected $fillable = [
-        'name','icon','pid','sort','status','description','meta_title','meta_keyword','meta_description','is_leaf'
+        'name','icon','pid','sort','status','meta_title','meta_description','is_leaf'
     ];
 
     public function findAll(int $status=0) {

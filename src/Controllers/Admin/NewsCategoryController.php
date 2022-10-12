@@ -44,7 +44,7 @@ class NewsCategoryController extends Controller
     public function save(Request $request){
         $id = $request->query('id',0);
         $form_edit = $request->input('form_edit',0);
-        if($form_edit){
+        if($form_edit && $id){
             NewsCategory::updateOrCreate(['id'=>$id],$request->all());
         }else{
             NewsCategory::updateOrCreate(['id'=>$id,'pid'=>$request->input('pid',0)],$request->all());

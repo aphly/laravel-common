@@ -53,23 +53,13 @@
                                 <div class="invalid-feedback"></div>
                             </div>
                             <div class="form-group">
-                                <label for="">description</label>
-                                <textarea name="description" rows="4" class="form-control "></textarea>
-                                <div class="invalid-feedback"></div>
-                            </div>
-                            <div class="form-group">
                                 <label for="">meta_title</label>
                                 <input type="text" name="meta_title" class="form-control " value="">
                                 <div class="invalid-feedback"></div>
                             </div>
                             <div class="form-group">
-                                <label for="">meta_keyword</label>
-                                <input type="text" name="meta_keyword" class="form-control " value="">
-                                <div class="invalid-feedback"></div>
-                            </div>
-                            <div class="form-group">
                                 <label for="">meta_description</label>
-                                <input type="text" name="meta_description" class="form-control " value="">
+                                <textarea name="meta_description" rows="4" class="form-control "></textarea>
                                 <div class="invalid-feedback"></div>
                             </div>
                         </div>

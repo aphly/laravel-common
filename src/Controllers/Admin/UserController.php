@@ -105,7 +105,7 @@ class UserController extends Controller
             //$cache = Setting::getCache();
             //$host = $cache['oss_status'] ? $cache['siteurl'] : $cache['oss_host'];
             $file = $request->file('avatar');
-            $avatar = (new UploadFile(500,1))->img($file,'public/avatar');
+            $avatar = (new UploadFile)->upload($file,'public/avatar');
             if ($avatar) {
                 $user = User::find($request->uuid);
                 $oldAvatar = $user->avatar;

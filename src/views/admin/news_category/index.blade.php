@@ -25,8 +25,8 @@
                     <li >ID</li>
                     <li >name</li>
                     <li >sort</li>
-                    <li ></li>
                     <li >状态</li>
+                    <li>操作</li>
                 </ul>
                 @if($res['list']->total())
                     @foreach($res['list'] as $v)
@@ -35,9 +35,6 @@
                         <li>{!! $v['name'] !!}</li>
                         <li>
                             {{$v['sort']}}
-                        </li>
-                        <li>
-
                         </li>
                         <li>
                             @if($dict['status'])

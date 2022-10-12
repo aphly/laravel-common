@@ -42,7 +42,7 @@ class AccountController extends Controller
                 $image = false;
                 $file = $request->file('image');
                 if($file){
-                    $image = (new UploadFile(500,1))->img($file,'public/account');
+                    $image = (new UploadFile)->upload($file,'public/account');
                     if ($image) {
                         $oldImage = $this->user->avatar;
                         $this->user->avatar = $image;

@@ -21,21 +21,15 @@ class NewsController extends Controller
         $file = $request->file('newsImg');
         if($file){
             try{
-                $image = (new UploadFile(500,1))->img($file,'public/editor_temp');
+                $image = (new UploadFile)->upload($file,'public/editor_temp');
             }catch(ApiException $e){
-                $err = [
-                    "errno"=>$e->code,
-                    "message"=>$e->msg
-                ];
+                $err = ["errno"=>$e->code,"message"=>$e->msg];
                 return $err;
             }
+            $res = ["errno"=>0,"data"=>["url"=>Storage::url($image)]];
+        }else{
+            $res = ["errno"=>1,"data"=>[]];
         }
-        $res = [
-            "errno"=>0,
-            "data"=>[
-                "url"=>Storage::url($image)
-            ]
-        ];
         return $res;
     }
 

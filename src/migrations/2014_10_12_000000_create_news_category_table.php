@@ -21,9 +21,7 @@ return new class extends Migration
             $table->integer('sort')->unsigned()->index()->nullable();
             $table->tinyInteger('is_leaf')->default(1)->index();
             $table->tinyInteger('status')->index();
-            $table->text('description')->nullable();
             $table->string('meta_title',255)->nullable();
-            $table->string('meta_keyword',255)->nullable();
             $table->string('meta_description',255)->nullable();
         });
     }

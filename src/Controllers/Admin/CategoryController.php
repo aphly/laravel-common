@@ -32,6 +32,15 @@ class CategoryController extends Controller
         return $this->makeView('laravel-common::admin.category.index',['res'=>$res]);
     }
 
+    public function form(Request $request)
+    {
+        $res['info'] = Category::where('id',$request->query('id',0))->firstOrNew();
+        if(!empty($res['info']) && $res['info']->pid){
+            $res['parent_info'] = Category::where('id',$res['info']->pid)->first();
+        }
+        return $this->makeView('laravel-common::admin.news_category.form',['res'=>$res]);
+    }
+
     public function show()
     {
         $data = Category::orderBy('sort', 'desc')->get();
@@ -42,9 +51,15 @@ class CategoryController extends Controller
 
     public function save(Request $request){
         $id = $request->query('id',0);
-        $category = Category::updateOrCreate(['id'=>$id,'pid'=>$request->input('pid',0),],$request->all());
-        (new CategoryPath)->add($category->id,$category->pid);
-        throw new ApiException(['code'=>0,'msg'=>'success','data'=>['redirect'=>'/common_admin/category/show']]);
+        $form_edit = $request->input('form_edit',0);
+        if($form_edit && $id){
+            Category::updateOrCreate(['id'=>$id],$request->all());
+        }else{
+            $category = Category::updateOrCreate(['id'=>$id,'pid'=>$request->input('pid',0)],$request->all());
+            (new CategoryPath)->add($category->id,$category->pid);
+            $this->index_url = '/common_admin/category/show';
+        }
+        throw new ApiException(['code'=>0,'msg'=>'success','data'=>['redirect'=>$this->index_url]]);
     }
 
     public function del(Request $request)
