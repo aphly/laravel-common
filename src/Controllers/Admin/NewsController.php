@@ -28,8 +28,10 @@ class NewsController extends Controller
     public function form(Request $request)
     {
         $res['info'] = News::where('id',$request->query('id',0))->firstOrNew();
-        $res['newsCategory'] = (new NewsCategory)->findAll();
-        dd($res['newsCategory']);
+        $res['newsCategory'] = NewsCategory::orderBy('sort','desc')->get()->keyBy('id')->toArray();
+        if($res['info']->id){
+
+        }
         return $this->makeView('laravel-common::admin.news.form',['res'=>$res]);
     }
 
