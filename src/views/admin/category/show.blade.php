@@ -64,7 +64,7 @@
                             </div>
                         </div>
                     </form>
-                    <button class="btn btn-primary" onclick="fast_save()">保存</button>
+                    <button class="btn btn-primary" type="submit" onclick="fast_save()">保存</button>
                 </div>
             </div>
         </div>
