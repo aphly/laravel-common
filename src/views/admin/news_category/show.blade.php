@@ -35,10 +35,6 @@
                                 <input type="text" name="icon" class="form-control " value="">
                                 <div class="invalid-feedback"></div>
                             </div>
-                            <div class="form-group" style="position: relative;">
-{{--                                <label for="">父级</label>--}}
-{{--                                <input type="text" class="form-control p_name" value="" readonly>--}}
-                            </div>
                             <div class="form-group">
                                 <label for="">状态</label>
                                 <select name="status" class="form-control">

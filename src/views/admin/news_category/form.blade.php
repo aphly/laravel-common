@@ -30,11 +30,6 @@
                 <div class="invalid-feedback"></div>
             </div>
             <div class="form-group">
-                <label for="">名称</label>
-                <input type="text" name="name" class="form-control " value="{{$res['info']->name}}">
-                <div class="invalid-feedback"></div>
-            </div>
-            <div class="form-group">
                 <label for="">图标 class</label>
                 <input type="text" name="icon" class="form-control " value="{{$res['info']->icon}}">
                 <div class="invalid-feedback"></div>
@@ -50,7 +45,7 @@
             </div>
             <div class="form-group">
                 <label for="">排序</label>
-                <input type="text" name="sort" class="form-control " value="{{$res['info']->sort}}">
+                <input type="text" name="sort" class="form-control " value="{{$res['info']->sort??0}}">
                 <div class="invalid-feedback"></div>
             </div>
             <div class="form-group">

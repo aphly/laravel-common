@@ -38,7 +38,7 @@ class CategoryController extends Controller
         if(!empty($res['info']) && $res['info']->pid){
             $res['parent_info'] = Category::where('id',$res['info']->pid)->first();
         }
-        return $this->makeView('laravel-common::admin.news_category.form',['res'=>$res]);
+        return $this->makeView('laravel-common::admin.category.form',['res'=>$res]);
     }
 
     public function show()

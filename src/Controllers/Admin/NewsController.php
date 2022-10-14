@@ -7,6 +7,7 @@ use Aphly\Laravel\Libs\Editor;
 use Aphly\LaravelCommon\Models\News;
 use Aphly\LaravelCommon\Models\NewsCategory;
 use Illuminate\Http\Request;
+use Illuminate\Support\Arr;
 
 class NewsController extends Controller
 {
@@ -28,9 +29,18 @@ class NewsController extends Controller
     public function form(Request $request)
     {
         $res['info'] = News::where('id',$request->query('id',0))->firstOrNew();
-        $res['newsCategory'] = NewsCategory::orderBy('sort','desc')->get()->keyBy('id')->toArray();
+        $res['newsCategory'] = NewsCategory::orderBy('sort','desc')->get()->toArray();
+        if(count($res['newsCategory'])){
+            $res['newsCategoryById'] = Arr::keyBy($res['newsCategory'], 'id');
+        }else{
+            $res['newsCategoryById'] = [];
+        }
         if($res['info']->id){
-
+            $res['select_ids'] = [$res['info']->news_category_id];
+            $res['category_select_name'] = $res['newsCategoryById'][$res['info']->news_category_id]['name']??'';
+        }else{
+            $res['select_ids'] = [];
+            $res['category_select_name'] = '';
         }
         return $this->makeView('laravel-common::admin.news.form',['res'=>$res]);
     }

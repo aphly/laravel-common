@@ -30,7 +30,7 @@
                 <label for="">文章分类</label>
                 <div style="position: relative" id="category_select">
                     <input type="hidden" name="news_category_id"  class="form-control category_select_value" value="{{$res['info']->news_category_id??0}}">
-                    <input type="text" class="form-control category_select_name" readonly>
+                    <input type="text" class="form-control category_select_name" readonly value="{{$res['category_select_name']}}">
                     <div class="tree_p">
                         <div class="treeview"></div>
                     </div>
@@ -100,7 +100,8 @@
         })
 
         let list = @json($res['newsCategory']);
-        let data = toTree(selectData(list,false))
+        let select_ids = @json($res['select_ids']);
+        let data = toTree(selectData(list,select_ids))
         $('#category_select .treeview').treeview({
             levels: 2,
             collapseIcon:'uni app-arrow-right-copy',
