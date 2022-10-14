@@ -49,7 +49,7 @@
                             </div>
                             <div class="form-group">
                                 <label for="">排序</label>
-                                <input type="text" name="sort" class="form-control " value="0">
+                                <input type="number" name="sort" class="form-control " value="0">
                                 <div class="invalid-feedback"></div>
                             </div>
                             <div class="form-group">
