@@ -54,10 +54,10 @@
 <script>
 
     function throttle(func, wait) {
-        var context, args;
-        var previous = 0;
+        let context, args;
+        let previous = 0;
         return function() {
-            var now = +new Date();
+            let now = +new Date();
             context = this;
             args = arguments;
             if (now - previous > wait) {
@@ -71,17 +71,18 @@
         $('.currency_box .currency_curr').click(function () {
             $('.baDropdown').toggle();
         })
-        $('.currency_box .baDropdown').on('click','li',throttle(function () {
-            console.log('zz');
+        $('.currency_box .baDropdown').on('click','li',function () {
+            let id  =$(this).data('id')
             $.ajax({
                 url:'/currency/'+id,
                 dataType: "json",
                 success: function(res){
-                    console.log(res);
+                    //console.log(res);
+                    location.reload()
                     //alert_msg(res,true)
                 }
             })
-        }, 1000))
+        })
     })
 </script>
 @endif
