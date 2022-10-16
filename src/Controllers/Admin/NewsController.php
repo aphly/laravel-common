@@ -50,8 +50,8 @@ class NewsController extends Controller
         $input = $request->all();
         $info = News::where('id',$id)->first();
         if(!empty($info)){
-            $info->content = (new Editor)->edit($info->content,$request->input('content'));
-            $info->save();
+            $input['content'] = (new Editor)->edit($info->content,$request->input('content'));
+            $info->update($input);
         }else{
             $input['content'] =  (new Editor)->add($request->input('content'));
             News::create($input);

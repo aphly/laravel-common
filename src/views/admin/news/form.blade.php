@@ -40,7 +40,7 @@
 
             <div class="form-group" id="status">
                 <label for="">状态</label>
-                <select name="module_id" class="form-control">
+                <select name="status" class="form-control">
                     @foreach($dict['status'] as $key=>$val)
                         <option value="{{$key}}" @if($key==$res['info']->status) selected @endif>{{$val}}</option>
                     @endforeach
@@ -50,7 +50,7 @@
 
             <div class="form-group">
                 <label for="">查看数</label>
-                <input type="number" name="viewed" class="form-control " value="{{$res['info']->view??0}}">
+                <input type="number" name="viewed" class="form-control " value="{{$res['info']->viewed??0}}">
                 <div class="invalid-feedback"></div>
             </div>
             <button class="btn btn-primary" type="submit">保存</button>
