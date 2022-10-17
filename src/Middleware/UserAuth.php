@@ -20,8 +20,10 @@ class UserAuth
             }
         }else{
             if ($auth->check()) {
-                if($auth->user()->status==2){
-                    return $this->_redirect($request,route('blocked'));
+                if($auth->user()->status==2) {
+                    return $this->_redirect($request, route('blocked'));
+                }else if(config('common.email_verify') && !($auth->user()->verified)){
+                    return $this->_redirect($request, route('emailVerify'));
                 }else{
                     return $next($request);
                 }

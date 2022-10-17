@@ -29,7 +29,7 @@ class User extends Authenticatable
 
     protected $fillable = [
         'uuid','nickname',
-        'token',
+        'token','verified',
         'token_expire','avatar','status','gender','group_id','group_expire'
     ];
 
@@ -93,23 +93,23 @@ class User extends Authenticatable
         return $this->hasOne(UserCredit::class,'uuid','uuid');
     }
 
-    public function afterLogin($user)
+    public function afterLogin()
     {
         $class = [];
-        $this->handle($class,$user);
+        $this->handle($class);
     }
 
-    public function afterRegister($user)
+    public function afterRegister()
     {
         $class = ['\Aphly\LaravelNovel\Models\UserNovelSetting'];
-        $this->handle($class,$user);
+        $this->handle($class);
     }
 
-    public function handle($class,$params)
+    public function handle($class)
     {
         foreach ($class as $val) {
             if (class_exists($val)) {
-                (new $val)->handle($params);
+                (new $val)->handle($this);
             }
         }
     }

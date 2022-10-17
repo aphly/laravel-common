@@ -18,9 +18,9 @@ return new class extends Migration
             $table->string('id',128);
             $table->string('password',255);
             $table->unsignedBigInteger('uuid')->index();
-            $table->tinyInteger('verified')->nullable()->default(0);
             $table->integer('last_login')->unsigned()->nullable();
             $table->string('last_ip',64)->nullable();
+            $table->string('note',255)->nullable();
             $table->primary(['id_type','id']);
             $table->unsignedBigInteger('created_at');
             $table->unsignedBigInteger('updated_at');

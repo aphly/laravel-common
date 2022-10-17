@@ -9,7 +9,9 @@
             <div class="my_group1">My Group</div>
             <div class="my_group2">
                 <p>{{$res['group'][$user->group_id]['name']}}</p>
+                @if($user->group_expire)
                 <p class="expire">expire time: {{date('Y-m-d h:m:s',$user->group_expire)}}</p>
+                @endif
             </div>
         </div>
         <div class="group1">Thank you for being a patron! Below is our full list of VIP perks:</div>

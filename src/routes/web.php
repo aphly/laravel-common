@@ -12,6 +12,9 @@ use Illuminate\Support\Facades\Route;
 | contains the "web" middleware group. Now create something great!
 |
 */
+Route::get('/t3',function (){
+    dd(config('common.oauth.type'));
+});
 
 Route::middleware(['web'])->group(function () {
 
@@ -29,22 +32,23 @@ Route::middleware(['web'])->group(function () {
     Route::match(['get'],'news/{id}', 'Aphly\LaravelCommon\Controllers\Front\NewsController@detail')->where('id', '[0-9]+');
 
     Route::prefix('account')->group(function () {
-        Route::match(['get'],'blocked', 'Aphly\LaravelCommon\Controllers\Front\AccountController@forgetConfirmation')->name('blocked');
-
         Route::match(['get'],'autologin/{token}', 'Aphly\LaravelCommon\Controllers\Front\AccountController@autoLogin');
 
-        Route::get('mail-verify/{token}', 'Aphly\LaravelCommon\Controllers\Front\AccountController@mailVerifyCheck');
+        Route::match(['get'],'blocked', 'Aphly\LaravelCommon\Controllers\Front\AccountController@forgetConfirmation')->name('blocked');
+        Route::match(['get'],'email-verify', 'Aphly\LaravelCommon\Controllers\Front\AccountController@emailVerify')->name('emailVerify');
+        Route::match(['get'],'email-verify/send', 'Aphly\LaravelCommon\Controllers\Front\AccountController@emailVerifySend');
+        Route::get('email-verify/{token}', 'Aphly\LaravelCommon\Controllers\Front\AccountController@emailVerifyCheck');
 
         Route::match(['get', 'post'],'forget', 'Aphly\LaravelCommon\Controllers\Front\AccountController@forget');
         Route::match(['get'],'forget/confirmation', 'Aphly\LaravelCommon\Controllers\Front\AccountController@forgetConfirmation');
         Route::match(['get', 'post'],'forget-password/{token}', 'Aphly\LaravelCommon\Controllers\Front\AccountController@forgetPassword');
 
+        Route::get('logout', 'Aphly\LaravelCommon\Controllers\Front\AccountController@logout');
+
         Route::middleware(['userAuth'])->group(function () {
             Route::match(['get', 'post'],'register', 'Aphly\LaravelCommon\Controllers\Front\AccountController@register')->name('register');
             Route::match(['get', 'post'],'login', 'Aphly\LaravelCommon\Controllers\Front\AccountController@login')->name('login');
 
-            Route::match(['get'],'mail-verify/send', 'Aphly\LaravelCommon\Controllers\Front\AccountController@mailVerifySend');
-            Route::get('logout', 'Aphly\LaravelCommon\Controllers\Front\AccountController@logout');
             Route::match(['get', 'post'],'index', 'Aphly\LaravelCommon\Controllers\Front\AccountController@index');
             Route::match(['get', 'post'],'group', 'Aphly\LaravelCommon\Controllers\Front\AccountController@group');
             Route::match(['get', 'post'],'credit', 'Aphly\LaravelCommon\Controllers\Front\AccountController@credit');

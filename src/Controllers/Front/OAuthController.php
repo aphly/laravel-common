@@ -13,10 +13,10 @@ use Laravel\Socialite\Facades\Socialite;
 class OAuthController extends Controller
 {
     protected $providers = [
-        'github',
-        'facebook',
-        'google',
-        'twitter'
+//        'github',
+//        'facebook',
+//        'google',
+//        'twitter'
     ];
 
     public function __construct()
@@ -30,6 +30,7 @@ class OAuthController extends Controller
             }
         });
         parent::__construct();
+        $this->providers = config('common.oauth.providers');
     }
 
     private function isProviderAllowed($driver)
@@ -63,20 +64,28 @@ class OAuthController extends Controller
 
     protected function loginOrCreateAccount($oauthUser, $driver)
     {
-        $arr['id'] = $oauthUser->id;
-        $arr['id_type'] = $driver;
+        if(config('common.oauth.type') =='email'){
+            $arr['id'] = $oauthUser->email;
+            $arr['id_type'] = 'email';
+            $note = $driver.' - '.$oauthUser->id;
+        }else{
+            $arr['id'] = $oauthUser->id;
+            $arr['id_type'] = $driver;
+            $note = $driver.' - '.$oauthUser->email;
+        }
         $userAuthModel = UserAuth::where($arr);
         $userAuth = $userAuthModel->first();
         if(!empty($userAuth)){
             $userAuthModel->update(['password'=>$oauthUser->token,'last_login'=>time(),'last_ip'=>request()->ip()]);
             $user = User::find($userAuth->uuid);
             $user->generateToken();
-            $user->afterLogin($user);
+            $user->afterLogin();
         }else{
             $arr['uuid'] = Helper::uuid();
             $arr['password'] = $oauthUser->token;
             $arr['last_login'] = time();
             $arr['last_ip'] = request()->ip();
+            $arr['note'] = $note;
             $userAuth = UserAuth::create($arr);
             if($userAuth->uuid){
                 $user = User::create([
@@ -86,7 +95,7 @@ class OAuthController extends Controller
                     'token_expire'=>time()+120*60,
                     'group_id'=>User::$group_id,
                 ]);
-                $user->afterRegister($user);
+                $user->afterRegister();
             }
         }
         Auth::guard('user')->login($user);

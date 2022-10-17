@@ -95,7 +95,7 @@ class AccountController extends Controller
                         if($user->status==1){
                             $userAuthModel->update(['last_login'=>time(),'last_ip'=>$request->ip()]);
                             $user->generateToken();
-                            $user->afterLogin($user);
+                            $user->afterLogin();
                             Auth::guard('user')->login($user);
                             $user->id_type = $userAuth->id_type;
                             $user->id = $userAuth->id;
@@ -135,11 +135,11 @@ class AccountController extends Controller
                     'token_expire'=>time()+120*60,
                     'group_id'=>User::$group_id,
                 ]);
-                $user->afterRegister($user);
+                $user->afterRegister();
                 Auth::guard('user')->login($user);
                 $user->id_type = $userAuth->id_type;
                 $user->id = $userAuth->id;
-                if($userAuth->id_type=='email'){
+                if($userAuth->id_type=='email' && config('common.email_verify')){
                     (new MailSend())->do($userAuth->id,new Verify($userAuth));
                 }
                 throw new ApiException(['code'=>0,'msg'=>'register success','data'=>['redirect'=>$user->returnUrl(),'user'=>$user]]);
@@ -158,7 +158,35 @@ class AccountController extends Controller
         throw new ApiException(['code'=>0,'msg'=>'logout success','data'=>['redirect'=>'/']]);
     }
 
-    public function mailVerifyCheck(Request $request)
+    public function emailVerify(Request $request)
+    {
+        $res['title'] = 'Account Verify';
+        return $this->makeView('laravel-common::front.account.email_verify',['res'=>$res]);
+    }
+
+    public function emailVerifySend(Request $request)
+    {
+        $user = Auth::guard('user')->user();
+        if($user){
+            $key = 'email_'.$request->ip();
+            if($this->limiter($key,1)) {
+                $userauth = UserAuth::where(['id_type' => 'email', 'uuid' => $user->uuid])->first();
+                if (!empty($userauth)) {
+                    (new MailSend())->do($userauth->id, new Verify($userauth));
+                    $this->limiterIncrement($key,2*60);
+                    throw new ApiException(['code' => 0, 'msg' => 'email sent', 'data' => ['redirect' => '/']]);
+                } else {
+                    throw new ApiException(['code' => 1, 'msg' => 'email not exist', 'data' => ['redirect' => '/']]);
+                }
+            }else{
+                throw new ApiException(['code'=>2,'msg'=>'Email delivery lock 2 minutes','data'=>['redirect'=>'/']]);
+            }
+        }else{
+            throw new ApiException(['code'=>3,'msg'=>'user error','data'=>['redirect'=>'/']]);
+        }
+    }
+
+    public function emailVerifyCheck(Request $request)
     {
         $res['title'] = 'Account Verify';
         try {
@@ -167,9 +195,9 @@ class AccountController extends Controller
             $uuid = $decrypted[0]??0;
             $time = $decrypted[1]??0;
             if($uuid && $time>=time()) {
-                $userAuth = UserAuth::where(['id_type'=>'email','uuid'=>$uuid]);
-                if(!empty($userAuth->first())){
-                    $userAuth->update(['verified'=>1]);
+                $user = User::where(['uuid'=>$uuid]);
+                if(!empty($user->first())){
+                    $user->update(['verified'=>1]);
                     $res['msg'] =  'Email activation succeeded';
                 }else{
                     $res['msg'] =  'User not found';
@@ -181,18 +209,6 @@ class AccountController extends Controller
             $res['msg'] =  'Token Error';
         }
         return $this->makeView('laravel-common::front.account.verify',['res'=>$res]);
-    }
-
-    public function mailVerifySend()
-    {
-        $user = Auth::guard('user')->user();
-        $userauth = UserAuth::where(['id_type'=>'email','uuid'=>$user->uuid])->first();
-        if(!empty($userauth)){
-            (new MailSend())->do($userauth->id,new Verify($userauth));
-            throw new ApiException(['code'=>0,'msg'=>'email sent','data'=>['redirect'=>'/']]);
-        }else{
-            throw new ApiException(['code'=>1,'msg'=>'email not exist','data'=>['redirect'=>'/']]);
-        }
     }
 
     public function forget(AccountRequest $request)
