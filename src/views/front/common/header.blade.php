@@ -106,6 +106,7 @@
                     .touxiang1 img{width: 100%;height: 100%;border-radius: 50%}
                 </style>
                 <ul class="">
+
                     @if($user)
                         <a href="/account/novel/bookmarks"><li><i class="common-iconfont icon-24gf-bookmarks"></i></li></a>
                         <div class="dropdown">
@@ -114,7 +115,7 @@
                                 <a class="dropdown-item d-flex touxiang" href="/account/index">
                                     <div class="touxiang1">
                                         @if($user->avatar)
-                                            <img class="lazy " src="{{Storage::url($user->avatar)}}">
+                                            <img class="lazy" src="{{Storage::url($user->avatar)}}">
                                         @else
                                             <i class="common-iconfont icon-touxiang"></i>
                                         @endif
