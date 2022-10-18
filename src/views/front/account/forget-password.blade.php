@@ -6,9 +6,9 @@
         <form method="post" action="/account/forget-password/{{$res['token']}}" id="forget-password-set" class="account_form">
             @csrf
             <div class="accountContent">
-                <p class="title" style="">
+                <h3 class="" style="margin-bottom: 20px;">
                     Reset password
-                </p>
+                </h3>
 
                 <div class="form-group">
                     <label for="">Email</label>

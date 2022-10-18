@@ -34,7 +34,7 @@
             </div>
             <div class="form-group">
                 <label for="">用户组过期时间</label>
-                <input type="datetime-local" name="group_expire"  class="form-control " value="{{date('Y-m-d\TH:i',$res['info']->group_expire)}}">
+                <input type="datetime-local" name="group_expire"  class="form-control " value="{{$res['info']->group_expire?date('Y-m-d\TH:i',$res['info']->group_expire):''}}">
                 <div class="invalid-feedback"></div>
             </div>
             <div class="form-group">
@@ -43,6 +43,14 @@
                     @foreach($dict['user_status'] as $key=>$val)
                         <option value="{{$key}}" @if($res['info']['status']==$key) selected @endif>{{$val}}</option>
                     @endforeach
+                </select>
+                <div class="invalid-feedback"></div>
+            </div>
+            <div class="form-group">
+                <label for="">邮件校验</label>
+                <select name="verified"  class="form-control">
+                    <option value="1" @if($res['info']['verified']==1) selected @endif>已校验</option>
+                    <option value="0" @if($res['info']['verified']==0) selected @endif>未校验</option>
                 </select>
                 <div class="invalid-feedback"></div>
             </div>

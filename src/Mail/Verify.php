@@ -33,6 +33,6 @@ class Verify extends Mailable
      */
     public function build()
     {
-        return $this->subject('Account Verify')->view('laravel-common::mail.verify');
+        return $this->subject('Account Email Verify')->view('laravel-common::mail.verify');
     }
 }

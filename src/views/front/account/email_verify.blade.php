@@ -1,15 +1,18 @@
 @include('laravel-common::front.common.header')
 <link rel="stylesheet" href="{{ URL::asset('static/common/css/account.css') }}">
-<section class="">
-    <div class="container">
+
+<div class="container">
+    <div class="account_msg" style="">
         @if($user)
             @if($user->verified)
-                <a href="/">ok</a>
+                <p >Your email has been verified. </p>
+                <a href="/">Home</a>
             @else
-                <a href="/account/mail-verify/send" class="ajax_post">send</a>
+                <p >Help us secure your account by verifying your email address. </p>
+                <a href="/account/email-verify/send" class="ajax_post">Send email again</a>
             @endif
         @endif
     </div>
-</section>
+</div>
 
 @include('laravel-common::front.common.footer')

@@ -57,6 +57,7 @@ class AccountRequest extends FormRequest
     {
         return [
             'id.required' => 'Please enter your email',
+            'id.email' => 'The email must be a valid email address.',
             'id.unique' => 'The email has already been taken.',
             'password.required' => 'Please enter your password',
             'password.alpha_num' => 'Password can only be letters and numbers',

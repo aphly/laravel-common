@@ -13,7 +13,8 @@
     .header3 ul a{width:44px;height:44px;display:block;margin:0 5px}
     .header3 ul a li{border-radius:50%;background:#eee;height:100%;display:flex;justify-content:center;align-items:center}
     .header3 ul a li i{font-size:26px;color:#000}
-    .header3 ul a li:hover{background:#e5e5e5}
+    .header3 ul .show a li{background:#edf6ff;}
+    .header3 ul a li:hover{background:#edf6ff}
     .header31 input{border:none;outline-style:none;background:transparent;width:100px;transition:all 0.5s;line-height: 44px;}
     .header31{background:#eee;display:flex;align-items:center;border-radius:40px;margin:0 5px;padding:0 10px;height: 100%;}
     .header31 i{margin-right:5px}
@@ -35,139 +36,6 @@
 
     }
 </style>
-
-<div class="header">
-    <div class="container d-flex justify-content-between">
-        <div class="header1">
-            <div class="header11">
-                <img src="" alt="">
-            </div>
-            <div class="header13 d-xl-none" onclick="menu_ext(this)">
-                <i class="common-iconfont icon-caidan1"></i>
-            </div>
-        </div>
-
-        <div class="header2 d-none d-xl-block">
-            <ul class="menu d-flex">
-                @if(isset($links[1]['child']))
-                    @foreach($links[1]['child'] as $val)
-                        <li>
-                            @if(isset($val['child']))
-                                @php $val['child_url'] = array_column($val['child'],'url'); @endphp
-                                <a class="nav-link {{(request()->is($val['url']) || in_array($val['url'],$val['child_url']))?'active':''}}"
-                                   id="navbarDropdown{{$val['id']}}" role="button" data-toggle="dropdown" aria-expanded="false">{{$val['name']}}</a>
-                                <div class="dropdown-menu" aria-labelledby="navbarDropdown{{$val['id']}}">
-                                    @foreach($val['child'] as $v)
-                                    <a class="dropdown-item " href="{{$v['url']}}">{{$v['name']}}</a>
-                                    @endforeach
-                                </div>
-                            @else
-                                <a href="{{$val['url']}}" class="nav-link {{request()->is($val['url'])?'active':''}}">{{$val['name']}}</a>
-                            @endif
-                        </li>
-                    @endforeach
-                @endif
-            </ul>
-        </div>
-        <div class="header3">
-            <div class="d-none d-xl-block">
-                <form action="/novel/index" method="get">
-                    <div class="header31">
-                        <i class="common-iconfont icon-sousuo"></i>
-                        <input type="search" name="title" placeholder="Search">
-                    </div>
-                </form>
-            </div>
-            <style>
-                .header3 .dropdown-menu a.checkin{height: auto;border-bottom: 1px solid #f1f1f1;padding-bottom: 10px;}
-                .header3 .dropdown-menu a.checkin .checkin1{font-size: 15px;font-weight: 600}
-                .header3 .dropdown-menu a.checkin .checkin2{font-size: 13px;color: #888;line-height: 13px;}
-                .checkin3{ background: transparent;font-weight: 600;color: #333;border: 1px solid #1c9dfe;display: inline-block;padding: 0 14px;height: 30px; line-height: 30px;}
-                .header3 .dropdown-menu a.hPoint{height: auto;border-bottom: 1px solid #f1f1f1;padding-bottom: 10px;}
-                .hPoint2{ margin-top: 0;font-weight: 600;border: 1px solid #1c9dfe;display: inline-block;padding: 0 14px;height: 30px; line-height: 30px;}
-                .hPoint1 i{font-size: 20px;position: relative;top: 2px;}
-                .header3 .dropdown-menu a.touxiang{height: 60px; padding: 10px 15px;}
-                .touxiang1{width: 40px;height: 40px;display: flex;justify-content: center;align-items: center;
-                border-radius: 50%;background:#dbdbdb;margin-right: 10px;}
-                .touxiang1 i{font-size: 20px}
-                .dropdown.show a[data-toggle="dropdown"] i{color: var(--a-hover)}
-                .touxiang{border-bottom: 1px solid #f1f1f1;}
-                .touxiang1 img{width: 100%;height: 100%;border-radius: 50%}
-            </style>
-            <ul class="">
-                @if($user)
-                    <a href="/account/novel/bookmarks"><li><i class="common-iconfont icon-24gf-bookmarks"></i></li></a>
-                    <div class="dropdown">
-                        <a href="javascript:void(0)" id="touxiang" data-toggle="dropdown" aria-expanded="false"><li><i class="common-iconfont icon-touxiang"></i></li></a>
-                        <div class="dropdown-menu dropdown-menu-right" aria-labelledby="touxiang">
-                            <a class="dropdown-item d-flex touxiang" href="/account/index">
-                                <div class="touxiang1">
-                                    @if($user->avatar)
-                                        <img class="lazy " src="{{Storage::url($user->avatar)}}">
-                                    @else
-                                        <i class="common-iconfont icon-touxiang"></i>
-                                    @endif
-                                </div>
-                                <div class="touxiang2">{{$user['nickname']}}</div>
-                            </a>
-                            <a class="dropdown-item hPoint" href="/account/credit" data-stopPropagation="true">
-                                <div class="hPoint1"><i class="common-iconfont icon-jifen-xianxing2-0"></i> <span>{{$user->credit->point}}</span></div>
-                                <div class="hPoint2 buleBtn" >GET POINT</div>
-                            </a>
-                            <a class="dropdown-item checkin" href="javascript:void(0)" data-stopPropagation="true">
-                                <div class="checkin1">checkin</div>
-                                <div class="checkin2">Earn {{$config['point']['checkin']}} regular Karma everyday</div>
-                                @if(!empty($checkin))
-                                    <div class="checkin3 buleBtn dis" >COMPLETE</div>
-                                @else
-                                    <div class="checkin3 buleBtn" onclick="checkin(this)">COMPLETE</div>
-                                @endif
-                            </a>
-                            <a class="dropdown-item" href="/account/group">VIP</a>
-                            <a class="dropdown-item ajax_post" href="/account/logout">Log out</a>
-                        </div>
-                    </div>
-                @else
-                    <a href="/account/login"><li><i class="common-iconfont icon-24gf-bookmarks"></i></li></a>
-                    <a href="/account/login"><li><i class="common-iconfont icon-touxiang"></i></li></a>
-                @endif
-            </ul>
-        </div>
-    </div>
-</div>
-
-<div class="m_header_ext d-xl-none">
-    <div class="m_header_ext1">
-        <form action="/novel/index" method="get">
-        <div class="m_header_ext11">
-            <i class="common-iconfont icon-sousuo"></i>
-            <input type="search" name="title" placeholder="Search">
-        </div>
-        </form>
-    </div>
-    <div class="m_header_ext2">
-        <ul>
-            @if(isset($links[1]['child']))
-                @foreach($links[1]['child'] as $val)
-                    <li>
-                        @if(isset($val['child']))
-                            @php $val['child_url'] = array_column($val['child'],'url'); @endphp
-                            <a class="nav-link {{(request()->is($val['url']) || in_array($val['url'],$val['child_url']))?'active':''}}"
-                               id="navbarDropdown{{$val['id']}}" role="button" data-toggle="dropdown" aria-expanded="false">{{$val['name']}}</a>
-                            <div class="dropdown-menu" aria-labelledby="navbarDropdown{{$val['id']}}">
-                                @foreach($val['child'] as $v)
-                                    <a class="dropdown-item " href="{{$v['url']}}">{{$v['name']}}</a>
-                                @endforeach
-                            </div>
-                        @else
-                            <a href="{{$val['url']}}" class="nav-link {{request()->is($val['url'])?'active':''}}">{{$val['name']}}</a>
-                        @endif
-                    </li>
-                @endforeach
-            @endif
-        </ul>
-    </div>
-</div>
 <style>
     .m_header_ext{position: fixed;top: 70px;left: 0;width: 100%;height: 0;z-index:1100;transition: all 0.5s;background: #fff;overflow: hidden;}
     .m_header_ext.active{height: calc(100% - 70px);padding: 0 15px;}
@@ -178,7 +46,140 @@
     .m_header_ext1{padding: 10px 0;}
     .header13.active i{color:var(--a-hover)}
 </style>
-<div class="headerX"></div>
+<header>
+    <div class="header">
+        <div class="container d-flex justify-content-between">
+            <div class="header1">
+                <div class="header11">
+                    <img src="" alt="">
+                </div>
+                <div class="header13 d-xl-none" onclick="menu_ext(this)">
+                    <i class="common-iconfont icon-caidan1"></i>
+                </div>
+            </div>
+
+            <div class="header2 d-none d-xl-block">
+                <ul class="menu d-flex">
+                    @if(isset($links[1]['child']))
+                        @foreach($links[1]['child'] as $val)
+                            <li>
+                                @if(isset($val['child']))
+                                    @php $val['child_url'] = array_column($val['child'],'url'); @endphp
+                                    <a class="nav-link {{(request()->is($val['url']) || in_array($val['url'],$val['child_url']))?'active':''}}"
+                                       id="navbarDropdown{{$val['id']}}" role="button" data-toggle="dropdown" aria-expanded="false">{{$val['name']}}</a>
+                                    <div class="dropdown-menu" aria-labelledby="navbarDropdown{{$val['id']}}">
+                                        @foreach($val['child'] as $v)
+                                        <a class="dropdown-item " href="{{$v['url']}}">{{$v['name']}}</a>
+                                        @endforeach
+                                    </div>
+                                @else
+                                    <a href="{{$val['url']}}" class="nav-link {{request()->is($val['url'])?'active':''}}">{{$val['name']}}</a>
+                                @endif
+                            </li>
+                        @endforeach
+                    @endif
+                </ul>
+            </div>
+            <div class="header3">
+                <div class="d-none d-xl-block">
+                    <form action="/novel/index" method="get">
+                        <div class="header31">
+                            <i class="common-iconfont icon-sousuo"></i>
+                            <input type="search" name="title" placeholder="Search">
+                        </div>
+                    </form>
+                </div>
+                <style>
+                    .header3 .dropdown-menu a.checkin{height: auto;border-bottom: 1px solid #f1f1f1;padding-bottom: 10px;}
+                    .header3 .dropdown-menu a.checkin .checkin1{font-size: 15px;font-weight: 600}
+                    .header3 .dropdown-menu a.checkin .checkin2{font-size: 13px;color: #888;line-height: 13px;}
+                    .checkin3{ background: transparent;font-weight: 600;color: #333;border: 1px solid #1c9dfe;display: inline-block;padding: 0 14px;height: 30px; line-height: 30px;}
+                    .header3 .dropdown-menu a.hPoint{height: auto;border-bottom: 1px solid #f1f1f1;padding-bottom: 10px;}
+                    .hPoint2{ margin-top: 0;font-weight: 600;border: 1px solid #1c9dfe;display: inline-block;padding: 0 14px;height: 30px; line-height: 30px;}
+                    .hPoint1 i{font-size: 20px;position: relative;top: 2px;}
+                    .header3 .dropdown-menu a.touxiang{height: 60px; padding: 10px 15px;}
+                    .touxiang1{width: 40px;height: 40px;display: flex;justify-content: center;align-items: center;
+                    border-radius: 50%;background:#dbdbdb;margin-right: 10px;}
+                    .touxiang1 i{font-size: 20px}
+                    .dropdown.show a[data-toggle="dropdown"] i{color: var(--a-hover)}
+                    .touxiang{border-bottom: 1px solid #f1f1f1;}
+                    .touxiang1 img{width: 100%;height: 100%;border-radius: 50%}
+                </style>
+                <ul class="">
+                    @if($user)
+                        <a href="/account/novel/bookmarks"><li><i class="common-iconfont icon-24gf-bookmarks"></i></li></a>
+                        <div class="dropdown">
+                            <a href="javascript:void(0)" id="touxiang" data-toggle="dropdown" aria-expanded="false"><li><i class="common-iconfont icon-touxiang"></i></li></a>
+                            <div class="dropdown-menu dropdown-menu-right" aria-labelledby="touxiang">
+                                <a class="dropdown-item d-flex touxiang" href="/account/index">
+                                    <div class="touxiang1">
+                                        @if($user->avatar)
+                                            <img class="lazy " src="{{Storage::url($user->avatar)}}">
+                                        @else
+                                            <i class="common-iconfont icon-touxiang"></i>
+                                        @endif
+                                    </div>
+                                    <div class="touxiang2">{{$user['nickname']}}</div>
+                                </a>
+                                <a class="dropdown-item hPoint" href="/account/credit" data-stopPropagation="true">
+                                    <div class="hPoint1"><i class="common-iconfont icon-jifen-xianxing2-0"></i> <span>{{$user->credit->point}}</span></div>
+                                    <div class="hPoint2 buleBtn" >GET POINT</div>
+                                </a>
+                                <a class="dropdown-item checkin" href="javascript:void(0)" data-stopPropagation="true">
+                                    <div class="checkin1">checkin</div>
+                                    <div class="checkin2">Earn {{$config['point']['checkin']}} regular Karma everyday</div>
+                                    @if(!empty($checkin))
+                                        <div class="checkin3 buleBtn dis" >COMPLETE</div>
+                                    @else
+                                        <div class="checkin3 buleBtn" onclick="checkin(this)">COMPLETE</div>
+                                    @endif
+                                </a>
+                                <a class="dropdown-item" href="/account/group">VIP</a>
+                                <a class="dropdown-item ajax_post" href="/account/logout">Log out</a>
+                            </div>
+                        </div>
+                    @else
+                        <a href="/account/login"><li><i class="common-iconfont icon-24gf-bookmarks"></i></li></a>
+                        <a href="/account/login"><li><i class="common-iconfont icon-touxiang"></i></li></a>
+                    @endif
+                </ul>
+            </div>
+        </div>
+    </div>
+    <div class="m_header_ext d-xl-none">
+        <div class="m_header_ext1">
+            <form action="/novel/index" method="get">
+            <div class="m_header_ext11">
+                <i class="common-iconfont icon-sousuo"></i>
+                <input type="search" name="title" placeholder="Search">
+            </div>
+            </form>
+        </div>
+        <div class="m_header_ext2">
+            <ul>
+                @if(isset($links[1]['child']))
+                    @foreach($links[1]['child'] as $val)
+                        <li>
+                            @if(isset($val['child']))
+                                @php $val['child_url'] = array_column($val['child'],'url'); @endphp
+                                <a class="nav-link {{(request()->is($val['url']) || in_array($val['url'],$val['child_url']))?'active':''}}"
+                                   id="navbarDropdown{{$val['id']}}" role="button" data-toggle="dropdown" aria-expanded="false">{{$val['name']}}</a>
+                                <div class="dropdown-menu" aria-labelledby="navbarDropdown{{$val['id']}}">
+                                    @foreach($val['child'] as $v)
+                                        <a class="dropdown-item " href="{{$v['url']}}">{{$v['name']}}</a>
+                                    @endforeach
+                                </div>
+                            @else
+                                <a href="{{$val['url']}}" class="nav-link {{request()->is($val['url'])?'active':''}}">{{$val['name']}}</a>
+                            @endif
+                        </li>
+                    @endforeach
+                @endif
+            </ul>
+        </div>
+    </div>
+    <div class="headerX"></div>
+</header>
 <script>
 function menu_ext(_this) {
     let m_header_ext = $('.m_header_ext');
@@ -212,3 +213,10 @@ $(function () {
 })
 </script>
 
+<style>
+    main{min-height: 600px;}
+    @media (max-width: 1199.98px) {
+        main{min-height: 500px;}
+    }
+</style>
+<main>

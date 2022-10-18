@@ -34,7 +34,7 @@ Route::middleware(['web'])->group(function () {
     Route::prefix('account')->group(function () {
         Route::match(['get'],'autologin/{token}', 'Aphly\LaravelCommon\Controllers\Front\AccountController@autoLogin');
 
-        Route::match(['get'],'blocked', 'Aphly\LaravelCommon\Controllers\Front\AccountController@forgetConfirmation')->name('blocked');
+        Route::match(['get'],'blocked', 'Aphly\LaravelCommon\Controllers\Front\AccountController@blocked')->name('blocked');
         Route::match(['get'],'email-verify', 'Aphly\LaravelCommon\Controllers\Front\AccountController@emailVerify')->name('emailVerify');
         Route::match(['get'],'email-verify/send', 'Aphly\LaravelCommon\Controllers\Front\AccountController@emailVerifySend');
         Route::get('email-verify/{token}', 'Aphly\LaravelCommon\Controllers\Front\AccountController@emailVerifyCheck');

@@ -4,7 +4,7 @@
 .account_form button{width: 100%;height: 44px;}
 .account_form .alert-warning{color:#dd3545;}
 
-.accountContent{max-width: 500px;margin: 20px auto 10px}
+.accountContent{max-width: 500px;margin: 40px auto 10px}
 .accountContent .forget{color:#777;}
 .split-line{margin-top: 15px;}
 .split-line span{color:#777;}
@@ -53,6 +53,11 @@
 .userCreditLog1a{font-size: 18px;}
 .credit2 .pagination{margin-top: 10px;}
 /*credit*/
+
+.account_msg{font-weight: 600;font-size: 18px;margin-top: 40px;}
+.account_msg p{margin-bottom: 20px;}
+.account_msg a{color:var(--a-hover);}
+
 @media (max-width: 1199.98px) {
 
 }

@@ -5,9 +5,8 @@
         <form method="post" action="/account/forget?return_url={{urlencode(request()->query('return_url',''))}}" id="forget" class="account_form">
             @csrf
             <div class="accountContent">
-                <h3 class="">
-                    Forgot your password?<br>
-                    Enter your email.
+                <h3 class="" style="margin-bottom: 20px;">
+                    Forgot your password?
                 </h3>
 
                 <div class="form-group">

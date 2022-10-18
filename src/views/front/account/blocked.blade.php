@@ -1,14 +1,11 @@
 @include('laravel-common::front.common.header')
 <link rel="stylesheet" href="{{ URL::asset('static/common/css/account.css') }}">
 
-<section class="">
-    <div class="confirmation container">
+<div class=" container">
+    <div class="account_msg">
         Account blocked
     </div>
-</section>
 
-<script>
-
-</script>
+</div>
 
 @include('laravel-common::front.common.footer')

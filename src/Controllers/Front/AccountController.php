@@ -107,10 +107,10 @@ class AccountController extends Controller
                         $this->limiterIncrement($key,15*60);
                     }
                 }else{
-                    throw new ApiException(['code'=>2,'msg'=>'Too many errors, locked out for 15 minutes','data'=>['redirect'=>'/']]);
+                    throw new ApiException(['code'=>11000,'msg'=>'Too many errors, locked out for 15 minutes','data'=>['password'=>['Too many errors, locked out for 15 minutes']]]);
                 }
             }
-            throw new ApiException(['code'=>1,'msg'=>'Incorrect email or password','data'=>['redirect'=>'/']]);
+            throw new ApiException(['code'=>11000,'msg'=>'Incorrect email or password','data'=>['password'=>['Incorrect email or password']]]);
         }else{
             $res['title'] = 'Login';
             return $this->makeView('laravel-common::front.account.login',['res'=>$res]);
@@ -160,7 +160,7 @@ class AccountController extends Controller
 
     public function emailVerify(Request $request)
     {
-        $res['title'] = 'Account Verify';
+        $res['title'] = 'Confirm Email';
         return $this->makeView('laravel-common::front.account.email_verify',['res'=>$res]);
     }
 
@@ -174,9 +174,9 @@ class AccountController extends Controller
                 if (!empty($userauth)) {
                     (new MailSend())->do($userauth->id, new Verify($userauth));
                     $this->limiterIncrement($key,2*60);
-                    throw new ApiException(['code' => 0, 'msg' => 'email sent', 'data' => ['redirect' => '/']]);
-                } else {
-                    throw new ApiException(['code' => 1, 'msg' => 'email not exist', 'data' => ['redirect' => '/']]);
+                    throw new ApiException(['code' => 0, 'msg' => 'Email has been sent', 'data' => ['redirect' => '/']]);
+                }else{
+                    throw new ApiException(['code' => 1, 'msg' => 'Email not exist', 'data' => ['redirect' => '/']]);
                 }
             }else{
                 throw new ApiException(['code'=>2,'msg'=>'Email delivery lock 2 minutes','data'=>['redirect'=>'/']]);
@@ -188,19 +188,19 @@ class AccountController extends Controller
 
     public function emailVerifyCheck(Request $request)
     {
-        $res['title'] = 'Account Verify';
+        $res['title'] = 'Account Email Check';
         try {
             $decrypted = Crypt::decryptString($request->token);
             $decrypted = explode(',',$decrypted);
             $uuid = $decrypted[0]??0;
             $time = $decrypted[1]??0;
             if($uuid && $time>=time()) {
-                $user = User::where(['uuid'=>$uuid]);
-                if(!empty($user->first())){
+                $user = User::where(['uuid'=>$uuid])->first();
+                if(!empty($user)){
                     $user->update(['verified'=>1]);
-                    $res['msg'] =  'Email activation succeeded';
+                    $res['msg'] = 'Email activation succeeded';
                 }else{
-                    $res['msg'] =  'User not found';
+                    $res['msg'] = 'User not found';
                 }
             }else{
                 $res['msg'] =  'Token Expired';
@@ -208,7 +208,7 @@ class AccountController extends Controller
         } catch (DecryptException $e) {
             $res['msg'] =  'Token Error';
         }
-        return $this->makeView('laravel-common::front.account.verify',['res'=>$res]);
+        return $this->makeView('laravel-common::front.account.email_check',['res'=>$res]);
     }
 
     public function forget(AccountRequest $request)
@@ -217,9 +217,9 @@ class AccountController extends Controller
             $userauth = UserAuth::where(['id_type'=>'email','id'=>$request->input('id')])->first();
             if(!empty($userauth)){
                 (new MailSend())->do($userauth->id,new Forget($userauth));
-                throw new ApiException(['code'=>0,'msg'=>'email sent','data'=>['redirect'=>'/account/forget/confirmation']]);
+                throw new ApiException(['code'=>0,'msg'=>'Email has been sent','data'=>['redirect'=>'/account/forget/confirmation']]);
             }else{
-                throw new ApiException(['code'=>1,'msg'=>'email not exist','data'=>['redirect'=>'/']]);
+                throw new ApiException(['code'=>11000,'msg'=>'Email not exist','data'=>['id'=>['email not exist']]]);
             }
         }else{
             $res['title'] = 'Forget your password';
@@ -245,7 +245,8 @@ class AccountController extends Controller
                 if(!empty($userAuth)){
                     if($request->isMethod('post')) {
                         $userAuth->changePassword($userAuth->uuid,$request->input('password'));
-                        throw new ApiException(['code'=>0,'msg'=>'password reset success','data'=>['redirect'=>'/']]);
+                        Auth::guard('user')->logout();
+                        throw new ApiException(['code'=>0,'msg'=>'Password reset success','data'=>['redirect'=>'/account/login']]);
                     }else{
                         $res['title'] = 'Reset Password';
                         $res['token'] = $request->token;
@@ -253,13 +254,13 @@ class AccountController extends Controller
                         return $this->makeView('laravel-common::front.account.forget-password', ['res' => $res]);
                     }
                 }else{
-                    throw new ApiException(['code'=>3,'msg'=>'user error','data'=>['redirect'=>'/']]);
+                    throw new ApiException(['code'=>3,'msg'=>'User error','data'=>['redirect'=>'/account/login']]);
                 }
             }else{
-                throw new ApiException(['code'=>2,'msg'=>'Token Expire','data'=>['redirect'=>'/']]);
+                throw new ApiException(['code'=>2,'msg'=>'Token Expire','data'=>['redirect'=>'/account/login']]);
             }
         } catch (DecryptException $e) {
-            throw new ApiException(['code'=>1,'msg'=>'Token Error','data'=>['redirect'=>'/']]);
+            throw new ApiException(['code'=>1,'msg'=>'Token Error','data'=>['redirect'=>'/account/login']]);
         }
     }
 
@@ -292,9 +293,9 @@ class AccountController extends Controller
                         $payment->pay(false);
                     }
                 }
-                throw new ApiException(['code'=>2,'msg'=>'group fail','data'=>['redirect'=>'/']]);
+                throw new ApiException(['code'=>2,'msg'=>'Group fail','data'=>['redirect'=>'/']]);
             }else{
-                throw new ApiException(['code'=>1,'msg'=>'group error','data'=>['redirect'=>'/']]);
+                throw new ApiException(['code'=>1,'msg'=>'Group error','data'=>['redirect'=>'/']]);
             }
         }else{
             $res['title'] = 'Account Group';
@@ -329,9 +330,9 @@ class AccountController extends Controller
                         $payment->pay(false);
                     }
                 }
-                throw new ApiException(['code'=>2,'msg'=>'group fail','data'=>['redirect'=>'/']]);
+                throw new ApiException(['code'=>2,'msg'=>'Group fail','data'=>['redirect'=>'/']]);
             }else{
-                throw new ApiException(['code'=>1,'msg'=>'group error','data'=>['redirect'=>'/']]);
+                throw new ApiException(['code'=>1,'msg'=>'Group error','data'=>['redirect'=>'/']]);
             }
         }else{
             $res['title'] = 'Account credit';
@@ -349,7 +350,7 @@ class AccountController extends Controller
         $info = $UserCheckin->getByUuid($this->user->uuid);
         $input = ['uuid'=>$this->user->uuid,'ua'=>$request->header('user-agent'),'ip'=>$request->ip(),'lang'=>$request->header('accept-language')];
         if(!empty($info)){
-            throw new ApiException(['code'=>0,'msg'=>'checkined','data'=>['info'=>$info]]);
+            throw new ApiException(['code'=>0,'msg'=>'Checkined','data'=>['info'=>$info]]);
         }else{
             $res['title'] = '';
             $_userCheckin = $UserCheckin->create($input);

@@ -47,8 +47,6 @@ class UserController extends Controller
             $post = $request->all();
             $post['group_expire'] = strtotime($post['group_expire']);
             if($user->update($post)){
-                $post['verified']  = isset($post['verified'])?1:0;
-                UserAuth::where(['id_type'=>'email','uuid'=>$user->uuid])->update(['verified'=>$post['verified']]);
                 throw new ApiException(['code'=>0,'msg'=>'修改成功','data'=>['redirect'=>$this->index_url]]);
             }
             throw new ApiException(['code'=>1,'msg'=>'修改失败']);
