@@ -18,8 +18,8 @@
                 </div>
                 <div class="">
                     <div class="form-group">
-                        <label>Email</label>
-                        <input type="email" name="id" class="form-control" required autocomplete="off" placeholder="you@example.com">
+                        <label>Mobile</label>
+                        <input type="text" name="id" class="form-control" required autocomplete="off" placeholder="Enter mobile">
                         <div class="invalid-feedback"></div>
                     </div>
                     <div class="form-group">
@@ -32,14 +32,16 @@
                         <input type="password" name="password_confirmation" class="form-control" required autocomplete="off" placeholder="Enter 6 characters or more">
                         <div class="invalid-feedback"></div>
                     </div>
-                    <div id="code_img" class="form-group @if(config('admin.seccode_register')==1) @else none @endif">
-                        <label>Code</label>
-                        <div class="code_img">
-                            <input type="text" name="code" class="form-control" value="" autocomplete="off" placeholder="Enter code">
-                            <img src="/center/seccode" onclick="code_img(this)" >
+                    @if(config('admin.seccode'))
+                        <div class="form-group ">
+                            <label>Code</label>
+                            <div class="d-flex justify-content-between">
+                                <input type="text" name="code" class="form-control" value="" autocomplete="off" required >
+                                <img src="/center/seccode" style="width: 100px;height: 50px;">
+                            </div>
+                            <div class="invalid-feedback"></div>
                         </div>
-                        <div class="invalid-feedback"></div>
-                    </div>
+                    @endif
                     <div class="">
                         <label class="d-flex">
                             <input type="checkbox" name="agree" value="1" onclick="return false;" checked="checked">
@@ -121,8 +123,7 @@
                             }else if(res.code===11000){
                                 form_err_11000(res,form_id);
                             }else{
-                                $(form_id+' input.form-control').removeClass('is-valid');
-                                alert_msg(res);
+                                alert_msg(res,true);
                             }
                         },
                         complete:function(XMLHttpRequest,textStatus){

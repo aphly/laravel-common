@@ -4,6 +4,7 @@ namespace Aphly\LaravelCommon\Controllers\Front;
 
 use Aphly\Laravel\Exceptions\ApiException;
 use Aphly\Laravel\Libs\Helper;
+use Aphly\Laravel\Libs\Seccode;
 use Aphly\Laravel\Libs\UploadFile;
 use Aphly\Laravel\Mail\MailSend;
 
@@ -82,14 +83,19 @@ class AccountController extends Controller
 
     public function login(AccountRequest $request)
     {
+        $key = 'user_login_'.$request->ip();
         if($request->isMethod('post')) {
             $arr['id'] = $request->input('id');
             $arr['id_type'] = config('common.id_type');
             $userAuthModel = UserAuth::where($arr);
             $userAuth = $userAuthModel->first();
             if(!empty($userAuth)){
-                $key = 'user_'.$request->ip();
                 if($this->limiter($key,5)){
+                    if(config('admin.seccode_login')==1 || (config('admin.seccode_login')==2 && $this->limiter($key))){
+                        if(!((new Seccode())->check($request->input('code')))){
+                            throw new ApiException(['code'=>11000,'msg'=>'Incorrect Code','data'=>['code'=>['Incorrect Code']]]);
+                        }
+                    }
                     if(Hash::check($request->input('password',''),$userAuth->password)){
                         $user = User::find($userAuth->uuid);
                         if($user->status==1){
@@ -105,6 +111,9 @@ class AccountController extends Controller
                         }
                     }else{
                         $this->limiterIncrement($key,15*60);
+                        if($this->limiter($key)==1){
+                            throw new ApiException(['code'=>2,'msg'=>'Incorrect email or password']);
+                        }
                     }
                 }else{
                     throw new ApiException(['code'=>11000,'msg'=>'Too many errors, locked out for 15 minutes','data'=>['password'=>['Too many errors, locked out for 15 minutes']]]);
@@ -113,41 +122,54 @@ class AccountController extends Controller
             throw new ApiException(['code'=>11000,'msg'=>'Incorrect email or password','data'=>['password'=>['Incorrect email or password']]]);
         }else{
             $res['title'] = 'Login';
+            $res['seccode'] = $this->limiter($key);
             return $this->makeView('laravel-common::front.account.login',['res'=>$res]);
         }
     }
 
     public function register(AccountRequest $request)
     {
+        $key = 'user_register_'.$request->ip();
         if($request->isMethod('post')) {
-            $post = $request->all();
-            $post['id_type'] = config('common.id_type');
-            $post['uuid'] = Helper::uuid();
-            $post['password'] = Hash::make($post['password']);
-            $post['last_login'] = time();
-            $post['last_ip'] = $request->ip();
-            $userAuth = UserAuth::create($post);
-            if($userAuth->uuid){
-                $user = User::create([
-                    'nickname'=>str::random(8),
-                    'uuid'=>$userAuth->uuid,
-                    'token'=>Str::random(64),
-                    'token_expire'=>time()+120*60,
-                    'group_id'=>User::$group_id,
-                ]);
-                $user->afterRegister();
-                Auth::guard('user')->login($user);
-                $user->id_type = $userAuth->id_type;
-                $user->id = $userAuth->id;
-                if($userAuth->id_type=='email' && config('common.email_verify')){
-                    (new MailSend())->do($userAuth->id,new Verify($userAuth));
+            if (config('admin.seccode_register')==1) {
+                if (!((new Seccode())->check($request->input('code')))) {
+                    throw new ApiException(['code' => 11000, 'msg' => 'Incorrect Code', 'data' => ['code' => ['Incorrect Code']]]);
                 }
-                throw new ApiException(['code'=>0,'msg'=>'register success','data'=>['redirect'=>$user->returnUrl(),'user'=>$user]]);
+            }
+            if($this->limiter($key,1)) {
+                $this->limiterIncrement($key,15*60);
+                $post = $request->all();
+                $post['id_type'] = config('common.id_type');
+                $post['uuid'] = Helper::uuid();
+                $post['password'] = Hash::make($post['password']);
+                $post['last_login'] = time();
+                $post['last_ip'] = $request->ip();
+                $userAuth = UserAuth::create($post);
+                if ($userAuth->uuid) {
+                    $user = User::create([
+                        'nickname' => str::random(8),
+                        'uuid' => $userAuth->uuid,
+                        'token' => Str::random(64),
+                        'token_expire' => time() + 120 * 60,
+                        'group_id' => User::$group_id,
+                    ]);
+                    $user->afterRegister();
+                    Auth::guard('user')->login($user);
+                    $user->id_type = $userAuth->id_type;
+                    $user->id = $userAuth->id;
+                    if ($userAuth->id_type == 'email' && config('common.email_verify')) {
+                        (new MailSend())->do($userAuth->id, new Verify($userAuth));
+                    }
+                    throw new ApiException(['code' => 0, 'msg' => 'Register success', 'data' => ['redirect' => $user->returnUrl(), 'user' => $user]]);
+                } else {
+                    throw new ApiException(['code' => 1, 'msg' => 'Register fail']);
+                }
             }else{
-                throw new ApiException(['code'=>1,'msg'=>'register fail']);
+                throw new ApiException(['code' => 2, 'msg' => 'Registration is too frequent, please wait 15 minutes']);
             }
         }else{
             $res['title'] = 'Register';
+            $res['seccode'] = $this->limiter($key);
             return $this->makeView('laravel-common::front.account.register',['res'=>$res]);
         }
     }

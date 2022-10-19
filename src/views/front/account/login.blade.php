@@ -10,11 +10,20 @@
                     <span class="descrip">Log in with email</span>
                 </div>
                 <div class=" ">
-                    <div class="form-group ">
-                        <label>Email</label>
-                        <input type="email" name="id" class="form-control" value="" autocomplete="off" required placeholder="you@example.com">
-                        <div class="invalid-feedback"></div>
-                    </div>
+                    @if(config('common.id_type')=='email')
+                        <div class="form-group ">
+                            <label>Email</label>
+                            <input type="email" name="id" class="form-control" value="" autocomplete="off" required placeholder="you@example.com">
+                            <div class="invalid-feedback"></div>
+                        </div>
+                    @elseif(config('common.id_type')=='mobile')
+                        <div class="form-group ">
+                            <label>Mobile</label>
+                            <input type="text" name="id" class="form-control" value="" autocomplete="off" required placeholder="Enter mobile">
+                            <div class="invalid-feedback"></div>
+                        </div>
+                    @endif
+
                     <div class="form-group ">
                         <label class="d-flex justify-content-between"><span>Password</span>
                             <a href="/account/forget?return_url={{urlencode(request()->query('return_url',''))}}" class="color-link-defaut">
@@ -24,6 +33,16 @@
                         <input type="password" name="password" class="form-control" value="" required autocomplete="off" placeholder="Enter 6 characters or more">
                         <div class="invalid-feedback"></div>
                     </div>
+
+                    <div id="code_img" class="form-group @if(config('admin.seccode_login')==1 || (config('admin.seccode_login')==2 && $res['seccode'])) @else none @endif">
+                        <label>Code</label>
+                        <div class="code_img">
+                            <input type="text" name="code" class="form-control" value="" autocomplete="off" placeholder="Enter code">
+                            <img src="/center/seccode" onclick="code_img(this)" >
+                        </div>
+                        <div class="invalid-feedback"></div>
+                    </div>
+
                     <button type="submit" class="btn loginBtn text-brand">Login</button>
                 </div>
                 <div class="split-line ">
@@ -97,15 +116,11 @@
                             if(!res.code) {
                                 location.href = res.data.redirect
                             }else if(res.code===11000){
-                                for(let item in res.data){
-                                    let str = ''
-                                    res.data[item].forEach((elem, index)=>{
-                                        str = str+elem+'<br>'
-                                    })
-                                    let obj = $(form_id+' input[name="'+item+'"]');
-                                    obj.removeClass('is-valid').addClass('is-invalid');
-                                    obj.next('.invalid-feedback').html(str);
-                                }
+                                form_err_11000(res,form_id);
+                            }else if(res.code===2){
+                                $(form_id+' input.form-control').removeClass('is-valid');
+                                $('#code_img').show()
+                                alert_msg(res);
                             }else{
                                 alert_msg(res);
                             }
