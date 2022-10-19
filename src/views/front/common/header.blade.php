@@ -27,16 +27,12 @@
     .header2 ul li{margin-right: 16px;}
     .header2 a{color: #000;}
     .header1{display: flex;}
-    .header13{display: flex;justify-content: center;align-items: center; border-radius: 50%;background: #eee; width: 44px;height: 44px;}
+    .header13{display: flex;justify-content: center;align-items: center; border-radius: 50%;background: #eee; width: 44px;height: 44px;cursor: pointer;}
     .header13 i{font-size: 26px;color:#000;}
     .header11 img{height: 100%;}
     .header11{width: 100px;margin-right: 10px;}
     .account{margin-top: 20px}
-    @media (max-width: 1199.98px) {
 
-    }
-</style>
-<style>
     .m_header_ext{position: fixed;top: 70px;left: 0;width: 100%;height: 0;z-index:1100;transition: all 0.5s;background: #fff;overflow: hidden;}
     .m_header_ext.active{height: calc(100% - 70px);padding: 0 15px;}
     .m_header_ext11 input{border:none;outline-style:none;background:transparent;width:100%;transition:all 0.5s;height: 44px;}
@@ -44,7 +40,11 @@
     .m_header_ext11 i{margin-right:5px}
     .m_header_ext2 li{height: 38px;line-height: 38px;font-size: 17px;font-weight: 700;}
     .m_header_ext1{padding: 10px 0;}
+	.header13.active{background:#edf6ff}
     .header13.active i{color:var(--a-hover)}
+	@media (max-width: 1199.98px) {
+
+    }
 </style>
 <header>
     <div class="header">
