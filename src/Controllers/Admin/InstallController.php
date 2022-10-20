@@ -3,18 +3,29 @@
 namespace Aphly\LaravelCommon\Controllers\Admin;
 
 use Aphly\LaravelAdmin\Models\Menu;
+use Aphly\LaravelAdmin\Models\Module;
 use Aphly\LaravelAdmin\Models\Role;
 use Illuminate\Support\Facades\DB;
 
 class InstallController extends Controller
 {
-    public $module_id = 2;
+    public $module_id = 0;
+
+    public function __construct()
+    {
+        parent::__construct();
+        $module = Module::where('key','common')->first();
+        if(!empty($module)){
+            $this->module_id = $module->id;
+        }
+    }
 
     public function install(){
         $path = storage_path('app/private/common_init.sql');
         if(file_exists($path)){
             DB::unprepared(file_get_contents($path));
         }
+
         $menu = Menu::create(['name' => '基础管理','url' =>'','pid'=>0,'is_leaf'=>0,'module_id'=>$this->module_id,'sort'=>20]);
         if($menu){
             $menu2 = Menu::create(['name' => '用户管理','url' =>'','pid'=>$menu->id,'is_leaf'=>0,'module_id'=>$this->module_id,'sort'=>20]);
