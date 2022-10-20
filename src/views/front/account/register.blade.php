@@ -33,7 +33,7 @@
                         <div class="invalid-feedback"></div>
                     </div>
                     <div id="code_img" class="form-group @if(config('admin.seccode_register')==1) @else none @endif">
-                        <label>Code</label>
+                        <label>Captcha</label>
                         <div class="code_img">
                             <input type="text" name="code" class="form-control" value="" autocomplete="off" placeholder="Enter code">
                             <img src="/center/seccode" onclick="code_img(this)" >

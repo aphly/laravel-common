@@ -137,7 +137,6 @@ class AccountController extends Controller
                 }
             }
             if($this->limiter($key,1)) {
-                $this->limiterIncrement($key,15*60);
                 $post = $request->all();
                 $post['id_type'] = config('common.id_type');
                 $post['uuid'] = Helper::uuid();
@@ -160,6 +159,7 @@ class AccountController extends Controller
                     if ($userAuth->id_type == 'email' && config('common.email_verify')) {
                         (new MailSend())->do($userAuth->id, new Verify($userAuth));
                     }
+                    $this->limiterIncrement($key,15*60);
                     throw new ApiException(['code' => 0, 'msg' => 'Register success', 'data' => ['redirect' => $user->returnUrl(), 'user' => $user]]);
                 } else {
                     throw new ApiException(['code' => 1, 'msg' => 'Register fail']);
@@ -236,6 +236,11 @@ class AccountController extends Controller
     public function forget(AccountRequest $request)
     {
         if($request->isMethod('post')) {
+            if (config('admin.seccode_forget')==1) {
+                if (!((new Seccode())->check($request->input('code')))) {
+                    throw new ApiException(['code' => 11000, 'msg' => 'Incorrect Code', 'data' => ['code' => ['Incorrect Code']]]);
+                }
+            }
             $userauth = UserAuth::where(['id_type'=>'email','id'=>$request->input('id')])->first();
             if(!empty($userauth)){
                 (new MailSend())->do($userauth->id,new Forget($userauth));
