@@ -12,23 +12,19 @@ use Illuminate\Support\Facades\Route;
 | contains the "web" middleware group. Now create something great!
 |
 */
-Route::get('/t3',function (){
-    dd(config('common.oauth.type'));
-});
 
 Route::middleware(['web'])->group(function () {
-
+    //oauth
     Route::get('oauth/{service}','Aphly\LaravelCommon\Controllers\Front\OAuthController@redirectToProvider')->name('oauth');
     Route::get('oauth/{service}/callback','Aphly\LaravelCommon\Controllers\Front\OAuthController@handleProviderCallback')->name('oauthCallback');
-
+    //currency
     Route::get('/currency/{id}', 'Aphly\LaravelCommon\Controllers\Front\CurrencyController@ajax')->where('id', '[0-9]+');
-
-    Route::middleware(['cross'])->get('zone', 'Aphly\LaravelCommon\Controllers\Front\CountryController@test')->where('id', '[0-9]+');
-
+    //country
     Route::get('country/{id}/zone', 'Aphly\LaravelCommon\Controllers\Front\CountryController@zone')->where('id', '[0-9]+');
+    //checkout
     Route::get('checkout/success', 'Aphly\LaravelCommon\Controllers\Front\CheckoutController@success');
     Route::get('checkout/fail', 'Aphly\LaravelCommon\Controllers\Front\CheckoutController@fail');
-
+    //news
     Route::match(['get'],'news/{id}', 'Aphly\LaravelCommon\Controllers\Front\NewsController@detail')->where('id', '[0-9]+');
 
     Route::prefix('account')->group(function () {

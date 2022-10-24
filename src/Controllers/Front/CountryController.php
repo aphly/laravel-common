@@ -13,10 +13,4 @@ class CountryController extends Controller
         throw new ApiException(['code'=>0,'msg'=>'success','data'=>$list]);
     }
 
-    public function test(Request $request){
-        $list = Zone::Paginate(config('admin.perPage'))->withQueryString();
-        throw new ApiException(['code'=>0,'msg'=>'success','data'=>['list'=>$list]]);
-    }
-
-
 }
