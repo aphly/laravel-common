@@ -5,6 +5,7 @@ namespace Aphly\LaravelCommon\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
 
@@ -28,8 +29,7 @@ class User extends Authenticatable
     }
 
     protected $fillable = [
-        'uuid','nickname',
-        'token','verified',
+        'uuid','nickname','token','verified',
         'token_expire','avatar','status','gender','group_id','group_expire'
     ];
 
@@ -75,14 +75,28 @@ class User extends Authenticatable
         }
     }
 
-    public function group_id() {
-        if($this->group_id>1){
-            if($this->group_expire<time()){
-                $this->group_id = self::$group_id;
-                $this->save();
+    static public function groupId() {
+        $auth = Auth::guard('user');
+        if($auth->check()){
+            if($auth->user()->group_id>1){
+                if($auth->user()->group_expire<time()){
+                    $auth->user()->group_id = self::$group_id;
+                    $auth->user()->save();
+                }
             }
+            return $auth->user()->group_id;
+        }else{
+            return self::$group_id;
         }
-        return $this->group_id;
+    }
+
+    static function uuid(){
+        $auth = Auth::guard('user');
+        if($auth->check()){
+           return $auth->user()->uuid;
+        }else{
+            return 0;
+        }
     }
 
     function group(){
