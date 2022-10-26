@@ -78,13 +78,14 @@ class User extends Authenticatable
     static public function groupId() {
         $auth = Auth::guard('user');
         if($auth->check()){
-            if($auth->user()->group_id>1){
-                if($auth->user()->group_expire<time()){
-                    $auth->user()->group_id = self::$group_id;
-                    $auth->user()->save();
+            $user = $auth->user();
+            if($user->group_id>1){
+                if($user->group_expire<time()){
+                    $user->group_id = self::$group_id;
+                    $user->save();
                 }
             }
-            return $auth->user()->group_id;
+            return $user->group_id;
         }else{
             return self::$group_id;
         }
@@ -107,26 +108,36 @@ class User extends Authenticatable
         return $this->hasOne(UserCredit::class,'uuid','uuid');
     }
 
-    public function afterLogin()
-    {
-        $class = [];
-        $this->handle($class);
-    }
-
     public function afterRegister()
     {
-        $class = ['\Aphly\LaravelNovel\Models\UserNovelSetting'];
-        $this->handle($class);
-    }
-
-    public function handle($class)
-    {
+        $class = ['\Aphly\LaravelNovel\Models\UserNovelSetting','\Aphly\LaravelShop\Models\Customer\Customer'];
         foreach ($class as $val) {
             if (class_exists($val)) {
-                (new $val)->handle($this);
+                (new $val)->afterRegister($this);
             }
         }
     }
+
+    public function afterLogin()
+    {
+        $class = [];
+        foreach ($class as $val) {
+            if (class_exists($val)) {
+                (new $val)->afterLogin($this);
+            }
+        }
+    }
+
+    public function afterLogout()
+    {
+        $class = [];
+        foreach ($class as $val) {
+            if (class_exists($val)) {
+                (new $val)->afterLogout();
+            }
+        }
+    }
+
 
     public function generateToken(){
         $this->token = Str::random(64);

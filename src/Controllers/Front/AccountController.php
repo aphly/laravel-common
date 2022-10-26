@@ -177,6 +177,7 @@ class AccountController extends Controller
     public function logout(Request $request)
     {
         Auth::guard('user')->logout();
+        (new User)->afterLogout();
         throw new ApiException(['code'=>0,'msg'=>'logout success','data'=>['redirect'=>'/']]);
     }
 
