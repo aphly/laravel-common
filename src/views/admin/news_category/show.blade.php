@@ -72,8 +72,8 @@
     var list = @json($res['list']);
     var listById = @json($res['listById']);
     var data = toTree(selectData(list,false))
-    var id = 0;
-    var fast_save_url = '/common_admin/news_category/save';
+    var id =0,pid= 0;
+    var fast_save_url = '/common_admin/news_category';
     var fast_del_url = '/common_admin/news_category/del';
     var fast_del_url_return = '/common_admin/news_category/show';
     var _token = '{{csrf_token()}}';
@@ -87,11 +87,11 @@
             expandIcon:'uni app-arrow-right',
             data,
             onNodeSelected: function(event, data) {
-                id = data.id
+                id = pid= data.id
                 fast_show_btn()
             },
             onNodeUnselected: function(event, data) {
-                id = 0
+                id = pid= 0
                 fast_show_btn()
             },
         });

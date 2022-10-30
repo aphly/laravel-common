@@ -72,8 +72,8 @@ Route::middleware(['web'])->group(function () {
 
             $route_arr = [
                 ['group','\GroupController'],['credit_price','\CreditPriceController'],['user_credit_log','\UserCreditLogController'],['user_credit_order','\UserCreditOrderController'],
-                ['user_group_order','\UserGroupOrderController'],['category','\CategoryController'],['filter','\FilterController'],['news','\NewsController'],['news_category','\NewsCategoryController'],
-                ['country','\CountryController'],['geo','\GeoController'],['zone','\ZoneController'],['currency','\CurrencyController'],['links','\LinksController']
+                ['user_group_order','\UserGroupOrderController'],['news','\NewsController'],['filter','\FilterController'],
+                ['country','\CountryController'],['geo','\GeoController'],['zone','\ZoneController'],['currency','\CurrencyController']
             ];
 
             foreach ($route_arr as $val){
@@ -89,6 +89,16 @@ Route::middleware(['web'])->group(function () {
             Route::get('/links/show', 'Aphly\LaravelCommon\Controllers\Admin\LinksController@show');
             Route::get('/news_category/show', 'Aphly\LaravelCommon\Controllers\Admin\NewsCategoryController@show');
 
+			$route_arr = [
+				['category','\CategoryController'],['news_category','\NewsCategoryController'],['links','\LinksController']
+			];
+
+			foreach ($route_arr as $val){
+				Route::get('/'.$val[0].'/index', 'Aphly\LaravelCommon\Controllers\Admin'.$val[1].'@index');
+				Route::match(['get', 'post'],'/'.$val[0].'/add', 'Aphly\LaravelCommon\Controllers\Admin'.$val[1].'@add');
+				Route::match(['get', 'post'],'/'.$val[0].'/edit', 'Aphly\LaravelCommon\Controllers\Admin'.$val[1].'@edit');
+				Route::post('/'.$val[0].'/del', 'Aphly\LaravelCommon\Controllers\Admin'.$val[1].'@del');
+			}
         });
     });
 
