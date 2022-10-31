@@ -17,7 +17,9 @@ return new class extends Migration
             $table->id();
             $table->string('name',128);
             $table->string('desc',255);
-            $table->unsignedInteger('date_add');
+            $table->tinyInteger('status')->nullable()->default(1)->index();
+            $table->unsignedBigInteger('created_at');
+            $table->unsignedBigInteger('updated_at');
         });
     }
 

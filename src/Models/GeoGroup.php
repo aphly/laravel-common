@@ -10,10 +10,10 @@ class GeoGroup extends Model
 {
     use HasFactory;
     protected $table = 'common_geo_group';
-    public $timestamps = false;
+    //public $timestamps = false;
 
     protected $fillable = [
-        'name','desc','date_add'
+        'name','desc','status'
     ];
 
     function child(){

@@ -16,6 +16,17 @@
                 <input type="text" name="desc" class="form-control " value="{{$res['geoGroup']->desc}}">
                 <div class="invalid-feedback"></div>
             </div>
+            <div class="form-group">
+                <label for="">状态</label>
+                <select name="status" class="form-control">
+                    @if(isset($dict['status']))
+                        @foreach($dict['status'] as $key=>$val)
+                            <option value="{{$key}}" @if($res['info']->status==$key) selected @endif>{{$val}}</option>
+                        @endforeach
+                    @endif
+                </select>
+                <div class="invalid-feedback"></div>
+            </div>
             <div class="form-group geo">
                 <div onclick="geo_addDiv()" class="add_div_btn"><i class="uni app-jia"></i> geo Values</div>
                 <div class="add_div">

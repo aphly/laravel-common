@@ -107,7 +107,7 @@ class AccountController extends Controller
                             $user->id = $userAuth->id;
                             throw new ApiException(['code'=>0,'msg'=>'login success','data'=>['redirect'=>$user->returnUrl(),'user'=>$user]]);
                         }else{
-                            throw new ApiException(['code'=>3,'msg'=>'Account blocked','data'=>['redirect'=>'/account/blocked']]);
+                            throw new ApiException(['code'=>3,'msg'=>'Account blocked','data'=>['redirect'=>route('blocked')]]);
                         }
                     }else{
                         $this->limiterIncrement($key,15*60);
@@ -274,7 +274,7 @@ class AccountController extends Controller
                     if($request->isMethod('post')) {
                         $userAuth->changePassword($userAuth->uuid,$request->input('password'));
                         Auth::guard('user')->logout();
-                        throw new ApiException(['code'=>0,'msg'=>'Password reset success','data'=>['redirect'=>'/account/login']]);
+                        throw new ApiException(['code'=>0,'msg'=>'Password reset success','data'=>['redirect'=>route('login')]]);
                     }else{
                         $res['title'] = 'Reset Password';
                         $res['token'] = $request->token;
@@ -282,13 +282,13 @@ class AccountController extends Controller
                         return $this->makeView('laravel-common::front.account.forget-password', ['res' => $res]);
                     }
                 }else{
-                    throw new ApiException(['code'=>3,'msg'=>'User error','data'=>['redirect'=>'/account/login']]);
+                    throw new ApiException(['code'=>3,'msg'=>'User error','data'=>['redirect'=>route('login')]]);
                 }
             }else{
-                throw new ApiException(['code'=>2,'msg'=>'Token Expire','data'=>['redirect'=>'/account/login']]);
+                throw new ApiException(['code'=>2,'msg'=>'Token Expire','data'=>['redirect'=>route('login')]]);
             }
         } catch (DecryptException $e) {
-            throw new ApiException(['code'=>1,'msg'=>'Token Error','data'=>['redirect'=>'/account/login']]);
+            throw new ApiException(['code'=>1,'msg'=>'Token Error','data'=>['redirect'=>route('login')]]);
         }
     }
 
