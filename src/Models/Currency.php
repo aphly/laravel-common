@@ -23,16 +23,14 @@ class Currency extends Model
         return !empty($res)?$res->toArray():[];
     }
 
-    static public function findAll(Int $status=0) {
-        return Cache::rememberForever('currency'.$status, function () use ($status){
-            return self::when($status,function ($query,$status){
-                return $query->where('status',$status);
-            })->get()->keyBy('code')->toArray();
+    static public function findAll() {
+        return Cache::rememberForever('currency', function (){
+            return self::where('status',1)->get()->keyBy('code')->toArray();
         });
     }
 
     static function defaultCurr(){
-        $currency_all = self::findAll(1);
+        $currency_all = self::findAll();
         $default = '';
         foreach($currency_all as $val){
             if($val['default']==1){

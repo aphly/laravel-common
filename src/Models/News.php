@@ -17,11 +17,6 @@ class News extends Model
     ];
 
     function show($news_id){
-        $info = self::where(['id'=>$news_id,'status'=>1])->first();
-        if(!empty($info)){
-            return $info;
-        }else{
-            throw new ApiException(['code'=>1,'msg'=>'news show fail','data'=>[]]);
-        }
+        return self::where(['id'=>$news_id,'status'=>1])->firstOrError();
     }
 }

@@ -72,7 +72,7 @@ Route::middleware(['web'])->group(function () {
 
             $route_arr = [
                 ['group','\GroupController'],['credit_price','\CreditPriceController'],['user_credit_log','\UserCreditLogController'],['user_credit_order','\UserCreditOrderController'],
-                ['user_group_order','\UserGroupOrderController'],['news','\NewsController'],['filter','\FilterController'],
+                ['user_group_order','\UserGroupOrderController'],['user_address','\UserAddressController'],['news','\NewsController'],['filter','\FilterController'],
                 ['country','\CountryController'],['geo','\GeoController'],['zone','\ZoneController'],['currency','\CurrencyController']
             ];
 

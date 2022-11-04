@@ -16,11 +16,9 @@ class Zone extends Model
         'country_id','name','code','status'
     ];
 
-    public function findAllByCountry($country_id,Int $status=0) {
-        return Cache::rememberForever('zone_'. (int)$country_id.'_'.$status, function () use ($country_id,$status){
-            return self::where('country_id', $country_id)->when($status,function ($query,$status){
-                return $query->where('status',$status);
-            })->orderBy('name','asc')->get()->keyBy('id')->toArray();
+    public function findAllByCountry($country_id) {
+        return Cache::rememberForever('zone_'. (int)$country_id, function () use ($country_id){
+            return self::where('country_id', $country_id)->where('status',1)->orderBy('name','asc')->get()->keyBy('id')->toArray();
         });
     }
 
@@ -32,11 +30,9 @@ class Zone extends Model
         return $res;
     }
 
-    public function findAll(Int $status=0) {
-        return Cache::rememberForever('zone'.$status, function () use ($status){
-            return self::when($status,function ($query,$status){
-                return $query->where('status',$status);
-            })->get()->keyBy('code')->toArray();
+    public function findAll() {
+        return Cache::rememberForever('zone', function (){
+            return self::where('status',1)->get()->keyBy('code')->toArray();
         });
     }
 }

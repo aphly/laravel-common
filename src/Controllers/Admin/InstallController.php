@@ -37,6 +37,7 @@ class InstallController extends Controller
                 $data[] =['name' => '积分价格','url' =>'/common_admin/credit_price/index','pid'=>$menu2->id,'is_leaf'=>1,'module_id'=>$this->module_id,'sort'=>0];
                 $data[] =['name' => '积分订单','url' =>'/common_admin/user_credit_order/index','pid'=>$menu2->id,'is_leaf'=>1,'module_id'=>$this->module_id,'sort'=>0];
                 $data[] =['name' => '积分记录','url' =>'/common_admin/user_credit_log/index','pid'=>$menu2->id,'is_leaf'=>1,'module_id'=>$this->module_id,'sort'=>0];
+                $data[] =['name' => '地址','url' =>'/common_admin/user_address/index','pid'=>$menu2->id,'is_leaf'=>1,'module_id'=>$this->module_id,'sort'=>0];
                 DB::table('admin_menu')->insert($data);
             }
             $data=[];

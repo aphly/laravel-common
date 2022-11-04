@@ -17,11 +17,9 @@ class NewsCategory extends Model
         'name','icon','pid','sort','status','meta_title','meta_description','is_leaf'
     ];
 
-    public function findAll(int $status=0) {
-        return Cache::rememberForever('news_category'.$status, function () use ($status) {
-            $category = self::when($status,function ($query,$status){
-                return $query->where('status', $status);
-            })->orderBy('sort', 'desc')->get()->toArray();
+    public function findAll() {
+        return Cache::rememberForever('news_category', function () {
+            $category = self::where('status', 1)->orderBy('sort', 'desc')->get()->toArray();
             return Helper::getTree($category, true);
         });
     }
