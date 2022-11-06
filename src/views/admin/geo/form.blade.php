@@ -8,7 +8,7 @@
         <div class="">
             <div class="form-group">
                 <label for="">名称</label>
-                <input type="text" name="name" class="form-control " value="{{$res['geoGroup']->name}}">
+                <input type="text" name="name" required class="form-control " value="{{$res['geoGroup']->name}}">
                 <div class="invalid-feedback"></div>
             </div>
             <div class="form-group">

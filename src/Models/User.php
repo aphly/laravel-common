@@ -18,6 +18,8 @@ class User extends Authenticatable
 
     static public $group_id = 1;
 
+	static public $uuid = 0;
+
     /**
      * The attributes that are mass assignable.
      *
@@ -92,12 +94,16 @@ class User extends Authenticatable
     }
 
     static function uuid(){
-        $auth = Auth::guard('user');
-        if($auth->check()){
-           return $auth->user()->uuid;
-        }else{
-            return 0;
-        }
+    	if(!self::$uuid){
+			$auth = Auth::guard('user');
+			if($auth->check()){
+				return self::$uuid = $auth->user()->uuid;
+			}else{
+				return 0;
+			}
+		}else{
+			return self::$uuid;
+		}
     }
 
     function group(){

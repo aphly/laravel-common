@@ -16,7 +16,7 @@ return new class extends Migration
         Schema::create('common_geo_group', function (Blueprint $table) {
             $table->id();
             $table->string('name',128);
-            $table->string('desc',255);
+            $table->string('desc',255)->nullable();
             $table->tinyInteger('status')->nullable()->default(1)->index();
             $table->unsignedBigInteger('created_at');
             $table->unsignedBigInteger('updated_at');

@@ -20,8 +20,8 @@ class Address extends Model
         if(!empty($info)){
             $country = (new Country)->findAll();
             $zone = (new Zone)->findAll();
-            return array(
-                'id'     => $info['address_id'],
+            return [
+                'id'     		 => $info['id'],
                 'firstname'      => $info['firstname'],
                 'lastname'       => $info['lastname'],
                 'company'        => $info['company'],
@@ -38,7 +38,7 @@ class Address extends Model
                 'iso_code_3'     => $country[$info['country_id']]['iso_code_3']??'',
                 'address_format' => $country[$info['country_id']]['address_format']??'',
                 'telephone'      => $info['telephone']
-            );
+            ];
         }else{
             return [];
         }
@@ -51,8 +51,8 @@ class Address extends Model
         $country = (new Country)->findAll();
         $zone = (new Zone)->findAll();
         foreach ($data as $v){
-            $address_data[] = array(
-                'id'     => $v['id'],
+            $address_data[] = [
+                'id'     		 => $v['id'],
                 'firstname'      => $v['firstname'],
                 'lastname'       => $v['lastname'],
                 'address_1'      => $v['address_1'],
@@ -68,7 +68,7 @@ class Address extends Model
                 'iso_code_3'     => $country[$v['country_id']]['iso_code_3']??'',
                 'address_format' => $country[$v['country_id']]['address_format']??'',
                 'telephone'      => $v['telephone']
-            );
+            ];
         }
         return $address_data;
     }

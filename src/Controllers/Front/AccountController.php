@@ -9,7 +9,7 @@ use Aphly\Laravel\Libs\UploadFile;
 use Aphly\Laravel\Mail\MailSend;
 
 use Aphly\LaravelCommon\Models\UserCheckin;
-use Aphly\LaravelPayment\Models\Method;
+use Aphly\LaravelPayment\Models\PaymentMethod;
 use Aphly\LaravelPayment\Models\Payment;
 use Aphly\LaravelCommon\Mail\Forget;
 use Aphly\LaravelCommon\Mail\Verify;
@@ -328,7 +328,7 @@ class AccountController extends Controller
         }else{
             $res['title'] = 'Account Group';
             $res['group'] = Group::where(['status'=>1])->get()->keyBy('id');
-            $res['method'] = Method::where(['status'=>1])->orderBy('sort','desc')->get();
+            $res['method'] = PaymentMethod::where(['status'=>1])->orderBy('sort','desc')->get();
             return $this->makeView('laravel-common::front.account.group',['res'=>$res]);
         }
     }
@@ -367,7 +367,7 @@ class AccountController extends Controller
             $res['creditPrice'] = CreditPrice::where(['status'=>1])->orderBy('sort','desc')->get();
             $res['userCredit'] = UserCredit::where('uuid',$this->user->uuid)->first();
             $res['userCreditLog'] = UserCreditLog::where('uuid',$this->user->uuid)->orderBy('id','desc')->Paginate(config('admin.perPage'))->withQueryString();
-            $res['method'] = Method::where(['status'=>1])->orderBy('sort','desc')->get();
+            $res['method'] = PaymentMethod::where(['status'=>1])->orderBy('sort','desc')->get();
             return $this->makeView('laravel-common::front.account.credit',['res'=>$res]);
         }
     }
