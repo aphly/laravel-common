@@ -10,9 +10,9 @@
     <script src='{{ URL::asset('static/admin/js/jquery.min.js') }}' type='text/javascript'></script>
     <script src="{{ URL::asset('static/admin/js/jquery.lazyload.min.js') }}" type="text/javascript"></script>
     <script src='{{ URL::asset('static/admin/js/c.js') }}' type='text/javascript'></script>
+    <script src='{{ URL::asset('static/common/js/common.js') }}' type='text/javascript'></script>
     <link rel="stylesheet" href="{{ URL::asset('static/admin/css/viewer.min.css') }}">
     <script src="{{ URL::asset('static/admin/js/viewer.min.js') }}" type="text/javascript"></script>
-    <meta name="keywords" content="{{$res['keywords']??''}}" />
     <meta name="description" content="{{$res['description']??''}}" />
 </head>
 <body>
