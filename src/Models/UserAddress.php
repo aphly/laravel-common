@@ -6,10 +6,10 @@ namespace Aphly\LaravelCommon\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Aphly\Laravel\Models\Model;
 
-class Address extends Model
+class UserAddress extends Model
 {
     use HasFactory;
-    protected $table = 'common_address';
+    protected $table = 'common_user_address';
 
     protected $fillable = [
         'uuid','firstname','lastname','address_1','address_2','city','postcode','country_id','zone_id','telephone'

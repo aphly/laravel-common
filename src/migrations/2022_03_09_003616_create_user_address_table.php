@@ -13,7 +13,7 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('common_address', function (Blueprint $table) {
+        Schema::create('common_user_address', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('uuid')->index();
             $table->string('firstname',32);
@@ -37,6 +37,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('common_address');
+        Schema::dropIfExists('common_user_address');
     }
 };

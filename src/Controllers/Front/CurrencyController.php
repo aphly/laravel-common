@@ -12,9 +12,9 @@ class CurrencyController extends Controller
 
     public function ajax(Request $request)
     {
-        $res['info'] = Currency::where('id',$request->id)->first();
-        if(!empty($res['info']) && $res['info']->status==1){
-            Cookie::queue('currency',$res['info']->code);
+        $res['info'] = Currency::where('id',$request->id)->firstOrError();
+        if($res['info']->status==1){
+            Cookie::queue('currency',$res['info']->id);
             throw new ApiException(['code'=>0,'msg'=>'success']);
         }
     }
