@@ -17,7 +17,7 @@ return new class extends Migration
             $table->id();
             $table->string('credit_key',16);
             $table->unsignedBigInteger('credit_val');
-            $table->decimal('price',10,2);
+            $table->decimal('price',15,4);
             $table->unsignedBigInteger('sort')->index();
             $table->tinyInteger('status')->default(1);
             $table->unsignedBigInteger('created_at');

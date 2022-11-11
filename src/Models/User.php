@@ -89,7 +89,7 @@ class User extends Authenticatable
             }
             return $user->group_id;
         }else{
-            return self::$group_id;
+            return 0;
         }
     }
 
