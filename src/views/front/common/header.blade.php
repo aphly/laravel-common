@@ -128,7 +128,7 @@
                                 </a>
                                 <a class="dropdown-item checkin" href="javascript:void(0)" data-stopPropagation="true">
                                     <div class="checkin1">checkin</div>
-                                    <div class="checkin2">Earn {{$config['point']['checkin']}} regular Karma everyday</div>
+                                    <div class="checkin2">Earn {{$config['point']['checkin']}} regular Point everyday</div>
                                     @if(!empty($checkin))
                                         <div class="checkin3 buleBtn dis" >COMPLETE</div>
                                     @else
