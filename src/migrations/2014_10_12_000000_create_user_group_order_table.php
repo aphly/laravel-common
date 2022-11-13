@@ -18,8 +18,8 @@ return new class extends Migration
             $table->unsignedBigInteger('uuid')->index();
             $table->unsignedInteger('group_id');
             $table->unsignedInteger('month');
-            $table->decimal('price',15,4);
-            $table->decimal('total',15,4);
+            $table->decimal('price',15,2);
+            $table->decimal('total',15,2);
             $table->unsignedBigInteger('payment_id')->index();
             $table->tinyInteger('status')->default(1);
             $table->unsignedBigInteger('created_at');

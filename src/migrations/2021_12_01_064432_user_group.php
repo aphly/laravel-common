@@ -17,7 +17,7 @@ return new class extends Migration
             $table->id();
             $table->string('name',128);
             $table->integer('sort')->index();
-            $table->decimal('price',15,4)->nullable()->default(0);
+            $table->decimal('price',15,2)->nullable()->default(0);
             $table->tinyInteger('status')->nullable()->default(1)->index();
         });
     }
