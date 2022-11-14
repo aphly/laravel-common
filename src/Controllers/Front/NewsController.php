@@ -14,7 +14,7 @@ class NewsController extends Controller
     function detail(Request $request){
         $res['info'] = (new News())->show($request->id);
         $res['title'] = $res['info']->title;
-        return $this->makeView('laravel-common::front.news.detail',['res'=>$res]);
+        return $this->makeView('laravel-common-front::news.detail',['res'=>$res]);
     }
 
     public function imgs(Request $request){

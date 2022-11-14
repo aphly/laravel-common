@@ -31,6 +31,7 @@ class UserController extends Controller
                             function($query,$uuid) {
                                 return $query->where('uuid', '=', $uuid);
                             })
+                            ->with('group')
                             ->whereHas('userAuth', function (Builder $query) use ($id) {
                                 if($id){
                                     $query->where('id', 'like', '%'.$id.'%')

@@ -83,12 +83,14 @@ class Currency extends Model
             $info = self::defaultCurr(true);
         }
         $string = '';
-        if ($info['symbol_left']) {
-            $string .= $info['symbol_left'];
-        }
-        $string .= $price;
-        if ($info['symbol_right']) {
-            $string .= $info['symbol_right'];
+        if($info){
+            if ($info['symbol_left']) {
+                $string .= $info['symbol_left'];
+            }
+            $string .= $price;
+            if ($info['symbol_right']) {
+                $string .= $info['symbol_right'];
+            }
         }
         return $string;
     }

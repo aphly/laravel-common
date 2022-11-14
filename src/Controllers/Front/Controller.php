@@ -5,13 +5,16 @@ namespace Aphly\LaravelCommon\Controllers\Front;
 use Aphly\LaravelAdmin\Models\Config;
 use Aphly\LaravelCommon\Models\Currency;
 use Aphly\LaravelCommon\Models\Links;
+use Aphly\LaravelCommon\Models\Template;
 use Aphly\LaravelCommon\Models\UserCheckin;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Request;
 use Illuminate\Support\Facades\View;
 
 class Controller extends \Aphly\Laravel\Controllers\Controller
 {
     public $user = null;
+
     public $config = null;
 
     public function __construct()
@@ -32,8 +35,8 @@ class Controller extends \Aphly\Laravel\Controllers\Controller
             View::share("currency",(new Currency)->defaultCurr());
             return $next($request);
         });
-
         parent::__construct();
     }
+
 
 }

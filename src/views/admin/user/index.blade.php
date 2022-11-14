@@ -2,8 +2,8 @@
     <h5 class="nav-title">用户管理</h5>
 </div>
 <style>
-    .table_scroll .table_header li:nth-child(4),.table_scroll .table_tbody li:nth-child(4){flex: 0 0 200px;}
-    .del_form .table_scroll .table_header li:nth-child(6),.del_form .table_scroll .table_tbody li:nth-child(6){flex-basis:300px;}
+
+    .del_form .table_scroll .table_header li:nth-child(7),.del_form .table_scroll .table_tbody li:nth-child(7){flex-basis:300px;}
 </style>
 <div class="imain">
     <div class="itop ">
@@ -30,6 +30,8 @@
                     <li >UUID</li>
                     <li >昵称</li>
                     <li >头像</li>
+                    <li >用户组</li>
+                    <li >用户组有效期</li>
                     <li >状态</li>
                     <li >操作</li>
                 </ul>
@@ -47,6 +49,12 @@
                             @else
                             <img class="lazy user_avatar" @if($v['gender']==1) src="{{url('static/admin/img/man.png')}}" @else src="{{url('static/admin/img/woman.png')}}" @endif >
                             @endif
+                        </li>
+                        <li>
+                            {{$v['group']->name}}
+                        </li>
+                        <li>
+                            {{$v['group_expire']?date('Y-m-d H:i:s',$v['group_expire']):'永久'}}
                         </li>
                         <li>
                             @if($dict['user_status'])

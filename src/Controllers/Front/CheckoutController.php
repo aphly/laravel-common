@@ -14,14 +14,14 @@ class CheckoutController extends Controller
     {
         $res['title'] = 'Checkout Success';
         $res['payment'] = Payment::where('id',$request->query('payment_id',0))->first();
-        return $this->makeView('laravel-common::front.checkout.success',['res'=>$res]);
+        return $this->makeView('laravel-common-front::checkout.success',['res'=>$res]);
     }
 
     public function fail(Request $request)
     {
         $res['title'] = 'Checkout Fail';
         $res['payment'] = Payment::where('id',$request->query('payment_id',0))->first();
-        return $this->makeView('laravel-common::front.checkout.fail',['res'=>$res]);
+        return $this->makeView('laravel-common-front::checkout.fail',['res'=>$res]);
     }
 
 }

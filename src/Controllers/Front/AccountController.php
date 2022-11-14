@@ -61,7 +61,7 @@ class AccountController extends Controller
             }
         }else{
             $res['title'] = 'Account index';
-            return $this->makeView('laravel-common::front.account.index',['res'=>$res]);
+            return $this->makeView('laravel-common-front::account.index',['res'=>$res]);
         }
     }
 
@@ -123,7 +123,7 @@ class AccountController extends Controller
         }else{
             $res['title'] = 'Login';
             $res['seccode'] = $this->limiter($key);
-            return $this->makeView('laravel-common::front.account.login',['res'=>$res]);
+            return $this->makeView('laravel-common-front::account.login',['res'=>$res]);
         }
     }
 
@@ -170,7 +170,7 @@ class AccountController extends Controller
         }else{
             $res['title'] = 'Register';
             $res['seccode'] = $this->limiter($key);
-            return $this->makeView('laravel-common::front.account.register',['res'=>$res]);
+            return $this->makeView('laravel-common-front::account.register',['res'=>$res]);
         }
     }
 
@@ -184,7 +184,7 @@ class AccountController extends Controller
     public function emailVerify(Request $request)
     {
         $res['title'] = 'Confirm Email';
-        return $this->makeView('laravel-common::front.account.email_verify',['res'=>$res]);
+        return $this->makeView('laravel-common-front::account.email_verify',['res'=>$res]);
     }
 
     public function emailVerifySend(Request $request)
@@ -231,7 +231,7 @@ class AccountController extends Controller
         } catch (DecryptException $e) {
             $res['msg'] =  'Token Error';
         }
-        return $this->makeView('laravel-common::front.account.email_check',['res'=>$res]);
+        return $this->makeView('laravel-common-front::account.email_check',['res'=>$res]);
     }
 
     public function forget(AccountRequest $request)
@@ -251,14 +251,14 @@ class AccountController extends Controller
             }
         }else{
             $res['title'] = 'Forget your password';
-            return $this->makeView('laravel-common::front.account.forget',['res'=>$res]);
+            return $this->makeView('laravel-common-front::account.forget',['res'=>$res]);
         }
     }
 
     public function forgetConfirmation(Request $request)
     {
         $res['title'] = 'Forget password confirmation';
-        return $this->makeView('laravel-common::front.account.forget_confirmation',['res'=>$res]);
+        return $this->makeView('laravel-common-front::account.forget_confirmation',['res'=>$res]);
     }
 
     public function forgetPassword(AccountRequest $request)
@@ -279,7 +279,7 @@ class AccountController extends Controller
                         $res['title'] = 'Reset Password';
                         $res['token'] = $request->token;
                         $res['userAuth'] = $userAuth;
-                        return $this->makeView('laravel-common::front.account.forget-password', ['res' => $res]);
+                        return $this->makeView('laravel-common-front::account.forget-password', ['res' => $res]);
                     }
                 }else{
                     throw new ApiException(['code'=>3,'msg'=>'User error','data'=>['redirect'=>route('login')]]);
@@ -295,7 +295,7 @@ class AccountController extends Controller
     public function blocked(Request $request)
     {
         $res['title'] = 'Account Blocked';
-        return $this->makeView('laravel-common::front.account.blocked',['res'=>$res]);
+        return $this->makeView('laravel-common-front::account.blocked',['res'=>$res]);
     }
 
     public function group(AccountRequest $request)
@@ -329,7 +329,7 @@ class AccountController extends Controller
             $res['title'] = 'Account Group';
             $res['group'] = Group::where(['status'=>1])->get()->keyBy('id');
             $res['method'] = PaymentMethod::where(['status'=>1])->orderBy('sort','desc')->get();
-            return $this->makeView('laravel-common::front.account.group',['res'=>$res]);
+            return $this->makeView('laravel-common-front::account.group',['res'=>$res]);
         }
     }
 
@@ -368,7 +368,7 @@ class AccountController extends Controller
             $res['userCredit'] = UserCredit::where('uuid',$this->user->uuid)->first();
             $res['userCreditLog'] = UserCreditLog::where('uuid',$this->user->uuid)->orderBy('id','desc')->Paginate(config('admin.perPage'))->withQueryString();
             $res['method'] = PaymentMethod::where(['status'=>1])->orderBy('sort','desc')->get();
-            return $this->makeView('laravel-common::front.account.credit',['res'=>$res]);
+            return $this->makeView('laravel-common-front::account.credit',['res'=>$res]);
         }
     }
 

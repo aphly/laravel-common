@@ -2,8 +2,6 @@
 
 namespace Aphly\LaravelCommon\Controllers\Admin;
 
-use Illuminate\Support\Facades\View;
-
 class Controller extends \Aphly\LaravelAdmin\Controllers\Controller
 {
     public function __construct()
@@ -13,4 +11,6 @@ class Controller extends \Aphly\LaravelAdmin\Controllers\Controller
         });
         parent::__construct();
     }
+
+
 }

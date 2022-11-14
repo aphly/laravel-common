@@ -1,4 +1,4 @@
-@include('laravel-common::front.common.header')
+@include('laravel-common-front::common.header')
 <link rel="stylesheet" href="{{ URL::asset('static/common/css/account.css') }}">
 <section class="">
     <style>
@@ -8,7 +8,7 @@
     </style>
     <div class="account container">
         <div class="confirmation container">
-            @include('laravel-common::front.account.submenu')
+            @include('laravel-common-front::account.submenu')
         </div>
         <div class="avatar">
             @if($user->avatar)
@@ -72,4 +72,4 @@
         }
     }
 </script>
-@include('laravel-common::front.common.footer')
+@include('laravel-common-front::common.footer')

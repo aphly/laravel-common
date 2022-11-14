@@ -1,9 +1,9 @@
-@include('laravel-common::front.common.header')
+@include('laravel-common-front::common.header')
 <link rel="stylesheet" href="{{ URL::asset('static/common/css/account.css') }}">
 <section class="">
     <div class="account container">
         <div class="confirmation container">
-            @include('laravel-common::front.account.submenu')
+            @include('laravel-common-front::account.submenu')
         </div>
 
         <div class="credit1">
@@ -47,7 +47,7 @@
                 @endforeach
                 @endif
             </ul>
-            <div >{{$res['userCreditLog']->links('laravel-common::front.common.pagination')}}</div>
+            <div >{{$res['userCreditLog']->links('laravel-common-front::common.pagination')}}</div>
         </div>
     </div>
 </section>
@@ -149,4 +149,4 @@ function order(_this){
     })
 }
 </script>
-@include('laravel-common::front.common.footer')
+@include('laravel-common-front::common.footer')

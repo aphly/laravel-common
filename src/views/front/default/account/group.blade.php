@@ -1,8 +1,8 @@
-@include('laravel-common::front.common.header')
+@include('laravel-common-front::common.header')
 <link rel="stylesheet" href="{{ URL::asset('static/common/css/account.css') }}">
 <section class="">
     <div class="account container">
-        @include('laravel-common::front.account.submenu')
+        @include('laravel-common-front::account.submenu')
     </div>
     <div class="group">
         <div class="my_group">
@@ -177,4 +177,4 @@ function order(_this){
     })
 }
 </script>
-@include('laravel-common::front.common.footer')
+@include('laravel-common-front::common.footer')

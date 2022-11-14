@@ -1,38 +1,40 @@
-@include('laravel-common::front.common.header')
+@include('laravel-common-front::common.header')
 <link rel="stylesheet" href="{{ URL::asset('static/common/css/account.css') }}">
 <section class="">
     <div class="container">
-        <form class="account_form" id="register"  method="post" action="/account/register?return_url={{urlencode(request()->query('return_url',''))}}">
+        <form class="account_form" id="login" method="post" action="/account/login?return_url={{urlencode(request()->query('return_url',''))}}">
             @csrf
             <div class="accountContent">
-                <div class=" text-center ">
-                    <h1 class="title ">
-                        <div class="d-inline-block position-relative">
-                            Create Account
-                        </div>
-                    </h1>
-                    <div class="descrip">
-                        Please provide the following
-                        <br>information to create an account
-                    </div>
+                <div class="text-center" style="margin-bottom: 24px;">
+                    <h1 class="title ">Log In</h1>
+                    <span class="descrip">Log in with email</span>
                 </div>
-                <div class="">
-                    <div class="form-group">
-                        <label>Email</label>
-                        <input type="email" name="id" class="form-control" required autocomplete="off" placeholder="you@example.com">
+                <div class=" ">
+                    @if(config('common.id_type')=='email')
+                        <div class="form-group ">
+                            <label>Email</label>
+                            <input type="email" name="id" class="form-control" value="" autocomplete="off" required placeholder="you@example.com">
+                            <div class="invalid-feedback"></div>
+                        </div>
+                    @elseif(config('common.id_type')=='mobile')
+                        <div class="form-group ">
+                            <label>Mobile</label>
+                            <input type="text" name="id" class="form-control" value="" autocomplete="off" required placeholder="Enter mobile">
+                            <div class="invalid-feedback"></div>
+                        </div>
+                    @endif
+
+                    <div class="form-group ">
+                        <label class="d-flex justify-content-between"><span>Password</span>
+                            <a href="/account/forget?return_url={{urlencode(request()->query('return_url',''))}}" class="color-link-defaut">
+                                <span class="forget">Forgot your password?</span>
+                            </a>
+                        </label>
+                        <input type="password" name="password" class="form-control" value="" required autocomplete="off" placeholder="Enter 6 characters or more">
                         <div class="invalid-feedback"></div>
                     </div>
-                    <div class="form-group">
-                        <label>Password</label>
-                        <input type="password" name="password" class="form-control password" required autocomplete="off" placeholder="Enter 6 characters or more">
-                        <div class="invalid-feedback"></div>
-                    </div>
-                    <div class="form-group">
-                        <label>Confirm Password</label>
-                        <input type="password" name="password_confirmation" class="form-control" required autocomplete="off" placeholder="Enter 6 characters or more">
-                        <div class="invalid-feedback"></div>
-                    </div>
-                    <div id="code_img" class="form-group @if(config('admin.seccode_register')==1) @else none @endif">
+
+                    <div id="code_img" class="form-group @if(config('admin.seccode_login')==1 || (config('admin.seccode_login')==2 && $res['seccode'])) @else none @endif">
                         <label>Captcha</label>
                         <div class="code_img">
                             <input type="text" name="code" class="form-control" value="" autocomplete="off" placeholder="Enter code">
@@ -40,19 +42,13 @@
                         </div>
                         <div class="invalid-feedback"></div>
                     </div>
-                    <div class="">
-                        <label class="d-flex">
-                            <input type="checkbox" name="agree" value="1" onclick="return false;" checked="checked">
-                            <span class="agree">I have read and agree to <a class="underline" target="_blank" href="">Privacy Policy</a> .</span>
-                        </label>
-                    </div>
-                    <div id="msg_check" class="d-none"></div>
-                    <button class="btn createBtn text-brand" type="submit">Register</button>
+
+                    <button type="submit" class="btn loginBtn text-brand">Login</button>
                 </div>
                 <div class="split-line ">
                     <p class="text-center">
-                        <span class="">Already have an account? </span>
-                        <a class="" href="/account/login?return_url={{urlencode(request()->query('return_url',''))}}">Login</a>
+                        <span class="">Don't have an account? </span>
+                        <a class="" href="/account/register?return_url={{urlencode(request()->query('return_url',''))}}">Register</a>
                     </p>
                 </div>
                 <div class="line-between">
@@ -87,6 +83,7 @@
                         </div>
                     </a>
                 </div>
+
             </div>
         </form>
 
@@ -96,7 +93,7 @@
 
 </style>
 <script>
-    let form_id = '#register'
+    let form_id = '#login'
     $(function (){
         $(form_id).submit(function (){
             const form = $(this)
@@ -120,8 +117,11 @@
                                 location.href = res.data.redirect
                             }else if(res.code===11000){
                                 form_err_11000(res,form_id);
-                            }else{
+                            }else if(res.code===2){
                                 $(form_id+' input.form-control').removeClass('is-valid');
+                                $('#code_img').show()
+                                alert_msg(res);
+                            }else{
                                 alert_msg(res);
                             }
                         },
@@ -137,4 +137,4 @@
         })
     });
 </script>
-@include('laravel-common::front.common.footer')
+@include('laravel-common-front::common.footer')

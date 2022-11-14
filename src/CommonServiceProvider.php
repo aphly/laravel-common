@@ -34,6 +34,7 @@ class CommonServiceProvider extends ServiceProvider
         ]);
         $this->loadMigrationsFrom(__DIR__.'/migrations');
         $this->loadViewsFrom(__DIR__.'/views', 'laravel-common');
+        $this->loadViewsFrom(__DIR__.'/views/front/'.config('common.template'), 'laravel-common-front');
         $this->loadRoutesFrom(__DIR__.'/routes/web.php');
         $this->addRouteMiddleware('userAuth', UserAuth::class);
     }

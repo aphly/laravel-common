@@ -12,5 +12,6 @@ return [
             'facebook',
             'google',
         ]
-    ]
+    ],
+    'template'=>'default'
 ];
