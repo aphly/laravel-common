@@ -13,5 +13,5 @@ return [
             'google',
         ]
     ],
-    'template'=>'default'
+    'template'=>'rihoas'
 ];
