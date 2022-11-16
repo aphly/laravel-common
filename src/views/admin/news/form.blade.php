@@ -92,7 +92,7 @@
             e.stopPropagation()
             $(this).next().toggle();
         })
-        $('body').on("click", function (e) {
+        $('body').off('click').on("click", function (e) {
             if (e.target.className !== 'tree_p' || e.target.className !== 'category_select_name') {
                 $('#category_select .tree_p').hide();
             }
