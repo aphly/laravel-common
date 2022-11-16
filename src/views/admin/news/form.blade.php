@@ -64,6 +64,40 @@
 </style>
 
 <script>
+    var treeGlobal = {
+        list : @json($res['newsCategory']),
+        select_ids:@json($res['select_ids']),
+    }
+    treeGlobal.data = toTree(selectData(treeGlobal.list,treeGlobal.select_ids));
+
+    function mount() {
+        $('#category_select .treeview').treeview({
+            levels: 2,
+            collapseIcon:'uni app-arrow-right-copy',
+            expandIcon:'uni app-arrow-right',
+            data:treeGlobal.data,
+            onNodeSelected: function(event, data) {
+                $('#category_select .category_select_name').val(data.text)
+                $('#category_select .category_select_value').val(data.id)
+                $('#category_select .tree_p').hide();
+            },
+            onNodeUnselected: function(event, data) {
+                $('#category_select .category_select_name').val('')
+                $('#category_select .category_select_value').val(0)
+                $('#category_select .tree_p').hide();
+            },
+        });
+        $('#category_select').on('click','.category_select_name',function (e) {
+            e.preventDefault()
+            e.stopPropagation()
+            $(this).next().toggle();
+        })
+        $('body').on("click", function (e) {
+            if (e.target.className !== 'tree_p' || e.target.className !== 'category_select_name') {
+                $('#category_select .tree_p').hide();
+            }
+        });
+    }
     $(function () {
         const { createEditor, createToolbar } = window.wangEditor
         const editorConfig = {
@@ -98,36 +132,7 @@
             config: toolbarConfig,
             mode: 'simple',
         })
-
-        let list = @json($res['newsCategory']);
-        let select_ids = @json($res['select_ids']);
-        let data = toTree(selectData(list,select_ids))
-        $('#category_select .treeview').treeview({
-            levels: 2,
-            collapseIcon:'uni app-arrow-right-copy',
-            expandIcon:'uni app-arrow-right',
-            data,
-            onNodeSelected: function(event, data) {
-                $('#category_select .category_select_name').val(data.text)
-                $('#category_select .category_select_value').val(data.id)
-                $('#category_select .tree_p').hide();
-            },
-            onNodeUnselected: function(event, data) {
-                $('#category_select .category_select_name').val('')
-                $('#category_select .category_select_value').val(0)
-                $('#category_select .tree_p').hide();
-            },
-        });
-        $('#category_select').on('click','.category_select_name',function (e) {
-            e.preventDefault()
-            e.stopPropagation()
-            $(this).next().toggle();
-        })
-        $('body').on("click", function (e) {
-            if (e.target.className !== 'tree_p' || e.target.className !== 'category_select_name') {
-                $('#category_select .tree_p').hide();
-            }
-        });
+        mount()
     })
 
 </script>

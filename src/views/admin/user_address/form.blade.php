@@ -95,7 +95,7 @@
 </style>
 <script>
     var country_zone = {};
-    $(function () {
+    function mount(){
         $('#input-country').change(function () {
             let country_id = $(this).val();
             if(country_id in country_zone){
@@ -116,6 +116,9 @@
                 }
             }
         })
+    }
+    $(function () {
+        mount()
     })
     function makeZone(data){
         let html = '<option value=""> --- Please Select --- </option>';
