@@ -31,7 +31,7 @@ class User extends Authenticatable
     }
 
     protected $fillable = [
-        'uuid','nickname','token','verified',
+        'uuid','nickname','token','verified','address_id',
         'token_expire','avatar','status','gender','group_id','group_expire'
     ];
 
@@ -116,7 +116,8 @@ class User extends Authenticatable
 
     public function afterRegister()
     {
-        $class = ['\Aphly\LaravelNovel\Models\UserNovelSetting','\Aphly\LaravelShop\Models\Customer\Customer'];
+        $class = ['\Aphly\LaravelNovel\Models\UserNovelSetting',
+            '\Aphly\LaravelShop\Models\Checkout\Cart'];
         foreach ($class as $val) {
             if (class_exists($val)) {
                 (new $val)->afterRegister($this);
@@ -126,7 +127,7 @@ class User extends Authenticatable
 
     public function afterLogin()
     {
-        $class = [];
+        $class = ['\Aphly\LaravelShop\Models\Checkout\Cart'];
         foreach ($class as $val) {
             if (class_exists($val)) {
                 (new $val)->afterLogin($this);

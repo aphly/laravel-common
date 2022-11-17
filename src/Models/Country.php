@@ -13,7 +13,7 @@ class Country extends Model
     public $timestamps = false;
 
     protected $fillable = [
-        'name','iso_code_2','iso_code_3','postcode_required','status','address_format'
+        'name','iso_code_2','iso_code_3','postcode_required','status','address_format','cn_name'
     ];
 
     public function findAll() {

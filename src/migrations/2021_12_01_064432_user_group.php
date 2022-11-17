@@ -16,6 +16,7 @@ return new class extends Migration
         Schema::create('common_group', function (Blueprint $table) {
             $table->id();
             $table->string('name',128);
+            $table->string('cn_name',128)->nullable();
             $table->integer('sort')->index();
             $table->decimal('price',15,2)->nullable()->default(0);
             $table->tinyInteger('status')->nullable()->default(1)->index();

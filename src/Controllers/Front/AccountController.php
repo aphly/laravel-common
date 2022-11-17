@@ -152,8 +152,8 @@ class AccountController extends Controller
                         'token_expire' => time() + 120 * 60,
                         'group_id' => User::$group_id,
                     ]);
-                    $user->afterRegister();
                     Auth::guard('user')->login($user);
+                    $user->afterRegister();
                     $user->id_type = $userAuth->id_type;
                     $user->id = $userAuth->id;
                     if ($userAuth->id_type == 'email' && config('common.email_verify')) {

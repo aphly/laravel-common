@@ -14,7 +14,7 @@ class Group extends Model
     public $timestamps = false;
 
     protected $fillable = [
-        'name','sort','price'
+        'name','sort','price','cn_name'
     ];
 
     public function findAll() {

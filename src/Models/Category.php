@@ -14,7 +14,7 @@ class Category extends Model
     public $timestamps = false;
 
     protected $fillable = [
-        'name','icon','pid','sort','status','meta_title','meta_description','is_leaf'
+        'name','icon','pid','sort','status','meta_title','meta_description','is_leaf','cn_name'
     ];
 
     public function findAll() {

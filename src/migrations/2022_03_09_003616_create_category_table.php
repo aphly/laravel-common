@@ -16,6 +16,7 @@ return new class extends Migration
         Schema::create('common_category', function (Blueprint $table) {
             $table->id();
             $table->string('name',64);
+            $table->string('cn_name',128)->nullable();
             $table->string('icon',255)->nullable();
             $table->integer('pid')->unsigned()->index();
             $table->integer('sort')->unsigned()->index()->nullable();

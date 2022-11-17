@@ -17,6 +17,7 @@ return new class extends Migration
             $table->id();
             $table->integer('country_id')->unsigned()->index();
             $table->string('name',128)->index();
+            $table->string('cn_name',128)->nullable();
             $table->string('code',32);
             $table->tinyInteger('status')->default(1)->index();
         });

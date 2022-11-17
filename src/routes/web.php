@@ -49,6 +49,10 @@ Route::middleware(['web'])->group(function () {
             Route::match(['get', 'post'],'group', 'Aphly\LaravelCommon\Controllers\Front\AccountController@group');
             Route::match(['get', 'post'],'credit', 'Aphly\LaravelCommon\Controllers\Front\AccountController@credit');
             Route::match(['post'],'checkin', 'Aphly\LaravelCommon\Controllers\Front\AccountController@checkin');
+
+            Route::get('address', 'Aphly\LaravelCommon\Controllers\Front\AddressController@index');
+            Route::match(['get', 'post'],'address/save', 'Aphly\LaravelCommon\Controllers\Front\AddressController@save');
+            Route::get('address/remove/{id}', 'Aphly\LaravelCommon\Controllers\Front\AddressController@remove')->where('id', '[0-9]+');
         });
     });
 

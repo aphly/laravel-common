@@ -13,7 +13,7 @@ class Zone extends Model
     public $timestamps = false;
 
     protected $fillable = [
-        'country_id','name','code','status'
+        'country_id','name','code','status','cn_name'
     ];
 
     public function findAllByCountry($country_id) {

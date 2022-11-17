@@ -15,7 +15,7 @@ class Currency extends Model
     public $timestamps = false;
 
     protected $fillable = [
-        'name','code','symbol_left','symbol_right','decimal_place','value','status','default'
+        'name','code','symbol_left','symbol_right','decimal_place','value','status','default','cn_name'
     ];
 
     public function findOneByCode($code) {

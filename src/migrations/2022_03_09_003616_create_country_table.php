@@ -16,6 +16,7 @@ return new class extends Migration
         Schema::create('common_country', function (Blueprint $table) {
             $table->id();
             $table->string('name',128);
+            $table->string('cn_name',128)->nullable();
             $table->string('iso_code_2',2);
             $table->string('iso_code_3',3);
             $table->string('address_format',255)->nullable();
