@@ -101,8 +101,8 @@ class AccountController extends Controller
                         if($user->status==1){
                             $userAuthModel->update(['last_login'=>time(),'last_ip'=>$request->ip()]);
                             $user->generateToken();
-                            $user->afterLogin();
                             Auth::guard('user')->login($user);
+                            $user->afterLogin();
                             $user->id_type = $userAuth->id_type;
                             $user->id = $userAuth->id;
                             throw new ApiException(['code'=>0,'msg'=>'login success','data'=>['redirect'=>$user->returnUrl(),'user'=>$user]]);
