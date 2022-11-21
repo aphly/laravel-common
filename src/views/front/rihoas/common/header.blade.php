@@ -4,8 +4,8 @@
 <link rel="stylesheet" href="{{ URL::asset('static/common/css/font.css') }}">
 
 <style>
-    body{font-family: 'Montserrat';}
-    .header{height: 100px;padding: 0 10px;position: fixed;left: 0;top: 0;width: 100%;background: #fff;z-index: 1;}
+    body{font-family: 'Montserrat';background: #f6f6f6;}
+    .header{height: 100px;padding: 0 10px;position: fixed;left: 0;top: 0;width: 100%;background: #fff;z-index: 2000;box-shadow: 0 2px 1px 1px rgba(0, 0, 0, 0.1);}
     .header i{font-size: 30px;font-weight: 600}
     .header3{}
     .header3 a{position: relative;}

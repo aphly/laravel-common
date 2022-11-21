@@ -17,4 +17,37 @@
 </head>
 <body>
 <script>
+    $(function (){
+        let form_class = '.form_request'
+        $(form_class).submit(function (){
+            const form = $(this)
+            const fn = form.data('fn')
+            if(form[0].checkValidity()===false){
+            }else{
+                let url = form.attr("action");
+                let type = form.attr("method");
+                if(url && type && fn){
+                    $(form_class+' input.form-control').removeClass('is-valid').removeClass('is-invalid');
+                    let btn_html = $(form_class+' button[type="submit"]').html();
+                    $.ajax({
+                        type,url,
+                        data: form.serialize(),
+                        dataType: "json",
+                        beforeSend:function () {
+                            $(form_class+' button[type="submit"]').attr('disabled',true).html('<i class="btn_loading app-jiazai uni"></i>');
+                        },
+                        success: function(res){
+                            fn(res)
+                        },
+                        complete:function(XMLHttpRequest,textStatus){
+                            $(form_class+' button[type="submit"]').removeAttr('disabled').html(btn_html);
+                        }
+                    })
+                }else{
+                    console.log('no action')
+                }
+            }
+            return false;
+        })
+    });
 </script>

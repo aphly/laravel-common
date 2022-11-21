@@ -6,9 +6,7 @@ use Aphly\LaravelAdmin\Models\Config;
 use Aphly\LaravelCommon\Models\Currency;
 use Aphly\LaravelCommon\Models\Links;
 use Aphly\LaravelCommon\Models\UserCheckin;
-use Aphly\LaravelShop\Models\Checkout\Cart;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Request;
 use Illuminate\Support\Facades\View;
 
 
@@ -34,14 +32,19 @@ class Controller extends \Aphly\Laravel\Controllers\Controller
             }
             View::share("links",(new Links)->menu());
             View::share("currency",(new Currency)->defaultCurr());
-
-            list($cart_num) = (new Cart)->countProducts();
-            View::share("cart_num",$cart_num);
-
+            $this->afterController();
             return $next($request);
         });
         parent::__construct();
     }
 
-
+    public function afterController()
+    {
+        $class = ['\Aphly\LaravelShop\Controllers\Front\Controller'];
+        foreach ($class as $val) {
+            if (class_exists($val)) {
+                (new $val)->afterController($this);
+            }
+        }
+    }
 }
