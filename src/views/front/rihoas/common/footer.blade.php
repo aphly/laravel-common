@@ -25,21 +25,6 @@
 </div>
 
 <script>
-
-    function throttle(func, wait) {
-        let context, args;
-        let previous = 0;
-        return function() {
-            let now = +new Date();
-            context = this;
-            args = arguments;
-            if (now - previous > wait) {
-                func.apply(context, args);
-                previous = now;
-            }
-        }
-    }
-
     $(function () {
         $('.currency_box .currency_curr').click(function () {
             $('.baDropdown').toggle();
