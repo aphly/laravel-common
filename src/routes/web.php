@@ -52,7 +52,7 @@ Route::middleware(['web'])->group(function () {
 
             Route::get('address', 'Aphly\LaravelCommon\Controllers\Front\AddressController@index');
             Route::match(['get', 'post'],'address/save', 'Aphly\LaravelCommon\Controllers\Front\AddressController@save');
-            Route::get('address/remove/{id}', 'Aphly\LaravelCommon\Controllers\Front\AddressController@remove')->where('id', '[0-9]+');
+            Route::get('address/{id}/remove', 'Aphly\LaravelCommon\Controllers\Front\AddressController@remove')->where('id', '[0-9]+');
         });
     });
 
