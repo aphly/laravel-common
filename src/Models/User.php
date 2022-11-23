@@ -117,7 +117,7 @@ class User extends Authenticatable
 
     public function afterRegister()
     {
-        $class = ['\Aphly\LaravelNovel\Models\UserNovelSetting',
+        $class = ['\Aphly\LaravelNovel\Models\UserNovelSetting','\Aphly\LaravelShop\Models\Account\Wishlist',
             '\Aphly\LaravelShop\Models\Checkout\Cart'];
         foreach ($class as $val) {
             if (class_exists($val)) {
@@ -128,7 +128,7 @@ class User extends Authenticatable
 
     public function afterLogin()
     {
-        $class = ['\Aphly\LaravelShop\Models\Checkout\Cart'];
+        $class = ['\Aphly\LaravelShop\Models\Checkout\Cart','\Aphly\LaravelShop\Models\Account\Wishlist'];
         foreach ($class as $val) {
             if (class_exists($val)) {
                 (new $val)->afterLogin($this);

@@ -30,7 +30,7 @@
 
         </div>
         <div class="d-flex header3">
-            <a href="/wishlist"><i class="common-iconfont icon-aixin"></i></a>
+            <a href="/account/wishlist"><i class="common-iconfont icon-aixin"></i><span class="wishlist_num">{{$wishlist_num}}</span></a>
             <a href="/cart"><i class="common-iconfont icon-31gouwuche"></i><span class="cart_num">{{$cart_num}}</span></a>
             <a href="/account/index"><i class="common-iconfont icon-dengluzhanghao"></i></a>
         </div>
