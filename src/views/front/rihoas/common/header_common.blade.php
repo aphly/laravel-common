@@ -16,6 +16,14 @@
     <meta name="description" content="{{$res['description']??''}}" />
 </head>
 <body>
+<style>
+:root{
+    --default-color: #e36254;
+    --default-bg: #c16452;
+}
+</style>
 <script>
-
+    $(function () {
+        $('input.form-control').attr("autocomplete","off")
+    })
 </script>

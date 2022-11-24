@@ -65,8 +65,8 @@
                             <div class="invalid-feedback"></div>
                         </div>
                         <div class="form-group">
-                            <p>Telephone: <b>*</b></p>
-                            <input required name="telephone" type="text" class="form-control" placeholder="Telephone" value="{{$res['info']->telephone}}">
+                            <p>Telephone:</p>
+                            <input name="telephone" type="text" class="form-control" placeholder="Telephone" value="{{$res['info']->telephone}}">
                         </div>
                         <div class="form-group">
                             <input type="checkbox" name="default" value="1" @if($user->address_id == $res['info']->id) checked="checked" @endif>

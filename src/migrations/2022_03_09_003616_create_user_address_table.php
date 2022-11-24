@@ -22,7 +22,7 @@ return new class extends Migration
             $table->string('address_2',255)->nullable();
             $table->string('city',128);
             $table->string('postcode',10);
-            $table->string('telephone',32);
+            $table->string('telephone',32)->nullable();
             $table->integer('country_id');
             $table->integer('zone_id');
             $table->unsignedBigInteger('created_at');
