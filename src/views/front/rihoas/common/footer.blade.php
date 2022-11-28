@@ -25,6 +25,7 @@
 </div>
 
 <script>
+
     $(function () {
         $('.currency_box .currency_curr').click(function () {
             $('.baDropdown').toggle();

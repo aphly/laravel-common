@@ -40,3 +40,17 @@ function isDel() {
         return false;
     }
 }
+
+let currency = {
+    format(val,symbol_left='',symbol_right=''){
+        let str='';
+        if(symbol_left){
+            str += symbol_left;
+        }
+        str +=val;
+        if(symbol_right){
+            str += symbol_right;
+        }
+        return str;
+    }
+}

@@ -14,6 +14,7 @@
     <link rel="stylesheet" href="{{ URL::asset('static/admin/css/viewer.min.css') }}">
     <script src="{{ URL::asset('static/admin/js/viewer.min.js') }}" type="text/javascript"></script>
     <meta name="description" content="{{$res['description']??''}}" />
+    <script src='{{ URL::asset('static/admin/js/decimal.js') }}' type='text/javascript'></script>
 </head>
 <body>
 <style>
