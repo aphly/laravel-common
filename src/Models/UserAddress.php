@@ -15,6 +15,7 @@ class UserAddress extends Model
         'uuid','firstname','lastname','address_1','address_2','city','postcode','country_id','zone_id','telephone'
     ];
 
+
     public function getAddress($address_id) {
         $info = self::where(['id'=>$address_id,'uuid'=>User::uuid()])->first();
         if(!empty($info)){

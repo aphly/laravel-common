@@ -24,6 +24,7 @@ class Controller extends \Aphly\Laravel\Controllers\Controller
             View::share("config",$this->config);
             if($auth->check()){
                 $this->user = $auth->user();
+                View::share("id",$this->user->initId());
                 View::share("user",$this->user);
                 View::share("checkin",(new UserCheckin)->getByUuid($this->user->uuid));
             }else{

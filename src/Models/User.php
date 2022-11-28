@@ -21,6 +21,8 @@ class User extends Authenticatable
 
 	static public $uuid = 0;
 
+    static public $id = false;
+
     /**
      * The attributes that are mass assignable.
      *
@@ -113,6 +115,16 @@ class User extends Authenticatable
 
     function credit(){
         return $this->hasOne(UserCredit::class,'uuid','uuid');
+    }
+
+    function initId(){
+        if(!self::$id){
+            $arr['id_type'] = config('common.id_type');
+            $arr['uuid'] = $this->uuid;
+            $userAuthModel = UserAuth::where($arr)->first();
+            self::$id = $userAuthModel->id;
+        }
+        return self::$id;
     }
 
     public function afterRegister()
