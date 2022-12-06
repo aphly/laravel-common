@@ -28,6 +28,10 @@ class UserAuth
                     return $next($request);
                 }
             }else{
+                $redirect = $request->query('redirect',false);
+                if($redirect){
+                    return $this->_redirect($request,route('login',['redirect'=>$redirect]));
+                }
                 return $this->_redirect($request,route('login'));
             }
         }

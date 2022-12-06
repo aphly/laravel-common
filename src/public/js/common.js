@@ -18,7 +18,7 @@ $(function () {
                         $(form_class+' button[type="submit"]').attr('disabled',true).html('<i class="btn_loading app-jiazai uni"></i>');
                     },
                     success: function(res){
-                        window[fn](res);
+                        window[fn](res,form_class);
                     },
                     complete:function(XMLHttpRequest,textStatus){
                         $(form_class+' button[type="submit"]').removeAttr('disabled').html(btn_html);

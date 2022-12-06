@@ -5,12 +5,10 @@
 
 <style>
     body{font-family: 'Montserrat';background: #f6f6f6;}
-    .header{height: 100px;padding: 0 10px;position: fixed;left: 0;top: 0;width: 100%;background: #fff;z-index: 2000;box-shadow: 0 2px 1px 1px rgba(0, 0, 0, 0.1);}
+    .header{height: 80px;padding: 0 10px;position: fixed;left: 0;top: 0;width: 100%;background: #fff;z-index: 2000;box-shadow: 0 2px 1px 1px rgba(0, 0, 0, 0.1);}
     .header i{font-size: 30px;font-weight: 600}
-    .header3{}
     .header3 a{position: relative;}
-    .cart_num{position: absolute;right:0;top: 0;font-size: 12px;width: 16px;height: 16px;color: #fff;background: #333;
-    text-align: center;border-radius: 50%;}
+    .cart_num{position: absolute;right:0;top: 0;font-size: 12px;width: 16px;height: 16px;color: #fff;background: #333;text-align: center;border-radius: 50%;}
     .header3 i{margin:0 10px;}
     main{padding-top: 100px;}
     @media (max-width: 1199.98px) {
@@ -19,7 +17,6 @@
         .header3 i{margin:0 5px;}
         main{padding-top: 50px;}
     }
-
 </style>
 <header>
     <div class="d-flex justify-content-between header align-items-center">
@@ -30,9 +27,9 @@
 
         </div>
         <div class="d-flex header3">
-            <a href="/account/wishlist"><i class="common-iconfont icon-aixin"></i><span class="wishlist_num">{{$wishlist_num}}</span></a>
+            <a href="/account/wishlist?redirect={{urlencode(request()->url())}}"><i class="common-iconfont icon-aixin"></i><span class="wishlist_num">{{$wishlist_num}}</span></a>
             <a href="/cart"><i class="common-iconfont icon-31gouwuche"></i><span class="cart_num">{{$cart_num}}</span></a>
-            <a href="/account/index"><i class="common-iconfont icon-dengluzhanghao"></i></a>
+            <a href="/account/index?redirect={{urlencode(request()->url())}}"><i class="common-iconfont icon-dengluzhanghao"></i></a>
         </div>
     </div>
     <div>

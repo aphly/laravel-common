@@ -1,45 +1,48 @@
 @include('laravel-common-front::common.header')
 <link rel="stylesheet" href="{{ URL::asset('static/common/css/account.css') }}">
-<section class="">
+<section class="container">
     <style>
         .avatar{width: 200px;height: 200px;margin-top: 20px;}
         .avatar img{width: 100%;height: 100%;border-radius: 50%;}
         .avatar i{font-size: 100px;}
     </style>
-    <div class="account container">
-        <div class="confirmation container">
-            @include('laravel-common-front::account.submenu')
-        </div>
-        <div class="avatar">
-            @if($user->avatar)
-                <img class="lazy " src="{{Storage::url($user->avatar)}}" />
-            @else
-                <i class="common-iconfont icon-touxiang"></i>
-            @endif
-        </div>
-        <form action="/account/index" method="post" class="upload_form" onsubmit="uploadImage(event,this)" enctype="multipart/form-data">
-            @csrf
-            <div class="form-group">
-                <label for="">avatar</label>
-                <input type="file" accept="image/gif,image/jpeg,image/jpg,image/png" id="image" name="image" class="form-control-file " >
-                <div class="invalid-feedback"></div>
+    <div class="account_info">
+        @include('laravel-common-front::account_ext.left_menu')
+        <div class="account-main-section">
+            <div class="top-desc d-flex justify-content-between">
+                <h2>Dashboard</h2>
             </div>
-
-            <div class="form-group">
-                <label for="">nickname</label>
-                <input type="text" name="nickname" class="form-control " value="{{$user->nickname}}">
-                <div class="invalid-feedback"></div>
+            <div class="avatar">
+                @if($user->avatar)
+                    <img class="lazy " src="{{Storage::url($user->avatar)}}" />
+                @else
+                    <i class="common-iconfont icon-touxiang"></i>
+                @endif
             </div>
-
-            @foreach($user->userAuth as $val)
+            <form action="/account/index" method="post" class="upload_form" onsubmit="uploadImage(event,this)" enctype="multipart/form-data">
+                @csrf
                 <div class="form-group">
-                    <label for="">{{$val->id_type}}</label>
-                    <input type="text" name="{{$val->id_type}}" class="form-control " readonly value="{{$val->id}}">
+                    <label for="">avatar</label>
+                    <input type="file" accept="image/gif,image/jpeg,image/jpg,image/png" id="image" name="image" class="form-control-file " >
                     <div class="invalid-feedback"></div>
                 </div>
-            @endforeach
-            <button class="btn btn-primary" type="submit">save</button>
-        </form>
+
+                <div class="form-group">
+                    <label for="">nickname</label>
+                    <input type="text" name="nickname" class="form-control " value="{{$user->nickname}}">
+                    <div class="invalid-feedback"></div>
+                </div>
+
+                @foreach($user->userAuth as $val)
+                    <div class="form-group">
+                        <label for="">{{$val->id_type}}</label>
+                        <input type="text" name="{{$val->id_type}}" class="form-control " readonly value="{{$val->id}}">
+                        <div class="invalid-feedback"></div>
+                    </div>
+                @endforeach
+                <button class="btn btn-primary" type="submit">save</button>
+            </form>
+        </div>
     </div>
 </section>
 <script>

@@ -2,7 +2,7 @@
 <link rel="stylesheet" href="{{ URL::asset('static/common/css/account.css') }}">
 <section class="" >
     <div class="forget container">
-        <form method="post" action="/account/forget?return_url={{urlencode(request()->query('return_url',''))}}" id="forget" class="account_form">
+        <form method="post" data-fn="forget_res" action="/account/forget?redirect={{urlencode(request()->query('redirect',''))}}" id="forget" class="account_form form_request">
             @csrf
             <div class="accountContent">
                 <h3 class="" style="margin-bottom: 20px;">
@@ -33,44 +33,15 @@
 
 </section>
 <script>
-let form_id = '#forget'
-$(function (){
-    $(form_id).submit(function (){
-        const form = $(this)
-        if(form[0].checkValidity()===false){
+    function forget_res(res,form_class) {
+        $(form_class+' input.form-control').addClass('is-valid');
+        if(!res.code) {
+            location.href = res.data.redirect
+        }else if(res.code===11000){
+            form_err_11000(res,form_class);
         }else{
-            let url = form.attr("action");
-            let type = form.attr("method");
-            if(url && type){
-                $(form_id+' input.form-control').removeClass('is-valid').removeClass('is-invalid');
-                let btn_html = $(form_id+' button[type="submit"]').html();
-                $.ajax({
-                    type,url,
-                    data: form.serialize(),
-                    dataType: "json",
-                    beforeSend:function () {
-                        $(form_id+' button[type="submit"]').attr('disabled',true).html('<i class="btn_loading app-jiazai uni"></i>');
-                    },
-                    success: function(res){
-                        $(form_id+' input.form-control').addClass('is-valid');
-                        if(!res.code) {
-                            location.href = res.data.redirect
-                        }else if(res.code===11000){
-                            form_err_11000(res,form_id);
-                        }else{
-                            alert_msg(res);
-                        }
-                    },
-                    complete:function(XMLHttpRequest,textStatus){
-                        $(form_id+' button[type="submit"]').removeAttr('disabled').html(btn_html);
-                    }
-                })
-            }else{
-                console.log('no action')
-            }
+            alert_msg(res);
         }
-        return false;
-    })
-});
+    }
 </script>
 @include('laravel-common-front::common.footer')

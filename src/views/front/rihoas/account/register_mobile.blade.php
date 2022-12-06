@@ -2,7 +2,7 @@
 <link rel="stylesheet" href="{{ URL::asset('static/common/css/account.css') }}">
 <section class="">
     <div class="container">
-        <form class="account_form" id="register"  method="post" action="/account/register?return_url={{urlencode(request()->query('return_url',''))}}">
+        <form class="account_form" id="register"  method="post" action="/account/register?redirect={{urlencode(request()->query('redirect',''))}}">
             @csrf
             <div class="accountContent">
                 <div class=" text-center ">
@@ -54,7 +54,7 @@
                 <div class="split-line ">
                     <p class="text-center">
                         <span class="">Already have an account? </span>
-                        <a class="" href="/account/login?return_url={{urlencode(request()->query('return_url',''))}}">Login</a>
+                        <a class="" href="/account/login?redirect={{urlencode(request()->query('redirect',''))}}">Login</a>
                     </p>
                 </div>
                 <div class="line-between">

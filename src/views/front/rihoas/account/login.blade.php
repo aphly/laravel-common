@@ -2,7 +2,7 @@
 <link rel="stylesheet" href="{{ URL::asset('static/common/css/account.css') }}">
 <section class="">
     <div class="container">
-        <form class="account_form" id="login" method="post" action="/account/login?return_url={{urlencode(request()->query('return_url',''))}}">
+        <form class="account_form form_request" id="login" data-fn="login_res" method="post" action="/account/login?redirect={{urlencode(request()->query('redirect',''))}}">
             @csrf
             <div class="accountContent">
                 <div class="text-center" style="margin-bottom: 24px;">
@@ -26,7 +26,7 @@
 
                     <div class="form-group ">
                         <label class="d-flex justify-content-between"><span>Password</span>
-                            <a href="/account/forget?return_url={{urlencode(request()->query('return_url',''))}}" class="color-link-defaut">
+                            <a href="/account/forget?redirect={{urlencode(request()->query('redirect',''))}}" class="color-link-defaut">
                                 <span class="forget">Forgot your password?</span>
                             </a>
                         </label>
@@ -48,7 +48,7 @@
                 <div class="split-line ">
                     <p class="text-center">
                         <span class="">Don't have an account? </span>
-                        <a class="" href="/account/register?return_url={{urlencode(request()->query('return_url',''))}}">Register</a>
+                        <a class="" href="/account/register?redirect={{urlencode(request()->query('redirect',''))}}">Register</a>
                     </p>
                 </div>
                 <div class="line-between">
@@ -93,48 +93,19 @@
 
 </style>
 <script>
-    let form_id = '#login'
-    $(function (){
-        $(form_id).submit(function (){
-            const form = $(this)
-            if(form[0].checkValidity()===false){
-            }else{
-                let url = form.attr("action");
-                let type = form.attr("method");
-                if(url && type){
-                    $(form_id+' input.form-control').removeClass('is-valid').removeClass('is-invalid');
-                    let btn_html = $(form_id+' button[type="submit"]').html();
-                    $.ajax({
-                        type,url,
-                        data: form.serialize(),
-                        dataType: "json",
-                        beforeSend:function () {
-                            $(form_id+' button[type="submit"]').attr('disabled',true).html('<i class="btn_loading app-jiazai uni"></i>');
-                        },
-                        success: function(res){
-                            $(form_id+' input.form-control').addClass('is-valid');
-                            if(!res.code) {
-                                location.href = res.data.redirect
-                            }else if(res.code===11000){
-                                form_err_11000(res,form_id);
-                            }else if(res.code===2){
-                                $(form_id+' input.form-control').removeClass('is-valid');
-                                $('#code_img').show()
-                                alert_msg(res);
-                            }else{
-                                alert_msg(res);
-                            }
-                        },
-                        complete:function(XMLHttpRequest,textStatus){
-                            $(form_id+' button[type="submit"]').removeAttr('disabled').html(btn_html);
-                        }
-                    })
-                }else{
-                    console.log('no action')
-                }
-            }
-            return false;
-        })
-    });
+    function login_res(res,form_class) {
+        $(form_class+' input.form-control').addClass('is-valid');
+        if(!res.code) {
+            location.href = res.data.redirect
+        }else if(res.code===11000){
+            form_err_11000(res,form_class);
+        }else if(res.code===2){
+            $(form_class+' input.form-control').removeClass('is-valid');
+            $('#code_img').show()
+            alert_msg(res);
+        }else{
+            alert_msg(res);
+        }
+    }
 </script>
 @include('laravel-common-front::common.footer')

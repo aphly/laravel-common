@@ -38,7 +38,7 @@ class UserAddress extends Model
                 'iso_code_2'     => $country[$info['country_id']]['iso_code_2']??'',
                 'iso_code_3'     => $country[$info['country_id']]['iso_code_3']??'',
                 'address_format' => $country[$info['country_id']]['address_format']??'',
-                'telephone'      => $info['telephone']
+                'telephone'      => $info['telephone']??''
             ];
         }else{
             return [];
@@ -68,7 +68,7 @@ class UserAddress extends Model
                 'iso_code_2'     => $country[$v['country_id']]['iso_code_2']??'',
                 'iso_code_3'     => $country[$v['country_id']]['iso_code_3']??'',
                 'address_format' => $country[$v['country_id']]['address_format']??'',
-                'telephone'      => $v['telephone']
+                'telephone'      => $v['telephone']??''
             ];
         }
         return $address_data;

@@ -105,7 +105,7 @@ class AccountController extends Controller
                             $user->afterLogin();
                             $user->id_type = $userAuth->id_type;
                             $user->id = $userAuth->id;
-                            throw new ApiException(['code'=>0,'msg'=>'login success','data'=>['redirect'=>$user->returnUrl(),'user'=>$user]]);
+                            throw new ApiException(['code'=>0,'msg'=>'login success','data'=>['redirect'=>$user->redirect(),'user'=>$user]]);
                         }else{
                             throw new ApiException(['code'=>3,'msg'=>'Account blocked','data'=>['redirect'=>route('blocked')]]);
                         }
@@ -160,7 +160,7 @@ class AccountController extends Controller
                         (new MailSend())->do($userAuth->id, new Verify($userAuth));
                     }
                     $this->limiterIncrement($key,15*60);
-                    throw new ApiException(['code' => 0, 'msg' => 'Register success', 'data' => ['redirect' => $user->returnUrl(), 'user' => $user]]);
+                    throw new ApiException(['code' => 0, 'msg' => 'Register success', 'data' => ['redirect' => $user->redirect(), 'user' => $user]]);
                 } else {
                     throw new ApiException(['code' => 1, 'msg' => 'Register fail']);
                 }

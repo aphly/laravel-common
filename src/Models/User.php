@@ -165,8 +165,11 @@ class User extends Authenticatable
         return $this->save();
     }
 
-    public function returnUrl(){
-        $redirect = urldecode(request()->query('return_url'));
-        return $redirect??'/';
+    public function redirect(){
+        $redirect = request()->query('redirect',false);
+        if($redirect){
+            return urldecode($redirect);
+        }
+        return '/';
     }
 }
