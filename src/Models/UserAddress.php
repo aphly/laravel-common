@@ -45,8 +45,8 @@ class UserAddress extends Model
         }
     }
 
-    public function getAddresses($uuid = 0) {
-        $uuid = !empty($uuid)?$uuid:User::uuid();
+    public function getAddresses($uuid = false) {
+        $uuid = $uuid?$uuid:User::uuid();
         $address_data = [];
         $data = self::where(['uuid'=>$uuid])->get()->toArray();
         $country = (new Country)->findAll();

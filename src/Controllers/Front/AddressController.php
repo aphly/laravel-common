@@ -28,6 +28,10 @@ class AddressController extends Controller
     public function save(Request $request){
         $address_id = $request->query('address_id',0);
         if($request->isMethod('post')){
+            $count = UserAddress::where(['uuid'=>User::uuid()])->count();
+            if($count>=5){
+                throw new ApiException(['code'=>1,'msg'=>'limit 5','data'=>['redirect'=>'/account/address']]);
+            }
             $input = $request->all();
             if(!$address_id){
                 $input['uuid'] = User::uuid();

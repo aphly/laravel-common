@@ -32,7 +32,7 @@ class Zone extends Model
 
     public function findAll() {
         return Cache::rememberForever('zone', function (){
-            return self::where('status',1)->get()->keyBy('code')->toArray();
+            return self::where('status',1)->get()->keyBy('id')->toArray();
         });
     }
 }
