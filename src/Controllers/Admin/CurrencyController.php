@@ -32,7 +32,7 @@ class CurrencyController extends Controller
     public function save(Request $request){
         $input = $request->all();
         if($input['default']==1){
-          Currency::whereRaw('1')->update(['default'=>2]);
+            Currency::whereRaw('1')->update(['default'=>2]);
         }
         Currency::updateOrCreate(['id'=>$request->query('id',0)],$input);
         throw new ApiException(['code'=>0,'msg'=>'success','data'=>['redirect'=>$this->index_url]]);

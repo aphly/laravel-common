@@ -12,6 +12,16 @@
                 <div class="invalid-feedback"></div>
             </div>
             <div class="form-group">
+                <label for="">中文名称</label>
+                <input type="text" name="cn_name" class="form-control " value="{{$res['info']->cn_name}}">
+                <div class="invalid-feedback"></div>
+            </div>
+            <div class="form-group">
+                <label for="">时区（不确定请不要填写，https://www.php.net/manual/zh/timezones.php）</label>
+                <input type="text" name="timezone" class="form-control " value="{{$res['info']->timezone}}">
+                <div class="invalid-feedback"></div>
+            </div>
+            <div class="form-group">
                 <label for="">code</label>
                 <input type="text" name="code" class="form-control " value="{{$res['info']->code}}">
                 <div class="invalid-feedback"></div>

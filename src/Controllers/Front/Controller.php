@@ -32,7 +32,11 @@ class Controller extends \Aphly\Laravel\Controllers\Controller
                 View::share("checkin",[]);
             }
             View::share("links",(new Links)->menu());
-            View::share("currency",(new Currency)->defaultCurr());
+            $currency = (new Currency)->defaultCurr();
+            if(isset($currency[2]) && !empty($currency[2]['timezone'])){
+                date_default_timezone_set($currency[2]['timezone']);
+            }
+            View::share("currency",$currency);
             $this->afterController();
             return $next($request);
         });
