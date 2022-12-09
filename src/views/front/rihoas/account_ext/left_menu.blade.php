@@ -11,6 +11,7 @@
         <div class="sidebar-menu-title">Order Details</div>
         <ul class="sidebar-menu-content">
             <li><a href="/account/order" @if('account/order'==request()->path()) class="active" @endif>My Orders</a></li>
+            <li><a href="/account/review" @if('account/review'==request()->path() || 'account/review/detail'==request()->path()) class="active" @endif>My Reviews</a></li>
         </ul>
         <div class="sidebar-menu-title">Customer Service</div>
         <div class="sidebar-menu-content" style="">
