@@ -18,7 +18,7 @@ return new class extends Migration
             $table->unsignedBigInteger('uuid')->index();
             $table->unsignedBigInteger('credit_price_id')->index();
             $table->decimal('total',15,2);
-            $table->unsignedBigInteger('payment_id')->index();
+            $table->char('payment_id',32)->nullable()->index();
             $table->tinyInteger('status')->default(1);
             $table->string('credit_key',16);
             $table->unsignedBigInteger('credit_val');

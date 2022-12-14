@@ -20,7 +20,7 @@ return new class extends Migration
             $table->unsignedInteger('month');
             $table->decimal('price',15,2);
             $table->decimal('total',15,2);
-            $table->unsignedBigInteger('payment_id')->index();
+            $table->char('payment_id',32)->nullable()->index();
             $table->tinyInteger('status')->default(1);
             $table->unsignedBigInteger('created_at');
             $table->unsignedBigInteger('updated_at');
