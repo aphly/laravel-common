@@ -5,17 +5,17 @@
 
 <style>
     body{font-family: 'Montserrat';background: #f6f6f6;}
-    .header{height: 80px;padding: 0 10px;position: fixed;left: 0;top: 0;width: 100%;background: #fff;z-index: 2000;box-shadow: 0 2px 1px 1px rgba(0, 0, 0, 0.1);}
+    .header{height: 80px;padding: 0 10px;position: fixed;left: 0;top: 0;width: 100%;background: #fff;z-index: 2000;}
     .header i{font-size: 30px;font-weight: 600}
     .header3 a{position: relative;}
     .cart_num{position: absolute;right:0;top: 0;font-size: 12px;width: 16px;height: 16px;color: #fff;background: #333;text-align: center;border-radius: 50%;}
     .header3 i{margin:0 10px;}
     main{padding-top: 100px;}
     @media (max-width: 1199.98px) {
-        .header{height: 50px;}
+        .header{height: 55px;}
         .header i{font-size: 20px;}
         .header3 i{margin:0 5px;}
-        main{padding-top: 50px;}
+        main{padding-top: 55px;}
     }
 </style>
 <header>

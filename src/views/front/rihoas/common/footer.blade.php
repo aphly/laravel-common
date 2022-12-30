@@ -3,7 +3,7 @@
 
 </footer>
 <style>
-
+    footer{height: 100px;}
     @media (max-width: 1199.98px) {
 
     }
