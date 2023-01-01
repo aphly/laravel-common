@@ -3,6 +3,7 @@
 
 </footer>
 <style>
+
     footer{height: 100px;}
     @media (max-width: 1199.98px) {
 
@@ -47,26 +48,31 @@
 @endif
 <script src="{{ URL::asset('static/admin/js/bootstrap.bundle.min.js') }}"></script>
 <script>
-    var aphly_viewerjs = document.getElementById('aphly_viewerjs');
+    var aphly_viewerjs = document.querySelectorAll('.aphly_viewer_js');
     if(aphly_viewerjs){
-        var aphly_viewer = new Viewer(aphly_viewerjs,{
-            url: 'data-original',
-            toolbar:false,
-            title:false,
-            rotatable:false,
-            scalable:false,
-            keyboard:false,
-            filter(image) {
-                if(image.className.indexOf("aphly_viewer") !== -1){
-                    return true;
-                }else{
-                    return false;
+        aphly_viewerjs.forEach(function (item,index) {
+            new Viewer(item,{
+                url: 'data-original',
+                toolbar:false,
+                title:false,
+                rotatable:false,
+                scalable:false,
+                keyboard:false,
+                filter(image) {
+                    if(image.className.indexOf("aphly_viewer") !== -1){
+                        return true;
+                    }else{
+                        return false;
+                    }
                 }
-            }
-        });
+            });
+        })
+
     }
+
     $(function() {
         $("img.lazy").lazyload({effect : "fadeIn",threshold :50});
+
     })
 </script>
 </body>

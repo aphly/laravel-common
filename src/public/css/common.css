@@ -3,6 +3,7 @@
     --a-hover:#007aff;
     --body-bg:#f1f1f1;
 }
+.aphly_viewer{cursor: pointer}
 a{color: var(--a);}
 ._shadow {box-shadow: 0 0 #0000,0 0 #0000,0 2px 8px 0 rgba(0, 0, 0, .16);}
 .text-brand,.buleBtn{font-weight: 600;--tw-gradient-from:#1c9dfe;--tw-gradient-to:#023ff4;
