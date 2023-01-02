@@ -69,7 +69,6 @@
         select_ids:@json($res['select_ids']),
     }
     treeGlobal.data = toTree(selectData(treeGlobal.list,treeGlobal.select_ids));
-
     function mount() {
         $('#category_select .treeview').treeview({
             levels: 2,
@@ -121,7 +120,7 @@
         }
         const editor = createEditor({
             selector: '#editor-container',
-            html: '{!! $res['info']->content !!}',
+            html: `{!! $res['info']->content !!}`,
             config: editorConfig,
             mode: 'simple',
         })
