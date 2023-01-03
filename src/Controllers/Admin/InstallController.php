@@ -59,6 +59,7 @@ class InstallController extends Controller
                 $data[] =['name' => '地区','url' =>'/common_admin/zone/index','pid'=>$menu21->id,'is_leaf'=>1,'module_id'=>$this->module_id,'sort'=>0];
                 $data[] =['name' => '货币','url' =>'/common_admin/currency/index','pid'=>$menu21->id,'is_leaf'=>1,'module_id'=>$this->module_id,'sort'=>0];
                 $data[] =['name' => 'Geo','url' =>'/common_admin/geo/index','pid'=>$menu21->id,'is_leaf'=>1,'module_id'=>$this->module_id,'sort'=>0];
+                $data[] =['name' => '订阅','url' =>'/common_admin/subscribe/index','pid'=>$menu21->id,'is_leaf'=>1,'module_id'=>$this->module_id,'sort'=>0];
                 DB::table('admin_menu')->insert($data);
             }
         }

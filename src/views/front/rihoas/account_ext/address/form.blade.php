@@ -11,7 +11,7 @@
                     </h2>
                 </div>
                 <div class="form-info">
-                    <form method="post" action="/account/address/save?address_id={{request()->query('address_id')??0}}" class="form_request" data-fn="saveAddress">
+                    <form method="post" action="/account_ext/address/save?address_id={{request()->query('address_id')??0}}" class="form_request" data-fn="saveAddress">
                         @csrf
                         <input type="hidden" name="address_id" value="{{request()->query('address_id')??0}}">
                         <div class="form-group">
@@ -74,7 +74,7 @@
                         </div>
                         <div class="form-group d-flex">
                             <button class="btn-default  save-address" >Save</button>
-                            <a href="/account/address" class="btn-cancel">Cancel</a>
+                            <a href="/account_ext/address" class="btn-cancel">Cancel</a>
                         </div>
                     </form>
                 </div>

@@ -1,6 +1,6 @@
 <?php
 
-namespace Aphly\LaravelShop\Models\Common;
+namespace Aphly\LaravelCommon\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Aphly\Laravel\Models\Model;
@@ -8,10 +8,10 @@ use Aphly\Laravel\Models\Model;
 class Subscribe extends Model
 {
     use HasFactory;
-    protected $table = 'shop_subscribe';
-    protected $primaryKey = 'email';
-    protected $keyType = 'string';
-    public $timestamps = false;
+    protected $table = 'common_subscribe';
+    protected $primaryKey = 'id';
+
+    //public $timestamps = false;
 
     protected $fillable = [
         'email','status'

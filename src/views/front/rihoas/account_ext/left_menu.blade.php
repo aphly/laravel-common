@@ -4,14 +4,16 @@
         <div class="sidebar-menu-title">My Account Information</div>
         <ul class="sidebar-menu-content">
             <li><a href="/account/index" @if('account/index'==request()->path()) class="active" @endif>Dashboard</a></li>
-            <li><a href="/account/wishlist" @if('account/wishlist'==request()->path()) class="active" @endif>My Wishlist</a></li>
-            <li><a href="/account/address" @if('account/address'==request()->path() || 'account/address/save'==request()->path()) class="active" @endif>My Address Book</a></li>
+            <li><a href="/account_ext/wishlist" @if('account_ext/wishlist'==request()->path()) class="active" @endif>My Wishlist</a></li>
+            <li><a href="/account_ext/address" @if('account_ext/address'==request()->path() || 'account_ext/address/save'==request()->path()) class="active" @endif>My Address Book</a></li>
+            <li><a href="/account_ext/subscribe" @if('account_ext/subscribe'==request()->path()) class="active" @endif>My Subscribe</a></li>
         </ul>
 
         <div class="sidebar-menu-title">Order Details</div>
         <ul class="sidebar-menu-content">
-            <li><a href="/account/order" @if('account/order'==request()->path()) class="active" @endif>My Orders</a></li>
-            <li><a href="/account/review" @if('account/review'==request()->path() || 'account/review/detail'==request()->path()) class="active" @endif>My Reviews</a></li>
+            <li><a href="/account_ext/order" @if('account_ext/order'==request()->path()) class="active" @endif>My Orders</a></li>
+            <li><a href="/account_ext/review" @if('account_ext/review'==request()->path() || 'account_ext/review/detail'==request()->path()) class="active" @endif>My Reviews</a></li>
+            <li><a href="/account_ext/return" @if('account_ext/return'==request()->path() || 'account_ext/return/detail'==request()->path()) class="active" @endif>My Return</a></li>
         </ul>
         <div class="sidebar-menu-title">Customer Service</div>
         <div class="sidebar-menu-content" style="">

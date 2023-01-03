@@ -109,22 +109,22 @@ class User extends Authenticatable
 		}
     }
 
+    static function initId(){
+        if(!self::$id){
+            $arr['id_type'] = config('common.id_type');
+            $arr['uuid'] = self::uuid();
+            $userAuthModel = UserAuth::where($arr)->first();
+            self::$id = $userAuthModel->id;
+        }
+        return self::$id;
+    }
+
     function group(){
         return $this->hasOne(Group::class,'id','group_id');
     }
 
     function credit(){
         return $this->hasOne(UserCredit::class,'uuid','uuid');
-    }
-
-    function initId(){
-        if(!self::$id){
-            $arr['id_type'] = config('common.id_type');
-            $arr['uuid'] = $this->uuid;
-            $userAuthModel = UserAuth::where($arr)->first();
-            self::$id = $userAuthModel->id;
-        }
-        return self::$id;
     }
 
     public function afterRegister()

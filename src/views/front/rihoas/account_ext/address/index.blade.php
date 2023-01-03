@@ -1,7 +1,6 @@
 @include('laravel-common-front::common.header')
 <div class="container">
     <style>
-
         .address_info{margin-bottom: 0px;}
         .address_info span{font-weight: 600;margin-left: 10px;}
         .address_info p{margin-bottom: 5px;}
@@ -15,7 +14,7 @@
             <div class="">
                 <div class="top-desc d-flex justify-content-between">
                     <h2>Shipping Address</h2>
-                    <a href="/account/address/save">+ Add Address</a>
+                    <a href="/account_ext/address/save">+ Add Address</a>
                 </div>
                 <ul class="list_index">
                     @foreach($res['list'] as $val)
@@ -34,7 +33,7 @@
                             </div>
                         </div>
                         <div class="address_infox">
-                            <a href="/account/address/save?address_id={{$val['id']}}" >
+                            <a href="/account_ext/address/save?address_id={{$val['id']}}" >
                                 <i class="common-iconfont icon-bianjishuru"></i>Edit
                             </a>
                             <a href="javascript:;" data-address_id="{{$val['id']}}" class="delete">
@@ -58,7 +57,7 @@ $(function () {
             let id = $(this).data('address_id')
             if(id){
                 $.ajax({
-                    url:'/account/address/'+id+'/remove',
+                    url:'/account_ext/address/'+id+'/remove',
                     dataType:'json',
                     success:function (res) {
                         if(!res.code) {

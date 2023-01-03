@@ -27,6 +27,9 @@ Route::middleware(['web'])->group(function () {
     //news
     Route::match(['get'],'news/{id}', 'Aphly\LaravelCommon\Controllers\Front\NewsController@detail')->where('id', '[0-9]+');
 
+    //Subscribe
+    Route::post('subscribe/ajax', 'Aphly\LaravelCommon\Controllers\Front\AccountExt\SubscribeController@ajax');
+
     Route::prefix('account')->group(function () {
         Route::match(['get'],'autologin/{token}', 'Aphly\LaravelCommon\Controllers\Front\AccountController@autoLogin');
 
@@ -50,11 +53,23 @@ Route::middleware(['web'])->group(function () {
             Route::match(['get', 'post'],'credit', 'Aphly\LaravelCommon\Controllers\Front\AccountController@credit');
             Route::match(['post'],'checkin', 'Aphly\LaravelCommon\Controllers\Front\AccountController@checkin');
 
-            Route::get('address', 'Aphly\LaravelCommon\Controllers\Front\AddressController@index');
-            Route::match(['get', 'post'],'address/save', 'Aphly\LaravelCommon\Controllers\Front\AddressController@save');
-            Route::get('address/{id}/remove', 'Aphly\LaravelCommon\Controllers\Front\AddressController@remove')->where('id', '[0-9]+');
         });
     });
+
+    Route::prefix('account_ext')->group(function () {
+        Route::middleware(['userAuth'])->group(function () {
+
+            Route::get('address', 'Aphly\LaravelCommon\Controllers\Front\AccountExt\AddressController@index');
+            Route::match(['get', 'post'],'address/save', 'Aphly\LaravelCommon\Controllers\Front\AccountExt\AddressController@save');
+            Route::get('address/{id}/remove', 'Aphly\LaravelCommon\Controllers\Front\AccountExt\AddressController@remove')->where('id', '[0-9]+');
+
+            Route::match(['get', 'post'],'subscribe', 'Aphly\LaravelCommon\Controllers\Front\AccountExt\SubscribeController@index');
+
+            Route::get('review/index', 'Aphly\LaravelCommon\Controllers\Front\AccountExt\ReviewController@index');
+
+        });
+    });
+
 
     //api/upload
     Route::match(['post'],'news/img', 'Aphly\LaravelCommon\Controllers\Front\NewsController@imgs');
@@ -77,7 +92,7 @@ Route::middleware(['web'])->group(function () {
             $route_arr = [
                 ['group','\GroupController'],['credit_price','\CreditPriceController'],['user_credit_log','\UserCreditLogController'],['user_credit_order','\UserCreditOrderController'],
                 ['user_group_order','\UserGroupOrderController'],['user_address','\UserAddressController'],['news','\NewsController'],['filter','\FilterController'],
-                ['country','\CountryController'],['geo','\GeoController'],['zone','\ZoneController'],['currency','\CurrencyController']
+                ['country','\CountryController'],['geo','\GeoController'],['zone','\ZoneController'],['currency','\CurrencyController'],['subscribe','\SubscribeController']
             ];
 
             foreach ($route_arr as $val){

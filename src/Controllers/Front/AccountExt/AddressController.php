@@ -1,8 +1,9 @@
 <?php
 
-namespace Aphly\LaravelCommon\Controllers\Front;
+namespace Aphly\LaravelCommon\Controllers\Front\AccountExt;
 
 use Aphly\Laravel\Exceptions\ApiException;
+use Aphly\LaravelCommon\Controllers\Front\Controller;
 use Aphly\LaravelCommon\Models\Country;
 use Aphly\LaravelCommon\Models\User;
 use Aphly\LaravelCommon\Models\UserAddress;
@@ -22,7 +23,7 @@ class AddressController extends Controller
         }
         $res['country'] = (new Country)->findAllIds($country_ids);
         $res['zone'] = (new Zone)->findAllIds($zone_ids);
-        return $this->makeView('laravel-common-front::account_ext.address_index',['res'=>$res]);
+        return $this->makeView('laravel-common-front::account_ext.address.index',['res'=>$res]);
     }
 
     public function save(Request $request){
@@ -30,7 +31,7 @@ class AddressController extends Controller
         if($request->isMethod('post')){
             $count = UserAddress::where(['uuid'=>User::uuid()])->count();
             if($count>=5){
-                throw new ApiException(['code'=>1,'msg'=>'limit 5','data'=>['redirect'=>'/account/address']]);
+                throw new ApiException(['code'=>1,'msg'=>'limit 5','data'=>['redirect'=>'/account_ext/address']]);
             }
             $input = $request->all();
             if(!$address_id){
@@ -49,7 +50,7 @@ class AddressController extends Controller
             if($checkout){
                 throw new ApiException(['code'=>0,'msg'=>'success','data'=>['list'=>(new UserAddress)->getAddresses()]]);
             }else{
-                throw new ApiException(['code'=>0,'msg'=>'success','data'=>['redirect'=>'/account/address']]);
+                throw new ApiException(['code'=>0,'msg'=>'success','data'=>['redirect'=>'/account_ext/address']]);
             }
         }else{
             $res['title'] = '';
@@ -61,13 +62,13 @@ class AddressController extends Controller
             }else{
                 $res['zone'] = [];
             }
-            return $this->makeView('laravel-common-front::account_ext.address_form',['res'=>$res]);
+            return $this->makeView('laravel-common-front::account_ext.address.form',['res'=>$res]);
         }
     }
 
     public function remove(Request $request){
         UserAddress::where(['uuid'=>User::uuid(),'id'=>$request->id])->delete();
-        throw new ApiException(['code'=>0,'msg'=>'success','data'=>['redirect'=>'/account/address']]);
+        throw new ApiException(['code'=>0,'msg'=>'success','data'=>['redirect'=>'/account_ext/address']]);
     }
 
     public function country(Request $request){
