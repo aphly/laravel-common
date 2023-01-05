@@ -23,7 +23,7 @@
                             <input type="radio" value="2" name="status" id="status2" checked> <label for="status2">No</label>
                         </div>
                     @endif
-                    <button>save</button>
+                    <button type="submit">save</button>
                 </form>
             </div>
         </div>

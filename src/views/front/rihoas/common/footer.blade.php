@@ -24,7 +24,7 @@
                         <form data-fn="subscribe_res" class="form_request" action="/subscribe/ajax" method="post">
                             @csrf
                             <input type="text" name="email" placeholder="Your email">
-                            <button>Subscribe</button>
+                            <button type="submit">Subscribe</button>
                         </form>
                     </li>
                 </ul>
@@ -42,7 +42,7 @@
 <style>
     footer{}
     .footer1{background: #eaeaea;padding: 40px 0;}
-    .footer11{display: flex;}
+    .footer11{display: flex;flex-wrap: wrap;}
     .footer21{display: flex;justify-content:center;line-height: 40px; height: 40px;}
     .footer11 ul{padding: 0 30px 30px 0;flex: 1;}
     .footer11 ul li{line-height: 34px;height: 34px;}
@@ -51,7 +51,7 @@
     .footer11 ul:last-child{flex: 2;}
     .footer2{background: #e1e1e1;}
     @media (max-width: 1199.98px) {
-
+        .footer11 ul{flex-basis: 100%;}
     }
 
 </style>

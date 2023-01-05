@@ -73,7 +73,7 @@
                             <span>Set as primary address</span>
                         </div>
                         <div class="form-group d-flex">
-                            <button class="btn-default  save-address" >Save</button>
+                            <button class="btn-default  save-address" type="submit">Save</button>
                             <a href="/account_ext/address" class="btn-cancel">Cancel</a>
                         </div>
                     </form>

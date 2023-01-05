@@ -18,7 +18,7 @@
         .header1{height: 55px;}
         .header1 i{font-size: 20px;}
         .header13 i{margin:0 5px;}
-        main{padding-top: 60px;}
+        main{padding-top: 60px;padding-bottom: 40px;}
     }
 </style>
 <header>

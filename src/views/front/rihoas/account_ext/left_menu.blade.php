@@ -16,6 +16,9 @@
             <li><a href="/account_ext/return" @if('account_ext/return'==request()->path() || 'account_ext/return/detail'==request()->path()) class="active" @endif>My Return</a></li>
         </ul>
         <div class="sidebar-menu-title">Customer Service</div>
+        <ul class="sidebar-menu-content">
+            <li><a href="/account/logout" @if('account/logout'==request()->path()) class="active" @endif>Logout</a></li>
+        </ul>
         <div class="sidebar-menu-content" style="">
             <span>Need help? We're here to help you:</span>
             <div class="phone">
