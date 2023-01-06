@@ -46,5 +46,8 @@
     .form_request .form-group p{margin-bottom: 10px;}
     .form_request .form-group p b{color: darkred;}
 
-
+    @media (max-width: 1199.98px) {
+        .account_info{flex-wrap: wrap;}
+        .sidebar-menu,.account-main-section{width: 100%;margin-left: 0;margin-bottom: 20px;}
+    }
 </style>
