@@ -99,7 +99,7 @@ class AccountController extends Controller
                     if(Hash::check($request->input('password',''),$userAuth->password)){
                         $user = User::find($userAuth->uuid);
                         if($user->status==1){
-                            $userAuthModel->update(['last_login'=>time(),'last_ip'=>$request->ip()]);
+                            $userAuthModel->update(['last_time'=>time(),'last_ip'=>$request->ip(),'user_agent' => $request->header('user-agent'),'accept_language' => $request->header('accept-language')]);
                             $user->generateToken();
                             Auth::guard('user')->login($user);
                             $user->afterLogin();
@@ -141,8 +141,10 @@ class AccountController extends Controller
                 $post['id_type'] = config('common.id_type');
                 $post['uuid'] = Helper::uuid();
                 $post['password'] = Hash::make($post['password']);
-                $post['last_login'] = time();
                 $post['last_ip'] = $request->ip();
+                $post['last_time'] = time();
+                $post['user_agent'] = $request->header('user-agent');
+                $post['accept_language'] = $request->header('accept-language');
                 $userAuth = UserAuth::create($post);
                 if ($userAuth->uuid) {
                     $user = User::create([
