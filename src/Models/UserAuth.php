@@ -14,7 +14,7 @@ class UserAuth extends Model
     protected $keyType = 'string';
     protected $primaryKey = ['id_type','id'];
     protected $fillable = [
-        'uuid','id_type','id','password','token','note'
+        'uuid','id_type','id','password','user_agent','accept_language','last_ip','last_time'
     ];
 
     function changePassword($uuid,$password){
