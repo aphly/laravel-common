@@ -96,14 +96,14 @@
 
 </style>
 <script>
-    function register_res(res,form_class) {
-        $(form_class+' input.form-control').addClass('is-valid');
+    function register_res(res,_this) {
+        _this.find('input.form-control').addClass('is-valid');
         if(!res.code) {
             location.href = res.data.redirect
         }else if(res.code===11000){
-            form_err_11000(res,form_class);
+            form_err_11000(res,_this);
         }else{
-            $(form_class+' input.form-control').removeClass('is-valid');
+            _this.find('input.form-control').removeClass('is-valid');
             alert_msg(res);
         }
     }

@@ -93,14 +93,12 @@
 
 </style>
 <script>
-    function login_res(res,form_class) {
-        $(form_class+' input.form-control').addClass('is-valid');
+    function login_res(res,_this) {
         if(!res.code) {
             location.href = res.data.redirect
         }else if(res.code===11000){
-            form_err_11000(res,form_class);
+            form_err_11000(res,_this);
         }else if(res.code===2){
-            $(form_class+' input.form-control').removeClass('is-valid');
             $('#code_img').show()
             alert_msg(res);
         }else{

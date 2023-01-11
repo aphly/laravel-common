@@ -33,12 +33,12 @@
 
 </section>
 <script>
-    function forget_res(res,form_class) {
-        $(form_class+' input.form-control').addClass('is-valid');
+    function forget_res(res,_this) {
+        _this.find('input.form-control').addClass('is-valid');
         if(!res.code) {
             location.href = res.data.redirect
         }else if(res.code===11000){
-            form_err_11000(res,form_class);
+            form_err_11000(res,_this);
         }else{
             alert_msg(res);
         }

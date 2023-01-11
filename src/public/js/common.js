@@ -1,24 +1,24 @@
 $(function () {
     $("body").on('submit','.form_request',function (){
         let form_class = '.form_request';
-        const form = $(this)
-        const fn = form.data('fn')
-        if(form[0].checkValidity()===false){
+        const _this = $(this)
+        const fn = _this.data('fn')
+        if(_this[0].checkValidity()===false){
         }else{
-            let url = form.attr("action");
-            let type = form.attr("method");
+            let url = _this.attr("action");
+            let type = _this.attr("method");
             if(url && type && fn){
                 $(form_class+' input.form-control').removeClass('is-valid').removeClass('is-invalid');
                 let btn_html = $(form_class+' button[type="submit"]').html();
                 $.ajax({
                     type,url,
-                    data: form.serialize(),
+                    data: _this.serialize(),
                     dataType: "json",
                     beforeSend:function () {
                         $(form_class+' button[type="submit"]').attr('disabled',true).html('<i class="btn_loading app-jiazai uni"></i>');
                     },
                     success: function(res){
-                        window[fn](res,form_class);
+                        window[fn](res,_this);
                     },
                     complete:function(XMLHttpRequest,textStatus){
                         $(form_class+' button[type="submit"]').removeAttr('disabled').html(btn_html);
@@ -32,18 +32,18 @@ $(function () {
     })
 
     $("body").on('submit','.form_request_file',function (){
-        const form = $(this)
+        const _this = $(this)
         let form_class = '.form_request_file';
-        let formData = new FormData(form[0]);
+        let formData = new FormData(_this[0]);
         // form.find('input[type="file"]').each(function () {
         //     for (let i = 0; i < $(this)[0].files.length; i++) {
         //         formData.append($(this).attr('name'), $(this)[0].files[i]);
         //     }
         // })
-        let url = form.attr("action");
-        let type = form.attr("method");
-        const fn = form.data('fn')
-        if(form[0].checkValidity()===false){
+        let url = _this.attr("action");
+        let type = _this.attr("method");
+        const fn = _this.data('fn')
+        if(_this[0].checkValidity()===false){
         }else {
             if (url && type) {
                 $(form_class + ' input.form-control').removeClass('is-valid').removeClass('is-invalid');
@@ -58,7 +58,7 @@ $(function () {
                         $(form_class + ' button[type="submit"]').attr('disabled', true).html('<i class="btn_loading app-jiazai uni"></i>');
                     },
                     success: function (res) {
-                        window[fn](res, form_class);
+                        window[fn](res, _this);
                     },
                     complete: function (XMLHttpRequest, textStatus) {
                         $(form_class + ' button[type="submit"]').removeAttr('disabled').html(btn_html);
@@ -69,6 +69,27 @@ $(function () {
             }
         }
         return false;
+    })
+
+    $('body').on('click','.a_request',function (e) {
+        e.preventDefault();
+        let _this = $(this)
+        let _token = _this.data('_token')
+        let fn = _this.data('fn')
+        let url = _this.attr('href')
+        debounce_fn(function () {
+            if(_token){
+                $.ajax({
+                    url,
+                    type:'post',
+                    data:_this.data(),
+                    dataType: "json",
+                    success:function (res) {
+                        window[fn](res, _this);
+                    }
+                })
+            }
+        },400)
     })
 
     $('.form_input_file').on("change" , function(){

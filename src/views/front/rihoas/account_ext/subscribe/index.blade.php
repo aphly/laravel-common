@@ -30,7 +30,7 @@
     </div>
 </div>
 <script>
-    function subscribe_res(res,form_class) {
+    function subscribe_res(res,_this) {
         alert_msg(res)
     }
 </script>
