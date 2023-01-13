@@ -13,12 +13,12 @@
 
     .cart_num{position: absolute;right:0;top: 0;font-size: 12px;width: 16px;height: 16px;color: #fff;background: #333;text-align: center;border-radius: 50%;}
 
-    main{padding-top: 100px;min-height: 800px;}
+    main{padding: 100px 0 80px;min-height: 800px;}
     @media (max-width: 1199.98px) {
         .header1{height: 55px;}
         .header1 i{font-size: 20px;}
         .header13 i{margin:0 5px;}
-        main{padding-top: 60px;padding-bottom: 40px;}
+        main{padding: 60px 0 40px;}
     }
 </style>
 <header>

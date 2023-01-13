@@ -13,10 +13,10 @@
         <ul class="sidebar-menu-content">
             <li><a href="/account_ext/order" @if('account_ext/order'==request()->path()) class="active" @endif>My Orders</a></li>
             <li><a href="/account_ext/review" @if('account_ext/review'==request()->path() || 'account_ext/review/detail'==request()->path()) class="active" @endif>My Reviews</a></li>
-            <li><a href="/account_ext/service" @if('account_ext/service'==request()->path() || 'account_ext/service/form'==request()->path()) class="active" @endif>My Service</a></li>
         </ul>
         <div class="sidebar-menu-title">Customer Service</div>
         <ul class="sidebar-menu-content">
+            <li><a href="/account_ext/service" @if('account_ext/service'==request()->path() || 'account_ext/service/form'==request()->path()) class="active" @endif>My Service</a></li>
             <li><a href="/account/logout" @if('account/logout'==request()->path()) class="active" @endif>Logout</a></li>
         </ul>
         <div class="sidebar-menu-content" style="">

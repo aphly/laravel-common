@@ -95,4 +95,24 @@ class Currency extends Model
         return $string;
     }
 
+    static function codeFormat($price,$code){
+        $currency_all = self::findAll();
+        $info = [];
+        foreach ($currency_all as $v){
+            if($v['code']==$code){
+                $info = $v;
+            }
+        }
+        $string = '';
+        if($info){
+            if ($info['symbol_left']) {
+                $string .= $info['symbol_left'];
+            }
+            $string .= $price;
+            if ($info['symbol_right']) {
+                $string .= $info['symbol_right'];
+            }
+        }
+        return $string;
+    }
 }
