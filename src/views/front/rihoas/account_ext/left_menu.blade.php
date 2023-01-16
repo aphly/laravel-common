@@ -30,10 +30,11 @@
 </div>
 <style>
     .sidebar-menu{width:280px;overflow:hidden;background: #fff;border-radius: 4px;padding: 20px}
-    .sidebar-menu .sidebar-menu-title{padding-top:15px;padding-bottom:7px;margin:0 auto 20px;font-size:18px;font-weight:500}
+    .sidebar-menu .sidebar-menu-title{padding-top:5px;padding-bottom:7px;margin:0 auto 10px;font-size:18px;font-weight:500}
     .sidebar-menu ul li{list-style:inside;color:#d8d8d8;padding-bottom:5px}
     .sidebar-menu ul li a{font-size:15px;color:#333}
     .sidebar-menu ul li a.active{color: #0da9c4;}
+    .sidebar-menu-content{margin-bottom: 15px;}
 
     .account-main-section{width: calc(100% - 300px);margin-left: 20px;background: #fff;border-radius: 4px;padding: 20px}
     .account_info{margin-top: 20px;display: flex;justify-content: space-between;}

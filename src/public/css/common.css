@@ -7,11 +7,11 @@
 a{color: var(--a);}
 ._shadow {box-shadow: 0 0 #0000,0 0 #0000,0 2px 8px 0 rgba(0, 0, 0, .16);}
 .text-brand,.buleBtn{font-weight: 600;--tw-gradient-from:#1c9dfe;--tw-gradient-to:#023ff4;
-    --tw-gradient-stops:var(--tw-gradient-from),var(--tw-gradient-to,rgb(28 157 254/0));
+    --tw-gradient-stops:var(--tw-gradient-from),var(--tw-gradient-to,rgba(28,157,254,0));
     background-image:linear-gradient(to right,var(--tw-gradient-stops));border:none;color:#fff;margin-top: 15px;}
 .buleBtn{padding: 5px 25px;border-radius: 20px;cursor: pointer; }
 .buleBtn.dis{color: rgb(136, 136, 136);background: rgb(215, 215, 215);}
-.modal{z-index: 1250;background:rgba(0, 0, 0, 0.5);}
+.modal{z-index: 2250;background:rgba(239, 239, 239, 0.5);}
 .modal .modal-dialog{margin-top: 20%;}
 .modal .checkout4{display: flex;flex-direction: row-reverse;}
 .modal .method2 li{border: 1px solid #f1f1f1;border-radius: 4px;padding: 10px 16px;margin-top: 10px;height: 44px;display: flex;font-weight:600; }
@@ -25,11 +25,12 @@ a{color: var(--a);}
 .modal .total{font-size: 20px;}
 .modal .checkout2{margin-bottom: 10px;}
 .modal .checkout3{font-size: 12px;}
+.form-control:focus{box-shadow:none;}
 
 .currency_box{position: fixed;left: 30px;bottom: 30px;z-index: 1000;font-size:15px;}
 .currency_box .currency_curr{position:relative;background-color:#fff;margin:0 auto;padding:10px;border-radius:5px;box-shadow:4px 4px 9px #e8e8e2,-4px -4px 9px #e8e8e2;
     display:flex;align-items:center;cursor:pointer;transition:all .5s ease-in;width:100%;height:40px}
-.currency_box .baDropdown{position:absolute;bottom: 50px;margin:0;background-color: #fff; box-shadow: 0 0 16px -5px rgb(0 0 0 / 15%);width:200px;border-radius: 7px;padding:0 10px;
+.currency_box .baDropdown{position:absolute;bottom: 50px;margin:0;background-color: #fff; box-shadow: 0 0 16px -5px rgba(0,0,0,0.15);width:200px;border-radius: 7px;padding:0 10px;
     overflow-x: hidden;overflow-y: auto;height: 218px;display:none;}
 .currency_box .baDropdown li{display:flex;margin: 10px 0;border-bottom: 1px solid #f9f9f9;padding: 5px;cursor: pointer;}
 .currency_box .baDropdown li:hover{background: #f9f9f9;border-radius: 7px;}
