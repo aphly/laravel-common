@@ -14,7 +14,7 @@ class CurrencyController extends Controller
     {
         $res['info'] = Currency::where('id',$request->id)->firstOrError();
         if($res['info']->status==1){
-            Cookie::queue('currency',$res['info']->id);
+            Cookie::queue('currency_id',$res['info']->id);
             throw new ApiException(['code'=>0,'msg'=>'success']);
         }
     }

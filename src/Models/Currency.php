@@ -3,7 +3,6 @@
 namespace Aphly\LaravelCommon\Models;
 
 use Aphly\Laravel\Models\Model;
-use Aphly\LaravelAdmin\Models\Config;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Cookie;
@@ -29,42 +28,35 @@ class Currency extends Model
         });
     }
 
-    static function defaultCurr($return_curr=false){
-        $currency_all = self::findAll();
-        $default = '';
-        foreach($currency_all as $val){
-            if($val['default']==1){
-                $default = $val;
+    static public $allDefaultCurr = [];
+
+    static function allDefaultCurr(){
+        if(!self::$allDefaultCurr){
+            $currency_all = self::findAll();
+            $default = [];
+            foreach($currency_all as $val){
+                if($val['default']==1){
+                    $default = $val;
+                }
+            }
+            $currency_id = Cookie::get('currency_id');
+            if($currency_id) {
+                self::$allDefaultCurr = [$currency_all,$default,$currency_all[$currency_id]];
+            }else{
+                self::$allDefaultCurr = [$currency_all,$default,$default];
             }
         }
-        $currency = Cookie::get('currency');
-        if($currency) {
-            if($return_curr){
-                return $currency_all[$currency]??[];
-            }
-            return [$currency_all,$default,$currency_all[$currency]];
-        }else{
-            if($return_curr){
-                return $default;
-            }
-            return [$currency_all,$default,$default];
-        }
+        return self::$allDefaultCurr;
     }
 
     static function format($price,$type = 0){
         $price = floatval($price);
-        list($currency_all,$default,$info) = self::defaultCurr();
+        list($currency_all,$default,$info) = self::allDefaultCurr();
         if($currency_all && $default && $info){
             if($info['value']>0 && $default['value']>0){
                 $price = $price*$info['value']/$default['value'];
             }
-            $decimal_place = (int)$info['decimal_place'];
-            if($decimal_place){
-                $pow = pow(10,$decimal_place);
-            }else{
-                $pow = 100;
-            }
-            $price = ceil($price*$pow)/$pow;
+            $price = self::numberFormat($price,$info);
             if($type==1){
                 return $price;
             }else{
@@ -78,21 +70,12 @@ class Currency extends Model
         return $price;
     }
 
-    static function _format($price,$info=false){
+    static function numberFormat($price,$info=false){
         if(!$info){
-            $info = self::defaultCurr(true);
+            list(,,$info) = self::allDefaultCurr();
         }
-        $string = '';
-        if($info){
-            if ($info['symbol_left']) {
-                $string .= $info['symbol_left'];
-            }
-            $string .= $price;
-            if ($info['symbol_right']) {
-                $string .= $info['symbol_right'];
-            }
-        }
-        return $string;
+        $decimal_place = (int)$info['decimal_place'];
+        return floatval(number_format($price,$decimal_place));
     }
 
     static function codeFormat($price,$code){
@@ -102,6 +85,15 @@ class Currency extends Model
             if($v['code']==$code){
                 $info = $v;
             }
+        }
+        $price = self::numberFormat($price,$info);
+        $string = self::_format($price,$info);
+        return [$price,$string];
+    }
+
+    static function _format($price,$info=false){
+        if(!$info){
+            list(,,$info) = self::allDefaultCurr();
         }
         $string = '';
         if($info){
