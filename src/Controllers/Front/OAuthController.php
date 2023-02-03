@@ -73,18 +73,19 @@ class OAuthController extends Controller
             $arr['id_type'] = $driver;
             $note = $driver.' - '.$oauthUser->email;
         }
+        $request = request();
         $userAuthModel = UserAuth::where($arr);
         $userAuth = $userAuthModel->first();
         if(!empty($userAuth)){
-            $userAuthModel->update(['password'=>$oauthUser->token,'last_login'=>time(),'last_ip'=>request()->ip()]);
+            $userAuthModel->update(['password'=>$oauthUser->token,'last_time'=>time(),'last_ip'=>$request->ip()]);
             $user = User::find($userAuth->uuid);
             $user->generateToken();
             $user->afterLogin();
         }else{
             $arr['uuid'] = Helper::uuid();
             $arr['password'] = $oauthUser->token;
-            $arr['last_login'] = time();
-            $arr['last_ip'] = request()->ip();
+            $arr['last_time'] = time();
+            $arr['last_ip'] = $request->ip();
             $arr['note'] = $note;
             $userAuth = UserAuth::create($arr);
             if($userAuth->uuid){
@@ -99,6 +100,6 @@ class OAuthController extends Controller
             }
         }
         Auth::guard('user')->login($user);
-        return redirect($user->returnUrl());
+        return redirect(url(''));
     }
 }

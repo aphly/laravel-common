@@ -108,7 +108,7 @@ class CategoryController extends Controller
                 CategoryPath::whereIn('category_id',$post)->delete();
                 throw new ApiException(['code'=>0,'msg'=>'操作成功','data'=>['redirect'=>$redirect]]);
             }else{
-                throw new ApiException(['code'=>1,'msg'=>'请先删除子分类','data'=>['redirect'=>$redirect]]);
+                throw new ApiException(['code'=>1,'msg'=>'请先删除子分类']);
             }
         }
     }

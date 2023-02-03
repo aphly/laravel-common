@@ -74,10 +74,10 @@ class AccountController extends Controller
                 Auth::guard('user')->login($user);
                 return redirect('/');
             }else{
-                throw new ApiException(['code'=>2,'msg'=>'No user','data'=>['redirect'=>'/']]);
+                throw new ApiException(['code'=>2,'msg'=>'No user']);
             }
         } catch (DecryptException $e) {
-            throw new ApiException(['code'=>1,'msg'=>'Token_error','data'=>['redirect'=>'/']]);
+            throw new ApiException(['code'=>1,'msg'=>'Token_error']);
         }
     }
 
@@ -97,18 +97,14 @@ class AccountController extends Controller
                         }
                     }
                     if(Hash::check($request->input('password',''),$userAuth->password)){
-                        $user = User::find($userAuth->uuid);
-                        if($user->status==1){
-                            $userAuthModel->update(['last_time'=>time(),'last_ip'=>$request->ip(),'user_agent' => $request->header('user-agent'),'accept_language' => $request->header('accept-language')]);
-                            $user->generateToken();
-                            Auth::guard('user')->login($user);
-                            $user->afterLogin();
-                            $user->id_type = $userAuth->id_type;
-                            $user->id = $userAuth->id;
-                            throw new ApiException(['code'=>0,'msg'=>'login success','data'=>['redirect'=>$user->redirect(),'user'=>$user]]);
-                        }else{
-                            throw new ApiException(['code'=>3,'msg'=>'Account blocked','data'=>['redirect'=>route('blocked')]]);
-                        }
+                        $user = User::where(['uuid'=>$userAuth->uuid])->firstOrError();
+                        $userAuthModel->update(['last_time'=>time(),'last_ip'=>$request->ip(),'user_agent' => $request->header('user-agent'),'accept_language' => $request->header('accept-language')]);
+                        $user->generateToken();
+                        Auth::guard('user')->login($user);
+                        $user->afterLogin();
+                        $user->id_type = $userAuth->id_type;
+                        $user->id = $userAuth->id;
+                        throw new ApiException(['code'=>0,'msg'=>'login success','data'=>['redirect'=>$user->redirect(),'user'=>$user]]);
                     }else{
                         $this->limiterIncrement($key,15*60);
                         if($this->limiter($key)==1){
@@ -323,9 +319,9 @@ class AccountController extends Controller
                         $payment->pay(false);
                     }
                 }
-                throw new ApiException(['code'=>2,'msg'=>'Group fail','data'=>['redirect'=>'/']]);
+                throw new ApiException(['code'=>2,'msg'=>'Group fail']);
             }else{
-                throw new ApiException(['code'=>1,'msg'=>'Group error','data'=>['redirect'=>'/']]);
+                throw new ApiException(['code'=>1,'msg'=>'Group error']);
             }
         }else{
             $res['title'] = 'Account Group';
@@ -360,9 +356,9 @@ class AccountController extends Controller
                         $payment->pay(false);
                     }
                 }
-                throw new ApiException(['code'=>2,'msg'=>'Group fail','data'=>['redirect'=>'/']]);
+                throw new ApiException(['code'=>2,'msg'=>'Group fail']);
             }else{
-                throw new ApiException(['code'=>1,'msg'=>'Group error','data'=>['redirect'=>'/']]);
+                throw new ApiException(['code'=>1,'msg'=>'Group error']);
             }
         }else{
             $res['title'] = 'Account credit';

@@ -31,7 +31,7 @@ class AddressController extends Controller
         if($request->isMethod('post')){
             $count = UserAddress::where(['uuid'=>User::uuid()])->count();
             if($count>=5){
-                throw new ApiException(['code'=>1,'msg'=>'limit 5','data'=>['redirect'=>'/account_ext/address']]);
+                throw new ApiException(['code'=>0,'msg'=>'limit 5','data'=>['redirect'=>'/account_ext/address']]);
             }
             $input = $request->all();
             if(!$address_id){

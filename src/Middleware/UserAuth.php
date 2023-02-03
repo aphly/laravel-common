@@ -14,35 +14,32 @@ class UserAuth
         $auth = Auth::guard('user');
         if($request->url()==route('login') || $request->url()==route('register')){
             if ($auth->check()) {
-                return $this->_redirect($request,url(''));
+                $this->userStatus($auth);
+                throw new ApiException(['code'=>0,'msg'=>'redirect','data'=>['redirect'=>url('')]]);
             }else{
                 return $next($request);
             }
         }else{
             if ($auth->check()) {
-                if($auth->user()->status==2) {
-                    return $this->_redirect($request, route('blocked'));
-                }else if(config('common.email_verify') && !($auth->user()->verified)){
-                    return $this->_redirect($request, route('emailVerify'));
-                }else{
-                    return $next($request);
-                }
+                $this->userStatus($auth);
+                return $next($request);
             }else{
                 $redirect = $request->query('redirect',false);
                 if($redirect){
-                    return $this->_redirect($request,route('login',['redirect'=>$redirect]));
+                    throw new ApiException(['code'=>0,'msg'=>'redirect','data'=>['redirect'=>route('login',['redirect'=>$redirect])]]);
                 }
-                return $this->_redirect($request,route('login'));
+                throw new ApiException(['code'=>0,'msg'=>'redirect','data'=>['redirect'=>route('login')]]);
             }
         }
     }
 
-    public function _redirect($request,$url){
-        if($request->ajax()){
-            throw new ApiException(['code'=>1,'msg'=>'redirect','data'=>['redirect'=>$url]]);
-        }else{
-            return redirect($url);
+    public function userStatus($auth){
+        if($auth->user()->status==2) {
+            throw new ApiException(['code'=>0,'msg'=>'redirect','data'=>['redirect'=>route('blocked')]]);
+        }else if(config('common.email_verify') && !($auth->user()->verified)){
+            throw new ApiException(['code'=>0,'msg'=>'redirect','data'=>['redirect'=>route('emailVerify')]]);
         }
     }
+
 
 }

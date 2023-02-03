@@ -20,6 +20,7 @@ return new class extends Migration
             $table->unsignedBigInteger('uuid')->index();
             $table->string('last_ip',64)->nullable();
             $table->unsignedBigInteger('last_time')->nullable();
+            $table->string('note',255)->nullable();
             $table->string('user_agent',255)->nullable();
             $table->string('accept_language',255)->nullable();
             $table->primary(['id_type','id']);

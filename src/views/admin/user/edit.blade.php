@@ -63,7 +63,7 @@
                         @if($v->identity_type=='email')
                             <span class="badge badge-warning">邮件是否已校验</span> <input name="verified" type="checkbox" value="1" @if($v->verified) checked @endif >
                         @endif
-                        <span class="badge badge-warning">最后登录时间</span> {{$v->last_login?date('Y-m-d H:i:s',$v->last_login):'-'}}
+                        <span class="badge badge-warning">最后登录时间</span> {{$v->last_time?date('Y-m-d H:i:s',$v->last_login):'-'}}
                         <span class="badge badge-warning">最后登录ip</span> {{$v->last_ip}}
                     </li>
                 @endforeach
