@@ -30,6 +30,9 @@ Route::middleware(['web'])->group(function () {
     //Subscribe
     Route::post('subscribe/ajax', 'Aphly\LaravelCommon\Controllers\Front\AccountExt\SubscribeController@ajax');
 
+    //404
+    Route::get('404', 'Aphly\LaravelCommon\Controllers\Front\NotfoundController@index');
+
     Route::prefix('account')->group(function () {
         Route::match(['get'],'autologin/{token}', 'Aphly\LaravelCommon\Controllers\Front\AccountController@autoLogin');
 
