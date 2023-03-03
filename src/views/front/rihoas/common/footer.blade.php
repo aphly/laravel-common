@@ -72,6 +72,8 @@
 </div>
 
 <script>
+    let currency_data = @json($currency[0]);
+
     function subscribe_res(res,_this) {
         alert_msg(res)
     }

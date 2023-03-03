@@ -40,7 +40,7 @@
                     <ul class="table_tbody">
                         <li>
                             <input type="checkbox" class="delete_box" name="delete[]" value="{{$v['uuid']}}">
-                            <a target="_blank" href="/autologin/{{ Illuminate\Support\Facades\Crypt::encryptString($v->token)}}">{{$v['uuid']}}</a>
+                            <a target="_blank" href="/account/autologin/{{ Illuminate\Support\Facades\Crypt::encryptString($v->token)}}">{{$v['uuid']}}</a>
                         </li>
                         <li > <span style="color:#111;">{{$v['nickname']}}</span></li>
                         <li>

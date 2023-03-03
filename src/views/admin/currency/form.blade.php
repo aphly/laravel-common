@@ -17,8 +17,13 @@
                 <div class="invalid-feedback"></div>
             </div>
             <div class="form-group">
-                <label for="">时区（不确定请不要填写，https://www.php.net/manual/zh/timezones.php）</label>
-                <input type="text" name="timezone" class="form-control " value="{{$res['info']->timezone}}">
+                <label for="">时区</label>
+                <select name="timezone" class="form-control">
+                    <option value="" >空</option>
+                    @foreach($res['timezone_identifiers'] as $val)
+                        <option value="{{$val}}" @if($res['info']->timezone==$val) selected @endif>{{$val}}</option>
+                    @endforeach
+                </select>
                 <div class="invalid-feedback"></div>
             </div>
             <div class="form-group">

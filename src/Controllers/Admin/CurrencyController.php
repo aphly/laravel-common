@@ -4,6 +4,7 @@ namespace Aphly\LaravelCommon\Controllers\Admin;
 
 use Aphly\Laravel\Exceptions\ApiException;
 use Aphly\LaravelCommon\Models\Currency;
+use DateTimeZone;
 use Illuminate\Http\Request;
 
 class CurrencyController extends Controller
@@ -26,6 +27,7 @@ class CurrencyController extends Controller
     public function form(Request $request)
     {
         $res['info'] = Currency::where('id',$request->query('id',0))->firstOrNew();
+        $res['timezone_identifiers'] = DateTimeZone::listIdentifiers();
         return $this->makeView('laravel-common::admin.currency.form',['res'=>$res]);
     }
 

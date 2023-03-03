@@ -1,27 +1,26 @@
 $(function () {
     $("body").on('submit','.form_request',function (){
-        let form_class = '.form_request';
-        const _this = $(this)
-        const fn = _this.data('fn')
-        if(_this[0].checkValidity()===false){
+        const that = $(this)
+        const fn = that.data('fn')
+        if(that[0].checkValidity()===false){
         }else{
-            let url = _this.attr("action");
-            let type = _this.attr("method");
+            let url = that.attr("action");
+            let type = that.attr("method");
             if(url && type && fn){
-                $(form_class+' input.form-control').removeClass('is-valid').removeClass('is-invalid');
-                let btn_html = $(form_class+' button[type="submit"]').html();
+                that.find('input.form-control').removeClass('is-valid').removeClass('is-invalid');
+                let btn_html = that.find('button[type="submit"]').html();
                 $.ajax({
                     type,url,
-                    data: _this.serialize(),
+                    data: that.serialize(),
                     dataType: "json",
                     beforeSend:function () {
-                        $(form_class+' button[type="submit"]').attr('disabled',true).html('<i class="btn_loading app-jiazai uni"></i>');
+                        that.find('button[type="submit"]').attr('disabled',true).html('<i class="btn_loading app-jiazai uni"></i>');
                     },
                     success: function(res){
-                        window[fn](res,_this);
+                        window[fn](res,that);
                     },
                     complete:function(XMLHttpRequest,textStatus){
-                        $(form_class+' button[type="submit"]').removeAttr('disabled').html(btn_html);
+                        that.find('button[type="submit"]').removeAttr('disabled').html(btn_html);
                     }
                 })
             }else{
@@ -32,22 +31,21 @@ $(function () {
     })
 
     $("body").on('submit','.form_request_file',function (){
-        const _this = $(this)
-        let form_class = '.form_request_file';
-        let formData = new FormData(_this[0]);
+        const that = $(this)
+        let formData = new FormData(that[0]);
         // form.find('input[type="file"]').each(function () {
         //     for (let i = 0; i < $(this)[0].files.length; i++) {
         //         formData.append($(this).attr('name'), $(this)[0].files[i]);
         //     }
         // })
-        let url = _this.attr("action");
-        let type = _this.attr("method");
-        const fn = _this.data('fn')
-        if(_this[0].checkValidity()===false){
+        let url = that.attr("action");
+        let type = that.attr("method");
+        const fn = that.data('fn')
+        if(that[0].checkValidity()===false){
         }else {
             if (url && type) {
-                $(form_class + ' input.form-control').removeClass('is-valid').removeClass('is-invalid');
-                let btn_html = $(form_class + ' button[type="submit"]').html();
+                that.find('input.form-control').removeClass('is-valid').removeClass('is-invalid');
+                let btn_html = that.find('button[type="submit"]').html();
                 $.ajax({
                     type, url,
                     data: formData,
@@ -55,13 +53,13 @@ $(function () {
                     processData: false,
                     dataType: "json",
                     beforeSend: function () {
-                        $(form_class + ' button[type="submit"]').attr('disabled', true).html('<i class="btn_loading app-jiazai uni"></i>');
+                        that.find('button[type="submit"]').attr('disabled', true).html('<i class="btn_loading app-jiazai uni"></i>');
                     },
                     success: function (res) {
-                        window[fn](res, _this);
+                        window[fn](res, that);
                     },
                     complete: function (XMLHttpRequest, textStatus) {
-                        $(form_class + ' button[type="submit"]').removeAttr('disabled').html(btn_html);
+                        that.find('button[type="submit"]').removeAttr('disabled').html(btn_html);
                     }
                 })
             } else {
@@ -73,19 +71,19 @@ $(function () {
 
     $('body').on('click','.a_request',function (e) {
         e.preventDefault();
-        let _this = $(this)
-        let _token = _this.data('_token')
-        let fn = _this.data('fn')
-        let url = _this.attr('href')
+        let that = $(this)
+        let _token = that.data('_token')
+        let fn = that.data('fn')
+        let url = that.attr('href')
         debounce_fn(function () {
             if(_token){
                 $.ajax({
                     url,
                     type:'post',
-                    data:_this.data(),
+                    data:that.data(),
                     dataType: "json",
                     success:function (res) {
-                        window[fn](res, _this);
+                        window[fn](res, that);
                     }
                 })
             }
@@ -119,7 +117,7 @@ function isDel() {
 }
 
 let currency = {
-    format(val,symbol_left='',symbol_right=''){
+    _format(val,symbol_left='',symbol_right=''){
         let str='';
         if(symbol_left){
             str += symbol_left;
@@ -129,5 +127,13 @@ let currency = {
             str += symbol_right;
         }
         return str;
+    },
+    format(val,code=''){
+        for(let i in currency_data){
+            if(currency_data[i].code==code){
+                return this._format(val,currency_data[i].symbol_left,currency_data[i].symbol_right)
+            }
+        }
+        return val;
     }
 }
