@@ -155,7 +155,7 @@ class AccountController extends Controller
                     $user->id_type = $userAuth->id_type;
                     $user->id = $userAuth->id;
                     if ($userAuth->id_type == 'email' && config('common.email_verify')) {
-                        (new MailSend())->do($userAuth->id, new Verify($userAuth));
+                        (new MailSend())->do($userAuth->id, new Verify($userAuth),'email_vip');
                     }
                     $this->limiterIncrement($key,15*60);
                     throw new ApiException(['code' => 0, 'msg' => 'Register success', 'data' => ['redirect' => $user->redirect(), 'user' => $user]]);
@@ -193,7 +193,7 @@ class AccountController extends Controller
             if($this->limiter($key,1)) {
                 $userauth = UserAuth::where(['id_type' => 'email', 'uuid' => $user->uuid])->first();
                 if (!empty($userauth)) {
-                    (new MailSend())->do($userauth->id, new Verify($userauth));
+                    (new MailSend())->do($userauth->id, new Verify($userauth),'email_vip');
                     $this->limiterIncrement($key,2*60);
                     throw new ApiException(['code' => 0, 'msg' => 'Email has been sent', 'data' => ['redirect' => '/']]);
                 }else{
@@ -242,7 +242,7 @@ class AccountController extends Controller
             }
             $userauth = UserAuth::where(['id_type'=>'email','id'=>$request->input('id')])->first();
             if(!empty($userauth)){
-                (new MailSend())->do($userauth->id,new Forget($userauth));
+                (new MailSend())->do($userauth->id,new Forget($userauth),'email_vip');
                 throw new ApiException(['code'=>0,'msg'=>'Email has been sent','data'=>['redirect'=>'/account/forget/confirmation']]);
             }else{
                 throw new ApiException(['code'=>11000,'msg'=>'Email not exist','data'=>['id'=>['email not exist']]]);
