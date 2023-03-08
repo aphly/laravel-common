@@ -3,12 +3,12 @@
 namespace Aphly\LaravelCommon\Controllers\Front;
 
 use Aphly\LaravelAdmin\Models\Config;
+use Aphly\LaravelAdmin\Models\Dict;
 use Aphly\LaravelCommon\Models\Currency;
 use Aphly\LaravelCommon\Models\Links;
 use Aphly\LaravelCommon\Models\UserCheckin;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\View;
-
 
 class Controller extends \Aphly\Laravel\Controllers\Controller
 {
@@ -37,6 +37,7 @@ class Controller extends \Aphly\Laravel\Controllers\Controller
                 date_default_timezone_set($currency[2]['timezone']);
             }
             View::share("currency",$currency);
+            View::share("dict",(new Dict)->getByKey());
             $this->afterController();
             return $next($request);
         });
