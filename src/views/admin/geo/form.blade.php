@@ -73,7 +73,7 @@
 </style>
 <script>
     function geo_addDiv() {
-        let id = randomId(8);
+        let id = randomStr(8);
         let html = `<li class="d-flex" data-id="${id}">
                         <div class="geo1">
                             <select name="value[${id}][country_id]" onchange="changeCountry(this)" class="form-control ">

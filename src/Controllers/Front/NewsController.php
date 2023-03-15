@@ -3,7 +3,7 @@
 namespace Aphly\LaravelCommon\Controllers\Front;
 
 use Aphly\Laravel\Exceptions\ApiException;
-use Aphly\Laravel\Libs\UploadFile;
+use Aphly\LaravelAdmin\Models\UploadFile;
 use Aphly\LaravelCommon\Models\News;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
