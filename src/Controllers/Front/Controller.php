@@ -2,8 +2,8 @@
 
 namespace Aphly\LaravelCommon\Controllers\Front;
 
-use Aphly\LaravelAdmin\Models\Config;
-use Aphly\LaravelAdmin\Models\Dict;
+use Aphly\Laravel\Models\Config;
+use Aphly\Laravel\Models\Dict;
 use Aphly\LaravelCommon\Models\Currency;
 use Aphly\LaravelCommon\Models\Links;
 use Aphly\LaravelCommon\Models\UserCheckin;
@@ -41,7 +41,6 @@ class Controller extends \Aphly\Laravel\Controllers\Controller
             $this->afterController();
             return $next($request);
         });
-        parent::__construct();
     }
 
     public function afterController()

@@ -5,7 +5,7 @@ namespace Aphly\LaravelCommon\Controllers\Front;
 use Aphly\Laravel\Exceptions\ApiException;
 use Aphly\Laravel\Libs\Helper;
 use Aphly\Laravel\Libs\Seccode;
-use Aphly\LaravelAdmin\Models\UploadFile;
+use Aphly\Laravel\Models\UploadFile;
 use Aphly\Laravel\Mail\MailSend;
 
 use Aphly\LaravelCommon\Models\UserCheckin;

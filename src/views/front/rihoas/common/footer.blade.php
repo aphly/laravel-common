@@ -97,7 +97,7 @@
     })
 </script>
 @endif
-<script src="{{ URL::asset('static/admin/js/bootstrap.bundle.min.js') }}"></script>
+<script src="{{ URL::asset('static/base/js/bootstrap.bundle.min.js') }}"></script>
 <script>
     var aphly_viewerjs = document.querySelectorAll('.aphly_viewer_js');
     if(aphly_viewerjs){

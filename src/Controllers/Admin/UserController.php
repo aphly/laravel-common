@@ -3,7 +3,7 @@
 namespace Aphly\LaravelCommon\Controllers\Admin;
 
 use Aphly\Laravel\Exceptions\ApiException;
-use Aphly\LaravelAdmin\Models\UploadFile;
+use Aphly\Laravel\Models\UploadFile;
 use Aphly\LaravelCommon\Models\User;
 use Aphly\LaravelCommon\Models\UserAuth;
 use Aphly\LaravelCommon\Models\Group;

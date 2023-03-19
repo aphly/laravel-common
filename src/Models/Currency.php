@@ -75,7 +75,7 @@ class Currency extends Model
             list(,,$info) = self::allDefaultCurr();
         }
         $decimal_place = (int)$info['decimal_place'];
-        return floatval(number_format($price,$decimal_place));
+        return round($price,$decimal_place);
     }
 
     static function codeFormat($price,$code){
