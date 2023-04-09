@@ -32,7 +32,7 @@ class CommonServiceProvider extends ServiceProvider
             __DIR__.'/config/common_init.sql' => storage_path('app/private/common_init.sql'),
             __DIR__.'/public' => public_path('static/common')
         ]);
-        $this->loadMigrationsFrom(__DIR__.'/migrations');
+        //$this->loadMigrationsFrom(__DIR__.'/migrations');
         $this->loadViewsFrom(__DIR__.'/views', 'laravel-common');
         $this->loadViewsFrom(__DIR__.'/views/front/'.config('common.template'), 'laravel-common-front');
         $this->loadRoutesFrom(__DIR__.'/routes/web.php');
