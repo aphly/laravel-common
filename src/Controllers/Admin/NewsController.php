@@ -15,9 +15,9 @@ class NewsController extends Controller
 
     public function index(Request $request)
     {
-        $res['search']['title'] = $title = $request->query('title', false);
+        $res['search']['title'] = $request->query('title', false);
         $res['search']['string'] = http_build_query($request->query());
-        $res['list'] = News::when($title,
+        $res['list'] = News::when($res['search']['title'],
                             function ($query, $title) {
                                 return $query->where('title', 'like', '%' . $title . '%');
                             })

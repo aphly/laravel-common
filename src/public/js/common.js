@@ -91,20 +91,13 @@ $(function () {
         },400)
     })
 
-    $('.form_input_file').on("change" , function(){
+    $('.input_file_img').on("change" , function(){
         let files = this.files;
-        let length = files.length;
-        let next_class = $(this).data('next_class')
-        $('.'+next_class).html('')
-        for( let i = 0 ; i < length ; i++ ){
-            let fr = new FileReader(),
-                img = document.createElement("img");
-            fr.onload = function(e){
-                img.src = this.result;
-                $('.'+next_class).append(img)
-            }
-            fr.readAsDataURL(files[i]);
-        }
+        let img_list = $(this).data('img_list')
+        $('.'+img_list).html('')
+        img_js_obj.handle(files,function (img) {
+            $('.'+img_list).append(img)
+        });
     })
 
     $("body").on('submit','.form_request_img_file',function (){
@@ -112,7 +105,7 @@ $(function () {
         const that = $(this)
         let formData = new FormData(that[0]);
         for(let i in imgFileList){
-            formData.append('files[image][]', imgFileList[i]);
+            formData.append('files[]', imgFileList[i]);
         }
         let url = that.attr("action");
         let type = that.attr("method");

@@ -10,7 +10,7 @@
                         Address
                     </h2>
                 </div>
-                <div class="form-info">
+                <div class="form-group">
                     <form method="post" action="/account_ext/address/save?address_id={{request()->query('address_id')??0}}" class="form_request" data-fn="saveAddress">
                         @csrf
                         <input type="hidden" name="address_id" value="{{request()->query('address_id')??0}}">

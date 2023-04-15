@@ -41,9 +41,9 @@ class AccountController extends Controller
                 throw new ApiException(['code'=>1,'msg'=>'nickname already exists']);
             }else{
                 $image = false;
-                $file = $request->file('image');
-                if($file){
-                    $image = (new UploadFile)->upload($file,'public/account');
+
+                if($request->hasFile('image')){
+                    $image = (new UploadFile)->upload($request->file('image'),'public/account');
                     if ($image) {
                         $oldImage = $this->user->avatar;
                         $this->user->avatar = $image;

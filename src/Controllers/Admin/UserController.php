@@ -19,15 +19,15 @@ class UserController extends Controller
     public function index(Request $request)
     {
         $res['title'] = '';
-        $res['search']['uuid'] = $uuid = $request->query('uuid',false);
+        $res['search']['uuid'] = $request->query('uuid',false);
         $res['search']['id'] = $id = urldecode($request->query('id',''));
-        $res['search']['status'] = $status = $request->query('status',false);
+        $res['search']['status'] = $request->query('status',false);
         $res['search']['string'] = http_build_query($request->query());
-        $res['list'] = User::when($status,
+        $res['list'] = User::when($res['search']['status'],
                                 function($query,$status) {
                                     return $query->where('status', '=', $status);
                                 })
-                            ->when($uuid,
+                            ->when($res['search']['uuid'],
                             function($query,$uuid) {
                                 return $query->where('uuid', '=', $uuid);
                             })

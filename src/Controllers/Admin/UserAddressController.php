@@ -14,9 +14,9 @@ class UserAddressController extends Controller
 
     public function index(Request $request)
     {
-        $res['search']['uuid'] = $uuid = $request->query('uuid',false);
+        $res['search']['uuid'] = $request->query('uuid',false);
         $res['search']['string'] = http_build_query($request->query());
-        $res['list'] = UserAddress::when($uuid,
+        $res['list'] = UserAddress::when($res['search']['uuid'],
             function($query,$uuid) {
                 return $query->where('uuid', $uuid);
             })

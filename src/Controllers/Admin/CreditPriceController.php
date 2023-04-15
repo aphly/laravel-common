@@ -13,9 +13,9 @@ class CreditPriceController extends Controller
 
     public function index(Request $request)
     {
-        $res['search']['credit_key'] = $credit_key = $request->query('credit_key',false);
+        $res['search']['credit_key'] = $request->query('credit_key',false);
         $res['search']['string'] = http_build_query($request->query());
-        $res['list'] = CreditPrice::when($credit_key,
+        $res['list'] = CreditPrice::when($res['search']['credit_key'],
                 function($query,$credit_key) {
                     return $query->where('credit_key',$credit_key);
                 })
