@@ -14,7 +14,7 @@ class Links extends Model
     public $timestamps = false;
 
     protected $fillable = [
-        'name','icon','pid','sort','status','url','is_leaf'
+        'name','icon','pid','sort','status','url','type'
     ];
 
     public function menu(): array

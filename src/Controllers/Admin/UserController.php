@@ -3,6 +3,7 @@
 namespace Aphly\LaravelCommon\Controllers\Admin;
 
 use Aphly\Laravel\Exceptions\ApiException;
+use Aphly\Laravel\Models\Breadcrumb;
 use Aphly\Laravel\Models\UploadFile;
 use Aphly\LaravelCommon\Models\User;
 use Aphly\LaravelCommon\Models\UserAuth;
@@ -15,6 +16,8 @@ use Illuminate\Support\Facades\Storage;
 class UserController extends Controller
 {
     public $index_url='/common_admin/user/index';
+
+    private $currArr = ['name'=>'用户','key'=>'user'];
 
     public function index(Request $request)
     {
@@ -38,6 +41,9 @@ class UserController extends Controller
                                         ->where('id_type', config('common.id_type'));
                                 }
                             })->orderBy('uuid', 'desc')->with('userAuth')->Paginate(config('admin.perPage'))->withQueryString();
+        $res['breadcrumb'] = Breadcrumb::render([
+            ['name'=>$this->currArr['name'].'管理','href'=>$this->index_url]
+        ]);
         return $this->makeView('laravel-common::admin.user.index',['res'=>$res]);
     }
 
@@ -52,8 +58,11 @@ class UserController extends Controller
             }
             throw new ApiException(['code'=>1,'msg'=>'修改失败']);
         }else{
-            $res['title'] = '';
-            $res['info'] = User::where('uuid',$request->uuid)->first();
+            $res['info'] = User::where('uuid',$request->uuid)->firstOrError();
+            $res['breadcrumb'] = Breadcrumb::render([
+                ['name'=>$this->currArr['name'].'管理','href'=>$this->index_url],
+                ['name'=>'编辑','href'=>'/common_admin/'.$this->currArr['key'].'/'.$res['info']->uuid.'/edit']
+            ]);
             $res['group'] = Group::get();
             return $this->makeView('laravel-common::admin.user.edit',['res'=>$res]);
         }
@@ -69,8 +78,11 @@ class UserController extends Controller
             }
             throw new ApiException(['code'=>1,'msg'=>'修改失败']);
         }else{
-            $res['title'] = '';
-            $res['info'] = User::where('uuid',$request->uuid)->first();
+            $res['info'] = User::where('uuid',$request->uuid)->firstOrError();
+            $res['breadcrumb'] = Breadcrumb::render([
+                ['name'=>$this->currArr['name'].'管理','href'=>$this->index_url],
+                ['name'=>'密码','href'=>'/common_admin/'.$this->currArr['key'].'/'.$res['info']->uuid.'/password']
+            ]);
             return $this->makeView('laravel-common::admin.user.password',['res'=>$res]);
         }
     }
@@ -92,34 +104,37 @@ class UserController extends Controller
             UserCredit::updateOrCreate(['uuid'=>$request->uuid],$request->all());
             throw new ApiException(['code'=>0,'msg'=>'操作成功','data'=>['redirect'=>$this->index_url]]);
         }else{
-            $res['title'] = '';
-            $res['info'] = UserCredit::where('uuid',$request->uuid)->first();
+            $res['info'] = UserCredit::where('uuid',$request->uuid)->firstOrError();
+            $res['breadcrumb'] = Breadcrumb::render([
+                ['name'=>$this->currArr['name'].'管理','href'=>$this->index_url],
+                ['name'=>'积分','href'=>'/common_admin/'.$this->currArr['key'].'/'.$res['info']->uuid.'/credit']
+            ]);
             return $this->makeView('laravel-common::admin.user.credit',['res'=>$res]);
         }
     }
 
     public function avatar(Request $request)
     {
+        $res['info'] = User::where('uuid',$request->uuid)->firstOrError();
         if($request->isMethod('post')) {
-            //$cache = Setting::getCache();
-            //$host = $cache['oss_status'] ? $cache['siteurl'] : $cache['oss_host'];
-            $file = $request->file('avatar');
-            $avatar = (new UploadFile)->upload($file,'public/avatar');
-            if ($avatar) {
-                $user = User::find($request->uuid);
-                $oldAvatar = $user->avatar;
-                $user->avatar = $avatar;
-                if ($user->save()) {
-                    $user->delAvatar($oldAvatar);
+            if($request->hasFile('avatar')){
+                $avatar = (new UploadFile)->upload($request->file('avatar'),'public/avatar');
+                $oldAvatar = $res['info']->avatar;
+                $res['info']->avatar = $avatar;
+                if ($res['info']->save()) {
+                    $res['info']->delAvatar($oldAvatar);
                     throw new ApiException(['code'=>0,'msg'=>'上传成功','data'=>['redirect'=>$this->index_url,'avatar'=>Storage::url($avatar)]]);
                 } else {
                     throw new ApiException(['code'=>1,'msg'=>'保存错误']);
                 }
+            }else{
+                throw new ApiException(['code'=>2,'data'=>'','msg'=>'上传错误']);
             }
-            throw new ApiException(['code'=>2,'data'=>'','msg'=>'上传错误']);
         }else{
-            $res['title'] = '';
-            $res['info'] = User::find($request->uuid);
+            $res['breadcrumb'] = Breadcrumb::render([
+                ['name'=>$this->currArr['name'].'管理','href'=>$this->index_url],
+                ['name'=>'头像','href'=>'/common_admin/'.$this->currArr['key'].'/'.$res['info']->uuid.'/avatar']
+            ]);
             return $this->makeView('laravel-common::admin.user.avatar',['res'=>$res]);
         }
     }

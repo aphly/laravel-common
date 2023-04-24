@@ -1,5 +1,5 @@
 <div class="top-bar">
-    <h5 class="nav-title">link</h5>
+    <h5 class="nav-title">{!! $res['breadcrumb'] !!}</h5>
 </div>
 <style>
 </style>
@@ -12,7 +12,7 @@
         </div>
         </form>
         <div class="">
-            <a class="badge badge-primary ajax_get show_all0_btn" data-href="/common_admin/links/show">浏览</a>
+            <a class="badge badge-primary ajax_get show_all0_btn" data-href="/common_admin/links/tree">树</a>
         </div>
     </div>
 

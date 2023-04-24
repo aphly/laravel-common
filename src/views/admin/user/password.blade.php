@@ -1,5 +1,5 @@
 <div class="top-bar">
-    <h5 class="nav-title">用户管理 {{$res['info']['nickname']}}</h5>
+    <h5 class="nav-title">{!! $res['breadcrumb'] !!}</h5>
 </div>
 <div class="imain">
     <form method="post" action="/common_admin/user/{{$res['info']['uuid']}}/password" class="save_form">

@@ -3,6 +3,7 @@
 namespace Aphly\LaravelCommon\Controllers\Admin;
 
 use Aphly\Laravel\Exceptions\ApiException;
+use Aphly\Laravel\Models\Breadcrumb;
 use Aphly\LaravelCommon\Models\UserAddress;
 use Aphly\LaravelCommon\Models\Country;
 use Aphly\LaravelCommon\Models\Zone;
@@ -11,6 +12,8 @@ use Illuminate\Http\Request;
 class UserAddressController extends Controller
 {
     public $index_url='/common_admin/user_address/index';
+
+    private $currArr = ['name'=>'地址','key'=>'user_address'];
 
     public function index(Request $request)
     {
@@ -22,6 +25,9 @@ class UserAddressController extends Controller
             })
             ->orderBy('id','desc')
             ->Paginate(config('admin.perPage'))->withQueryString();
+        $res['breadcrumb'] = Breadcrumb::render([
+            ['name'=>$this->currArr['name'].'管理','href'=>$this->index_url]
+        ]);
         return $this->makeView('laravel-common::admin.user_address.index',['res'=>$res]);
     }
 
@@ -35,6 +41,10 @@ class UserAddressController extends Controller
         }else{
             $res['zone'] = [];
         }
+        $res['breadcrumb'] = Breadcrumb::render([
+            ['name'=>$this->currArr['name'].'管理','href'=>$this->index_url],
+            ['name'=>$res['info']->id?'编辑':'新增','href'=>'/common_admin/'.$this->currArr['key'].($res['info']->id?'/form?id='.$res['info']->id:'/form')]
+        ]);
         return $this->makeView('laravel-common::admin.user_address.form',['res'=>$res]);
     }
 

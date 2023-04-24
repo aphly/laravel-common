@@ -3,12 +3,15 @@
 namespace Aphly\LaravelCommon\Controllers\Admin;
 
 use Aphly\Laravel\Exceptions\ApiException;
+use Aphly\Laravel\Models\Breadcrumb;
 use Aphly\LaravelCommon\Models\Links;
 use Illuminate\Http\Request;
 
 class LinksController extends Controller
 {
     public $index_url='/common_admin/links/index';
+
+    private $currArr = ['name'=>'链接','key'=>'links'];
 
     public function index(Request $request)
     {
@@ -20,21 +23,26 @@ class LinksController extends Controller
                 })
             ->orderBy('sort','desc')
             ->Paginate(config('admin.perPage'))->withQueryString();
+        $res['breadcrumb'] = Breadcrumb::render([
+            ['name'=>$this->currArr['name'].'管理','href'=>$this->index_url]
+        ]);
         return $this->makeView('laravel-common::admin.links.index',['res'=>$res]);
     }
 
-    public function show()
+    public function tree()
     {
-        $data = Links::orderBy('sort', 'desc')->get();
-        $res['list'] = $data->toArray();
-        $res['listById'] = $data->keyBy('id')->toArray();
-        return $this->makeView('laravel-common::admin.links.show',['res'=>$res]);
+        $res['list'] = Links::orderBy('sort', 'desc')->get()->keyBy('id')->toArray();
+        $res['breadcrumb'] = Breadcrumb::render([
+            ['name'=>$this->currArr['name'].'管理','href'=>$this->index_url],
+            ['name'=>'树','href'=>'/common_admin/links/tree']
+        ]);
+        return $this->makeView('laravel-common::admin.links.tree',['res'=>$res]);
     }
 
     public function save(Request $request){
         $id = $request->query('id',0);
         Links::updateOrCreate(['id'=>$id,'pid'=>$request->input('pid',0),],$request->all());
-        throw new ApiException(['code'=>0,'msg'=>'success','data'=>['redirect'=>'/common_admin/links/show']]);
+        throw new ApiException(['code'=>0,'msg'=>'success','data'=>['redirect'=>'/common_admin/links/tree']]);
     }
 
 	public function add(Request $request)
@@ -44,12 +52,13 @@ class LinksController extends Controller
 			$res['info'] = Links::create($post);
 			$form_edit = $request->input('form_edit',0);
 			if($res['info']->id){
-				throw new ApiException(['code'=>0,'msg'=>'添加成功','data'=>['redirect'=>$form_edit?$this->index_url($post):'/common_admin/links/show']]);
+				throw new ApiException(['code'=>0,'msg'=>'添加成功','data'=>['redirect'=>$form_edit?$this->index_url($post):'/common_admin/links/tree']]);
 			}else{
 				throw new ApiException(['code'=>1,'msg'=>'添加失败','data'=>[]]);
 			}
 		}else{
 			$res['info'] = Links::where('id',$request->query('id',0))->firstOrNew();
+
 			return $this->makeView('laravel-admin::links.form',['res'=>$res]);
 		}
 	}
@@ -61,11 +70,15 @@ class LinksController extends Controller
 			$post = $request->all();
 			$form_edit = $request->input('form_edit',0);
 			if($res['info']->update($post)){
-				throw new ApiException(['code'=>0,'msg'=>'修改成功','data'=>['redirect'=>$form_edit?$this->index_url($post):'/common_admin/links/show']]);
+				throw new ApiException(['code'=>0,'msg'=>'修改成功','data'=>['redirect'=>$form_edit?$this->index_url($post):'/common_admin/links/tree']]);
 			}else{
 				throw new ApiException(['code'=>1,'msg'=>'修改失败','data'=>[]]);
 			}
 		}else{
+            $res['breadcrumb'] = Breadcrumb::render([
+                ['name'=>$this->currArr['name'].'管理','href'=>$this->index_url],
+                ['name'=>'编辑','href'=>'/common_admin/links/edit?id='.$res['info']->id]
+            ]);
 			return $this->makeView('laravel-admin::links.form',['res'=>$res]);
 		}
 	}

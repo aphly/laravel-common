@@ -3,6 +3,7 @@
 namespace Aphly\LaravelCommon\Controllers\Admin;
 
 use Aphly\Laravel\Exceptions\ApiException;
+use Aphly\Laravel\Models\Breadcrumb;
 use Aphly\LaravelCommon\Models\CreditPrice;
 use Aphly\LaravelCommon\Models\UserCredit;
 use Illuminate\Http\Request;
@@ -10,6 +11,8 @@ use Illuminate\Http\Request;
 class CreditPriceController extends Controller
 {
     public $index_url='/common_admin/credit_price/index';
+
+    private $currArr = ['name'=>'积分价格','key'=>'credit_price'];
 
     public function index(Request $request)
     {
@@ -22,6 +25,9 @@ class CreditPriceController extends Controller
             ->orderBy('id','desc')
             ->Paginate(config('admin.perPage'))->withQueryString();
         $res['credit_key'] = UserCredit::CreditKey;
+        $res['breadcrumb'] = Breadcrumb::render([
+            ['name'=>$this->currArr['name'],'href'=>$this->index_url]
+        ]);
         return $this->makeView('laravel-common::admin.credit_price.index',['res'=>$res]);
     }
 
@@ -29,6 +35,10 @@ class CreditPriceController extends Controller
     {
         $res['info'] = CreditPrice::where('id',$request->query('id',0))->firstOrNew();
         $res['credit_key'] = UserCredit::CreditKey;
+        $res['breadcrumb'] = Breadcrumb::render([
+            ['name'=>$this->currArr['name'],'href'=>$this->index_url],
+            ['name'=>$res['info']->id?'编辑':'新增','href'=>'/common_admin/'.$this->currArr['key'].($res['info']->id?'/form?id='.$res['info']->id:'/form')]
+        ]);
         return $this->makeView('laravel-common::admin.credit_price.form',['res'=>$res]);
     }
 

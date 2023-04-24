@@ -1,5 +1,5 @@
 <div class="top-bar">
-    <h5 class="nav-title">积分</h5>
+    <h5 class="nav-title">{!! $res['breadcrumb'] !!}</h5>
 </div>
 <div class="imain">
     <form method="post" action="/common_admin/user/{{$res['info']->uuid}}/credit" class="save_form">

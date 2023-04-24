@@ -20,7 +20,7 @@ return new class extends Migration
             $table->string('url',255)->nullable();
             $table->integer('pid')->unsigned()->index();
             $table->integer('sort')->unsigned()->index()->nullable()->default(0);
-            $table->tinyInteger('is_leaf')->default(1)->index();
+            $table->tinyInteger('type')->default(1)->index();
             $table->tinyInteger('status')->index();
         });
     }

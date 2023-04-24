@@ -3,6 +3,7 @@
 namespace Aphly\LaravelCommon\Controllers\Admin;
 
 use Aphly\Laravel\Exceptions\ApiException;
+use Aphly\Laravel\Models\Breadcrumb;
 use Aphly\LaravelCommon\Models\UserCredit;
 use Aphly\LaravelCommon\Models\UserCreditLog;
 use Illuminate\Http\Request;
@@ -10,6 +11,8 @@ use Illuminate\Http\Request;
 class UserCreditLogController extends Controller
 {
     public $index_url='/common_admin/user_credit_log/index';
+
+    private $currArr = ['name'=>'积分记录','key'=>'user_credit_log'];
 
     public function index(Request $request)
     {
@@ -21,6 +24,9 @@ class UserCreditLogController extends Controller
                 })
             ->orderBy('id','desc')
             ->Paginate(config('admin.perPage'))->withQueryString();
+        $res['breadcrumb'] = Breadcrumb::render([
+            ['name'=>$this->currArr['name'],'href'=>$this->index_url]
+        ]);
         return $this->makeView('laravel-common::admin.user_credit_log.index',['res'=>$res]);
     }
 
@@ -28,6 +34,10 @@ class UserCreditLogController extends Controller
     {
         $res['info'] = UserCreditLog::where('id',$request->query('id',0))->firstOrNew();
         $res['credit_key'] = UserCredit::CreditKey;
+        $res['breadcrumb'] = Breadcrumb::render([
+            ['name'=>$this->currArr['name'],'href'=>$this->index_url],
+            ['name'=>$res['info']->id?'编辑':'新增','href'=>'/common_admin/'.$this->currArr['key'].($res['info']->id?'/form?id='.$res['info']->id:'/form')]
+        ]);
         return $this->makeView('laravel-common::admin.user_credit_log.form',['res'=>$res]);
     }
 

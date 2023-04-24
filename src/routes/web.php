@@ -108,7 +108,7 @@ Route::middleware(['web'])->group(function () {
             Route::get('filter/ajax', 'Aphly\LaravelCommon\Controllers\Admin\FilterController@ajax');
             Route::get('category/ajax', 'Aphly\LaravelCommon\Controllers\Admin\CategoryController@ajax');
             Route::get('category/show', 'Aphly\LaravelCommon\Controllers\Admin\CategoryController@show');
-            Route::get('links/show', 'Aphly\LaravelCommon\Controllers\Admin\LinksController@show');
+            Route::get('links/tree', 'Aphly\LaravelCommon\Controllers\Admin\LinksController@tree');
             Route::get('news_category/show', 'Aphly\LaravelCommon\Controllers\Admin\NewsCategoryController@show');
 
 			$route_arr = [

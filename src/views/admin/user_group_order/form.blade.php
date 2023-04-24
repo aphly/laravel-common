@@ -1,6 +1,6 @@
 
 <div class="top-bar">
-    <h5 class="nav-title">user credit order</h5>
+    <h5 class="nav-title">{!! $res['breadcrumb'] !!}</h5>
 </div>
 <div class="imain">
     <form method="post" @if($res['info']->id) action="/common_admin/user_group_order/save?id={{$res['info']->id}}" @else action="/common_admin/user_group_order/save" @endif class="save_form">
