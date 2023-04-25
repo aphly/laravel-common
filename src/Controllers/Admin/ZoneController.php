@@ -3,6 +3,7 @@
 namespace Aphly\LaravelCommon\Controllers\Admin;
 
 use Aphly\Laravel\Exceptions\ApiException;
+use Aphly\Laravel\Models\Breadcrumb;
 use Aphly\LaravelCommon\Models\Country;
 use Aphly\LaravelCommon\Models\Zone;
 use Illuminate\Http\Request;
@@ -10,6 +11,8 @@ use Illuminate\Http\Request;
 class ZoneController extends Controller
 {
     public $index_url='/common_admin/zone/index';
+
+    private $currArr = ['name'=>'地区','key'=>'zone'];
 
     public function index(Request $request)
     {
@@ -22,6 +25,9 @@ class ZoneController extends Controller
             ->orderBy('id','desc')
             ->Paginate(config('admin.perPage'))->withQueryString();
         $res['country'] = Country::get()->keyBy('id')->toArray();
+        $res['breadcrumb'] = Breadcrumb::render([
+            ['name'=>$this->currArr['name'].'管理','href'=>$this->index_url]
+        ]);
         return $this->makeView('laravel-common::admin.zone.index',['res'=>$res]);
     }
 
@@ -29,6 +35,10 @@ class ZoneController extends Controller
     {
         $res['info'] = Zone::where('id',$request->query('id',0))->firstOrNew();
         $res['country'] = Country::get()->keyBy('id')->toArray();
+        $res['breadcrumb'] = Breadcrumb::render([
+            ['name'=>$this->currArr['name'].'管理','href'=>$this->index_url],
+            ['name'=>$res['info']->id?'编辑':'新增','href'=>'/common_admin/'.$this->currArr['key'].($res['info']->id?'/form?id='.$res['info']->id:'/form')]
+        ]);
         return $this->makeView('laravel-common::admin.zone.form',['res'=>$res]);
     }
 

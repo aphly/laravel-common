@@ -3,6 +3,7 @@
 namespace Aphly\LaravelCommon\Controllers\Admin;
 
 use Aphly\Laravel\Exceptions\ApiException;
+use Aphly\Laravel\Models\Breadcrumb;
 use Aphly\LaravelCommon\Models\Country;
 use Aphly\LaravelCommon\Models\Geo;
 use Aphly\LaravelCommon\Models\GeoGroup;
@@ -12,6 +13,8 @@ use Illuminate\Http\Request;
 class GeoController extends Controller
 {
     public $index_url='/common_admin/geo/index';
+
+    private $currArr = ['name'=>'geo','key'=>'geo'];
 
     public function index(Request $request)
     {
@@ -23,6 +26,9 @@ class GeoController extends Controller
                 })
             ->orderBy('id','desc')
             ->Paginate(config('admin.perPage'))->withQueryString();
+        $res['breadcrumb'] = Breadcrumb::render([
+            ['name'=>$this->currArr['name'].'管理','href'=>$this->index_url]
+        ]);
         return $this->makeView('laravel-common::admin.geo.index',['res'=>$res]);
     }
 
@@ -39,6 +45,10 @@ class GeoController extends Controller
                 $res['country_zone'] = (new Zone)->findAllByCountrys($country_ids);
             }
         }
+        $res['breadcrumb'] = Breadcrumb::render([
+            ['name'=>$this->currArr['name'].'管理','href'=>$this->index_url],
+            ['name'=>$res['geoGroup']->id?'编辑':'新增','href'=>'/common_admin/'.$this->currArr['key'].($res['geoGroup']->id?'/form?id='.$res['geoGroup']->id:'/form')]
+        ]);
         return $this->makeView('laravel-common::admin.geo.form',['res'=>$res]);
     }
 

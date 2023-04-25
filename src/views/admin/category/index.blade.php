@@ -1,5 +1,5 @@
 <div class="top-bar">
-    <h5 class="nav-title">category</h5>
+    <h5 class="nav-title">{!! $res['breadcrumb'] !!}</h5>
 </div>
 <style>
     .table_scroll .table_header li:nth-child(2),.table_scroll .table_tbody li:nth-child(2){flex: 0 0 300px;}
@@ -13,7 +13,7 @@
         </div>
         </form>
         <div class="">
-            <a class="badge badge-primary ajax_get show_all0_btn" data-href="/common_admin/category/show">浏览</a>
+            <a class="badge badge-primary ajax_get show_all0_btn" data-href="/common_admin/category/tree">树</a>
         </div>
     </div>
 
@@ -46,7 +46,7 @@
                             @endif
                         </li>
                         <li>
-                            <a class="badge badge-info ajax_get" data-href="/common_admin/category/form?id={{$v['id']}}">编辑</a>
+                            <a class="badge badge-info ajax_get" data-href="/common_admin/category/edit?id={{$v['id']}}">编辑</a>
                         </li>
                     </ul>
                     @endforeach

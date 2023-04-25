@@ -3,6 +3,7 @@
 namespace Aphly\LaravelCommon\Controllers\Admin;
 
 use Aphly\Laravel\Exceptions\ApiException;
+use Aphly\Laravel\Models\Breadcrumb;
 use Aphly\LaravelCommon\Models\Category;
 use Aphly\LaravelCommon\Models\CategoryPath;
 use Illuminate\Http\Request;
@@ -10,6 +11,8 @@ use Illuminate\Http\Request;
 class CategoryController extends Controller
 {
     public $index_url='/common_admin/category/index';
+
+    private $currArr = ['name'=>'分类','key'=>'category'];
 
     public function index(Request $request)
     {
@@ -28,7 +31,9 @@ class CategoryController extends Controller
                 any_value(c1.`sort`) AS sort')
             ->orderBy('c1.sort','desc')
             ->Paginate(config('admin.perPage'))->withQueryString();
-        //$res['fast_save'] = Category::where('status',1)->orderBy('sort', 'desc')->get()->toArray();
+        $res['breadcrumb'] = Breadcrumb::render([
+            ['name'=>$this->currArr['name'].'管理','href'=>$this->index_url]
+        ]);
         return $this->makeView('laravel-common::admin.category.index',['res'=>$res]);
     }
 
@@ -41,12 +46,14 @@ class CategoryController extends Controller
         return $this->makeView('laravel-common::admin.category.form',['res'=>$res]);
     }
 
-    public function show()
+    public function tree()
     {
-        $data = Category::orderBy('sort', 'desc')->get();
-        $res['list'] = $data->toArray();
-        $res['listById'] = $data->keyBy('id')->toArray();
-        return $this->makeView('laravel-common::admin.category.show',['res'=>$res]);
+        $res['list'] = Category::orderBy('sort', 'desc')->get()->keyBy('id')->toArray();
+        $res['breadcrumb'] = Breadcrumb::render([
+            ['name'=>$this->currArr['name'].'管理','href'=>$this->index_url],
+            ['name'=>'树','href'=>'/common_admin/category/tree']
+        ]);
+        return $this->makeView('laravel-common::admin.category.tree',['res'=>$res]);
     }
 
     public function save(Request $request){
@@ -57,7 +64,7 @@ class CategoryController extends Controller
         }else{
             $category = Category::updateOrCreate(['id'=>$id,'pid'=>$request->input('pid',0)],$request->all());
             (new CategoryPath)->add($category->id,$category->pid);
-            $this->index_url = '/common_admin/category/show';
+            $this->index_url = '/common_admin/category/tree';
         }
         throw new ApiException(['code'=>0,'msg'=>'success','data'=>['redirect'=>$this->index_url]]);
     }
@@ -70,13 +77,17 @@ class CategoryController extends Controller
 			$form_edit = $request->input('form_edit',0);
 			if($res['info']->id){
 				(new CategoryPath)->add($res['info']->id,$res['info']->pid);
-				throw new ApiException(['code'=>0,'msg'=>'添加成功','data'=>['redirect'=>$form_edit?$this->index_url($post):'/common_admin/category/show']]);
+				throw new ApiException(['code'=>0,'msg'=>'添加成功','data'=>['redirect'=>$form_edit?$this->index_url:'/common_admin/category/tree']]);
 			}else{
 				throw new ApiException(['code'=>1,'msg'=>'添加失败','data'=>[]]);
 			}
 		}else{
 			$res['info'] = Category::where('id',$request->query('id',0))->firstOrNew();
-			return $this->makeView('laravel-admin::category.form',['res'=>$res]);
+            $res['breadcrumb'] = Breadcrumb::render([
+                ['name'=>$this->currArr['name'].'管理','href'=>$this->index_url],
+                ['name'=>'新增','href'=>'/common_admin/category/add']
+            ]);
+			return $this->makeView('laravel-common::admin.category.form',['res'=>$res]);
 		}
 	}
 
@@ -87,12 +98,16 @@ class CategoryController extends Controller
 			$post = $request->all();
 			$form_edit = $request->input('form_edit',0);
 			if($res['info']->update($post)){
-				throw new ApiException(['code'=>0,'msg'=>'修改成功','data'=>['redirect'=>$form_edit?$this->index_url($post):'/common_admin/category/show']]);
+				throw new ApiException(['code'=>0,'msg'=>'修改成功','data'=>['redirect'=>$form_edit?$this->index_url:'/common_admin/category/tree']]);
 			}else{
 				throw new ApiException(['code'=>1,'msg'=>'修改失败','data'=>[]]);
 			}
 		}else{
-			return $this->makeView('laravel-admin::category.form',['res'=>$res]);
+            $res['breadcrumb'] = Breadcrumb::render([
+                ['name'=>$this->currArr['name'].'管理','href'=>$this->index_url],
+                ['name'=>'编辑','href'=>'/common_admin/category/edit?id='.$res['info']->id]
+            ]);
+			return $this->makeView('laravel-common::admin.category.form',['res'=>$res]);
 		}
 	}
 

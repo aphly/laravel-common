@@ -1,6 +1,6 @@
 
 <div class="top-bar">
-    <h5 class="nav-title">zone</h5>
+    <h5 class="nav-title">{!! $res['breadcrumb'] !!}</h5>
 </div>
 <div class="imain">
     <form method="post" @if($res['info']->id) action="/common_admin/zone/save?id={{$res['info']->id}}" @else action="/common_admin/zone/save" @endif class="save_form">

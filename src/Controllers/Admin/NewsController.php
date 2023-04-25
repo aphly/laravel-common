@@ -4,14 +4,16 @@ namespace Aphly\LaravelCommon\Controllers\Admin;
 
 use Aphly\Laravel\Exceptions\ApiException;
 use Aphly\Laravel\Libs\Editor;
+use Aphly\Laravel\Models\Breadcrumb;
 use Aphly\LaravelCommon\Models\News;
 use Aphly\LaravelCommon\Models\NewsCategory;
 use Illuminate\Http\Request;
-use Illuminate\Support\Arr;
 
 class NewsController extends Controller
 {
     public $index_url = '/common_admin/news/index';
+
+    private $currArr = ['name'=>'新闻','key'=>'news'];
 
     public function index(Request $request)
     {
@@ -23,25 +25,21 @@ class NewsController extends Controller
                             })
                         ->orderBy('id', 'desc')
                         ->Paginate(config('admin.perPage'))->withQueryString();
+        $res['breadcrumb'] = Breadcrumb::render([
+            ['name'=>$this->currArr['name'].'管理','href'=>$this->index_url]
+        ]);
         return $this->makeView('laravel-common::admin.news.index', ['res' => $res]);
     }
 
     public function form(Request $request)
     {
         $res['info'] = News::where('id',$request->query('id',0))->firstOrNew();
-        $res['newsCategory'] = NewsCategory::orderBy('sort','desc')->get()->toArray();
-        if(count($res['newsCategory'])){
-            $res['newsCategoryById'] = Arr::keyBy($res['newsCategory'], 'id');
-        }else{
-            $res['newsCategoryById'] = [];
-        }
-        if($res['info']->id){
-            $res['select_ids'] = [$res['info']->news_category_id];
-            $res['category_select_name'] = $res['newsCategoryById'][$res['info']->news_category_id]['name']??'';
-        }else{
-            $res['select_ids'] = [];
-            $res['category_select_name'] = '';
-        }
+        $res['newsCategoryList'] = NewsCategory::orderBy('sort', 'desc')->get()->keyBy('id')->toArray();
+
+        $res['breadcrumb'] = Breadcrumb::render([
+            ['name'=>$this->currArr['name'].'管理','href'=>$this->index_url],
+            ['name'=>$res['info']->id?'编辑':'新增','href'=>'/common_admin/'.$this->currArr['key'].($res['info']->id?'/form?id='.$res['info']->id:'/form')]
+        ]);
         return $this->makeView('laravel-common::admin.news.form',['res'=>$res]);
     }
 

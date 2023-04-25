@@ -1,6 +1,6 @@
 
 <div class="top-bar">
-    <h5 class="nav-title">filter</h5>
+    <h5 class="nav-title">{!! $res['breadcrumb'] !!}</h5>
 </div>
 <div class="imain">
     <form method="post" @if($res['filterGroup']->id) action="/common_admin/filter/save?id={{$res['filterGroup']->id}}" @else action="/common_admin/filter/save" @endif class="save_form">

@@ -1,6 +1,6 @@
 
 <div class="top-bar">
-    <h5 class="nav-title">文章</h5>
+    <h5 class="nav-title">{!! $res['breadcrumb'] !!}</h5>
 </div>
 <div class="imain">
     <form method="post" @if($res['info']->id) action="/common_admin/news/save?id={{$res['info']->id}}" @else action="/common_admin/news/save" @endif class="save_form">
@@ -28,11 +28,11 @@
 
             <div class="form-group">
                 <label for="">文章分类</label>
-                <div style="position: relative" id="category_select">
-                    <input type="hidden" name="news_category_id"  class="form-control category_select_value" value="{{$res['info']->news_category_id??0}}">
-                    <input type="text" class="form-control category_select_name" readonly value="{{$res['category_select_name']}}">
+                <input type="hidden" id="news_category_id"  name="news_category_id" class="form-control " value="{{$res['info']->news_category_id}}">
+                <input type="text" id="news_category_name" onclick="$('.tree_box').toggle();" readonly class="form-control tree_box_pre" value="{{$res['newsCategoryList'][$res['info']->news_category_id]['name']??''}}">
+                <div class="tree_box">
                     <div class="tree_p">
-                        <div class="treeview"></div>
+                        <div id="tree"></div>
                     </div>
                 </div>
                 <div class="invalid-feedback"></div>
@@ -60,44 +60,36 @@
 </div>
 
 <style>
-    .tree_p{position: absolute;left:0;top:34px;display:none;width: 100%;background: #fff;box-shadow: 0 1px 4px rgb(24 38 16 / 10%);}
+    .tree_p{position: absolute;left:0;top:34px;display:none;width: 100%;background: #fff;box-shadow: 0 1px 4px rgba(24,38,16,0.1);}
 </style>
 
 <script>
-    var treeGlobal = {
-        list : @json($res['newsCategory']),
-        select_ids:@json($res['select_ids']),
-    }
-    treeGlobal.data = toTree(selectData(treeGlobal.list,treeGlobal.select_ids));
-    function mount() {
-        $('#category_select .treeview').treeview({
-            levels: 2,
-            collapseIcon:'uni app-arrow-right-copy',
-            expandIcon:'uni app-arrow-right',
-            data:treeGlobal.data,
-            onNodeSelected: function(event, data) {
-                $('#category_select .category_select_name').val(data.text)
-                $('#category_select .category_select_value').val(data.id)
-                $('#category_select .tree_p').hide();
-            },
-            onNodeUnselected: function(event, data) {
-                $('#category_select .category_select_name').val('')
-                $('#category_select .category_select_value').val(0)
-                $('#category_select .tree_p').hide();
-            },
-        });
-        $('#category_select').on('click','.category_select_name',function (e) {
-            e.preventDefault()
-            e.stopPropagation()
-            $(this).next().toggle();
-        })
-        $('body').off('click').on("click", function (e) {
-            if (e.target.className !== 'tree_p' || e.target.className !== 'category_select_name') {
-                $('#category_select .tree_p').hide();
-            }
-        });
-    }
+    var my_tree = new MyTree({
+        root:0,
+        list : @json($res['newsCategoryList']),
+        select:{}
+    })
     $(function () {
+        function mount(){
+            let treeData = my_tree.treeFormat(my_tree.op.list,[{{$res['info']->news_category_id}}])
+            $('#tree').jstree({
+                "core": {
+                    "themes":{
+                        "dots": false,
+                        "icons":false
+                    },
+                    "data": treeData
+                },
+                "plugins": ["themes"]
+            }).on('select_node.jstree', function(el,_data) {
+            }).on("changed.jstree", function(el,data) {
+                my_tree.op.select = my_tree.getSelectObj(data)
+                $('#news_category_id').val(my_tree.op.select[0].data.id)
+                $('#news_category_name').val(my_tree.op.select[0].text)
+                $('.tree_box').hide();
+            })
+        }
+
         const { createEditor, createToolbar } = window.wangEditor
         const editorConfig = {
             onChange(editor) {

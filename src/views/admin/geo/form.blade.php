@@ -1,6 +1,6 @@
 
 <div class="top-bar">
-    <h5 class="nav-title">geo</h5>
+    <h5 class="nav-title">{!! $res['breadcrumb'] !!}</h5>
 </div>
 <div class="imain">
     <form method="post" @if($res['geoGroup']->id) action="/common_admin/geo/save?id={{$res['geoGroup']->id}}" @else action="/common_admin/geo/save" @endif class="save_form">

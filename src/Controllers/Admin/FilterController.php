@@ -3,6 +3,7 @@
 namespace Aphly\LaravelCommon\Controllers\Admin;
 
 use Aphly\Laravel\Exceptions\ApiException;
+use Aphly\Laravel\Models\Breadcrumb;
 use Aphly\LaravelCommon\Models\Filter;
 use Aphly\LaravelCommon\Models\FilterGroup;
 use Illuminate\Http\Request;
@@ -10,6 +11,8 @@ use Illuminate\Http\Request;
 class FilterController extends Controller
 {
     public $index_url='/common_admin/filter/index';
+
+    private $currArr = ['name'=>'筛选','key'=>'filter'];
 
     public function index(Request $request)
     {
@@ -21,7 +24,9 @@ class FilterController extends Controller
                 })
             ->orderBy('id','desc')
             ->Paginate(config('admin.perPage'))->withQueryString();
-        //$res['fast_save'] = Category::where('status',1)->orderBy('sort', 'desc')->get()->toArray();
+        $res['breadcrumb'] = Breadcrumb::render([
+            ['name'=>$this->currArr['name'].'管理','href'=>$this->index_url]
+        ]);
         return $this->makeView('laravel-common::admin.filter.index',['res'=>$res]);
     }
 
@@ -32,6 +37,10 @@ class FilterController extends Controller
         if($res['filterGroup']->id){
             $res['filter'] = Filter::where('filter_group_id',$res['filterGroup']->id)->orderBy('sort','desc')->get();
         }
+        $res['breadcrumb'] = Breadcrumb::render([
+            ['name'=>$this->currArr['name'].'管理','href'=>$this->index_url],
+            ['name'=>$res['filterGroup']->id?'编辑':'新增','href'=>'/common_admin/'.$this->currArr['key'].($res['filterGroup']->id?'/form?id='.$res['filterGroup']->id:'/form')]
+        ]);
         return $this->makeView('laravel-common::admin.filter.form',['res'=>$res]);
     }
 

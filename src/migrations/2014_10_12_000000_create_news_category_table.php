@@ -19,7 +19,7 @@ return new class extends Migration
             $table->string('icon',255)->nullable();
             $table->integer('pid')->unsigned()->index();
             $table->integer('sort')->unsigned()->index()->nullable();
-            $table->tinyInteger('is_leaf')->default(1)->index();
+            $table->tinyInteger('type')->default(1)->index();
             $table->tinyInteger('status')->index();
             $table->string('meta_title',255)->nullable();
             $table->string('meta_description',255)->nullable();

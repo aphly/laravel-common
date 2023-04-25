@@ -1,26 +1,18 @@
 <div class="top-bar">
-    <h5 class="nav-title">分类编辑</h5>
+    <h5 class="nav-title">{!! $res['breadcrumb'] !!}</h5>
 </div>
 
 <div class="imain">
-    <form method="post" @if($res['info']->id) action="/common_admin/news_category/save?id={{$res['info']->id}}" @else action="/common_admin/news_category/save" @endif class="save_form">
+    <form method="post" @if($res['info']->id) action="/common_admin/news_category/edit?id={{$res['info']->id}}" @else action="/common_admin/news_category/add" @endif class="save_form">
         @csrf
         <div class="">
             <input type="hidden" name="form_edit" class="form-control" value="1">
-            @if(!empty($res['parent_info']))
-            <div class="form-group">
-                <label for="">父级分类</label>
-                <input type="text" class="form-control" value="{{$res['parent_info']->name}}" disabled>
-            </div>
-            @endif
+
             <div class="form-group">
                 <label for="">类型</label>
-                <select name="is_leaf" id="is_leaf" class="form-control" disabled>
-                    @if($res['info']->is_leaf)
-                        <option value="1">子分类</option>
-                    @else
-                        <option value="0">目录</option>
-                    @endif
+                <select name="type" class="form-control" >
+                    <option value="2" @if($res['info']->type==2) selected @endif>分类</option>
+                    <option value="1" @if($res['info']->type==1) selected @endif>目录</option>
                 </select>
                 <div class="invalid-feedback"></div>
             </div>

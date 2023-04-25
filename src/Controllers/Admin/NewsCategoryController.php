@@ -3,12 +3,15 @@
 namespace Aphly\LaravelCommon\Controllers\Admin;
 
 use Aphly\Laravel\Exceptions\ApiException;
+use Aphly\Laravel\Models\Breadcrumb;
 use Aphly\LaravelCommon\Models\NewsCategory;
 use Illuminate\Http\Request;
 
 class NewsCategoryController extends Controller
 {
     public $index_url='/common_admin/news_category/index';
+
+    private $currArr = ['name'=>'新闻分类','key'=>'news_category'];
 
     public function index(Request $request)
     {
@@ -20,7 +23,9 @@ class NewsCategoryController extends Controller
                 })
             ->orderBy('sort','desc')
             ->Paginate(config('admin.perPage'))->withQueryString();
-        //$res['fast_save'] = Category::where('status',1)->orderBy('sort', 'desc')->get()->toArray();
+        $res['breadcrumb'] = Breadcrumb::render([
+            ['name'=>$this->currArr['name'].'管理','href'=>$this->index_url]
+        ]);
         return $this->makeView('laravel-common::admin.news_category.index',['res'=>$res]);
     }
 
@@ -31,13 +36,17 @@ class NewsCategoryController extends Controller
 			$res['info'] = NewsCategory::create($post);
 			$form_edit = $request->input('form_edit',0);
 			if($res['info']->id){
-				throw new ApiException(['code'=>0,'msg'=>'添加成功','data'=>['redirect'=>$form_edit?$this->index_url($post):'/common_admin/news_category/show']]);
+				throw new ApiException(['code'=>0,'msg'=>'添加成功','data'=>['redirect'=>$form_edit?$this->index_url:'/common_admin/news_category/tree']]);
 			}else{
 				throw new ApiException(['code'=>1,'msg'=>'添加失败','data'=>[]]);
 			}
 		}else{
 			$res['info'] = NewsCategory::where('id',$request->query('id',0))->firstOrNew();
-			return $this->makeView('laravel-admin::news_category.form',['res'=>$res]);
+            $res['breadcrumb'] = Breadcrumb::render([
+                ['name'=>$this->currArr['name'].'管理','href'=>$this->index_url],
+                ['name'=>'新增','href'=>'/common_admin/category/add']
+            ]);
+			return $this->makeView('laravel-common::admin.news_category.form',['res'=>$res]);
 		}
 	}
 
@@ -48,12 +57,16 @@ class NewsCategoryController extends Controller
 			$post = $request->all();
 			$form_edit = $request->input('form_edit',0);
 			if($res['info']->update($post)){
-				throw new ApiException(['code'=>0,'msg'=>'修改成功','data'=>['redirect'=>$form_edit?$this->index_url($post):'/common_admin/news_category/show']]);
+				throw new ApiException(['code'=>0,'msg'=>'修改成功','data'=>['redirect'=>$form_edit?$this->index_url:'/common_admin/news_category/tree']]);
 			}else{
 				throw new ApiException(['code'=>1,'msg'=>'修改失败','data'=>[]]);
 			}
 		}else{
-			return $this->makeView('laravel-admin::news_category.form',['res'=>$res]);
+            $res['breadcrumb'] = Breadcrumb::render([
+                ['name'=>$this->currArr['name'].'管理','href'=>$this->index_url],
+                ['name'=>'编辑','href'=>'/common_admin/category/edit?id='.$res['info']->id]
+            ]);
+			return $this->makeView('laravel-common::admin.news_category.form',['res'=>$res]);
 		}
 	}
 
@@ -66,12 +79,14 @@ class NewsCategoryController extends Controller
         return $this->makeView('laravel-common::admin.news_category.form',['res'=>$res]);
     }
 
-    public function show()
+    public function tree()
     {
-        $data = NewsCategory::orderBy('sort', 'desc')->get();
-        $res['list'] = $data->toArray();
-        $res['listById'] = $data->keyBy('id')->toArray();
-        return $this->makeView('laravel-common::admin.news_category.show',['res'=>$res]);
+        $res['list'] = NewsCategory::orderBy('sort', 'desc')->get()->keyBy('id')->toArray();
+        $res['breadcrumb'] = Breadcrumb::render([
+            ['name'=>$this->currArr['name'].'管理','href'=>$this->index_url],
+            ['name'=>'树','href'=>'/common_admin/news_category/tree']
+        ]);
+        return $this->makeView('laravel-common::admin.news_category.tree',['res'=>$res]);
     }
 
     public function save(Request $request){
@@ -81,7 +96,7 @@ class NewsCategoryController extends Controller
             NewsCategory::updateOrCreate(['id'=>$id],$request->all());
         }else{
             NewsCategory::updateOrCreate(['id'=>$id,'pid'=>$request->input('pid',0)],$request->all());
-            $this->index_url = '/common_admin/news_category/show';
+            $this->index_url = '/common_admin/news_category/tree';
         }
         throw new ApiException(['code'=>0,'msg'=>'success','data'=>['redirect'=>$this->index_url]]);
     }

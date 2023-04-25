@@ -3,12 +3,15 @@
 namespace Aphly\LaravelCommon\Controllers\Admin;
 
 use Aphly\Laravel\Exceptions\ApiException;
+use Aphly\Laravel\Models\Breadcrumb;
 use Aphly\LaravelCommon\Models\Subscribe;
 use Illuminate\Http\Request;
 
 class SubscribeController extends Controller
 {
     public $index_url='/common_admin/subscribe/index';
+
+    private $currArr = ['name'=>'订阅','key'=>'subscribe'];
 
     public function index(Request $request)
     {
@@ -20,12 +23,19 @@ class SubscribeController extends Controller
                 })
             ->orderBy('id','desc')
             ->Paginate(config('admin.perPage'))->withQueryString();
+        $res['breadcrumb'] = Breadcrumb::render([
+            ['name'=>$this->currArr['name'].'管理','href'=>$this->index_url]
+        ]);
         return $this->makeView('laravel-common::admin.subscribe.index',['res'=>$res]);
     }
 
     public function form(Request $request)
     {
         $res['info'] = subscribe::where('id',$request->query('id',0))->firstOrNew();
+        $res['breadcrumb'] = Breadcrumb::render([
+            ['name'=>$this->currArr['name'].'管理','href'=>$this->index_url],
+            ['name'=>$res['info']->id?'编辑':'新增','href'=>'/common_admin/'.$this->currArr['key'].($res['info']->id?'/form?id='.$res['info']->id:'/form')]
+        ]);
         return $this->makeView('laravel-common::admin.subscribe.form',['res'=>$res]);
     }
 
