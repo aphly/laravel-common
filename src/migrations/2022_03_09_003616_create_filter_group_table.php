@@ -16,8 +16,8 @@ return new class extends Migration
         Schema::create('common_filter_group', function (Blueprint $table) {
             $table->id();
             $table->string('name',32);
-            $table->integer('sort')->default(1)->index();
-            $table->tinyInteger('status')->default(1)->index();
+            $table->integer('sort')->default(1);
+            $table->tinyInteger('status')->default(1);
         });
     }
 

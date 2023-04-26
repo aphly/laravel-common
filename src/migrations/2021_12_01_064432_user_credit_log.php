@@ -15,7 +15,7 @@ return new class extends Migration
     {
         Schema::create('common_user_credit_log', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('uuid');
+            $table->unsignedBigInteger('uuid')->index();
             $table->char('pre',1);
             $table->string('key',16);
             $table->unsignedInteger('val')->nullable();

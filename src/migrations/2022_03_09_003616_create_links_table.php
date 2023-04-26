@@ -18,10 +18,10 @@ return new class extends Migration
             $table->string('name',64);
             $table->string('icon',255)->nullable();
             $table->string('url',255)->nullable();
-            $table->integer('pid')->unsigned()->index();
-            $table->integer('sort')->unsigned()->index()->nullable()->default(0);
-            $table->tinyInteger('type')->default(1)->index();
-            $table->tinyInteger('status')->index();
+            $table->integer('pid')->unsigned();
+            $table->integer('sort')->unsigned()->nullable()->default(0);
+            $table->tinyInteger('type')->default(1);
+            $table->tinyInteger('status');
         });
     }
 

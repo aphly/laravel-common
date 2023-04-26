@@ -19,7 +19,7 @@ return new class extends Migration
             $table->string('ip',64)->nullable();
             $table->string('ua',255)->nullable();
             $table->string('lang',255)->nullable();
-            $table->unsignedBigInteger('created_at')->index();
+            $table->unsignedBigInteger('created_at');
             $table->unsignedBigInteger('updated_at');
         });
     }

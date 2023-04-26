@@ -35,7 +35,6 @@ class NewsController extends Controller
     {
         $res['info'] = News::where('id',$request->query('id',0))->firstOrNew();
         $res['newsCategoryList'] = NewsCategory::orderBy('sort', 'desc')->get()->keyBy('id')->toArray();
-
         $res['breadcrumb'] = Breadcrumb::render([
             ['name'=>$this->currArr['name'].'管理','href'=>$this->index_url],
             ['name'=>$res['info']->id?'编辑':'新增','href'=>'/common_admin/'.$this->currArr['key'].($res['info']->id?'/form?id='.$res['info']->id:'/form')]

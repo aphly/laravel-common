@@ -16,7 +16,7 @@ return new class extends Migration
         Schema::create('common_subscribe', function (Blueprint $table) {
             $table->id();
             $table->string('email',255);
-            $table->tinyInteger('status')->nullable()->default(1)->index();
+            $table->tinyInteger('status')->nullable()->default(1);
             $table->unsignedBigInteger('created_at');
             $table->unsignedBigInteger('updated_at');
         });

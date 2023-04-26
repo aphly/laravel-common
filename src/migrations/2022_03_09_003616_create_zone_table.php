@@ -19,7 +19,7 @@ return new class extends Migration
             $table->string('name',128)->index();
             $table->string('cn_name',128)->nullable();
             $table->string('code',32);
-            $table->tinyInteger('status')->default(1)->index();
+            $table->tinyInteger('status')->default(1);
         });
     }
 

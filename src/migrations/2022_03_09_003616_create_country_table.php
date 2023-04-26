@@ -21,7 +21,7 @@ return new class extends Migration
             $table->string('iso_code_3',3);
             $table->string('address_format',255)->nullable();
             $table->tinyInteger('postcode_required');
-            $table->tinyInteger('status')->default(1)->index();
+            $table->tinyInteger('status')->default(1);
         });
     }
 

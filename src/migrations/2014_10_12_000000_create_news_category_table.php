@@ -17,10 +17,10 @@ return new class extends Migration
             $table->id();
             $table->string('name',64);
             $table->string('icon',255)->nullable();
-            $table->integer('pid')->unsigned()->index();
-            $table->integer('sort')->unsigned()->index()->nullable();
-            $table->tinyInteger('type')->default(1)->index();
-            $table->tinyInteger('status')->index();
+            $table->integer('pid')->unsigned();
+            $table->integer('sort')->unsigned()->nullable();
+            $table->tinyInteger('type')->default(1);
+            $table->tinyInteger('status');
             $table->string('meta_title',255)->nullable();
             $table->string('meta_description',255)->nullable();
         });

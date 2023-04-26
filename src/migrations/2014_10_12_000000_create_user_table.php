@@ -22,7 +22,7 @@ return new class extends Migration
             $table->unsignedInteger('group_id')->nullable()->default(0);
             $table->unsignedInteger('group_expire')->nullable()->default(0);
             $table->unsignedInteger('address_id')->nullable()->default(0);
-            $table->tinyInteger('status')->default(1)->comment('1:正常; 2:冻结')->index();
+            $table->tinyInteger('status')->default(1)->comment('1:正常; 2:冻结');
             $table->tinyInteger('gender')->default(1);
             $table->tinyInteger('verified')->nullable()->default(0);
             $table->unsignedBigInteger('created_at');

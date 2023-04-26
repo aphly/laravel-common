@@ -59,10 +59,6 @@
 
 </div>
 
-<style>
-    .tree_p{position: absolute;left:0;top:34px;display:none;width: 100%;background: #fff;box-shadow: 0 1px 4px rgba(24,38,16,0.1);}
-</style>
-
 <script>
     var my_tree = new MyTree({
         root:0,
