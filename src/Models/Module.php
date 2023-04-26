@@ -34,8 +34,6 @@ class Module extends Module_base
             }
             $data=[];
             $data[] =['name' => '链接管理','route' =>'common_admin/links/index','pid'=>$menu->id,'type'=>2,'module_id'=>$module_id,'sort'=>0];
-            $data[] =['name' => '分类管理','route' =>'common_admin/category/index','pid'=>$menu->id,'type'=>2,'module_id'=>$module_id,'sort'=>0];
-            $data[] =['name' => '筛选管理','route' =>'common_admin/filter/index','pid'=>$menu->id,'type'=>2,'module_id'=>$module_id,'sort'=>0];
             DB::table('admin_menu')->insert($data);
             $menu22 = Menu::create(['name' => '文章管理','route' =>'','pid'=>$menu->id,'type'=>1,'module_id'=>$module_id,'sort'=>0]);
             if($menu22){

@@ -94,7 +94,7 @@ Route::middleware(['web'])->group(function () {
 
             $route_arr = [
                 ['group','\GroupController'],['credit_price','\CreditPriceController'],['user_credit_log','\UserCreditLogController'],['user_credit_order','\UserCreditOrderController'],
-                ['user_group_order','\UserGroupOrderController'],['user_address','\UserAddressController'],['news','\NewsController'],['filter','\FilterController'],
+                ['user_group_order','\UserGroupOrderController'],['user_address','\UserAddressController'],['news','\NewsController'],
                 ['country','\CountryController'],['geo','\GeoController'],['zone','\ZoneController'],['currency','\CurrencyController'],['subscribe','\SubscribeController']
             ];
 
@@ -105,14 +105,11 @@ Route::middleware(['web'])->group(function () {
                 Route::post($val[0].'/del', 'Aphly\LaravelCommon\Controllers\Admin'.$val[1].'@del');
             }
 
-            Route::get('filter/ajax', 'Aphly\LaravelCommon\Controllers\Admin\FilterController@ajax');
-            Route::get('category/ajax', 'Aphly\LaravelCommon\Controllers\Admin\CategoryController@ajax');
-            Route::get('category/tree', 'Aphly\LaravelCommon\Controllers\Admin\CategoryController@tree');
             Route::get('links/tree', 'Aphly\LaravelCommon\Controllers\Admin\LinksController@tree');
             Route::get('news_category/tree', 'Aphly\LaravelCommon\Controllers\Admin\NewsCategoryController@tree');
 
 			$route_arr = [
-				['category','\CategoryController'],['news_category','\NewsCategoryController'],['links','\LinksController']
+				['news_category','\NewsCategoryController'],['links','\LinksController']
 			];
 
 			foreach ($route_arr as $val){
