@@ -5,66 +5,158 @@
 
 <style>
     body{font-family: 'Montserrat';background: #f6f6f6;}
-
     .header1{height: 80px;padding: 0 10px;position: fixed;left: 0;top: 0;width: 100%;background: #fff;z-index: 2000;}
-    .header1 i{font-size: 30px;font-weight: 600}
+    .header13 i{font-size: 27px;font-weight: 400;margin:0 10px;}
     .header13 a{position: relative;}
-    .header13 i{margin:0 10px;}
-
     .cart_num{position: absolute;right:0;top: 0;font-size: 12px;width: 16px;height: 16px;color: #fff;background: #333;text-align: center;border-radius: 50%;}
-
     main{padding: 100px 0 80px;min-height: 800px;}
+    .header10{height: 100%;}
+    .header101{height: 60px;align-items: end;margin-top: 10px;}
+    .logo_menu{display: none}
+    .header12{margin-right: auto;margin-left: 20px;}
+    .header12 .menu li .nav-link-lv1{font-weight: 600;font-size: 16px;}
+    .header12 .menu li{margin-right: 20px;}
+    .search_pc{}
+    .search_pc1{position: relative;display: flex;align-items: center;margin-right: 20px;}
+    .search_pc11{border-radius: 4px;margin-bottom: 0; border: 1px solid #ddd;line-height: 34px;height: 36px; width: 100%; padding: 0 8px;}
+    .search_pc12{position: absolute;right: 10px;border: none;border-radius: 4px;}
+    .header11 img{height: 100%;}
+    .header11_m,.header12_m{display: none;}
     @media (max-width: 1199.98px) {
-        .header1{height: 55px;}
+        main{padding: 60px 0 40px;}
+        .header1{height: 55px;padding: 0;}
         .header1 i{font-size: 20px;}
         .header13 i{margin:0 5px;}
-        main{padding: 60px 0 40px;}
+        .logo_menu{display: block;padding: 0 10px;}
+        .header12,.search_pc{display: none;}
+        .header11{display: none;}
+        .header101{height: 100%;align-items: center;margin-top: 0;justify-content: space-between;}
+        .header12_m img{height: 45px;}
+        .header13 a{padding: 0 5px;}
+        .header11_m,.header12_m{display: block;}
+        .header13 .wishlist{display: none;}
+        .header11_m,.header13{width: 30%;}
+        .header13{flex-direction: row-reverse;}
     }
 </style>
 <header>
-    <div class="d-flex justify-content-between header1 align-items-center">
-        <div class="header11">
-            <i class="common-iconfont icon-caidan"></i>
-        </div>
-        <div class="header12">
-
-        </div>
-        <div class="d-flex header13">
-            <a href="/account_ext/wishlist?redirect={{urlencode(request()->url())}}"><i class="common-iconfont icon-aixin"></i><span class="wishlist_num">{{$wishlist_num}}</span></a>
-            <a href="/cart"><i class="common-iconfont icon-31gouwuche"></i><span class="cart_num">{{$cart_num}}</span></a>
-            <a href="/account/index?redirect={{urlencode(request()->url())}}"><i class="common-iconfont icon-dengluzhanghao"></i></a>
-        </div>
-    </div>
-
-    <div class="">
-        <ul class="menu d-flex">
-            @if(isset($links[1]['child']))
-                @foreach($links[1]['child'] as $val)
-                    <li>
-                        @if(isset($val['child']))
-                            @php $val['child_url'] = array_column($val['child'],'url'); @endphp
-                            <a class="nav-link {{(request()->is($val['url']) || in_array($val['url'],$val['child_url']))?'active':''}}"
-                               id="navbarDropdown{{$val['id']}}" role="button" data-toggle="dropdown" aria-expanded="false">{{$val['name']}}</a>
-                            <div class="dropdown-menu" aria-labelledby="navbarDropdown{{$val['id']}}">
-                                @foreach($val['child'] as $v)
-                                    <a class="dropdown-item " href="{{$v['url']}}">{{$v['name']}}</a>
-                                @endforeach
-                            </div>
-                        @else
-                            <a href="{{$val['url']}}" class="nav-link {{request()->is($val['url'])?'active':''}}">{{$val['name']}}</a>
+    <div class="header1">
+        <div class="container header10">
+            <div class="d-flex header101">
+                <div class="header11">
+                    <img src="{{ URL::asset('static/common/img/logo.png') }}" alt="">
+                    <i class="common-iconfont icon-caidan logo_menu" ></i>
+                </div>
+                <div class="header11_m">
+                    <i class="common-iconfont icon-caidan logo_menu" ></i>
+                </div>
+                <div class="header12_m">
+                    <img src="{{ URL::asset('static/common/img/logo.png') }}" alt="">
+                </div>
+                <div class="header12">
+                    <ul class="menu d-flex">
+                        @if(isset($links['child']))
+                            @foreach($links['child'] as $val)
+                                <li>
+                                    @if(isset($val['child']))
+                                        @php $val['child_url'] = array_column($val['child'],'url'); @endphp
+                                        <a class="nav-link nav-link-lv1 {{(request()->is($val['url']) || in_array($val['url'],$val['child_url']))?'active':''}}"
+                                           id="navbarDropdown{{$val['id']}}" role="button" data-toggle="dropdown" aria-expanded="false">{{$val['name']}}</a>
+                                        <div class="dropdown-menu" aria-labelledby="navbarDropdown{{$val['id']}}">
+                                            @foreach($val['child'] as $v)
+                                                <a class="dropdown-item " href="{{$v['url']}}">{{$v['name']}}</a>
+                                            @endforeach
+                                        </div>
+                                    @else
+                                        <a href="{{$val['url']}}" class="nav-link nav-link-lv1 {{request()->is($val['url'])?'active':''}}">{{$val['name']}}</a>
+                                    @endif
+                                </li>
+                            @endforeach
                         @endif
-                    </li>
-                @endforeach
-            @endif
-        </ul>
+                    </ul>
+                </div>
+                <div class="search_pc">
+                    <div class="search_pc1">
+                        <input type="text" autocomplete="off" name="name" value="" placeholder="Search" class="search_pc11" maxlength="128">
+                        <button type="submit" class="search_pc12 search_btn"><i class="common-iconfont icon-sousuo"></i></button>
+                    </div>
+                </div>
+                <div class="d-flex header13">
+                    <a class="wishlist" href="/account_ext/wishlist?redirect={{urlencode(request()->url())}}"><i class="common-iconfont icon-aixin"></i><span class="wishlist_num">{{$wishlist_num}}</span></a>
+                    <a href="/cart"><i class="common-iconfont icon-31gouwuche"></i><span class="cart_num">{{$cart_num}}</span></a>
+                    <a href="/account/index?redirect={{urlencode(request()->url())}}"><i class="uni app-touxiang"></i></a>
+                </div>
+            </div>
+        </div>
     </div>
+    <div class="m_search_btn" onclick="$('.search_m').toggle()">
+        <i class="common-iconfont icon-sousuo"></i>
+    </div>
+    <div class="search_m" style="display: none">
+        <div class="search_m1 container">
+            <div class="d-flex justify-content-between search_m11">
+                <div class="search_m111">Search</div>
+                <div class="search_m112" onclick="$('.search_m').toggle()"><i class="uni app-guanbi"></i></div>
+            </div>
+            <div class="search_m12">
+                <input type="text" autocomplete="off" name="name" value="" placeholder="Search" class="" maxlength="128">
+                <button type="submit" class="search_btn"><i class="common-iconfont icon-sousuo"></i></button>
+            </div>
+            <div class="search_m13">
+                <span class="label">Popular Searches:</span>
+            </div>
+        </div>
+    </div>
+    <div class="m_menu">
+        <div class="m_menu1">
+            <ul class="menu d-flex">
+                @if(isset($links['child']))
+                    @foreach($links['child'] as $val)
+                        <li>
+                            @if(isset($val['child']))
+                                @php $val['child_url'] = array_column($val['child'],'url'); @endphp
+                                <a class="nav-link nav-link-lv1 {{(request()->is($val['url']) || in_array($val['url'],$val['child_url']))?'active':''}}"
+                                   id="navbarDropdown{{$val['id']}}" role="button" data-toggle="dropdown" aria-expanded="false">{{$val['name']}}</a>
+                                <div class="dropdown-menu" aria-labelledby="navbarDropdown{{$val['id']}}">
+                                    @foreach($val['child'] as $v)
+                                        <a class="dropdown-item " href="{{$v['url']}}">{{$v['name']}}</a>
+                                    @endforeach
+                                </div>
+                            @else
+                                <a href="{{$val['url']}}" class="nav-link nav-link-lv1 {{request()->is($val['url'])?'active':''}}">{{$val['name']}}</a>
+                            @endif
+                        </li>
+                    @endforeach
+                @endif
+            </ul>
+        </div>
+    </div>
+
 </header>
 
 <script>
-
+$(function () {
+    $('header').on('click','.search_btn',function () {
+        let name = $(this).siblings('input').val()
+        if(name){
+            location.href='/product?name='+name
+        }
+    })
+})
 </script>
 
 <style>
+.search_m{position: fixed;top: 0;height: 100%;left: 0;width: 100%;background: #fff;z-index: 2000;}
+.search_m1{padding-top:32px;}
+.search_m11{font-weight: 600;height: 36px;margin-bottom: 10px;align-items: center;}
+.search_m12{height: 46px;border-bottom: 2px solid #999;}
+.search_m112{padding: 0 10px;line-height: 36px;}
+.search_m12 input{border:none;height: 100%;width: calc(100% - 50px);}
+.search_m12 button{width: 40px;height: 40px;border: none;margin-left: 5px;background: transparent}
+.search_m12 button i{font-size: 20px;}
+.search_m13{margin-top: 10px;line-height: 28px}
+.search_m13 .label{color:#777;}
+.m_search_btn{color:#000;font-weight:600;font-size:12px;display:block;position:fixed;bottom:calc(50% + 90px);right:0;background:#fafafa;padding:11px;z-index:100;border-bottom-left-radius:8px;border-top-left-radius:8px}
 
 </style>
 <main>
