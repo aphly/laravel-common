@@ -58,48 +58,7 @@
     }
 
 </style>
-@if($currency[0] && $currency[1] && $currency[2] && count($currency[0])>1 )
-<div class="currency_box">
-    <div class="currency_curr">
-        <div class="baCountry baCountry-{{$currency[2]['code']}}"></div>
-        <span class="ba-chosen ">{{$currency[2]['code']}}</span>
-    </div>
-    <ul class="baDropdown">
-        @foreach($currency[0] as $val)
-            <li class="currMovers @if($currency[2]['code']==$val['code']) active @endif" data-id="{{$val['id']}}">
-                <div class="baCountry baCountry-{{$val['code']}}"></div>
-                <span class="curChoice wenzi">{{$val['name']}} ({{$val['code']}})</span>
-            </li>
-        @endforeach
-    </ul>
-</div>
 
-<script>
-    let currency_data = @json($currency[0]);
-
-    function subscribe_res(res,_this) {
-        alert_msg(res)
-    }
-
-    $(function () {
-        $('.currency_box .currency_curr').click(function () {
-            $('.baDropdown').toggle();
-        })
-        $('.currency_box .baDropdown').on('click','li',function () {
-            let id  =$(this).data('id')
-            $.ajax({
-                url:'/currency/'+id,
-                dataType: "json",
-                success: function(res){
-                    //console.log(res);
-                    location.reload()
-                    //alert_msg(res,true)
-                }
-            })
-        })
-    })
-</script>
-@endif
 <script src="{{ URL::asset('static/base/js/bootstrap.bundle.min.js') }}"></script>
 <script>
     var aphly_viewerjs = document.querySelectorAll('.aphly_viewer_js');
@@ -123,10 +82,11 @@
         })
 
     }
-
+    function subscribe_res(res,_this) {
+        alert_msg(res)
+    }
     $(function() {
         $("img.lazy").lazyload({effect : "fadeIn",threshold :50});
-
     })
 </script>
 </body>
