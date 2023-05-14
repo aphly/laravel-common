@@ -37,6 +37,8 @@
         .header11_m,.header12_m{display: block;}
         .header13 .wishlist{display: none;}
         .header11_m,.header13{width: 30%;}
+        .header11_m{display: flex;}
+        .header11_m i{padding: 0 10px;}
         .header13{flex-direction: row-reverse;}
     }
 </style>
@@ -50,6 +52,7 @@
                 </div>
                 <div class="header11_m">
                     <i class="common-iconfont icon-caidan logo_menu" onclick="$('.m_menu').toggle()"></i>
+                    <i class="common-iconfont icon-sousuo" onclick="$('.search_m').toggle()"></i>
                 </div>
                 <div class="header12_m">
                     <a href="/"><img src="{{ URL::asset('static/common/img/logo.png') }}" alt="logo"></a>
@@ -108,6 +111,7 @@
             </div>
         </div>
     </div>
+
     <div class="m_menu" style="display: none;">
         <div class="m_menu1 d-flex">
             <div class="m_menu11">
@@ -119,7 +123,7 @@
                         <i class="uni app-guanbi"></i>
                     </div>
                 </div>
-                <ul>
+                <ul class="m_menu112">
                     @if(isset($links['child']))
                         @foreach($links['child'] as $val)
                             <li>
@@ -159,7 +163,24 @@
                         @endforeach
                     @endif
                 </ul>
-
+                <div class="m_menu113">
+                @if($currency[0] && $currency[1] && $currency[2] && count($currency[0])>1 )
+                    <div class="currency_box">
+                        <div class="currency_curr">
+                            <div class="baCountry baCountry-{{$currency[2]['code']}}"></div>
+                            <span class="ba-chosen ">{{$currency[2]['code']}}</span>
+                        </div>
+                        <ul class="baDropdown">
+                            @foreach($currency[0] as $val)
+                                <li class="currMovers @if($currency[2]['code']==$val['code']) active @endif" data-id="{{$val['id']}}">
+                                    <div class="baCountry baCountry-{{$val['code']}}"></div>
+                                    <span class="curChoice wenzi">{{$val['name']}} ({{$val['code']}})</span>
+                                </li>
+                            @endforeach
+                        </ul>
+                    </div>
+                @endif
+                </div>
             </div>
 
             <div class="menu_r" onclick="$('.m_menu').toggle()">
@@ -178,10 +199,21 @@ $(function () {
             location.href='/product?name='+name
         }
     })
+    $('.m_menu11 .m_menu112').on('click','i',function () {
+        let status = $(this).attr('aria-expanded')
+        if(status=='true'){
+            $(this).removeClass('app-jian1').addClass('app-jia1')
+        }else{
+            $(this).removeClass('app-jia1').addClass('app-jian1')
+        }
+    })
 })
 </script>
 
 <style>
+.m_menu112{height: calc(100% - 150px);overflow-y: auto;}
+.m_menu .currency_box{display: block;width: 100%;position: relative;left: 0;bottom: 0;}
+.m_menu .currency_box .baDropdown{width: 100%;}
 .search_m{position: fixed;top: 0;height: 100%;left: 0;width: 100%;background: #fff;z-index: 2000;}
 .search_m1{padding-top:32px;}
 .search_m11{font-weight: 600;height: 36px;margin-bottom: 10px;align-items: center;}
@@ -195,7 +227,7 @@ $(function () {
 .m_search_btn{color:#000;font-weight:600;font-size:12px;display:block;position:fixed;bottom:calc(50% + 90px);right:0;background:#fafafa;padding:11px;z-index:100;border-bottom-left-radius:8px;border-top-left-radius:8px}
 
 .m_menu1{position: fixed;top: 0;height: 100%;left: 0;width: 100%;z-index: 2001;}
-.m_menu11{width: 100%; background: #FFF;padding: 20px;}
+.m_menu11{width: 100%; background: #FFF;padding: 20px;position: relative;}
 .menu_r{width: 50px; background: rgba(0,0,0,0.5);justify-content: center; align-items: center;color: #fff;display: none;}
 .m_menu11 li{line-height: 54px;}
 .m_menu11 li .menu_lv1_a{font-weight: 500;font-size: 18px; color: #000;padding: 0;}
@@ -207,6 +239,7 @@ $(function () {
 .menu_lv3{padding-left: 10px;border-left: 1px solid #f1f1f1;}
 .m_menu11 ul i{width: 60px;text-align: right;}
 .menu_lv2{padding-left: 10px;}
+.m_menu113{margin-top: 20px;}
 @media (max-width: 1199.98px) {
     .currency_box{display: none}
 }
