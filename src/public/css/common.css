@@ -3,6 +3,7 @@
     --a-hover:#007aff;
     --body-bg:#f1f1f1;
 }
+.br4{border-radius: 4px;}
 .aphly_viewer{cursor: pointer}
 a{color: var(--a);}
 ._shadow {box-shadow: 0 0 #0000,0 0 #0000,0 2px 8px 0 rgba(0, 0, 0, .16);}
@@ -40,7 +41,7 @@ a{color: var(--a);}
 .currency_box .baDropdown li.active{color:var(--a-hover);}
 
 input[type='number']::-webkit-outer-spin-button,input[type='number']::-webkit-inner-spin-button {-webkit-appearance: none !important;}
-
+.common_btn{ border-radius: 4px;border: 1px solid #aaa;}
 @media (max-width: 1199.98px) {
 
 }

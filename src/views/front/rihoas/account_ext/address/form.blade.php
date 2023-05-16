@@ -72,9 +72,9 @@
                             <input type="checkbox" name="default" value="1" @if($user->address_id == $res['info']->id) checked="checked" @endif>
                             <span>Set as primary address</span>
                         </div>
-                        <div class="form-group d-flex">
-                            <button class="btn-default  save-address" type="submit">Save</button>
-                            <a href="/account_ext/address" class="btn-cancel">Cancel</a>
+                        <div class="form-group d-flex addr_form">
+                            <button class="btn-default  save-address br4" type="submit">Save</button>
+                            <a href="/account_ext/address" class="btn-cancel br4">Cancel</a>
                         </div>
                     </form>
                 </div>
@@ -85,6 +85,9 @@
 <style>
     .save-address{background-color: #06b4d1;color: #fff;border: none;width: 120px;height: 40px;}
     .btn-cancel{background-color: #fff;border: 1px solid #333;width: 120px;height: 40px;margin-left: 40px;display: block;line-height: 40px;text-align: center;}
+    @media (max-width: 1199.98px) {
+        .addr_form{justify-content: space-between;}
+    }
 </style>
 <script>
     function saveAddress(res) {

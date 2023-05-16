@@ -59,24 +59,24 @@
                 </div>
                 <div class="header12">
                     <ul class="menu d-flex">
-                        @if(isset($links['child']))
-                            @foreach($links['child'] as $val)
-                                <li>
-                                    @if(isset($val['child']))
-                                        @php $val['child_url'] = array_column($val['child'],'url'); @endphp
-                                        <a class="nav-link nav-link-lv1 {{(request()->is($val['url']) || in_array($val['url'],$val['child_url']))?'active':''}}"
-                                           id="navbarDropdown{{$val['id']}}" role="button" data-toggle="dropdown" aria-expanded="false">{{$val['name']}}</a>
-                                        <div class="dropdown-menu" aria-labelledby="navbarDropdown{{$val['id']}}">
-                                            @foreach($val['child'] as $v)
-                                                <a class="dropdown-item " href="{{$v['url']}}">{{$v['name']}}</a>
-                                            @endforeach
-                                        </div>
-                                    @else
-                                        <a href="{{$val['url']}}" class="nav-link nav-link-lv1 {{request()->is($val['url'])?'active':''}}">{{$val['name']}}</a>
-                                    @endif
-                                </li>
-                            @endforeach
-                        @endif
+                    @if(isset($links['child']))
+                        @foreach($links['child'] as $val)
+                            <li>
+                                @if(isset($val['child']))
+                                    @php $val['child_url'] = array_column($val['child'],'url'); @endphp
+                                    <a class="nav-link nav-link-lv1 {{(request()->is($val['url']) || in_array($val['url'],$val['child_url']))?'active':''}}"
+                                       id="navbarDropdown{{$val['id']}}" role="button" data-toggle="dropdown" aria-expanded="false">{{$val['name']}}</a>
+                                    <div class="dropdown-menu" aria-labelledby="navbarDropdown{{$val['id']}}">
+                                        @foreach($val['child'] as $v)
+                                            <a class="dropdown-item " href="{{$v['url']}}">{{$v['name']}}</a>
+                                        @endforeach
+                                    </div>
+                                @else
+                                    <a href="{{$val['url']}}" class="nav-link nav-link-lv1 {{request()->is($val['url'])?'active':''}}">{{$val['name']}}</a>
+                                @endif
+                            </li>
+                        @endforeach
+                    @endif
                     </ul>
                 </div>
                 <div class="search_pc">

@@ -1,23 +1,26 @@
 
 <div class="sidebar-menu">
     <div class="sidebar-menu-list">
+        @php
+        $uri = request()->path()
+        @endphp
         <div class="sidebar-menu-title">My Account Information</div>
         <ul class="sidebar-menu-content">
-            <li><a href="/account/index" @if('account/index'==request()->path()) class="active" @endif>Dashboard</a></li>
-            <li><a href="/account_ext/wishlist" @if('account_ext/wishlist'==request()->path()) class="active" @endif>My Wishlist</a></li>
-            <li><a href="/account_ext/address" @if('account_ext/address'==request()->path() || 'account_ext/address/save'==request()->path()) class="active" @endif>My Address Book</a></li>
-            <li><a href="/account_ext/subscribe" @if('account_ext/subscribe'==request()->path()) class="active" @endif>My Subscribe</a></li>
+            <li><a href="/account/index" @if('account/index'==$uri) class="active" @endif>Dashboard</a></li>
+            <li><a href="/account_ext/wishlist" @if('account_ext/wishlist'==$uri) class="active" @endif>My Wishlist</a></li>
+            <li><a href="/account_ext/address" @if('account_ext/address'==$uri || 'account_ext/address/save'==$uri) class="active" @endif>My Address Book</a></li>
+            <li><a href="/account_ext/subscribe" @if('account_ext/subscribe'==$uri) class="active" @endif>My Subscribe</a></li>
         </ul>
 
         <div class="sidebar-menu-title">Order Details</div>
         <ul class="sidebar-menu-content">
-            <li><a href="/account_ext/order" @if('account_ext/order'==request()->path()) class="active" @endif>My Orders</a></li>
-            <li><a href="/account_ext/review" @if('account_ext/review'==request()->path() || 'account_ext/review/detail'==request()->path()) class="active" @endif>My Reviews</a></li>
+            <li><a href="/account_ext/order" @if('account_ext/order'==$uri || 'account_ext/order/detail'==$uri) class="active" @endif>My Orders</a></li>
+            <li><a href="/account_ext/review" @if('account_ext/review'==$uri || 'account_ext/review/detail'==$uri) class="active" @endif>My Reviews</a></li>
         </ul>
         <div class="sidebar-menu-title">Customer Service</div>
         <ul class="sidebar-menu-content">
-            <li><a href="/account_ext/service" @if('account_ext/service'==request()->path() || 'account_ext/service/form'==request()->path()) class="active" @endif>My Service</a></li>
-            <li><a href="/account/logout" @if('account/logout'==request()->path()) class="active" @endif>Logout</a></li>
+            <li><a href="/account_ext/service" @if('account_ext/service'==$uri || 'account_ext/service/form'==$uri) class="active" @endif>My Service</a></li>
+            <li><a href="/account/logout" @if('account/logout'==$uri) class="active" @endif>Logout</a></li>
         </ul>
         <div class="sidebar-menu-content" style="">
             <span>Need help? We're here to help you:</span>

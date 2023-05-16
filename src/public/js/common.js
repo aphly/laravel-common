@@ -104,7 +104,17 @@ $(function () {
         let imgFileList = img_js_obj.imgFileList
         const that = $(this)
         let formData = new FormData(that[0]);
+        let image_length = that.data('image_length') || 0
+        if(image_length && image_length<imgFileList.length){
+            _alert_msg('Up to '+image_length+' images can be uploaded at once')
+            return false;
+        }
+        let image_size = $(this).data('image_size') || 0
         for(let i in imgFileList){
+            if(image_size && (imgFileList[i].size/1024/1024)>image_size){
+                _alert_msg('Image size exceeds the limit of '+image_size+'M')
+                return false;
+            }
             formData.append('files[]', imgFileList[i]);
         }
         let url = that.attr("action");
