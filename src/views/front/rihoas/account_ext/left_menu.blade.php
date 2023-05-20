@@ -40,7 +40,7 @@
     .sidebar-menu-content{margin-bottom: 15px;}
 
     .account-main-section{width: calc(100% - 300px);margin-left: 20px;background: #fff;border-radius: 4px;padding: 20px}
-    .account_info{margin-top: 20px;display: flex;justify-content: space-between;}
+    .account_info{margin-top: 10px;display: flex;justify-content: space-between;}
     .top-desc{margin-bottom: 10px;}
     .top-desc a{color:#06b4d1;font-size: 16px;}
     .list_index{}

@@ -3,15 +3,13 @@
     <div class="footer1">
         <div class="container">
             <div class="footer11">
-                <ul>
-                    <li><img src="" alt=""></li>
-                </ul>
+
                 <ul>
                     <li>About Us</li>
                     <li><a href="">Terms of Service</a></li>
                     <li><a href="">Privacy Policy</a></li>
                 </ul>
-                <ul>
+                <ul style="margin-right: auto">
                     <li>Support</li>
                     <li><a href="">Contact Us</a></li>
                     <li><a href="">Refund Policy</a></li>

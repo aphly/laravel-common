@@ -10,19 +10,27 @@
     .header13 i{font-size: 27px;font-weight: 400;margin:0 10px;}
     .header13 a{position: relative;}
     .cart_num{position: absolute;right:0;top: 0;font-size: 12px;width: 16px;height: 16px;color: #fff;background: #333;text-align: center;border-radius: 50%;}
-    main{padding: 100px 0 80px;min-height: 800px;}
+    main{padding: 80px 0;min-height: 800px;}
     .header10{height: 100%;}
-    .header101{height: 60px;align-items: end;margin-top: 10px;}
+    .header101{height: 100%;}
     .logo_menu{display: none}
-    .header12{margin-right: auto;margin-left: 20px;}
-    .header12 .menu li .nav-link-lv1{font-weight: 600;font-size: 16px;}
-    .header12 .menu li{margin-right: 20px;}
+    .header12{margin-right: auto;}
+    .header12 .menu li .pc_menu_lv1_a{font-weight: 600;font-size: 16px;padding: 40px 20px 0;display: block;height: 100%;}
+    .header12 .menu li{position: relative;}
+    .header12 .menu{height: 100%;}
+    .pc_menu_lv2{display: none;position: fixed;left: 0;background: #fff;width: 100%;box-shadow:0 2px 12px 2px #eee;}
+    .pc_menu_lv21{padding:40px 15px 80px;display: flex;}
+    .pc_menu_lv2_a{color:#333;font-weight: 600;font-size: 15px;display: block;margin-bottom: 10px;}
+    .pc_menu_lv3 a{display: block;line-height: 30px;}
+    .pc_menu_lv211{padding-right: 40px;min-width: 160px;}
     .search_pc{}
-    .search_pc1{position: relative;display: flex;align-items: center;margin-right: 20px;}
+    .search_pc1{position: relative;display: flex;align-items: center;margin-right: 20px; padding-top: 30px;}
     .search_pc11{border-radius: 4px;margin-bottom: 0; border: 1px solid #ddd;line-height: 34px;height: 36px; width: 100%; padding: 0 8px;}
     .search_pc12{position: absolute;right: 10px;border: none;border-radius: 4px;}
-    .header11 img{height: 100%;}
+    .header11 img{  height: 60px;margin-top: 10px;}
     .header11_m,.header12_m{display: none;}
+    .header13{padding-top: 30px;}
+    .shop_main{margin-top: 10px;}
     @media (max-width: 1199.98px) {
         main{padding: 60px 0 40px;}
         .header1{height: 55px;padding: 0;}
@@ -59,24 +67,37 @@
                 </div>
                 <div class="header12">
                     <ul class="menu d-flex">
-                    @if(isset($links['child']))
-                        @foreach($links['child'] as $val)
-                            <li>
-                                @if(isset($val['child']))
-                                    @php $val['child_url'] = array_column($val['child'],'url'); @endphp
-                                    <a class="nav-link nav-link-lv1 {{(request()->is($val['url']) || in_array($val['url'],$val['child_url']))?'active':''}}"
-                                       id="navbarDropdown{{$val['id']}}" role="button" data-toggle="dropdown" aria-expanded="false">{{$val['name']}}</a>
-                                    <div class="dropdown-menu" aria-labelledby="navbarDropdown{{$val['id']}}">
-                                        @foreach($val['child'] as $v)
-                                            <a class="dropdown-item " href="{{$v['url']}}">{{$v['name']}}</a>
-                                        @endforeach
-                                    </div>
-                                @else
-                                    <a href="{{$val['url']}}" class="nav-link nav-link-lv1 {{request()->is($val['url'])?'active':''}}">{{$val['name']}}</a>
-                                @endif
-                            </li>
-                        @endforeach
-                    @endif
+                        @if(isset($links['child']))
+                            @foreach($links['child'] as $val)
+                                <li>
+                                    @if(isset($val['child']))
+                                        @php $val['child_url'] = array_column($val['child'],'url'); @endphp
+                                        <a href="{{$val['url']??'javascript:void(0)'}}" class="pc_menu_lv1_a wenzi {{(request()->is($val['url']) || in_array($val['url'],$val['child_url']))?'active':''}}">{{$val['name']}}</a>
+                                        <div class="pc_menu_lv2" >
+                                            <div class="container pc_menu_lv21">
+                                                @foreach($val['child'] as $v)
+                                                    <div class="pc_menu_lv211">
+                                                        @if(isset($v['child']))
+                                                            <a href="{{$v['url']??'javascript:void(0)'}}" class="pc_menu_lv2_a">{{$v['name']}}</a>
+                                                            <div class="pc_menu_lv3">
+                                                                @foreach($v['child'] as $v1)
+                                                                    <a class="pc_menu_lv3_a wenzi" href="{{$v1['url']}}">{{$v1['name']}}</a>
+                                                                @endforeach
+                                                            </div>
+                                                        @else
+                                                            <a class="pc_menu_lv2_a wenzi" href="{{$v['url']}}">{{$v['name']}}</a>
+                                                        @endif
+                                                    </div>
+                                                @endforeach
+                                            </div>
+
+                                        </div>
+                                    @else
+                                        <a href="{{$val['url']}}" class="pc_menu_lv1_a wenzi {{request()->is($val['url'])?'active':''}}">{{$val['name']}}</a>
+                                    @endif
+                                </li>
+                            @endforeach
+                        @endif
                     </ul>
                 </div>
                 <div class="search_pc">
@@ -207,6 +228,18 @@ $(function () {
             $(this).removeClass('app-jia1').addClass('app-jian1')
         }
     })
+
+    $('.pc_menu_lv1_a').hover(function () {
+        $(this).siblings('.pc_menu_lv2').slideDown();
+    },function () {
+        $('.pc_menu_lv2').hide();
+    })
+    $('.pc_menu_lv2').hover(function () {
+        $(this).show();
+    },function () {
+        $(this).hide();
+    })
+
 })
 </script>
 
