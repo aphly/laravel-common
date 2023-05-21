@@ -32,7 +32,7 @@
     .header13{padding-top: 30px;}
     .shop_main{margin-top: 10px;}
     @media (max-width: 1199.98px) {
-        main{padding: 60px 0 40px;}
+        main{padding: 55px 0 40px;}
         .header1{height: 55px;padding: 0;}
         .header1 i{font-size: 20px;}
         .header13 i{margin:0 5px;}
@@ -44,10 +44,11 @@
         .header13 a{padding: 0 5px;}
         .header11_m,.header12_m{display: block;}
         .header13 .wishlist{display: none;}
-        .header11_m,.header13{width: 30%;}
+        .header11_m,.header13{width: 30%;padding-top: 0;}
         .header11_m{display: flex;}
         .header11_m i{padding: 0 10px;}
         .header13{flex-direction: row-reverse;}
+        .currency_box .baDropdown li{align-items: center;}
     }
 </style>
 <header>
@@ -138,7 +139,7 @@
             <div class="m_menu11">
                 <div class="d-flex justify-content-between align-items-center m_menu111">
                     <div class="m_menu1111">
-
+                        <a href="/"><img src="{{ URL::asset('static/common/img/logo.png') }}" alt="logo"></a>
                     </div>
                     <div class="m_menu1112" onclick="$('.m_menu').toggle()">
                         <i class="uni app-guanbi"></i>
