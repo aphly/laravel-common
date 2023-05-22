@@ -30,7 +30,11 @@
     .header11 img{  height: 60px;margin-top: 10px;}
     .header11_m,.header12_m{display: none;}
     .header13{padding-top: 30px;}
-    .shop_main{margin-top: 10px;}
+    .shop_main{margin-top: 20px;}
+    .icon-aixin{cursor: pointer}
+    .my_breadcrumb{line-height: 44px;margin-bottom: 10px;font-weight: 400}
+    .my_breadcrumb .to{margin: 0 10px;}
+
     @media (max-width: 1199.98px) {
         main{padding: 55px 0 40px;}
         .header1{height: 55px;padding: 0;}
