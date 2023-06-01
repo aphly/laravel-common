@@ -33,7 +33,7 @@
         <div class="container">
             <div class="footer21">
                 <div class="footer21a">
-                    @if($currency[0] && $currency[1] && $currency[2] && count($currency[0])>1 )
+                    @if($currency[0] && $currency[1] && $currency[2])
                         <div class="currency_box">
                             <div class="currency_curr">
                                 <div class="baCountry baCountry-{{$currency[2]['code']}}"></div>
