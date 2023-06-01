@@ -70,7 +70,7 @@
                     @endif
                 </div>
                 <div class="footer21b">
-                    © {{date('Y')}} {{env('APP_NAME')}}, Inc.
+                    © {{date('Y')}} {{env('APP_NAME')}}. All Rights Reserved.
                 </div>
             </div>
         </div>
@@ -96,6 +96,10 @@
     .currency_box .currency_curr{background-color: transparent;box-shadow: none;}
     @media (max-width: 1199.98px) {
         .footer11 ul{flex-basis: 100%;}
+        .footer21{flex-wrap: wrap;}
+        .footer21a{width: 100%;justify-content: center;}
+        .footer21b{width: 100%;text-align: center;}
+        .currency_box .baDropdown{left: -60px;}
     }
 
 </style>
