@@ -49,12 +49,28 @@ class Currency extends Model
         return self::$allDefaultCurr;
     }
 
+    static function toDefault($price){
+        $price = floatval($price);
+        list($currency_all,$default,$info) = self::allDefaultCurr();
+        if($currency_all && $default && $info){
+            if($info['value']>0 && $default['value']>0){
+                if($info['value']!=$default['value']) {
+                    $price = $price * $default['value'] / $info['value'];
+                }
+                return self::numberFormat($price,$default);
+            }
+        }
+        return $price;
+    }
+
     static function format($price,$type = 0){
         $price = floatval($price);
         list($currency_all,$default,$info) = self::allDefaultCurr();
         if($currency_all && $default && $info){
             if($info['value']>0 && $default['value']>0){
-                $price = $price*$info['value']/$default['value'];
+                if($info['value']!=$default['value']){
+                    $price = $price*$info['value']/$default['value'];
+                }
             }
             $price = self::numberFormat($price,$info);
             if($type==1){

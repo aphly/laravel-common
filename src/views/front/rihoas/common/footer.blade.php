@@ -21,7 +21,7 @@
                     <li>
                         <form data-fn="subscribe_res" class="form_request subscribe" action="/subscribe/ajax" method="post">
                             @csrf
-                            <input type="text" name="email" placeholder="Your email">
+                            <input type="text" name="email" autocomplete="off" placeholder="Your email">
                             <button type="submit" >Subscribe</button>
                         </form>
                     </li>

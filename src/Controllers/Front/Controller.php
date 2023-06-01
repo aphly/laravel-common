@@ -18,6 +18,8 @@ class Controller extends \Aphly\Laravel\Controllers\Controller
 
     public $link_id = 1;
 
+    public $currency = [];
+
     public function __construct()
     {
         $this->middleware(function ($request, $next) {
@@ -34,7 +36,7 @@ class Controller extends \Aphly\Laravel\Controllers\Controller
                 View::share("checkin",[]);
             }
             View::share("links",(new Links)->menu($this->link_id));
-            $currency = (new Currency)->allDefaultCurr();
+            $this->currency = $currency = (new Currency)->allDefaultCurr();
             if(isset($currency[2]) && !empty($currency[2]['timezone'])){
                 date_default_timezone_set($currency[2]['timezone']);
             }
