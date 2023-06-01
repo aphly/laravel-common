@@ -32,7 +32,46 @@
     <div class="footer2">
         <div class="container">
             <div class="footer21">
-                © {{date('Y')}} Designed by Out of the . Powered by {{env('APP_NAME')}}
+                <div class="footer21a">
+                    @if($currency[0] && $currency[1] && $currency[2] && count($currency[0])>1 )
+                        <div class="currency_box">
+                            <div class="currency_curr">
+                                <div class="baCountry baCountry-{{$currency[2]['code']}}"></div>
+                                <span class="ba-chosen ">{{$currency[2]['code']}}</span>
+                            </div>
+                            <ul class="baDropdown">
+                                @foreach($currency[0] as $val)
+                                    <li class="currMovers @if($currency[2]['code']==$val['code']) active @endif" data-id="{{$val['id']}}">
+                                        <div class="baCountry baCountry-{{$val['code']}}"></div>
+                                        <span class="curChoice wenzi">{{$val['name']}} ({{$val['code']}})</span>
+                                    </li>
+                                @endforeach
+                            </ul>
+                        </div>
+
+                        <script>
+                            let currency_data = @json($currency[0]);
+                            $(function () {
+                                $('.currency_box .currency_curr').click(function () {
+                                    $('.baDropdown').toggle();
+                                })
+                                $('.currency_box .baDropdown').on('click','li',function () {
+                                    let id  =$(this).data('id')
+                                    $.ajax({
+                                        url:'/currency/'+id,
+                                        dataType: "json",
+                                        success: function(res){
+                                            location.reload()
+                                        }
+                                    })
+                                })
+                            })
+                        </script>
+                    @endif
+                </div>
+                <div class="footer21b">
+                    © {{date('Y')}} {{env('APP_NAME')}}, Inc.
+                </div>
             </div>
         </div>
     </div>
@@ -44,13 +83,17 @@
     footer{}
     .footer1{background: #eaeaea;padding: 40px 0;}
     .footer11{display: flex;flex-wrap: wrap;}
-    .footer21{display: flex;justify-content:center;line-height: 40px; height: 40px;}
+    .footer21{display: flex;justify-content:space-between;line-height: 40px;}
     .footer11 ul{padding: 0 30px 30px 0;flex: 1;}
     .footer11 ul li{line-height: 34px;}
     .footer11 ul li:first-child{font-size: 22px;margin-bottom: 10px;font-weight: 600}
     .footer11 ul li:not(:first-child){font-size: 16px;}
     .footer11 ul:last-child{flex: 2;}
     .footer2{background: #e1e1e1;}
+
+    .currency_box{position: relative;left: 0;bottom: 0;z-index: 1000;font-size: 14px;}
+    .footer21a{display: flex;}
+    .currency_box .currency_curr{background-color: transparent;box-shadow: none;}
     @media (max-width: 1199.98px) {
         .footer11 ul{flex-basis: 100%;}
     }

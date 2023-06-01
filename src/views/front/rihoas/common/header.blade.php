@@ -190,22 +190,7 @@
                     @endif
                 </ul>
                 <div class="m_menu113">
-                @if($currency[0] && $currency[1] && $currency[2] && count($currency[0])>1 )
-                    <div class="currency_box">
-                        <div class="currency_curr">
-                            <div class="baCountry baCountry-{{$currency[2]['code']}}"></div>
-                            <span class="ba-chosen ">{{$currency[2]['code']}}</span>
-                        </div>
-                        <ul class="baDropdown">
-                            @foreach($currency[0] as $val)
-                                <li class="currMovers @if($currency[2]['code']==$val['code']) active @endif" data-id="{{$val['id']}}">
-                                    <div class="baCountry baCountry-{{$val['code']}}"></div>
-                                    <span class="curChoice wenzi">{{$val['name']}} ({{$val['code']}})</span>
-                                </li>
-                            @endforeach
-                        </ul>
-                    </div>
-                @endif
+
                 </div>
             </div>
 
@@ -250,8 +235,6 @@ $(function () {
 
 <style>
 .m_menu112{height: calc(100% - 150px);overflow-y: auto;}
-.m_menu .currency_box{display: block;width: 100%;position: relative;left: 0;bottom: 0;}
-.m_menu .currency_box .baDropdown{width: 100%;}
 .search_m{position: fixed;top: 0;height: 100%;left: 0;width: 100%;background: #fff;z-index: 2000;}
 .search_m1{padding-top:32px;}
 .search_m11{font-weight: 600;height: 36px;margin-bottom: 10px;align-items: center;}
@@ -279,42 +262,8 @@ $(function () {
 .menu_lv2{padding-left: 10px;}
 .m_menu113{margin-top: 20px;}
 @media (max-width: 1199.98px) {
-    .currency_box{display: none}
+
 }
 </style>
-@if($currency[0] && $currency[1] && $currency[2] && count($currency[0])>1 )
-    <div class="currency_box">
-        <div class="currency_curr">
-            <div class="baCountry baCountry-{{$currency[2]['code']}}"></div>
-            <span class="ba-chosen ">{{$currency[2]['code']}}</span>
-        </div>
-        <ul class="baDropdown">
-            @foreach($currency[0] as $val)
-                <li class="currMovers @if($currency[2]['code']==$val['code']) active @endif" data-id="{{$val['id']}}">
-                    <div class="baCountry baCountry-{{$val['code']}}"></div>
-                    <span class="curChoice wenzi">{{$val['name']}} ({{$val['code']}})</span>
-                </li>
-            @endforeach
-        </ul>
-    </div>
 
-    <script>
-        let currency_data = @json($currency[0]);
-        $(function () {
-            $('.currency_box .currency_curr').click(function () {
-                $('.baDropdown').toggle();
-            })
-            $('.currency_box .baDropdown').on('click','li',function () {
-                let id  =$(this).data('id')
-                $.ajax({
-                    url:'/currency/'+id,
-                    dataType: "json",
-                    success: function(res){
-                        location.reload()
-                    }
-                })
-            })
-        })
-    </script>
-@endif
 <main>
