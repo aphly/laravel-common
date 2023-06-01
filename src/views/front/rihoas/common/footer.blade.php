@@ -79,7 +79,7 @@
 <style>
     .subscribe{ display: flex;}
     .subscribe button,.subscribe input{border-radius: 4px;border: 1px solid #aaa}
-    .subscribe input{padding: 0 10px;margin-right: 4px;}
+    .subscribe input{padding: 0 10px;margin-right: 4px;width: 360px;}
     footer{}
     .footer1{background: #eaeaea;padding: 40px 0;}
     .footer11{display: flex;flex-wrap: wrap;}
@@ -100,6 +100,11 @@
         .footer21a{width: 100%;justify-content: center;}
         .footer21b{width: 100%;text-align: center;}
         .currency_box .baDropdown{left: -60px;}
+        .footer1{padding: 10px 0;}
+        .footer11 ul li:first-child{font-size: 20px;}
+        .footer11 ul li:not(:first-child){ font-size: 14px;}
+        .footer11 ul{padding: 0 0 10px 0;}
+        .subscribe input{width: calc(100% - 90px);}
     }
 
 </style>
