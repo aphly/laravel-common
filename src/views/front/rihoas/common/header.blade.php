@@ -6,7 +6,7 @@
 <style>
     body{font-family: 'Montserrat';background: #f6f6f6;}
     html.no_scroll, html.no_scroll body {overflow: hidden!important;height: 100%!important;}
-    .header1{height: 80px;padding: 0 10px;position: fixed;left: 0;top: 0;width: 100%;background: #fff;z-index: 2000;}
+    .header1{height: 80px;padding: 0 10px;position: fixed;left: 0;top: 0;width: 100%;background: #fff;z-index: 2000;border-bottom: 1px solid #f1f1f1;}
     .header13 i{font-size: 27px;font-weight: 400;margin:0 10px;}
     .header13 a{position: relative;}
     .cart_num{position: absolute;right:0;top: 0;font-size: 12px;width: 16px;height: 16px;color: #fff;background: #333;text-align: center;border-radius: 50%;}
@@ -32,7 +32,7 @@
     .header13{padding-top: 30px;}
     .shop_main{margin-top: 20px;}
     .icon-aixin{cursor: pointer}
-    .my_breadcrumb{line-height: 44px;margin-bottom: 10px;font-weight: 400}
+    .my_breadcrumb{line-height: 44px;margin-bottom: 10px;font-weight: 500}
     .my_breadcrumb .to{margin: 0 10px;}
 
     @media (max-width: 1199.98px) {

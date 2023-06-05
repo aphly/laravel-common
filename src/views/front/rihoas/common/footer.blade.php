@@ -81,7 +81,7 @@
     .subscribe button,.subscribe input{border-radius: 4px;border: 1px solid #aaa}
     .subscribe input{padding: 0 10px;margin-right: 4px;width: 360px;}
     footer{}
-    .footer1{background: #eaeaea;padding: 40px 0;}
+    .footer1{background: #f1f1f1;padding: 40px 0;}
     .footer11{display: flex;flex-wrap: wrap;}
     .footer21{display: flex;justify-content:space-between;line-height: 40px;}
     .footer11 ul{padding: 0 30px 30px 0;flex: 1;}
@@ -89,7 +89,7 @@
     .footer11 ul li:first-child{font-size: 22px;margin-bottom: 10px;font-weight: 600}
     .footer11 ul li:not(:first-child){font-size: 16px;}
     .footer11 ul:last-child{flex: 2;}
-    .footer2{background: #e1e1e1;}
+    .footer2{background: #f6f6f6;}
 
     .currency_box{position: relative;left: 0;bottom: 0;z-index: 1000;font-size: 14px;}
     .footer21a{display: flex;}
