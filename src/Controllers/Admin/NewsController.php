@@ -5,6 +5,7 @@ namespace Aphly\LaravelCommon\Controllers\Admin;
 use Aphly\Laravel\Exceptions\ApiException;
 use Aphly\Laravel\Libs\Editor;
 use Aphly\Laravel\Models\Breadcrumb;
+use Aphly\Laravel\Models\UploadFile;
 use Aphly\LaravelCommon\Models\News;
 use Aphly\LaravelCommon\Models\NewsCategory;
 use Illuminate\Http\Request;
@@ -14,6 +15,8 @@ class NewsController extends Controller
     public $index_url = '/common_admin/news/index';
 
     private $currArr = ['name'=>'新闻','key'=>'news'];
+
+    public $imgSize = 1;
 
     public function index(Request $request)
     {
@@ -39,6 +42,7 @@ class NewsController extends Controller
             ['name'=>$this->currArr['name'].'管理','href'=>$this->index_url],
             ['name'=>$res['info']->id?'编辑':'新增','href'=>'/common_admin/'.$this->currArr['key'].($res['info']->id?'/form?id='.$res['info']->id:'/form')]
         ]);
+        $res['imgSize'] = $this->imgSize;
         return $this->makeView('laravel-common::admin.news.form',['res'=>$res]);
     }
 
@@ -69,6 +73,23 @@ class NewsController extends Controller
             News::whereIn('id',$post)->delete();
             throw new ApiException(['code'=>0,'msg'=>'操作成功','data'=>['redirect'=>$redirect]]);
         }
+    }
+
+    public function uploadImg(Request $request){
+        $file = $request->file('newsImg');
+        if($file){
+            $UploadFile = (new UploadFile($this->imgSize));
+            try{
+                $image = $UploadFile->upload($file,'public/editor_temp/news');
+            }catch(ApiException $e){
+                $err = ["errno"=>$e->code,"message"=>$e->msg];
+                return $err;
+            }
+            $res = ["errno"=>0,"data"=>["url"=>$UploadFile->getPath($image)]];
+        }else{
+            $res = ["errno"=>1,"data"=>[]];
+        }
+        return $res;
     }
 
 

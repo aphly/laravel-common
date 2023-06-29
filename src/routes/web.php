@@ -73,10 +73,6 @@ Route::middleware(['web'])->group(function () {
         });
     });
 
-
-    //api/upload
-    Route::match(['post'],'news/img', 'Aphly\LaravelCommon\Controllers\Front\NewsController@imgs');
-
 });
 
 Route::middleware(['web'])->group(function () {
@@ -107,6 +103,7 @@ Route::middleware(['web'])->group(function () {
 
             Route::get('links/tree', 'Aphly\LaravelCommon\Controllers\Admin\LinksController@tree');
             Route::get('news_category/tree', 'Aphly\LaravelCommon\Controllers\Admin\NewsCategoryController@tree');
+            Route::match(['post'],'news/img', 'Aphly\LaravelCommon\Controllers\Admin\NewsController@uploadImg');
 
 			$route_arr = [
 				['news_category','\NewsCategoryController'],['links','\LinksController']

@@ -94,9 +94,9 @@
             MENU_CONF: {}
         }
         editorConfig.MENU_CONF['uploadImage'] = {
-            server: '/news/img',
+            server: '/common_admin/news/img',
             fieldName: 'newsImg',
-            maxFileSize: 1*1024*1024,
+            maxFileSize:{{$res['imgSize']}}*1024*1024,
             maxNumberOfFiles: 10,
             allowedFileTypes: ['image/*'],
             meta: {
