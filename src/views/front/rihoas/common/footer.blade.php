@@ -3,7 +3,6 @@
     <div class="footer1">
         <div class="container">
             <div class="footer11">
-
                 <ul>
                     <li>About Us</li>
                     <li><a href="">Terms of Service</a></li>
@@ -33,10 +32,13 @@
         <div class="container">
             <div class="footer21">
                 <div class="footer21a">
+                    <div>
+                        <i class="uni app-world"></i>
+                    </div>
                     @if($currency[0] && $currency[1] && $currency[2])
                         <div class="currency_box">
                             <div class="currency_curr">
-                                <div class="baCountry baCountry-{{$currency[2]['code']}}"></div>
+                                <div class="baCountry baCountry-{{$currency[2]['code']}}" style="display: none;"></div>
                                 <span class="ba-chosen ">{{$currency[2]['code']}}</span>
                             </div>
                             <ul class="baDropdown">
@@ -77,35 +79,7 @@
     </div>
 </footer>
 <style>
-    .subscribe{ display: flex;}
-    .subscribe button,.subscribe input{border-radius: 4px;border: 1px solid #aaa}
-    .subscribe input{padding: 0 10px;margin-right: 4px;width: 360px;}
-    footer{}
-    .footer1{background: #f1f1f1;padding: 40px 0;}
-    .footer11{display: flex;flex-wrap: wrap;}
-    .footer21{display: flex;justify-content:space-between;line-height: 40px;}
-    .footer11 ul{padding: 0 30px 30px 0;flex: 1;}
-    .footer11 ul li{line-height: 34px;}
-    .footer11 ul li:first-child{font-size: 22px;margin-bottom: 10px;font-weight: 600}
-    .footer11 ul li:not(:first-child){font-size: 16px;}
-    .footer11 ul:last-child{flex: 2;}
-    .footer2{background: #f6f6f6;}
 
-    .currency_box{position: relative;left: 0;bottom: 0;z-index: 1000;font-size: 14px;}
-    .footer21a{display: flex;}
-    .currency_box .currency_curr{background-color: transparent;box-shadow: none;}
-    @media (max-width: 1199.98px) {
-        .footer11 ul{flex-basis: 100%;}
-        .footer21{flex-wrap: wrap;}
-        .footer21a{width: 100%;justify-content: center;}
-        .footer21b{width: 100%;text-align: center;}
-        .currency_box .baDropdown{left: -60px;}
-        .footer1{padding: 10px 0;}
-        .footer11 ul li:first-child{font-size: 20px;}
-        .footer11 ul li:not(:first-child){ font-size: 14px;}
-        .footer11 ul{padding: 0 0 10px 0;}
-        .subscribe input{width: calc(100% - 90px);}
-    }
 
 </style>
 
