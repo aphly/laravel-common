@@ -20,11 +20,13 @@ class NewsController extends Controller
 
     public function index(Request $request)
     {
-        $res['search']['title'] = $request->query('title', false);
+        $res['search']['title'] = $request->query('title', '');
         $res['search']['string'] = http_build_query($request->query());
-        $res['list'] = News::when($res['search']['title'],
-                            function ($query, $title) {
-                                return $query->where('title', 'like', '%' . $title . '%');
+        $res['list'] = News::when($res['search'],
+                            function ($query, $search) {
+                                if($search['title']!==''){
+                                    $query->where('title', 'like', '%' . $search['title'] . '%');
+                                }
                             })
                         ->orderBy('id', 'desc')
                         ->Paginate(config('admin.perPage'))->withQueryString();

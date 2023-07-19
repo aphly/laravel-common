@@ -15,11 +15,13 @@ class SubscribeController extends Controller
 
     public function index(Request $request)
     {
-        $res['search']['email'] = $request->query('email',false);
+        $res['search']['email'] = $request->query('email','');
         $res['search']['string'] = http_build_query($request->query());
-        $res['list'] = subscribe::when($res['search']['email'],
-                function($query,$email) {
-                    return $query->where('email', 'like', '%'.$email.'%');
+        $res['list'] = subscribe::when($res['search'],
+                function($query,$search) {
+                    if($search['email']!==''){
+                        $query->where('email', 'like', '%'.$search['email'].'%');
+                    }
                 })
             ->orderBy('id','desc')
             ->Paginate(config('admin.perPage'))->withQueryString();

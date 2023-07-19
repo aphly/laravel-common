@@ -16,11 +16,13 @@ class CreditPriceController extends Controller
 
     public function index(Request $request)
     {
-        $res['search']['credit_key'] = $request->query('credit_key',false);
+        $res['search']['credit_key'] = $request->query('credit_key','');
         $res['search']['string'] = http_build_query($request->query());
         $res['list'] = CreditPrice::when($res['search']['credit_key'],
-                function($query,$credit_key) {
-                    return $query->where('credit_key',$credit_key);
+                function($query,$search) {
+                    if($search['credit_key']!==''){
+                        $query->where('credit_key',$search['credit_key']);
+                    }
                 })
             ->orderBy('id','desc')
             ->Paginate(config('admin.perPage'))->withQueryString();

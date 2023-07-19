@@ -22,18 +22,19 @@ class UserController extends Controller
     public function index(Request $request)
     {
         $res['title'] = '';
-        $res['search']['uuid'] = $request->query('uuid',false);
+        $res['search']['uuid'] = $request->query('uuid','');
         $res['search']['id'] = $id = urldecode($request->query('id',''));
-        $res['search']['status'] = $request->query('status',false);
+        $res['search']['status'] = $request->query('status','');
         $res['search']['string'] = http_build_query($request->query());
-        $res['list'] = User::when($res['search']['status'],
-                                function($query,$status) {
-                                    return $query->where('status', '=', $status);
+        $res['list'] = User::when($res['search'],
+                                function($query,$search) {
+                                    if($search['status']!==''){
+                                        $query->where('status', '=', $search['status']);
+                                    }
+                                    if($search['uuid']!==''){
+                                        $query->where('uuid', '=', $search['uuid']);
+                                    }
                                 })
-                            ->when($res['search']['uuid'],
-                            function($query,$uuid) {
-                                return $query->where('uuid', '=', $uuid);
-                            })
                             ->with('group')
                             ->whereHas('userAuth', function (Builder $query) use ($id) {
                                 if($id){
