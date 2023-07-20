@@ -82,7 +82,7 @@
 
 
 </style>
-
+<script src="{{ URL::asset('static/base/js/statistics.js') }}" data-token="{{csrf_token()}}" id="statistics"></script>
 <script src="{{ URL::asset('static/base/js/bootstrap.bundle.min.js') }}"></script>
 <script>
     var aphly_viewerjs = document.querySelectorAll('.aphly_viewer_js');
