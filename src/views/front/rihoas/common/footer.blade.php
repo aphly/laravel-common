@@ -79,10 +79,8 @@
     </div>
 </footer>
 <style>
-
-
 </style>
-<script src="{{ URL::asset('static/base/js/statistics.js') }}" data-token="{{csrf_token()}}" id="statistics"></script>
+<script src="{{ URL::asset('static/statistics/js/statistics.js') }}" data-appid="2023072177688074" id="statistics"></script>
 <script src="{{ URL::asset('static/base/js/bootstrap.bundle.min.js') }}"></script>
 <script>
     var aphly_viewerjs = document.querySelectorAll('.aphly_viewer_js');
@@ -104,7 +102,6 @@
                 }
             });
         })
-
     }
     function subscribe_res(res,_this) {
         alert_msg(res)
