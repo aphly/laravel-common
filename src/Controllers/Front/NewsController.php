@@ -2,7 +2,6 @@
 
 namespace Aphly\LaravelCommon\Controllers\Front;
 
-
 use Aphly\LaravelCommon\Models\News;
 use Illuminate\Http\Request;
 

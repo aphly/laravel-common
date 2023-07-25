@@ -160,3 +160,8 @@ footer{}
 }
 /*footer*/
 
+.all_breadcrumb{margin-bottom: 30px;font-weight: 600;align-items: center;}
+.all_breadcrumb i{padding: 0 10px;font-size: 12px;}
+.all_breadcrumb .icon-xiangb{transform: rotate(270deg)}
+
+.pt20{padding-top: 20px;}

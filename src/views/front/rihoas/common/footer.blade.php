@@ -4,7 +4,8 @@
         <div class="container">
             <div class="footer11">
                 <ul>
-                    <li>About Us</li>
+                    <li>Information</li>
+                    <li><a href="">About Us</a></li>
                     <li><a href="">Terms of Service</a></li>
                     <li><a href="">Privacy Policy</a></li>
                 </ul>
@@ -80,7 +81,7 @@
 </footer>
 <style>
 </style>
-<script src="{{ URL::asset('static/statistics/js/statistics.js') }}" data-appid="2023072177688074" id="statistics"></script>
+<script src="{{ URL::asset('static/statistics/js/statistics.js') }}" data-appid="2023072446907951" id="statistics"></script>
 <script src="{{ URL::asset('static/base/js/bootstrap.bundle.min.js') }}"></script>
 <script>
     var aphly_viewerjs = document.querySelectorAll('.aphly_viewer_js');

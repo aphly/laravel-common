@@ -1,6 +1,6 @@
 @include('laravel-common-front::common.header')
 
-<section class="">
+<section class="pt20" >
     <div class="container d-flex justify-content-center">
         <div class="">
             404
