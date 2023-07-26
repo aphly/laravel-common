@@ -4,14 +4,14 @@
 <link rel="stylesheet" href="{{ URL::asset('static/common/css/font.css') }}">
 
 <style>
-
+    .apixn_logo{height: 100%; display: block;line-height: 79px;font-size: 40px; padding-left: 10px;font-weight: 600;}
 </style>
 <header>
     <div class="header1">
         <div class="container header10">
             <div class="d-flex header101">
                 <div class="header11">
-                    <a href="/"><img src="{{ URL::asset('static/common/img/logo.png') }}" alt="logo"></a>
+                    <a href="/" class="apixn_logo">apixn</a>
                     <i class="common-iconfont icon-caidan logo_menu" ></i>
                 </div>
                 <div class="header11_m">

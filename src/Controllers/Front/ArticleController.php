@@ -11,7 +11,7 @@ use Illuminate\Http\Request;
 class ArticleController extends Controller
 {
     function category(Request $request){
-        $res['title'] = 'Artcle Home';
+        $res['title'] = 'Article Home';
         $res['search']['title'] = $request->query('title', '');
         $res['list'] = ArticleCategory::where('status',1)->get()->toArray();
         $res['list_tree'] = Helper::getTree($res['list'],true);
@@ -19,7 +19,7 @@ class ArticleController extends Controller
     }
 
     function index(Request $request){
-        $res['title'] = 'Artcle Index';
+        $res['title'] = 'Article Index';
         $res['search']['title'] = $request->query('title', '');
         $res['search']['category_id'] = $request->query('category_id', '');
         $res['list'] = Article::when($res['search'],
