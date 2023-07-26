@@ -13,7 +13,7 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('common_news_category', function (Blueprint $table) {
+        Schema::create('common_article_category', function (Blueprint $table) {
             $table->id();
             $table->string('name',64);
             $table->string('icon',255)->nullable();
@@ -33,6 +33,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('common_news_category');
+        Schema::dropIfExists('common_article_category');
     }
 };

@@ -25,7 +25,9 @@ Route::middleware(['web'])->group(function () {
     Route::get('checkout/success', 'Aphly\LaravelCommon\Controllers\Front\CheckoutController@success');
     Route::get('checkout/fail', 'Aphly\LaravelCommon\Controllers\Front\CheckoutController@fail');
     //news
-    Route::match(['get'],'news/{id}', 'Aphly\LaravelCommon\Controllers\Front\NewsController@detail')->where('id', '[0-9]+');
+    Route::match(['get'],'article/{id}', 'Aphly\LaravelCommon\Controllers\Front\ArticleController@detail')->where('id', '[0-9]+');
+    Route::match(['get'],'article/index', 'Aphly\LaravelCommon\Controllers\Front\ArticleController@index');
+    Route::match(['get'],'article/category', 'Aphly\LaravelCommon\Controllers\Front\ArticleController@category');
 
     //Subscribe
     Route::post('subscribe/ajax', 'Aphly\LaravelCommon\Controllers\Front\AccountExt\SubscribeController@ajax');
@@ -68,8 +70,6 @@ Route::middleware(['web'])->group(function () {
 
             Route::match(['get', 'post'],'subscribe', 'Aphly\LaravelCommon\Controllers\Front\AccountExt\SubscribeController@index');
 
-            Route::get('review/index', 'Aphly\LaravelCommon\Controllers\Front\AccountExt\ReviewController@index');
-
         });
     });
 
@@ -90,7 +90,7 @@ Route::middleware(['web'])->group(function () {
 
             $route_arr = [
                 ['group','\GroupController'],['credit_price','\CreditPriceController'],['user_credit_log','\UserCreditLogController'],['user_credit_order','\UserCreditOrderController'],
-                ['user_group_order','\UserGroupOrderController'],['user_address','\UserAddressController'],['news','\NewsController'],
+                ['user_group_order','\UserGroupOrderController'],['user_address','\UserAddressController'],['article','\ArticleController'],
                 ['country','\CountryController'],['geo','\GeoController'],['zone','\ZoneController'],['currency','\CurrencyController'],['subscribe','\SubscribeController']
             ];
 
@@ -102,11 +102,11 @@ Route::middleware(['web'])->group(function () {
             }
 
             Route::get('links/tree', 'Aphly\LaravelCommon\Controllers\Admin\LinksController@tree');
-            Route::get('news_category/tree', 'Aphly\LaravelCommon\Controllers\Admin\NewsCategoryController@tree');
-            Route::match(['post'],'news/img', 'Aphly\LaravelCommon\Controllers\Admin\NewsController@uploadImg');
+            Route::get('article_category/tree', 'Aphly\LaravelCommon\Controllers\Admin\ArticleCategoryController@tree');
+            Route::match(['post'],'article/img', 'Aphly\LaravelCommon\Controllers\Admin\ArticleController@uploadImg');
 
 			$route_arr = [
-				['news_category','\NewsCategoryController'],['links','\LinksController']
+				['article_category','\ArticleCategoryController'],['links','\LinksController']
 			];
 
 			foreach ($route_arr as $val){

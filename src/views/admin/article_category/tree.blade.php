@@ -7,7 +7,7 @@
     <div class="tree_div max_width">
         <div class="min_width d-flex justify-content-between">
             <div class="show_all">
-                <div class="show_title">新闻分类列表</div>
+                <div class="show_title">文章分类列表</div>
                 <div id="tree" class="treeview"></div>
             </div>
             <div class="show_op" >
@@ -80,9 +80,9 @@
         list : @json($res['list']),
         select:{},
         type:'add',
-        tree_save_url:'/common_admin/news_category',
-        tree_del_url:'/common_admin/news_category/del',
-        tree_del_url_return:'/common_admin/news_category/tree',
+        tree_save_url:'/common_admin/article_category',
+        tree_del_url:'/common_admin/article_category/del',
+        tree_del_url_return:'/common_admin/article_category/tree',
         _token:'{{csrf_token()}}'
     })
     $(function () {

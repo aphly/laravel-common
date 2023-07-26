@@ -14,4 +14,5 @@ return [
         ]
     ],
     'template'=>'rihoas'
+    //'template'=>'blog'
 ];

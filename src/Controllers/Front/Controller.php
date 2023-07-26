@@ -49,11 +49,15 @@ class Controller extends \Aphly\Laravel\Controllers\Controller
 
     public function afterController()
     {
-        $class = ['\Aphly\LaravelShop\Controllers\Front\Controller'];
-        foreach ($class as $val) {
-            if (class_exists($val)) {
-                (new $val)->afterController($this);
+        try{
+            $class = ['\Aphly\LaravelShop\Controllers\Front\Controller'];
+            foreach ($class as $val) {
+                if (class_exists($val)) {
+                    (new $val)->afterController($this);
+                }
             }
+        }catch (\Exception $e){
+
         }
     }
 }

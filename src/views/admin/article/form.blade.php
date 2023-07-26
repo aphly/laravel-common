@@ -3,7 +3,7 @@
     <h5 class="nav-title">{!! $res['breadcrumb'] !!}</h5>
 </div>
 <div class="imain">
-    <form method="post" @if($res['info']->id) action="/common_admin/news/save?id={{$res['info']->id}}" @else action="/common_admin/news/save" @endif class="save_form">
+    <form method="post" @if($res['info']->id) action="/common_admin/article/save?id={{$res['info']->id}}" @else action="/common_admin/article/save" @endif class="save_form">
         @csrf
         <div class="">
             <div class="form-group">
@@ -28,8 +28,8 @@
 
             <div class="form-group">
                 <label for="">文章分类</label>
-                <input type="hidden" id="news_category_id"  name="news_category_id" class="form-control " value="{{$res['info']->news_category_id}}">
-                <input type="text" id="news_category_name" onclick="$('.tree_box').toggle();" readonly class="form-control tree_box_pre" value="{{$res['newsCategoryList'][$res['info']->news_category_id]['name']??''}}">
+                <input type="hidden" id="article_category_id"  name="article_category_id" class="form-control " value="{{$res['info']->article_category_id}}">
+                <input type="text" id="article_category_name" onclick="$('.tree_box').toggle();" readonly class="form-control tree_box_pre" value="{{$res['articleCategoryList'][$res['info']->article_category_id]['name']??''}}">
                 <div class="tree_box">
                     <div class="tree_p">
                         <div id="tree"></div>
@@ -62,12 +62,12 @@
 <script>
     var my_tree = new MyTree({
         root:0,
-        list : @json($res['newsCategoryList']),
+        list : @json($res['articleCategoryList']),
         select:{}
     })
     $(function () {
         function mount(){
-            let treeData = my_tree.treeFormat(my_tree.op.list,[{{$res['info']->news_category_id}}])
+            let treeData = my_tree.treeFormat(my_tree.op.list,[{{$res['info']->article_category_id}}])
             $('#tree').jstree({
                 "core": {
                     "themes":{
@@ -80,8 +80,8 @@
             }).on('select_node.jstree', function(el,_data) {
             }).on("changed.jstree", function(el,data) {
                 my_tree.op.select = my_tree.getSelectObj(data)
-                $('#news_category_id').val(my_tree.op.select[0].data.id)
-                $('#news_category_name').val(my_tree.op.select[0].text)
+                $('#article_category_id').val(my_tree.op.select[0].data.id)
+                $('#article_category_name').val(my_tree.op.select[0].text)
                 $('.tree_box').hide();
             })
         }
@@ -94,8 +94,8 @@
             MENU_CONF: {}
         }
         editorConfig.MENU_CONF['uploadImage'] = {
-            server: '/common_admin/news/img',
-            fieldName: 'newsImg',
+            server: '/common_admin/article/img',
+            fieldName: 'img',
             maxFileSize:{{$res['imgSize']}}*1024*1024,
             maxNumberOfFiles: 10,
             allowedFileTypes: ['image/*'],

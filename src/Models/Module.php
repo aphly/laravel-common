@@ -41,8 +41,8 @@ class Module extends Module_base
             $menu22 = Menu::create(['name' => '文章管理','route' =>'','pid'=>$menu->id,'uuid'=>$manager->uuid,'type'=>1,'module_id'=>$module_id,'sort'=>0]);
             if($menu22){
                 $data=[];
-                $data[] =['name' => '文章列表','route' =>'common_admin/news/index','pid'=>$menu22->id,'uuid'=>$manager->uuid,'type'=>2,'module_id'=>$module_id,'sort'=>0];
-                $data[] =['name' => '文章分类','route' =>'common_admin/news_category/index','pid'=>$menu22->id,'uuid'=>$manager->uuid,'type'=>2,'module_id'=>$module_id,'sort'=>0];
+                $data[] =['name' => '文章列表','route' =>'common_admin/article/index','pid'=>$menu22->id,'uuid'=>$manager->uuid,'type'=>2,'module_id'=>$module_id,'sort'=>0];
+                $data[] =['name' => '文章分类','route' =>'common_admin/article_category/index','pid'=>$menu22->id,'uuid'=>$manager->uuid,'type'=>2,'module_id'=>$module_id,'sort'=>0];
                 DB::table('admin_menu')->insert($data);
             }
             $menu21 = Menu::create(['name' => '其他设置','route' =>'','pid'=>$menu->id,'uuid'=>$manager->uuid,'type'=>1,'module_id'=>$module_id,'sort'=>0]);
