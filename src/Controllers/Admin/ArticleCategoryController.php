@@ -32,6 +32,12 @@ class ArticleCategoryController extends Controller
         return $this->makeView('laravel-common::admin.article_category.index',['res'=>$res]);
     }
 
+    public function rebuild()
+    {
+        (new ArticleCategoryPath)->rebuild();
+        throw new ApiException(['code'=>0,'msg'=>'操作成功']);
+    }
+
 	public function add(Request $request)
 	{
 		if($request->isMethod('post')) {

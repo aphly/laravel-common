@@ -13,6 +13,7 @@
         </div>
         </form>
         <div class="">
+            <a class="badge badge-primary ajax_post tree_div_btn" data-href="/common_admin/article_category/rebuild">重建</a>
             <a class="badge badge-primary ajax_get show_all0_btn" data-href="/common_admin/article_category/tree">树</a>
         </div>
     </div>

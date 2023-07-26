@@ -108,6 +108,7 @@ Route::middleware(['web'])->group(function () {
 			$route_arr = [
 				['article_category','\ArticleCategoryController'],['links','\LinksController']
 			];
+            Route::get('article_category/rebuild', 'Aphly\LaravelCommon\Controllers\Admin\ArticleCategoryController@rebuild');
 
 			foreach ($route_arr as $val){
 				Route::get($val[0].'/index', 'Aphly\LaravelCommon\Controllers\Admin'.$val[1].'@index');
@@ -115,6 +116,8 @@ Route::middleware(['web'])->group(function () {
 				Route::match(['get', 'post'],$val[0].'/edit', 'Aphly\LaravelCommon\Controllers\Admin'.$val[1].'@edit');
 				Route::post($val[0].'/del', 'Aphly\LaravelCommon\Controllers\Admin'.$val[1].'@del');
 			}
+
+
         });
     });
 

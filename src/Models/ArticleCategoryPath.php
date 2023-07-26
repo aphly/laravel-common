@@ -43,4 +43,24 @@ class ArticleCategoryPath extends Model
             GROUP_CONCAT(c2.`name` ORDER BY comon_article_category_path.level SEPARATOR \'&nbsp;&nbsp;&gt;&nbsp;&nbsp;\') AS name')
             ->get()->keyBy('id')->toArray();
     }
+
+    public function rebuild($pid = 0) {
+        if(!$pid){
+            self::truncate();
+        }
+        $levelData = ArticleCategory::where('pid',$pid)->get();
+        foreach ($levelData as $val){
+            self::where('article_category_id',$val->id)->delete();
+            $level = 0;
+            $levelPathData = self::where('article_category_id',$val->pid)->orderBy('level','ASC')->get();
+            $data = [];
+            foreach ($levelPathData as $v){
+                $data[] = ['article_category_id' => $val->id,'path_id' =>$v->path_id,'level'=>$level];
+                $level++;
+            }
+            $data[] = ['article_category_id' => $val->id,'path_id' =>$val->id,'level'=>$level];
+            self::insert($data);
+            $this->rebuild($val->id);
+        }
+    }
 }
