@@ -13,6 +13,6 @@ return [
             'google',
         ]
     ],
-    'template'=>'rihoas'
-    //'template'=>'blog'
+    //'template'=>'rihoas'
+    'template'=>'blog'
 ];
