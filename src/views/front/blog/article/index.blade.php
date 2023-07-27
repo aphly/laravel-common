@@ -8,13 +8,24 @@
                 <a href="/article/index?category_id={{$val['category_p']['id']}}"><span style="margin:0 5px;">></span><span>{{$val['category_p']['name']}}</span></a>
             @endforeach
         </div>
-        <ul>
+        <ul class="category">
+            @foreach($res['paths_child'] as $val)
+                @if($res['search']['category_id'] && $res['search']['category_id']!=$val['category_child']['id'])
+                <li>
+                    <a href="/article/index?category_id={{$val['category_child']['id']}}">
+                        <div>{{$val['category_child']['name']}} </div>
+                    </a>
+                </li>
+                @endif
+            @endforeach
+        </ul>
+        <ul class="article_list">
             @foreach($res['list'] as $val)
             <li>
                 <a href="/article/{{$val->id}}">
-                    <div class="d-flex justify-content-between">
-                        <div>{{$val->title}} </div>
-                        <div style="color:#999;">{{$val->created_at}} </div>
+                    <div class="">
+                        <div style="font-size: 16px;font-weight: 600">{{$val->title}} </div>
+                        <div style="color:#999;font-size: 12px;">{{$val->created_at}} </div>
                     </div>
                 </a>
             </li>
@@ -27,7 +38,10 @@
 </section>
 
 <style>
-
+    ul.category{display: flex;flex-wrap: wrap;margin-bottom: 20px;}
+    ul.category li{width:23%;height: 100px;margin: 1%;background: #f1f1f1;border-radius: 8px; }
+    ul.category li a{display: flex;align-items: center;justify-content: center;height: 100%;}
+    .article_list li{height: 40px;margin-bottom: 10px;}
 </style>
 <script>
 

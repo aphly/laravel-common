@@ -22,6 +22,10 @@ class ArticleCategoryPath extends Model
         return $this->hasOne(ArticleCategory::class,'id','path_id');
     }
 
+    function category_child(){
+        return $this->hasOne(ArticleCategory::class,'id','article_category_id');
+    }
+
     public function add($id,$pid){
         $level = 0;
         $data =  self::where('article_category_id',$pid)->orderBy('level','asc')->get()->toArray();

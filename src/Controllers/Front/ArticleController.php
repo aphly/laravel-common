@@ -22,17 +22,15 @@ class ArticleController extends Controller
         $res['title'] = 'Article Index';
         $res['search']['title'] = $request->query('title', '');
         $res['search']['category_id'] = $request->query('category_id', '');
+        $res['paths_child'] = ArticleCategoryPath::where('path_id',$res['search']['category_id'])->with('category_child')->get()->toArray();
+        $res['search']['path_category'] = array_column($res['paths_child'],'article_category_id');
         $res['list'] = Article::when($res['search'],
             function ($query, $search) {
                 if($search['title']!==''){
                     $query->where('title', 'like', '%' . $search['title'] . '%');
                 }
-                if($search['category_id']!==''){
-                    $paths = ArticleCategoryPath::where('path_id',$search['category_id'])->get()->toArray();
-                    if($paths){
-                        $path_category = array_column($paths,'article_category_id');
-                        $query->whereIn('article_category_id', $path_category);
-                    }
+                if($search['category_id']!=='' && $search['path_category']){
+                    $query->whereIn('article_category_id', $search['path_category']);
                 }
             })
             ->orderBy('id', 'desc')

@@ -58,7 +58,7 @@
                 </div>
                 <div class="search_pc">
                     <div class="search_pc1">
-                        <input type="text" autocomplete="off" name="name" value="" placeholder="Search" class="search_pc11" maxlength="128">
+                        <input type="text" autocomplete="off" name="name" value="{{$res['search']['title']??''}}" placeholder="Search" class="search_pc11" maxlength="128">
                         <button type="submit" class="search_pc12 search_btn"><i class="common-iconfont icon-sousuo"></i></button>
                     </div>
                 </div>
