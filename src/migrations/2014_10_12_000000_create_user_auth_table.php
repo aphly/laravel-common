@@ -15,7 +15,7 @@ return new class extends Migration
     {
         Schema::create('common_user_auth', function (Blueprint $table) {
             $table->char('id_type',16);
-            $table->string('id',128);
+            $table->string('id',64);
             $table->string('password',255);
             $table->unsignedBigInteger('uuid')->index();
             $table->string('last_ip',64)->nullable();
