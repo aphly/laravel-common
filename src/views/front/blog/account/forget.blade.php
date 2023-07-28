@@ -14,7 +14,7 @@
                     <input type="text" name="id" class="form-control" placeholder="Email" autocomplete="off">
                     <div class="invalid-feedback"></div>
                 </div>
-                <div id="code_img" class="form-group @if(config('admin.seccode_forget')==1) @else none @endif">
+                <div id="code_img" class="form-group @if(config('base.seccode_forget')==1) @else none @endif">
                     <label>Captcha</label>
                     <div class="code_img">
                         <input type="text" name="code" class="form-control" value="" autocomplete="off" placeholder="Enter code">

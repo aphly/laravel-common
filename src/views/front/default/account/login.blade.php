@@ -34,7 +34,7 @@
                         <div class="invalid-feedback"></div>
                     </div>
 
-                    <div id="code_img" class="form-group @if(config('admin.seccode_login')==1 || (config('admin.seccode_login')==2 && $res['seccode'])) @else none @endif">
+                    <div id="code_img" class="form-group @if(config('base.seccode_login')==1 || (config('base.seccode_login')==2 && $res['seccode'])) @else none @endif">
                         <label>Captcha</label>
                         <div class="code_img">
                             <input type="text" name="code" class="form-control" value="" autocomplete="off" placeholder="Enter code">

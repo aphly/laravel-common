@@ -91,7 +91,7 @@ class AccountController extends Controller
             $userAuth = $userAuthModel->first();
             if(!empty($userAuth)){
                 if($this->limiter($key,5)){
-                    if(config('admin.seccode_login')==1 || (config('admin.seccode_login')==2 && $this->limiter($key))){
+                    if(config('base.seccode_login')==1 || (config('base.seccode_login')==2 && $this->limiter($key))){
                         if(!((new Seccode())->check($request->input('code')))){
                             throw new ApiException(['code'=>11000,'msg'=>'Incorrect Code','data'=>['code'=>['Incorrect Code']]]);
                         }
@@ -127,7 +127,7 @@ class AccountController extends Controller
     {
         $key = 'user_register_'.$request->ip();
         if($request->isMethod('post')) {
-            if (config('admin.seccode_register')==1) {
+            if (config('base.seccode_register')==1) {
                 if (!((new Seccode())->check($request->input('code')))) {
                     throw new ApiException(['code' => 11000, 'msg' => 'Incorrect Code', 'data' => ['code' => ['Incorrect Code']]]);
                 }
@@ -235,7 +235,7 @@ class AccountController extends Controller
     public function forget(AccountRequest $request)
     {
         if($request->isMethod('post')) {
-            if (config('admin.seccode_forget')==1) {
+            if (config('base.seccode_forget')==1) {
                 if (!((new Seccode())->check($request->input('code')))) {
                     throw new ApiException(['code' => 11000, 'msg' => 'Incorrect Code', 'data' => ['code' => ['Incorrect Code']]]);
                 }

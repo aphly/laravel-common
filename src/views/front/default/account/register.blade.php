@@ -32,7 +32,7 @@
                         <input type="password" name="password_confirmation" class="form-control" required autocomplete="off" placeholder="Enter 6 characters or more">
                         <div class="invalid-feedback"></div>
                     </div>
-                    <div id="code_img" class="form-group @if(config('admin.seccode_register')==1) @else none @endif">
+                    <div id="code_img" class="form-group @if(config('base.seccode_register')==1) @else none @endif">
                         <label>Captcha</label>
                         <div class="code_img">
                             <input type="text" name="code" class="form-control" value="" autocomplete="off" placeholder="Enter code">
