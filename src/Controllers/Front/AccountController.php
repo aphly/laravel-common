@@ -155,7 +155,14 @@ class AccountController extends Controller
                     $user->id_type = $userAuth->id_type;
                     $user->id = $userAuth->id;
                     if ($userAuth->id_type == 'email' && config('common.email_verify')) {
-                        (new MailSend())->do($userAuth->id, new Verify($userAuth),'email_vip');
+                        //(new MailSend())->do($userAuth->id, new Verify($userAuth),'email_vip');
+                        (new MailSend())->remote([
+                            'email'=>$userAuth->id,
+                            'title'=>'Account Email Verify',
+                            'content'=>(new Verify($userAuth))->render(),
+                            'type'=>config('common.email_type'),
+                            'queue_priority'=>1,
+                        ]);
                     }
                     $this->limiterIncrement($key,15*60);
                     throw new ApiException(['code' => 0, 'msg' => 'Register success', 'data' => ['redirect' => $user->redirect(), 'user' => $user]]);
@@ -193,7 +200,14 @@ class AccountController extends Controller
             if($this->limiter($key,1)) {
                 $userauth = UserAuth::where(['id_type' => 'email', 'uuid' => $user->uuid])->first();
                 if (!empty($userauth)) {
-                    (new MailSend())->do($userauth->id, new Verify($userauth),'email_vip');
+                    //(new MailSend())->do($userauth->id, new Verify($userauth),'email_vip');
+                    (new MailSend())->remote([
+                        'email'=>$userauth->id,
+                        'title'=>'Account Email Verify',
+                        'content'=>(new Verify($userauth))->render(),
+                        'type'=>config('common.email_type'),
+                        'queue_priority'=>1,
+                    ]);
                     $this->limiterIncrement($key,2*60);
                     throw new ApiException(['code' => 0, 'msg' => 'Email has been sent', 'data' => ['redirect' => '/']]);
                 }else{
@@ -242,7 +256,14 @@ class AccountController extends Controller
             }
             $userauth = UserAuth::where(['id_type'=>'email','id'=>$request->input('id')])->first();
             if(!empty($userauth)){
-                (new MailSend())->do($userauth->id,new Forget($userauth),'email_vip');
+                //(new MailSend())->do($userauth->id,new Forget($userauth),'email_vip');
+                (new MailSend())->remote([
+                    'email'=>$userauth->id,
+                    'title'=>'Password Reset',
+                    'content'=>(new Forget($userauth))->render(),
+                    'type'=>config('common.email_type'),
+                    'queue_priority'=>1,
+                ]);
                 throw new ApiException(['code'=>0,'msg'=>'Email has been sent','data'=>['redirect'=>'/account/forget/confirmation']]);
             }else{
                 throw new ApiException(['code'=>11000,'msg'=>'Email not exist','data'=>['id'=>['email not exist']]]);

@@ -5,15 +5,15 @@
             <div class="footer11">
                 <ul>
                     <li>Information</li>
-                    <li><a href="">About Us</a></li>
-                    <li><a href="">Terms of Service</a></li>
-                    <li><a href="">Privacy Policy</a></li>
+                    <li><a href="{{config('common.menu.about_us')}}">About Us</a></li>
+                    <li><a href="{{config('common.menu.terms_of_service')}}">Terms of Service</a></li>
+                    <li><a href="{{config('common.menu.privacy_policy')}}">Privacy Policy</a></li>
                 </ul>
                 <ul style="margin-right: auto">
                     <li>Support</li>
-                    <li><a href="">Contact Us</a></li>
-                    <li><a href="">Refund Policy</a></li>
-                    <li><a href="">Shipping</a></li>
+                    <li><a href="{{config('common.menu.contact_us')}}">Contact Us</a></li>
+                    <li><a href="{{config('common.menu.refund_policy')}}">Refund Policy</a></li>
+                    <li><a href="{{config('common.menu.shipping')}}">Shipping</a></li>
                 </ul>
                 <ul>
                     <li>Subscribe to our newsletter</li>
@@ -73,7 +73,7 @@
                     @endif
                 </div>
                 <div class="footer21b">
-                    © {{date('Y')}} {{env('APP_NAME')}}. All Rights Reserved.
+                    © {{date('Y')}} <a href="{{url('')}}">{{env('APP_NAME')}}</a>. All Rights Reserved.
                 </div>
             </div>
         </div>
