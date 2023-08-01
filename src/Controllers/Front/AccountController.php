@@ -6,8 +6,8 @@ use Aphly\Laravel\Exceptions\ApiException;
 use Aphly\Laravel\Libs\Helper;
 use Aphly\Laravel\Libs\Seccode;
 use Aphly\Laravel\Models\UploadFile;
-use Aphly\Laravel\Mail\MailSend;
 
+use Aphly\LaravelCommon\Models\RemoteEmail;
 use Aphly\LaravelCommon\Models\UserCheckin;
 use Aphly\LaravelPayment\Models\PaymentMethod;
 use Aphly\LaravelPayment\Models\Payment;
@@ -156,12 +156,13 @@ class AccountController extends Controller
                     $user->id = $userAuth->id;
                     if ($userAuth->id_type == 'email' && config('common.email_verify')) {
                         //(new MailSend())->do($userAuth->id, new Verify($userAuth),'email_vip');
-                        (new MailSend())->remote([
+                        (new RemoteEmail())->send([
                             'email'=>$userAuth->id,
                             'title'=>'Account Email Verify',
                             'content'=>(new Verify($userAuth))->render(),
                             'type'=>config('common.email_type'),
                             'queue_priority'=>1,
+                            'is_cc'=>0
                         ]);
                     }
                     $this->limiterIncrement($key,15*60);
@@ -201,12 +202,13 @@ class AccountController extends Controller
                 $userauth = UserAuth::where(['id_type' => 'email', 'uuid' => $user->uuid])->first();
                 if (!empty($userauth)) {
                     //(new MailSend())->do($userauth->id, new Verify($userauth),'email_vip');
-                    (new MailSend())->remote([
+                    (new RemoteEmail)->send([
                         'email'=>$userauth->id,
                         'title'=>'Account Email Verify',
                         'content'=>(new Verify($userauth))->render(),
                         'type'=>config('common.email_type'),
                         'queue_priority'=>1,
+                        'is_cc'=>0
                     ]);
                     $this->limiterIncrement($key,2*60);
                     throw new ApiException(['code' => 0, 'msg' => 'Email has been sent', 'data' => ['redirect' => '/']]);
@@ -257,12 +259,13 @@ class AccountController extends Controller
             $userauth = UserAuth::where(['id_type'=>'email','id'=>$request->input('id')])->first();
             if(!empty($userauth)){
                 //(new MailSend())->do($userauth->id,new Forget($userauth),'email_vip');
-                (new MailSend())->remote([
+                (new RemoteEmail())->send([
                     'email'=>$userauth->id,
                     'title'=>'Password Reset',
                     'content'=>(new Forget($userauth))->render(),
                     'type'=>config('common.email_type'),
                     'queue_priority'=>1,
+                    'is_cc'=>0
                 ]);
                 throw new ApiException(['code'=>0,'msg'=>'Email has been sent','data'=>['redirect'=>'/account/forget/confirmation']]);
             }else{

@@ -27,5 +27,7 @@ return [
         'refund_policy'=>'',
         'shipping'=>'',
     ],
-    'statistics_appid'=>''
+    'statistics_appid'=>'',
+    'email_appid'=>'2023080188980024',
+    'email_secret'=>'nw30ZFKpOGjm3KwIoWcTSgbiRs6RXR3k',
 ];
