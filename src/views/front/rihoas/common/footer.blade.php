@@ -81,7 +81,7 @@
 </footer>
 <style>
 </style>
-<script src="{{ URL::asset('static/statistics/js/statistics.js') }}" data-appid="2023072446907951" id="statistics"></script>
+<script src="{{ URL::asset('static/statistics/js/statistics.js') }}" data-appid="{{config('common.statistics_appid')}}" id="statistics"></script>
 <script src="{{ URL::asset('static/base/js/bootstrap.bundle.min.js') }}"></script>
 <script>
     var aphly_viewerjs = document.querySelectorAll('.aphly_viewer_js');

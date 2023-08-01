@@ -26,5 +26,6 @@ return [
         'contact_us'=>'',
         'refund_policy'=>'',
         'shipping'=>'',
-    ]
+    ],
+    'statistics_appid'=>''
 ];
