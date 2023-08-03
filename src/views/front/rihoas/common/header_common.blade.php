@@ -18,10 +18,7 @@
 </head>
 <body>
 <style>
-:root{
-    --default-color: #e36254;
-    --default-bg: #c16452;
-}
+
 </style>
 <script>
     $(function () {

@@ -2,9 +2,13 @@
 <link rel="stylesheet" href="{{ URL::asset('static/common/css/iconfont.css') }}">
 <link rel="stylesheet" href="{{ URL::asset('static/common/css/common.css') }}">
 <link rel="stylesheet" href="{{ URL::asset('static/common/css/font.css') }}">
-
 <style>
-
+:root{
+    --btn_bg:#c16452;
+    --btn_color:#fff;
+    --btn_bg_hover:#e36254;
+    --btn_color_hover:#fff;
+}
 </style>
 <header>
     <div class="header1">
