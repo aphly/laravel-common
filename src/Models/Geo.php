@@ -20,10 +20,14 @@ class Geo extends Model
         return $this->hasOne(GeoGroup::class,'id','geo_group_id');
     }
 
-    public function findAll() {
-        return Cache::rememberForever('geo', function (){
+    public function findAll($cache=true) {
+        if($cache){
+            return Cache::rememberForever('geo', function (){
+                return self::get()->keyBy('geo_group_id')->toArray();
+            });
+        }else{
             return self::get()->keyBy('geo_group_id')->toArray();
-        });
+        }
     }
 
     public function isExist($country_id,$zone_id,$geo_group_id) {

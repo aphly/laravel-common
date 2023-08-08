@@ -20,10 +20,14 @@ class GeoGroup extends Model
         return $this->hasMany(Geo::class,'geo_group_id','id');
     }
 
-    public function findAll() {
-        return Cache::rememberForever('geo', function (){
+    public function findAll($cache=true) {
+        if($cache){
+            return Cache::rememberForever('geo', function (){
+                return self::get()->keyBy('geo_group_id')->toArray();
+            });
+        }else{
             return self::get()->keyBy('geo_group_id')->toArray();
-        });
+        }
     }
 
 

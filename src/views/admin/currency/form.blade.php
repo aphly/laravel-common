@@ -57,7 +57,7 @@
                 <select name="default" class="form-control">
                     @if(isset($dict['yes_no']))
                         @foreach($dict['yes_no'] as $key=>$val)
-                            <option value="{{$key}}" @if($res['info']->default==$key) selected @endif>{{$val}}</option>
+                            <option value="{{$key}}" @if($res['info']->default===$key ) selected @endif>{{$val}}</option>
                         @endforeach
                     @endif
                 </select>

@@ -17,10 +17,14 @@ class Group extends Model
         'name','sort','price','cn_name'
     ];
 
-    public function findAll() {
-        return Cache::rememberForever('group', function () {
+    public function findAll($cache=true) {
+        if($cache){
+            return Cache::rememberForever('group', function () {
+                return self::get()->keyBy('id')->toArray();
+            });
+        }else{
             return self::get()->keyBy('id')->toArray();
-        });
+        }
     }
 
 

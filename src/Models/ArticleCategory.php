@@ -17,11 +17,16 @@ class ArticleCategory extends Model
         'name','icon','pid','sort','status','meta_title','meta_description','type'
     ];
 
-    public function findAll() {
-        return Cache::rememberForever('article_category', function () {
+    public function findAll($cache=true) {
+        if($cache){
+            return Cache::rememberForever('article_category', function () {
+                $category = self::where('status', 1)->orderBy('sort', 'desc')->get()->toArray();
+                return Helper::getTree($category, true);
+            });
+        }else{
             $category = self::where('status', 1)->orderBy('sort', 'desc')->get()->toArray();
             return Helper::getTree($category, true);
-        });
+        }
     }
 
 

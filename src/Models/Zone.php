@@ -30,9 +30,13 @@ class Zone extends Model
         return $res;
     }
 
-    public function findAll() {
-        return Cache::rememberForever('zone', function (){
+    public function findAll($cache=true) {
+        if($cache){
+            return Cache::rememberForever('zone', function (){
+                return self::where('status',1)->get()->keyBy('id')->toArray();
+            });
+        }else{
             return self::where('status',1)->get()->keyBy('id')->toArray();
-        });
+        }
     }
 }

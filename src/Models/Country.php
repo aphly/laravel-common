@@ -16,9 +16,14 @@ class Country extends Model
         'name','iso_code_2','iso_code_3','postcode_required','status','address_format','cn_name'
     ];
 
-    public function findAll() {
-        return Cache::rememberForever('country', function () {
+    public function findAll($cache=true) {
+        if($cache){
+            return Cache::rememberForever('country', function () {
+                return self::where('status',1)->orderBy('name','asc')->get()->keyBy('id')->toArray();
+            });
+        }else{
             return self::where('status',1)->orderBy('name','asc')->get()->keyBy('id')->toArray();
-        });
+        }
+
     }
 }

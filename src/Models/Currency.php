@@ -22,10 +22,14 @@ class Currency extends Model
         return !empty($res)?$res->toArray():[];
     }
 
-    static public function findAll() {
-        return Cache::rememberForever('currency', function (){
+    static public function findAll($cache=true) {
+        if($cache){
+            return Cache::rememberForever('currency', function (){
+                return self::where('status',1)->get()->keyBy('id')->toArray();
+            });
+        }else{
             return self::where('status',1)->get()->keyBy('id')->toArray();
-        });
+        }
     }
 
     static public $allDefaultCurr = [];
