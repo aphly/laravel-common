@@ -2,6 +2,13 @@ let img_js_obj =  new img_js;
 $(function () {
     $("body").on('submit','.form_request',function (){
         const that = $(this)
+        let confirm_s = that.data('confirm')
+        if(confirm_s){
+            let msg = "Are you sure?";
+            if (confirm(msg)!==true){
+                return false;
+            }
+        }
         const fn = that.data('fn')
         if(that[0].checkValidity()===false){
         }else{
@@ -33,6 +40,13 @@ $(function () {
 
     $("body").on('submit','.form_request_file',function (){
         const that = $(this)
+        let confirm_s = that.data('confirm')
+        if(confirm_s){
+            let msg = "Are you sure?";
+            if (confirm(msg)!==true){
+                return false;
+            }
+        }
         let formData = new FormData(that[0]);
         // form.find('input[type="file"]').each(function () {
         //     for (let i = 0; i < $(this)[0].files.length; i++) {
@@ -73,6 +87,13 @@ $(function () {
     $('body').on('click','.a_request',function (e) {
         e.preventDefault();
         let that = $(this)
+        let confirm_s = that.data('confirm')
+        if(confirm_s){
+            let msg = "Are you sure?";
+            if (confirm(msg)!==true){
+                return false;
+            }
+        }
         let _token = that.data('_token')
         let fn = that.data('fn')
         let url = that.attr('href')
@@ -103,6 +124,13 @@ $(function () {
     $("body").on('submit','.form_request_img_file',function (){
         let imgFileList = img_js_obj.imgFileList
         const that = $(this)
+        let confirm_s = that.data('confirm')
+        if(confirm_s){
+            let msg = "Are you sure?";
+            if (confirm(msg)!==true){
+                return false;
+            }
+        }
         let formData = new FormData(that[0]);
         let image_length = that.data('image_length') || 0
         if(image_length && image_length<imgFileList.length){
