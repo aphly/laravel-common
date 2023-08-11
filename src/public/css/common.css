@@ -73,8 +73,7 @@ main{padding: 80px 0;min-height: 800px;}
 .header13{padding-top: 30px;}
 .shop_main{margin-top: 20px;}
 .icon-aixin{cursor: pointer}
-.my_breadcrumb{line-height: 44px;margin-bottom: 10px;font-weight: 500}
-.my_breadcrumb .to{margin: 0 10px;}
+
 
 @media (max-width: 1199.98px) {
   main{padding: 55px 0 40px;}
@@ -166,3 +165,8 @@ footer{}
 
 .pt20{padding-top: 20px;}
 pre{ background: #f1f1f1;padding: 10px;border-radius: 4px;}
+
+.front_breadcrumb{line-height: 44px;margin-bottom: 10px;font-weight: 600;font-size: 12px;}
+.front_breadcrumb .app-qianjin_r{padding: 0 10px;font-size: 12px;}
+.front_breadcrumb .no_href{color: #999;}
+
