@@ -2,7 +2,7 @@
 <link rel="stylesheet" href="{{ URL::asset('static/common/css/iconfont.css') }}">
 <link rel="stylesheet" href="{{ URL::asset('static/common/css/common.css') }}">
 <style>
-    .header{background-color:rgb(255,255,255);box-shadow:0 1px 4px rgb(24 38 16 / 10%);width:100%;z-index:1100;top:0px;left:0;right:0px;position: fixed;}
+    .header{background-color:rgb(255,255,255);box-shadow:0 1px 4px rgba(24,38,16,0.1);width:100%;z-index:1100;top:0px;left:0;right:0px;position: fixed;}
     .header .container{align-items:center;height:70px}
     .headerX{height:70px;width: 100%;}
     .header2{margin-right:auto}
@@ -19,7 +19,7 @@
     .header31{background:#eee;display:flex;align-items:center;border-radius:40px;margin:0 5px;padding:0 10px;height: 100%;}
     .header31 i{margin-right:5px}
     .header31 input:focus{width:150px}
-    .header3 .dropdown-menu{padding:0;border:none;margin:14px 10px 12px;min-width:200px;background-color:rgb(255,255,255);box-shadow:rgb(0 0 0 / 16%) 0px 2px 10px 0px;border-radius:4px}
+    .header3 .dropdown-menu{padding:0;border:none;margin:14px 10px 12px;min-width:200px;background-color:rgb(255,255,255);box-shadow:rgba(0,0,0,0.16) 0px 2px 10px 0px;border-radius:4px}
     .header3 .dropdown-menu a{width:100%;box-sizing:border-box;line-height:35px;font-weight:600;height:35px;padding:0 15px;margin:0}
     .header3 .dropdown-menu a:hover{background-color:rgba(0,0,0,0.04)}
     .header2{font-weight: 600;font-size: 16px;margin-left: 24px;}
