@@ -69,7 +69,7 @@
                 <div class="d-flex header13">
                     <a class="wishlist" href="/account_ext/wishlist?redirect={{urlencode(request()->url())}}">
                         <i class="common-iconfont icon-aixin" style="margin-right: 0;"></i><span class="wishlist_num">{{$wishlist_num}}</span></a>
-                    <a href="/cart"><i class="common-iconfont icon-31gouwuche"></i><span class="cart_num">{{$cart_num}}</span></a>
+                    <a href="/cart"><i class="common-iconfont icon-31gouwuche"></i><span class="cart_num" id="cart_num">{{$cart_num}}</span></a>
                     @if($user)
                         <a href="/account/index?redirect={{urlencode(request()->url())}}"><i class="uni app-login"></i></a>
                     @else
