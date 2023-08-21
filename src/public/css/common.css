@@ -167,6 +167,7 @@ footer{}
 .front_breadcrumb{line-height: 44px;margin-bottom: 10px;font-weight: 600;font-size: 12px;}
 .front_breadcrumb .app-qianjin_r{padding: 0 10px;font-size: 12px;}
 .front_breadcrumb .no_href{color: #999;}
+.front_breadcrumb li{ max-width: 100px;overflow: hidden; text-overflow: ellipsis; white-space: nowrap;}
 @media (max-width: 1199.98px) {
     .front_breadcrumb{margin-bottom: 0;}
 }
