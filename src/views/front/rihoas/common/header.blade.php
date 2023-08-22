@@ -15,7 +15,7 @@
         <div class="container header10">
             <div class="d-flex header101">
                 <div class="header11">
-                    <a href="/"><img src="{{ URL::asset('static/common/img/logo.png') }}" alt="logo"></a>
+                    <a href="/"><img src="{{ URL::asset('logo.png') }}" alt="logo"></a>
                     <i class="common-iconfont icon-caidan logo_menu" ></i>
                 </div>
                 <div class="header11_m">
@@ -23,7 +23,7 @@
                     <i class="common-iconfont icon-sousuo" onclick="$('.search_m').toggle()"></i>
                 </div>
                 <div class="header12_m">
-                    <a href="/"><img src="{{ URL::asset('static/common/img/logo.png') }}" alt="logo"></a>
+                    <a href="/"><img src="{{ URL::asset('logo.png') }}" alt="logo"></a>
                 </div>
                 <div class="header12">
                     <ul class="menu d-flex">
@@ -103,7 +103,7 @@
             <div class="m_menu11">
                 <div class="d-flex justify-content-between align-items-center m_menu111">
                     <div class="m_menu1111">
-                        <a href="/"><img src="{{ URL::asset('static/common/img/logo.png') }}" alt="logo"></a>
+                        <a href="/"><img src="{{ URL::asset('logo.png') }}" alt="logo"></a>
                     </div>
                     <div class="m_menu1112" onclick="$('.m_menu').toggle()">
                         <i class="uni app-guanbi"></i>
