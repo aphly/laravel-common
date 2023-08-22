@@ -4,7 +4,7 @@ return [
     //注册类型
     'id_type'=>'email',  //email || mobile
     //邮件激活
-    'email_verify'=>true,
+    'email_verify'=>false,
     //发送邮件类型 0同步 1队列
     'email_type'=>1,
     //发送邮件队列通道 1vip 0普通
