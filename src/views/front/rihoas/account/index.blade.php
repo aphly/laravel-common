@@ -13,8 +13,8 @@
                 <h2>Dashboard</h2>
             </div>
             <div class="avatar">
-                @if($user->avatar)
-                    <img class="lazy " src="{{Storage::url($user->avatar)}}" />
+                @if($user->avatar_src)
+                    <img class="lazy " src="{{$user->avatar_src}}" />
                 @else
                     <i class="common-iconfont icon-touxiang"></i>
                 @endif

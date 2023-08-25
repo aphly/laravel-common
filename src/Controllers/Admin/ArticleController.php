@@ -87,7 +87,7 @@ class ArticleController extends Controller
                 $err = ["errno"=>$e->code,"message"=>$e->msg];
                 return $err;
             }
-            $res = ["errno"=>0,"data"=>["url"=>$UploadFile->getPath($image)]];
+            $res = ["errno"=>0,"data"=>["url"=>$UploadFile->getPath($image,'local')]];
         }else{
             $res = ["errno"=>1,"data"=>[]];
         }

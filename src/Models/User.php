@@ -34,7 +34,7 @@ class User extends Authenticatable
     }
 
     protected $fillable = [
-        'uuid','nickname','token','verified','address_id',
+        'uuid','nickname','token','verified','address_id','remote',
         'token_expire','avatar','status','gender','group_id','group_expire'
     ];
 
@@ -74,11 +74,7 @@ class User extends Authenticatable
         return $this->hasMany(UserAuth::class,'uuid');
     }
 
-    static public function delAvatar($avatar) {
-        if($avatar){
-            Storage::delete($avatar);
-        }
-    }
+
 
     static public function groupId() {
         $auth = Auth::guard('user');

@@ -119,7 +119,9 @@ class UserController extends Controller
         $res['info'] = User::where('uuid',$request->uuid)->firstOrError();
         if($request->isMethod('post')) {
             if($request->hasFile('avatar')){
-                $avatar = (new UploadFile)->upload($request->file('avatar'),'public/avatar');
+                $UploadFile = new UploadFile(1);
+                $res['info']->remote = $UploadFile->isRemote();
+                $avatar = $UploadFile->upload($request->file('avatar'),'public/avatar');
                 $oldAvatar = $res['info']->avatar;
                 $res['info']->avatar = $avatar;
                 if ($res['info']->save()) {

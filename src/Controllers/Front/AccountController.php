@@ -41,18 +41,22 @@ class AccountController extends Controller
                 throw new ApiException(['code'=>1,'msg'=>'nickname already exists']);
             }else{
                 $image = false;
-
+                $oldImage = '';
+                $oldRemote = $this->user->remote;
                 if($request->hasFile('image')){
-                    $image = (new UploadFile)->upload($request->file('image'),'public/account');
+                    $UploadFile = new UploadFile(1);
+                    $this->user->remote = $UploadFile->isRemote();
+                    $image = $UploadFile->upload($request->file('image'),'public/account');
                     if ($image) {
                         $oldImage = $this->user->avatar;
                         $this->user->avatar = $image;
                     }
                 }
                 $this->user->nickname = $request->input('nickname');
+                unset($this->user->avatar_src);
                 if ($this->user->save()) {
                     if($image){
-                        $this->user->delAvatar($oldImage);
+                        (new UploadFile)->del($oldImage,$oldRemote);
                     }
                     throw new ApiException(['code'=>0,'msg'=>'success']);
                 } else {

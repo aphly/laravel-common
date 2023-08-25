@@ -4,6 +4,7 @@ namespace Aphly\LaravelCommon\Controllers\Front;
 
 use Aphly\Laravel\Models\Config;
 use Aphly\Laravel\Models\Dict;
+use Aphly\Laravel\Models\UploadFile;
 use Aphly\LaravelCommon\Models\Currency;
 use Aphly\LaravelCommon\Models\Links;
 use Aphly\LaravelCommon\Models\UserCheckin;
@@ -28,6 +29,7 @@ class Controller extends \Aphly\Laravel\Controllers\Controller
             View::share("config",$this->config);
             if($auth->check()){
                 $this->user = $auth->user();
+                $this->user->avatar_src = UploadFile::getPath($this->user->avatar,$this->user->remote);
                 View::share("id",$this->user->initId());
                 View::share("user",$this->user);
                 View::share("checkin",(new UserCheckin)->getByUuid($this->user->uuid));

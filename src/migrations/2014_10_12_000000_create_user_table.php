@@ -19,6 +19,7 @@ return new class extends Migration
             $table->string('token',128)->index();
             $table->unsignedInteger('token_expire');
             $table->string('avatar',255)->nullable();
+            $table->tinyInteger('remote')->default(0);
             $table->unsignedInteger('group_id')->nullable()->default(0);
             $table->unsignedInteger('group_expire')->nullable()->default(0);
             $table->unsignedInteger('address_id')->nullable()->default(0);
