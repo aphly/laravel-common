@@ -42,6 +42,10 @@ class UserController extends Controller
                                         ->where('id_type', config('common.id_type'));
                                 }
                             })->orderBy('uuid', 'desc')->with('userAuth')->Paginate(config('admin.perPage'))->withQueryString();
+        $res['list']->transform(function ($item){
+            $item->avatar_src = UploadFile::getPath($item->avatar,$item->remote);
+            return $item;
+        });
         $res['breadcrumb'] = Breadcrumb::render([
             ['name'=>$this->currArr['name'].'管理','href'=>$this->index_url]
         ]);
@@ -126,7 +130,7 @@ class UserController extends Controller
                 $res['info']->avatar = $avatar;
                 if ($res['info']->save()) {
                     $res['info']->delAvatar($oldAvatar);
-                    throw new ApiException(['code'=>0,'msg'=>'上传成功','data'=>['redirect'=>$this->index_url,'avatar'=>Storage::url($avatar)]]);
+                    throw new ApiException(['code'=>0,'msg'=>'上传成功','data'=>['redirect'=>$this->index_url,'avatar'=>UploadFile::getPath($avatar,$res['info']->remote)]]);
                 } else {
                     throw new ApiException(['code'=>1,'msg'=>'保存错误']);
                 }

@@ -35,7 +35,7 @@
                     <li >状态</li>
                     <li >操作</li>
                 </ul>
-                @if($res['list']->total())
+                @if($res['list']->count())
                     @foreach($res['list'] as $v)
                     <ul class="table_tbody">
                         <li>
@@ -45,7 +45,7 @@
                         <li > <span style="color:#111;">{{$v['nickname']}}</span></li>
                         <li>
                             @if($v['avatar'])
-                                <img class="lazy user_avatar" src="{{Storage::url($v['avatar'])}}" />
+                                <img class="lazy user_avatar" src="{{$v['avatar_src']}}" />
                             @else
                             <img class="lazy user_avatar" @if($v['gender']==1) src="{{url('static/base/img/man.png')}}" @else src="{{url('static/base/img/woman.png')}}" @endif >
                             @endif
