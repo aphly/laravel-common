@@ -4,12 +4,24 @@
 <link rel="stylesheet" href="{{ URL::asset('static/common/css/font.css') }}">
 <style>
 :root{
-    --btn_bg:#c16452;
+    --btn_bg:#de8080;
     --btn_color:#fff;
-    --btn_bg_hover:#e36254;
+    --btn_bg_hover: #e57a6f;
     --btn_color_hover:#fff;
 }
 .m_menu1111{width: 30%;}
+.header11{margin-right: 20px;}
+.text-brand {
+    --tw-gradient-from: #fcc5c6 !important;
+    --tw-gradient-to: #de8080 !important;
+    --tw-gradient-stops: var(--tw-gradient-from),var(--tw-gradient-to,rgba(28,157,254,0));
+    background-image: linear-gradient(to right,var(--tw-gradient-stops));
+}
+header a:hover{color:#de8080 !important;}
+.btn-apply-code{background: #e3a086 !important;}
+.checkout_ul li.active{border: 1px solid #de8080 !important;font-weight: 600}
+.info_option label.active{border: 1px solid #de8080 !important;}
+.info_option label:hover{border: 1px solid #fcc5c6 !important;}
 </style>
 <header>
     <div class="header1">

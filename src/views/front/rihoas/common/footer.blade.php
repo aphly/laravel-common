@@ -17,12 +17,12 @@
                 </ul>
                 <ul>
                     <li>Subscribe to our newsletter</li>
-                    <li>A short sentence describing what someone will receive by subscribing</li>
+                    <li style="margin-bottom: 10px;">A short sentence describing what someone will receive by subscribing</li>
                     <li>
                         <form data-fn="subscribe_res" class="form_request subscribe" action="/subscribe/ajax" method="post">
                             @csrf
                             <input type="text" name="email" autocomplete="off" placeholder="Your email">
-                            <button type="submit" >Subscribe</button>
+                            <button type="submit">Subscribe</button>
                         </form>
                     </li>
                 </ul>
