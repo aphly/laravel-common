@@ -192,7 +192,7 @@ let currency = {
         if(symbol_left){
             str += symbol_left;
         }
-        str +=val;
+        str +=val.toFixed(2);
         if(symbol_right){
             str += symbol_right;
         }
