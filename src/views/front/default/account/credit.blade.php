@@ -90,7 +90,7 @@
                         </div>
                     </div>
                     <div class="checkout3">
-                        Secure checkout experience provided by Stripe or PayPal. No payment method information is stored on {{env('APP_NAME')}}.
+                        Secure checkout experience provided by Stripe or PayPal. No payment method information is stored on {{config('common.hostname')}}.
                     </div>
                     <div class="checkout4">
                         <button type="button" class="buleBtn" onclick="order()">BUY</button>

@@ -1,5 +1,7 @@
 <?php
 return [
+    'hostname'=>'adultsex.vip',
+    'email'=>'adultsexvip@gmail.com',
     'perPage'=>'10',
     //注册类型
     'id_type'=>'email',  //email || mobile
@@ -26,8 +28,11 @@ return [
         'contact_us'=>'/information/4',
         'refund_policy'=>'/information/5',
         'shipping'=>'/information/6',
+        'payment'=>'/information/7',
+        'faq'=>'/information/8',
     ],
     'statistics_appid'=>'2023080134801599',
     'email_appid'=>'2023080188980024',
     'email_secret'=>'nw30ZFKpOGjm3KwIoWcTSgbiRs6RXR3k',
+
 ];

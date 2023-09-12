@@ -101,7 +101,7 @@
                         </div>
                     </div>
                     <div class="checkout3">
-                        Secure checkout experience provided by Stripe or PayPal. No payment method information is stored on {{env('APP_NAME')}}.
+                        Secure checkout experience provided by Stripe or PayPal. No payment method information is stored on {{config('common.hostname')}}.
                     </div>
                     <label class="checkout0" for="agree">
                         <input type="checkbox" id="agree"> <span >I acknowledge that I have read and accept the <span>refund policy</span></span>

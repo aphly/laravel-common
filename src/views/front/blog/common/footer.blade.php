@@ -44,7 +44,7 @@
                     @endif
                 </div>
                 <div class="footer21b">
-                    © {{date('Y')}} {{env('APP_NAME')}}. All Rights Reserved.
+                    © {{date('Y')}} {{config('common.hostname')}}. All Rights Reserved.
                 </div>
             </div>
         </div>
