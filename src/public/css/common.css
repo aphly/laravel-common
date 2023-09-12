@@ -135,7 +135,7 @@ main{padding: 80px 0;min-height: 800px;}
 .subscribe input{padding: 0 10px;margin-right: 4px;width: 360px;}
 .subscribe button{color: #fff;background: #e59c5d;}
 footer{}
-.footer1{background: #f1f1f1;padding: 40px 0;}
+.footer1{background: #f1f1f1;padding: 40px 0 0;}
 .footer11{display: flex;flex-wrap: wrap;}
 .footer21{display: flex;justify-content:space-between;line-height: 40px;}
 .footer11 ul{padding: 0 30px 30px 0;flex: 1;}
