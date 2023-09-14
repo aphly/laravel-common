@@ -22,6 +22,7 @@ header a:hover{color:#de8080 !important;}
 .checkout_ul li.active{border: 1px solid #de8080 !important;font-weight: 600}
 .info_option label.active{border: 1px solid #de8080 !important;}
 .info_option label:hover{border: 1px solid #fcc5c6 !important;}
+.cart_num, .wishlist_num{background: #de8080;}
 </style>
 <header>
     <div class="header1">
