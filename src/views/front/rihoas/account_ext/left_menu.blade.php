@@ -25,7 +25,7 @@
         <div class="sidebar-menu-content" style="">
             <span>Need help? We're here to help you:</span>
             <div class="phone">
-                <b>{{ config('base.email') }}</b> <br>
+                <b>{{ config('common.email') }}</b> <br>
                 <span>9:00 AM to 6:00 PM Mon to Fri. (EST)</span>
             </div>
         </div>
