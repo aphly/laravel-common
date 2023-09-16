@@ -1,5 +1,6 @@
 <?php
 return [
+    'name'=>'Adultsex.vip',
     'hostname'=>'adultsex.vip',
     'email'=>'adultsexvip@gmail.com',
     'perPage'=>'10',
