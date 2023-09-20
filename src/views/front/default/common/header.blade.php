@@ -136,7 +136,7 @@
                                     @endif
                                 </a>
                                 <a class="dropdown-item" href="/account/group">VIP</a>
-                                <a class="dropdown-item ajax_post" href="/account/logout">Log out</a>
+                                <a class="dropdown-item ajax_request" href="/account/logout">Log out</a>
                             </div>
                         </div>
                     @else

@@ -14,7 +14,7 @@
                 <div style="margin-bottom: 10px;">
                     <input type="text" class="_8n1_ code" autofocus="1" id="code" name="code" size="5" maxlength="5">
                 </div>
-                <a class="ajax_post _8n3_" href="/account/mail-verify/send">Send email again</a>
+                <a class="ajax_request _8n3_" href="/account/mail-verify/send">Send email again</a>
             </div>
             <div class="_8iu5" >
                 <button type="submit" class="_8iu6" disabled>Continue</button>

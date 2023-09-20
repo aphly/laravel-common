@@ -13,7 +13,7 @@
         </div>
         </form>
         <div class="">
-            <a class="badge badge-primary ajax_get show_all0_btn d-none" data-href="/common_admin/user_credit_order/form">添加</a>
+            <a class="badge badge-primary ajax_html show_all0_btn d-none" data-href="/common_admin/user_credit_order/form">添加</a>
         </div>
     </div>
 
@@ -50,7 +50,7 @@
                             @endif
                         </li>
                         <li>
-                            <a class="badge badge-info ajax_get" data-href="/common_admin/user_credit_order/form?id={{$v['id']}}">编辑</a>
+                            <a class="badge badge-info ajax_html" data-href="/common_admin/user_credit_order/form?id={{$v['id']}}">编辑</a>
                         </li>
                     </ul>
                     @endforeach

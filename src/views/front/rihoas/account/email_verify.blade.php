@@ -9,7 +9,7 @@
                 <a href="/">Home</a>
             @else
                 <p >Help us secure your account by verifying your email address. </p>
-                <a href="/account/email-verify/send" class="ajax_post">Send email again</a>
+                <a href="/account/email-verify/send" class="ajax_request">Send email again</a>
             @endif
         @endif
     </div>

@@ -13,7 +13,7 @@ a{color: var(--a);}
 .buleBtn{padding: 5px 25px;border-radius: 20px;cursor: pointer; }
 .buleBtn.dis{color: rgb(136, 136, 136);background: rgb(215, 215, 215);}
 .modal{z-index: 2250;background:rgba(239, 239, 239, 0.5);}
-.modal .modal-dialog{margin-top: 20%;}
+.modal .modal-dialog{margin-top: 10%;}
 .modal .checkout4{display: flex;flex-direction: row-reverse;}
 .modal .method2 li{border: 1px solid #f1f1f1;border-radius: 4px;padding: 10px 16px;margin-top: 10px;height: 44px;display: flex;font-weight:600; }
 .modal .method2 li.active{border: 1px solid var(--a-hover);}

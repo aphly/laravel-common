@@ -12,7 +12,7 @@
         </div>
         </form>
         <div class="">
-            <a class="badge badge-primary ajax_get show_all0_btn" data-href="/common_admin/links/tree">树</a>
+            <a class="badge badge-primary ajax_html show_all0_btn" data-href="/common_admin/links/tree">树</a>
         </div>
     </div>
 
@@ -44,7 +44,7 @@
                                 @endif
                             @endif
                         </li>
-{{--                            <a class="badge badge-info ajax_get" data-href="/common_admin/links/{{$v['id']}}/edit">编辑</a>--}}
+{{--                            <a class="badge badge-info ajax_html" data-href="/common_admin/links/{{$v['id']}}/edit">编辑</a>--}}
                     </ul>
                     @endforeach
                     <ul class="table_bottom">

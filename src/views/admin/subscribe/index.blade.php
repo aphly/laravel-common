@@ -41,7 +41,7 @@
                         </li>
                         <li>{{ $v->created_at }}</li>
                         <li>
-                            <a class="badge badge-info ajax_get" data-href="/common_admin/subscribe/form?id={{$v['id']}}">编辑</a>
+                            <a class="badge badge-info ajax_html" data-href="/common_admin/subscribe/form?id={{$v['id']}}">编辑</a>
                         </li>
                     </ul>
                     @endforeach

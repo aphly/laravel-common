@@ -18,7 +18,7 @@
 <body>
 <script>
     $(function () {
-        $('.ajax_post').click(function (e) {
+        $('.ajax_request').click(function (e) {
             e.preventDefault();
             let url = $(this).attr('href');
             if(url){
