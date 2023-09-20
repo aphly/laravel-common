@@ -189,6 +189,7 @@ function isDel() {
 let currency = {
     _format(val,symbol_left='',symbol_right=''){
         let str='';
+        val = parseFloat(val);
         if(symbol_left){
             str += symbol_left;
         }
