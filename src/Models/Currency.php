@@ -5,7 +5,6 @@ namespace Aphly\LaravelCommon\Models;
 use Aphly\Laravel\Models\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Support\Facades\Cache;
-use Illuminate\Support\Facades\Cookie;
 
 class Currency extends Model
 {
@@ -43,7 +42,7 @@ class Currency extends Model
                     $default = $val;
                 }
             }
-            $currency_id = Cookie::get('currency_id');
+            $currency_id = session('currency_id');
             if($currency_id) {
                 self::$allDefaultCurr = [$currency_all,$default,$currency_all[$currency_id]];
             }else{
