@@ -25,6 +25,7 @@ header a:hover{color:#de8080 !important;}
 .cart_num, .wishlist_num{background: #de8080;}
 .wishlist_one i{color: #de8080;}
 .sidebar-menu ul li a.active{color:var(--btn_bg) !important;}
+.checkout_ul input[type='radio']{accent-color:#de8080}
 </style>
 <header>
     <div class="header1">
@@ -109,7 +110,7 @@ header a:hover{color:#de8080 !important;}
                 <button type="submit" class="search_btn"><i class="common-iconfont icon-sousuo"></i></button>
             </div>
             <div class="search_m13">
-                <span class="label">Popular Searches:</span>
+                <span class="label"></span>
             </div>
         </div>
     </div>
