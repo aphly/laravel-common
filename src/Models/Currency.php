@@ -2,6 +2,7 @@
 
 namespace Aphly\LaravelCommon\Models;
 
+use Aphly\Laravel\Libs\Math;
 use Aphly\Laravel\Models\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Support\Facades\Cache;
@@ -58,7 +59,8 @@ class Currency extends Model
         if($currency_all && $default && $info){
             if($info['value']>0 && $default['value']>0){
                 if($info['value']!=$default['value']) {
-                    $price = $price * $default['value'] / $info['value'];
+                    //$price = $price * $default['value'] / $info['value'];
+                    $price = Math::div(Math::mul($price , $default['value']) , $info['value']);
                 }
                 return self::numberFormat($price,$default);
             }
@@ -72,7 +74,8 @@ class Currency extends Model
         if($currency_all && $default && $info){
             if($info['value']>0 && $default['value']>0){
                 if($info['value']!=$default['value']){
-                    $price = $price*$info['value']/$default['value'];
+                    //$price = $price*$info['value']/$default['value'];
+                    $price = Math::div(Math::mul($price , $info['value']) , $default['value']);
                 }
             }
             $price = self::numberFormat($price,$info);
