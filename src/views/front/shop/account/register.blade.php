@@ -2,7 +2,7 @@
 <link rel="stylesheet" href="{{ URL::asset('static/common/css/account.css') }}">
 <section class="">
     <div class="container">
-        <form class="account_form" id="register"  method="post" action="/account/register?return_url={{urlencode(request()->query('return_url',''))}}">
+        <form class="account_form form_request" id="register" data-fn="register_res" method="post" action="/account/register?redirect={{urlencode(request()->query('redirect',''))}}">
             @csrf
             <div class="accountContent">
                 <div class=" text-center ">
@@ -43,7 +43,7 @@
                     <div class="">
                         <label class="d-flex">
                             <input type="checkbox" name="agree" value="1" onclick="return false;" checked="checked">
-                            <span class="agree">I have read and agree to <a class="underline" target="_blank" href="">Privacy Policy</a> .</span>
+                            <span class="agree">I have read and agree to <a class="underline" target="_blank" href="{{config('common.menu.privacy_policy')}}">Privacy Policy</a> .</span>
                         </label>
                     </div>
                     <div id="msg_check" class="d-none"></div>
@@ -52,7 +52,7 @@
                 <div class="split-line ">
                     <p class="text-center">
                         <span class="">Already have an account? </span>
-                        <a class="" href="/account/login?return_url={{urlencode(request()->query('return_url',''))}}">Login</a>
+                        <a class="" href="/account/login?redirect={{urlencode(request()->query('redirect',''))}}">Login</a>
                     </p>
                 </div>
                 <div class="line-between">
@@ -96,45 +96,16 @@
 
 </style>
 <script>
-    let form_id = '#register'
-    $(function (){
-        $(form_id).submit(function (){
-            const form = $(this)
-            if(form[0].checkValidity()===false){
-            }else{
-                let url = form.attr("action");
-                let type = form.attr("method");
-                if(url && type){
-                    $(form_id+' input.form-control').removeClass('is-valid').removeClass('is-invalid');
-                    let btn_html = $(form_id+' button[type="submit"]').html();
-                    $.ajax({
-                        type,url,
-                        data: form.serialize(),
-                        dataType: "json",
-                        beforeSend:function () {
-                            $(form_id+' button[type="submit"]').attr('disabled',true).html('<i class="btn_loading app-jiazai uni"></i>');
-                        },
-                        success: function(res){
-                            $(form_id+' input.form-control').addClass('is-valid');
-                            if(!res.code) {
-                                location.href = res.data.redirect
-                            }else if(res.code===11000){
-                                form_err_11000(res,form_id);
-                            }else{
-                                $(form_id+' input.form-control').removeClass('is-valid');
-                                alert_msg(res);
-                            }
-                        },
-                        complete:function(XMLHttpRequest,textStatus){
-                            $(form_id+' button[type="submit"]').removeAttr('disabled').html(btn_html);
-                        }
-                    })
-                }else{
-                    console.log('no action')
-                }
-            }
-            return false;
-        })
-    });
+    function register_res(res,_this) {
+        _this.find('input.form-control').addClass('is-valid');
+        if(!res.code) {
+            location.href = res.data.redirect
+        }else if(res.code===11000){
+            form_err_11000(res,_this);
+        }else{
+            _this.find('input.form-control').removeClass('is-valid');
+            alert_msg(res);
+        }
+    }
 </script>
 @include('laravel-common-front::common.footer')

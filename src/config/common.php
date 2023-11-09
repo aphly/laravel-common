@@ -26,7 +26,7 @@ return [
         ]
     ],
 
-    'template'=>'rihoas',
+    'template'=>'shop',
     //'template'=>'blog',
 
     'menu'=>[
