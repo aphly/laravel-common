@@ -29,8 +29,8 @@
             <div class="form-group">
                 <label for="">postcode_required</label>
                 <select name="postcode_required" class="form-control">
-                    @if(isset($dict['status']))
-                        @foreach($dict['status'] as $key=>$val)
+                    @if(isset($dict['yes_no']))
+                        @foreach($dict['yes_no'] as $key=>$val)
                             <option value="{{$key}}" @if($res['info']->postcode_required==$key) selected @endif>{{$val}}</option>
                         @endforeach
                     @endif
