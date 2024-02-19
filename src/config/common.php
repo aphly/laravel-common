@@ -1,8 +1,8 @@
 <?php
 return [
-    'name'=>'Adultsex.vip',
-    'hostname'=>'adultsex.vip',
-    'email'=>'adultsexvip@gmail.com',
+    'name'=>'chat',
+    'hostname'=>'chat.vip',
+    'email'=>'chat@gmail.com',
     'perPage'=>'10',
 
     //注册类型
@@ -26,8 +26,8 @@ return [
         ]
     ],
 
-    'template'=>'shop',
-    //'template'=>'blog',
+    //'template'=>'shop',
+    'template'=>'chat',
 
     'menu'=>[
         'about_us'=>'/information/1',
